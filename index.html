@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Knowledge Collecting</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css" />
+        <script src="js/require.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            require.config( {
+                waitSeconds: 0,
+                paths: {
+                    jquery: 'js/jquery',
+                    text: 'js/text',
+                    markdown: 'js/showdown.min',
+                    scrollbar: 'js/jquery.mCustomScrollbar.min'
+                },
+                shim: {
+                    'js/jquery.mousewheel-3.0.6.min': {
+                        deps: [ 'jquery' ]
+                    },
+                    scrollbar: {
+                        deps: [ 'jquery', 'js/jquery.mousewheel-3.0.6.min' ]
+                    }
+                }
+            } );
+        </script>
+    </head>
+    <body>
+        <div class="wrapper header-wrapper">
+            <div class="header">
+                <div class="logo">Knowledge Collecting</div>
+                <div class="main-menu"></div>
+            </div>
+        </div>
+        <div class="wrapper main-wrapper">
+            <div class="left">
+                <div class="nav-menu"></div>
+            </div>
+            <div class="main">
+                <div class="main-contents"></div>
+                <div class="index-menu"></div>
+            </div>
+        </div>
+        <div class="wrapper footer-wrapper">
+            <div class="footer">
+                <div class="copyright">&copy; 2019 Zengliwei</div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            require( [ 'js/renderer', 'text!data/index.json' ], function( renderer, config ) {
+                renderer( {
+                    config: JSON.parse( config ),
+                    elMenuBox: '.main-menu',
+                    elNavBox: '.main-wrapper > .left > .nav-menu',
+                    elMainBox: '.main-wrapper > .main > .main-contents',
+                    elIndexBox: '.main-wrapper > .main > .index-menu',
+                    githubOwner: 'crazy-cats',
+                    githubRepository: 'crazy-cats.github.io'
+                } );
+            } );
+        </script>
+    </body>
+</html>

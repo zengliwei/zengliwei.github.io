@@ -1,0 +1,29 @@
+[
+    {
+        "name": "home",
+        "title": "Home",
+        "href": "#home"
+    },
+    {
+        "name": "design",
+        "title": "Desing",
+        "children": [
+        ]
+    },
+    {
+        "name": "develop",
+        "title": "Develop",
+        "children": [
+            {
+                "name": "magento",
+                "title": "Magento",
+                "href": "#develop/magento"
+            },
+            {
+                "name": "magento2",
+                "title": "Magento 2",
+                "href": "#develop/magento2"
+            }
+        ]
+    }
+]
