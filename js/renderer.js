@@ -100,9 +100,9 @@ define( [
          * @param {string} path
          */
         var updateMenuBox = function( path ) {
-            elMenuBox.find( '#main-menu-' + path.split( '/' )[0] )
-                    .closest( 'li' ).addClass( 'current' )
-                    .siblings().removeClass( 'current' );
+            var currentMenuItem = elMenuBox.find( '#main-menu-' + path.replace( /\//g, '-' ) ).closest( 'li' );
+            elMenuBox.find( 'li' ).removeClass( 'active' ).removeClass( 'current' );
+            currentMenuItem.addClass( 'current' ).parents( opts.elMenuBox + ' li' ).addClass( 'active' );
         };
 
         /**
@@ -115,9 +115,10 @@ define( [
             } else {
                 elNavBox.html( '' );
             }
-            elNavBox.find( '#nav-menu-' + path.replace( /\//g, '-' ) )
-                    .closest( 'li' ).addClass( 'current' )
-                    .siblings().removeClass( 'current' );
+
+            var currentNavItem = elNavBox.find( '#nav-menu-' + path.replace( /\//g, '-' ) ).closest( 'li' );
+            elNavBox.find( 'li' ).removeClass( 'active' ).removeClass( 'current' );
+            currentNavItem.addClass( 'current' ).parents( opts.elNavBox + ' li' ).addClass( 'active' );
         };
 
         /**
@@ -138,33 +139,48 @@ define( [
             updateMainBox( content );
         };
 
-        var buildNavBox = function() {
-            elNavBox.append( '<div class="box"></div>' ).mCustomScrollbar( {theme: 'minimal-dark'} );
-            elNavBox = elNavBox.find( '.box' );
-        };
-
         var buildMenuBox = function() {
-            var elMenuBoxWrapper = elMenuBox;
             elMenuBox.append( '<div class="box"></div>' )
                     .mCustomScrollbar( {theme: 'minimal-dark'} )
                     .append( '<div class="toggler"></div>' );
+
+            var elMenuBoxWrapper = elMenuBox;
             elMenuBox = elMenuBox.find( '.box' );
+
             elMenuBox.html( getMenuHtml( 'main-menu', opts.config ) ).on( 'click', 'a', function( evt ) {
                 evt.stopPropagation();
                 var el = $( this );
                 var children = el.data( 'children' );
                 if ( children ) {
+                    el.closest( 'li' ).addClass( 'active' )
+                            .siblings().removeClass( 'active' ).removeClass( 'current' );
                     updateNavBox( el.data( 'identifier' ) );
                 } else {
                     elMenuBoxWrapper.removeClass( 'active' );
                     parsePath( getPathByHash( this.hash ), updateStage );
                 }
             } );
+
             elMenuBoxWrapper.on( 'click', function() {
                 elMenuBoxWrapper.removeClass( 'active' );
             } ).find( '.toggler' ).on( 'click', function( evt ) {
                 evt.stopPropagation();
                 elMenuBoxWrapper.toggleClass( 'active' );
+            } );
+        };
+
+        var buildNavBox = function() {
+            elNavBox.append( '<div class="box"></div>' )
+                    .mCustomScrollbar( {theme: 'minimal-dark'} );
+
+            elNavBox = elNavBox.find( '.box' );
+
+            elNavBox.on( 'click', 'a', function() {
+                var el = $( this );
+                if ( el.data( 'children' ) ) {
+                    el.closest( 'li' ).addClass( 'active' )
+                            .siblings( 'li' ).removeClass( 'active' );
+                }
             } );
         };
 

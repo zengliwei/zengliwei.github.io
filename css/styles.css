@@ -51,9 +51,11 @@ body > .footer-wrapper .footer .copyright { font-size:12px; text-align:right; }
 .main-menu .box > ul li a { display:block; text-decoration:none; }
 .main-menu .box > ul li a span { display:block; }
 .main-menu .box > ul:after { clear:both; content:''; display:table; height:0; }
-.main-menu .box > ul > li { float:left; } /* level 1 */
-.main-menu .box > ul > li > a > span { color:#555; font-style:italic; padding:15px; }
-.main-menu .box > ul > li.current > a > span { color:#000; font-style:normal; }
+.main-menu .box > ul > li { float:left; margin:0 15px; } /* level 1 */
+.main-menu .box > ul > li > a > span { border-bottom:3px solid #f1f1f1; color:#999; font-style:italic; padding:13px 0 14px; transition:.6s; }
+.main-menu .box > ul > li > a:hover > span { border-bottom:3px solid #999; }
+.main-menu .box > ul > li.active > a > span,
+.main-menu .box > ul > li.current > a > span { border-bottom:3px solid #999; color:#000; }
 .main-menu .box > ul > li ul { display:none; } /* level n */
 
 /**
@@ -65,7 +67,8 @@ body > .footer-wrapper .footer .copyright { font-size:12px; text-align:right; }
 .nav-menu .box > ul li a span { display:block; font-size:14px; }
 .nav-menu .box > ul > li > a { border-bottom:1px solid #e2e7eb; border-right:1px solid #e2e7eb; padding:12px 18px; } /* level 1 */
 .nav-menu .box > ul > li > a > span { color:#555; font-size:16px; }
-.nav-menu .box > ul > li li > a { background:#fff; border-bottom:1px solid #e2e7eb; border-right:1px solid #e2e7eb; padding:8px 18px 8px 30px; } /* level 2 */
+.nav-menu .box > ul > li li > a { border:0 #e2e7eb; height:0; opacity:0; padding:0 18px 0 30px; transition:.6s; } /* level 2 */
+.nav-menu .box > ul > li.active li > a { background:#fff; border-bottom:1px solid #e2e7eb; border-right:1px solid #e2e7eb; height:auto; opacity:1; padding:8px 18px 8px 30px; }
 .nav-menu .box > ul > li li > a > span { color:#999; font-style:italic; }
 .nav-menu .box > ul > li li > a:hover { background:#e5f8f9; }
 .nav-menu .box > ul > li li.current > a { background:#fff; border-right:0; cursor:default; }
@@ -74,7 +77,7 @@ body > .footer-wrapper .footer .copyright { font-size:12px; text-align:right; }
 /**
  * Index menu
  */
-.index-menu { border:1px solid #e2e7eb; max-height:calc( 100% - 80px ); position:fixed; right:15px; top:60px; width:250px; }
+.index-menu { border:1px solid #e2e7eb; max-height:calc( 100% - 80px ); position:fixed; right:15px; top:65px; width:250px; }
 .index-menu:before { background:#fff; bottom:0; content:''; display:block; left:0; opacity:.6; position:absolute; right:0; top:0; }
 .index-menu ul { position:relative; }
 .index-menu ul li { list-style:none; }
@@ -86,7 +89,7 @@ body > .footer-wrapper .footer .copyright { font-size:12px; text-align:right; }
 .index-menu ul li.current a span.title { color:#555; }
 .index-menu ul li.current a span.progress span { background:#43bec5; }
 .index-menu ul li li a span.progress { height:1px; } /* level 2 */
-.index-menu ul li li a span.title { border-left:5px solid #e1e1e1; }
+.index-menu ul li li a span.title { border-left:5px solid #e1e1e1; padding:8px 8px 8px 12px; }
 .index-menu ul li li li a span.title { position:relative; padding:8px 8px 8px 15px; } /* level 3 */
 .index-menu ul li li li a span.title:before { background:#f1f1f1; content:''; display:block; height:100%; left:0; position:absolute; top:0; width:5px; }
 
@@ -124,7 +127,7 @@ body > .loader:after { background:url(../images/loading.gif) center center no-re
 
 @media only screen and (max-width:768px) {
     body > .header-wrapper .header .logo { width:calc( 100% - 54px ); }
-    body > .header-wrapper .header .main-menu { height:100%; position:fixed; right:-100%; top:55px; width:100%; }
+    body > .header-wrapper .header .main-menu { height:100%; position:fixed !important; right:-100%; top:55px; width:100%; }
     body > .header-wrapper .header .main-menu.active { right:0; }
     body > .main-wrapper > .left { display:none; }
     body > .main-wrapper > .main { margin:50px 0 0; padding:5px 10px 70px; width:100%; }
@@ -135,13 +138,20 @@ body > .loader:after { background:url(../images/loading.gif) center center no-re
     .main-menu .toggler:before {  color:#a8acb1; content:'\f0c9'; font:28px/54px 'Awesome Solid'; }
     .main-menu .mCustomScrollBox { background:#f1f1f1; position:absolute; right:-100%; transition:.6s; width:calc( 100% - 50px ); }
     .main-menu.active .mCustomScrollBox { right:0; }
-    .main-menu .box > ul > li { float:none; } /* level 1 */
+    .main-menu .box > ul > li { float:none; margin:0; } /* level 1 */
     .main-menu .box > ul > li > a { background:#fff; border-bottom:1px solid #e2e7eb; }
+    .main-menu .box > ul > li.current > a { background:#e5f8f9; }
     .main-menu .box > ul > li > a > span { color:#555; font-style:italic; padding:8px 15px; }
-    .main-menu .box > ul > li li > a { background:#fff; border-bottom:1px solid #e2e7eb; } /* level 2 */
+    .main-menu .box > ul > li > a > span,
+    .main-menu .box > ul > li.active > a > span,
+    .main-menu .box > ul > li.current > a > span { border:0; }
+    .main-menu .box > ul > li.active > ul { display:block; } /* level 2 */
+    .main-menu .box > ul > li li > a { background:#fff; border-bottom:1px solid #e2e7eb; }
+    .main-menu .box > ul > li li.current > a { background:#e5f8f9; }
     .main-menu .box > ul > li li > a > span { border-left:7px solid #e1e1e1; color:#555; font-style:italic; padding:8px 15px 8px 18px; }
-    .main-menu .box > ul > li li li > a { background:#fff; border-bottom:1px solid #e2e7eb; } /* level 3 */
+    .main-menu .box > ul > li li.active > ul { display:block; } /* level 3 */
+    .main-menu .box > ul > li li li > a { background:#fff; border-bottom:1px solid #e2e7eb; }
+    .main-menu .box > ul > li li li.current > a { background:#e5f8f9; }
     .main-menu .box > ul > li li li > a > span { border-left:14px solid #f1f1f1; color:#555; font-style:italic; padding:8px 15px 8px 22px; }
     .main-menu .box > ul > li li li > a > span:before { background:#e1e1e1; content:''; display:block; height:100%; left:0; position:absolute; top:0; width:7px; }
-    .main-menu .box > ul > li ul { display:block; } /* level n */
 }
