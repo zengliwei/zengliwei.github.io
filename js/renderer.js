@@ -127,6 +127,7 @@ define( [
         var updateMainBox = function( content ) {
             elMainBox.html( '<div class="markdown">' + markdownConverter.makeHtml( content ) + '</div>' ).readingProgress( 'update' );
             elMainBox.find( 'pre' ).mCustomScrollbar( {horizontalScroll: true, theme: 'minimal-dark'} );
+            $( 'html, body' ).scrollTop( 0 );
         };
 
         /**

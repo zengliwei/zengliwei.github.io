@@ -61,7 +61,7 @@ define( [
                     elProgressBox.find( '.progress' ).each( function() {
                         var el = $( this );
                         var target = elContentBox.find( el.data( 'target' ) );
-                        var height = getSectionHeight( target );
+                        var height = Math.min( getSectionHeight( target ), maxScrollTop + opts.startTop - target.offset().top );
                         var current = scrollTop + opts.startTop;
                         var start = target.offset().top;
                         var end = target.offset().top + height;
@@ -72,7 +72,7 @@ define( [
                                 percentage = (current - start) / height;
                                 el.closest( 'li' ).addClass( 'current' );
                             } else {
-                                percentage = current < start ? 0 : 1;
+                                percentage = current <= start ? 0 : 1;
                                 el.closest( 'li' ).removeClass( 'current' );
                             }
                         } else {
@@ -87,7 +87,7 @@ define( [
                 elProgressBox.append( '<div class="box"></div>' ).mCustomScrollbar( {theme: 'minimal-dark'} );
                 elProgressBox = elProgressBox.find( '.box' );
                 elProgressBox.on( 'click', 'a', function() {
-                    $( 'html, body' ).animate( {'scrollTop': elContentBox.find( this.hash ).offset().top - elContentBox.offset().top} );
+                    $( 'html, body' ).animate( {'scrollTop': Math.ceil( elContentBox.find( this.hash ).offset().top - elContentBox.offset().top ) + 10} );
                     return false;
                 } );
 
