@@ -87,9 +87,11 @@ body > .footer-wrapper .footer .copyright { font-size:12px; text-align:right; }
 .index-menu .box ul li a span.title { color:#999; padding:8px 8px 8px 12px; }
 .index-menu .box ul li a span.progress { background:#f5f5f5; height:5px; width:100%; }
 .index-menu .box ul li a span.progress span { background:#b7f2f5; height:100%; }
-.index-menu .box ul li.current a span.title { color:#555; }
-.index-menu .box ul li.current a span.progress span { background:#43bec5; }
-.index-menu .box ul li li a { border-left:10px solid #efefef; } /* level 2 */
+.index-menu .box ul li.current > a span.title { color:#000; }
+.index-menu .box ul li.current > a span.progress span { background:#43bec5; }
+.index-menu .box ul li ul { display:none; }
+.index-menu .box ul li.current ul { display:block; } /* level 2 */
+.index-menu .box ul li li a { border-left:10px solid #efefef; }
 .index-menu .box ul li li a span.progress { display:none; height:1px; }
 .index-menu .box ul li li a span.title { padding:8px 8px 8px 15px; }
 .index-menu .box ul li li li a span.title { position:relative; padding:8px 8px 8px 15px; } /* level 3 */
