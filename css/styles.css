@@ -103,8 +103,8 @@ body > .footer-wrapper .footer .copyright { font-size:12px; text-align:right; }
 .markdown h1 { color:#43bec5; font-size:28px; font-weight:normal; line-height:32px; padding:28px 0 20px; }
 .markdown h2 { color:#43bec5; font-size:24px; font-weight:normal; line-height:28px; padding:20px 0 16px; }
 .markdown h3 { color:#43bec5; font-size:20px; font-weight:normal; line-height:24px; padding:16px 0 16px; }
-.markdown a { color:#379aa0; text-decoration:none; }
-.markdown a:hover { text-decoration:underline; }
+.markdown a { color:#379aa0; border-bottom:1px solid #379aa0; text-decoration:none; }
+.markdown a:hover { border:0; }
 .markdown p { margin:0 0 15px; }
 .markdown code { background:#eef9fa; font-family:Consolas; padding:4px 8px; }
 .markdown pre { background:#eef9fa; margin:0 0 1rem; padding:10px 20px; }
