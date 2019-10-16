@@ -1,0 +1,326 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <base href="/" />
+    <title>display: flex</title>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            outline: none;
+            padding: 0;
+        }
+
+        body {
+            color: #545454;
+            font: 14px/20px Consolas, Helvetica, Arial, sans-serif;
+        }
+
+        input {
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            display: block;
+            height: 30px;
+            padding: 5px 10px;
+            width: 100%;
+        }
+
+        .wrapper {
+            display: flex;
+        }
+
+        .css-style {
+            padding: 15px 10px 0;
+            width: 50%;
+        }
+
+        .css-style .parent-styles {
+            display: flex;
+        }
+
+        .css-style .parent-style {
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+
+        .css-style .parent-style .caption {
+            font-weight: bold;
+        }
+
+        .css-style .parent-style ul {
+            margin: 15px 0 0;
+        }
+
+        .css-style .parent-style li {
+            list-style: none;
+        }
+
+        .css-style .parent-style li span {
+            color: #999;
+            cursor: pointer;
+            font-style: italic;
+        }
+
+        .css-style .parent-style li.active span {
+            color: #000;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        .css-style .info {
+            margin: 15px 0 0;
+        }
+
+        .css-style .info .style {
+            margin: 0 0 10px;
+        }
+
+        .demo-box {
+            padding: 10px;
+            width: 50%;
+        }
+
+        .demo-box .toolbar {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+
+        .demo-box .toolbar > div {
+            width: 30%;
+        }
+
+        .demo-box .demo {
+            margin: 10px 0 0;
+        }
+
+        .demo-box .demo .parent {
+            background: #f6f6f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            display: flex;
+        }
+
+        .demo-box .demo .child {
+            background: #f0f0f6;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .demo-box .demo .style {
+            margin: 0 0 5px;
+        }
+
+        .demo-box .demo .style:last-child {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="css-style">
+        <div class="parent-styles">
+            <!-- ko foreach: { data: styleOptions, as: 'style', noChildContext: true } -->
+            <div class="parent-style">
+                <div class="caption" data-bind="text: style.name"></div>
+                <ul>
+                    <!-- ko foreach: { data: style.options, as: 'option' } -->
+                    <li data-bind="css: { active: $parent.parent[style.code]() === option.name }">
+                        <span data-bind="text: option.name, attr: { title: option.info }, click: $parent.setStyleOption"></span>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </div>
+            <!-- /ko -->
+        </div>
+        <div class="info">
+            <!-- ko foreach: { data: styleOptions, as: 'style', noChildContext: true } -->
+            <div class="style">
+                <div class="name">
+                    <span data-bind="text: style.name"></span>:
+                    <span data-bind="text: parent[style.code]()"></span>
+                </div>
+                <div class="desc" data-bind="text: parent[style.code].info"></div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="demo-box" id="demo-box">
+        <div class="toolbar">
+            <div class="num">
+                <input type="number" data-bind="textInput: num" />
+            </div>
+            <div class="width">
+                <input type="number" data-bind="textInput: defWidth" />
+            </div>
+            <div class="height">
+                <input type="text" data-bind="textInput: parent.height" />
+            </div>
+        </div>
+        <div class="demo">
+            <div class="parent" data-bind="style: parent">
+                <!-- ko foreach: { data: items, as: 'item' } -->
+                <div class="child" data-bind="style: item">
+                    <div class="box">
+                        <div class="style">
+                            <span data-bind="text: $index() + 1"></span>
+                        </div>
+                        <div class="style">
+                            <input type="text" placeholder="flex-grow" data-bind="textInput: item.flexGrow" />
+                        </div>
+                        <div class="style">
+                            <input type="text" placeholder="flex-shrink" data-bind="textInput: item.flexShrink" />
+                        </div>
+                        <div class="style">
+                            <input type="text" placeholder="flex-basis" data-bind="textInput: item.flexBasis" />
+                        </div>
+                        <div class="style">
+                            <input type="text" placeholder="order" data-bind="textInput: item.order" />
+                        </div>
+                        <div class="style">
+                            <input type="text" placeholder="width" data-bind="textInput: item.width" />
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+    <script src="web/js/knockout.js"></script>
+    <script>
+
+        let defNum = 5;
+        let defWidth = 200;
+
+        let viewModel = function() {
+
+            let self = this;
+
+            this.defWidth = ko.observable( defWidth );
+
+            let itemModel = function() {
+                this.realWidth = ko.observable( '' );
+                this.flexGrow = ko.observable( '' );
+                this.flexShrink = ko.observable( '' );
+                this.flexBasis = ko.observable( '' );
+                this.order = ko.observable( '' );
+                this.width = ko.pureComputed( {
+                    read: function() {
+                        return this.realWidth() || self.defWidth();
+                    },
+                    write: function( value ) {
+                        this.realWidth( value );
+                    },
+                    owner: this
+                } );
+            };
+            let items = [];
+            for ( let i = 0; i < defNum; i++ ) {
+                items.push( new itemModel );
+            }
+            this.items = ko.observableArray( items );
+
+            this.num = ko.pureComputed( {
+                read: function() {
+                    return this.items().length;
+                },
+                write: function( num ) {
+                    let count = this.items().length;
+                    if ( num > count ) {
+                        for ( let i = count; i < num; i++ ) {
+                            this.items.push( {
+                                flexGrow: ko.observable( '' ),
+                                flexShrink: ko.observable( '' ),
+                                flexBasis: ko.observable( '' ),
+                                order: ko.observable( '' ),
+                                width: ko.observable( this.defWidth() + 'px' )
+                            } );
+                        }
+                    } else if ( num < count ) {
+                        this.items.splice( num, count - num );
+                    }
+                },
+                owner: this
+            } );
+
+            this.parent = {
+                flexDirection: ko.observable( 'row' ),
+                flexWrap: ko.observable( 'nowrap' ),
+                justifyContent: ko.observable( 'flex-start' ),
+                alignItems: ko.observable( 'flex-start' ),
+                alignContent: ko.observable( 'flex-start' ),
+                height: ko.observable( 'auto' )
+            };
+
+            this.styleOptions = [
+                {
+                    name: 'flex-direction',
+                    code: 'flexDirection',
+                    options: [
+                        { styleName: 'flexDirection', name: 'row', info: '' },
+                        { styleName: 'flexDirection', name: 'row-reverse', info: '' },
+                        { styleName: 'flexDirection', name: 'column', info: '' },
+                        { styleName: 'flexDirection', name: 'column-reverse', info: '' }
+                    ]
+                },
+                {
+                    name: 'flex-wrap',
+                    code: 'flexWrap',
+                    options: [
+                        { styleName: 'flexWrap', name: 'nowrap', info: '' },
+                        { styleName: 'flexWrap', name: 'wrap', info: '' },
+                        { styleName: 'flexWrap', name: 'wrap-reverse', info: '' }
+                    ]
+                },
+                {
+                    name: 'justify-content',
+                    code: 'justifyContent',
+                    options: [
+                        { styleName: 'justifyContent', name: 'flex-start', info: '' },
+                        { styleName: 'justifyContent', name: 'flex-end', info: '' },
+                        { styleName: 'justifyContent', name: 'center', info: '' },
+                        { styleName: 'justifyContent', name: 'space-between', info: '' },
+                        { styleName: 'justifyContent', name: 'space-around', info: '' }
+                    ]
+                },
+                {
+                    name: 'align-items',
+                    code: 'alignItems',
+                    options: [
+                        { styleName: 'alignItems', name: 'flex-start', info: '' },
+                        { styleName: 'alignItems', name: 'flex-end', info: '' },
+                        { styleName: 'alignItems', name: 'center', info: '' },
+                        { styleName: 'alignItems', name: 'baseline', info: '' },
+                        { styleName: 'alignItems', name: 'stretch', info: '' }
+                    ]
+                },
+                {
+                    name: 'align-content',
+                    code: 'alignContent',
+                    options: [
+                        { styleName: 'alignContent', name: 'flex-start', info: '' },
+                        { styleName: 'alignContent', name: 'flex-end', info: '' },
+                        { styleName: 'alignContent', name: 'center', info: '' },
+                        { styleName: 'alignContent', name: 'space-between', info: '' },
+                        { styleName: 'alignContent', name: 'space-around', info: '' },
+                        { styleName: 'alignContent', name: 'stretch', info: '' }
+                    ]
+                }
+            ];
+
+            this.setStyleOption = function() {
+                self.parent[this.styleName]( this.name );
+            };
+
+        };
+
+        ko.applyBindings( new viewModel );
+
+    </script>
+</div>
+</body>
+</html>

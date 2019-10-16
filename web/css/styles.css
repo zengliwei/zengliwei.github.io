@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Awesome Solid';
+    font-style: normal;
+    font-weight: 900;
+    src: url(../fonts/fa-solid-900.eot);
+    src: url(../fonts/fa-solid-900.eot?#iefix) format('embedded-opentype'),
+        url(../fonts/fa-solid-900.woff2) format('woff2'),
+        url(../fonts/fa-solid-900.woff) format('woff'),
+        url(../fonts/fa-solid-900.ttf) format('truetype'),
+        url(../fonts/fa-solid-900.svg#fontawesome) format('svg');
+}
+
+@font-face {
+    font-family: 'Awesome Brands';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/fa-brands-400.eot);
+    src: url(../fonts/fa-brands-400.eot?#iefix) format('embedded-opentype'),
+        url(../fonts/fa-brands-400.woff2) format('woff2'),
+        url(../fonts/fa-brands-400.woff) format('woff'),
+        url(../fonts/fa-brands-400.ttf) format('truetype'),
+        url(../fonts/fa-brands-400.svg#fontawesome) format('svg');
+}
+
+* { box-sizing:border-box; margin:0; outline:none; padding:0; }
+
+body { background:#fff; color:#379aa0; font:16px/26px Consolas, Arial, Helvetica, sans-serif; }
