@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="json" />
+    <base href="/" />
+    <title>Check JSON</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            color: #545454;
+            font: 14px/20px Consolas, Helvetica, Arial, sans-serif;
+        }
+
+        textarea {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            box-sizing: border-box;
+            display: block;
+            font: 12px/18px Courier New;
+            padding: 10px;
+            resize: vertical;
+            width: 100%;
+        }
+
+        div {
+            box-sizing: border-box;
+            padding: 5px;
+        }
+
+        .section.decode textarea {
+            min-height: 200px;
+        }
+
+        .section.format textarea {
+            min-height: 400px;
+        }
+
+        .section:after {
+            clear: both;
+            content: '';
+            display: table;
+            height: 0;
+        }
+
+        .source {
+            float: left;
+            width: 50%;
+        }
+
+        .result {
+            float: left;
+            width: 50%;
+        }
+
+        footer {
+            font-size: 12px;
+            margin: 20px 0 0;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #545454;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class="section decode">
+        <div class="source">
+            <textarea id="source1" placeholder="Decode Source"></textarea>
+        </div>
+        <div class="result">
+            <textarea id="result1" placeholder="Decode Result" readonly="readonly"></textarea>
+        </div>
+    </div>
+    <div class="section format">
+        <div class="source">
+            <textarea id="source2" placeholder="Format Source"></textarea>
+        </div>
+        <div class="result">
+            <textarea id="result2" placeholder="Format Result" readonly="readonly"></textarea>
+        </div>
+    </div>
+</main>
+<footer>
+    Copyright &copy; <span id="year" data-bind="text: year"></span> <a href="/">Zengliwei</a>
+</footer>
+
+<script>
+    let updateResult1 = function() {
+        let source = document.getElementById( 'source1' ).value;
+        try {
+            document.getElementById( 'result1' ).innerHTML = JSON.parse( source );
+        }
+        catch ( ex ) {
+            document.getElementById( 'result1' ).innerHTML = '';
+        }
+    };
+
+    let updateResult2 = function() {
+        let source = document.getElementById( 'source2' ).value;
+        try {
+            document.getElementById( 'result2' ).innerHTML = JSON.stringify( JSON.parse( source ), null, 4 );
+        }
+        catch ( ex ) {
+            document.getElementById( 'result2' ).innerHTML = '';
+        }
+    };
+
+    document.getElementById( 'source1' ).oninput = updateResult1;
+    document.getElementById( 'source2' ).oninput = updateResult2;
+    document.getElementById( 'year' ).innerText = (new Date).getFullYear();
+</script>
+</body>
+</html>

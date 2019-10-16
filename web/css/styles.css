@@ -45,7 +45,7 @@ body.home header {
  */
 header .main-menu {
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 15px;
     position: relative;
     width: 1000px;
 }
@@ -89,16 +89,33 @@ header .main-menu > ul > li > a span {
     padding: 0 10px;
 }
 
+header .main-menu > ul > li:hover > a {
+    background: #00f;
+}
+
 /* level 2 */
 header .main-menu > ul > li > ul {
     display: none;
     left: 0;
+    padding: 5px 0 10px;
     position: absolute;
     top: 100%;
 }
 
 header .main-menu > ul > li:hover > ul {
     display: block;
+}
+
+header .main-menu > ul > li > ul::before {
+    background: #000;
+    border-radius: 0  0 5px 5px;
+    content: '';
+    height: 100%;
+    left: 0;
+    opacity: .4;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 header .main-menu > ul > li > ul > li {
@@ -108,26 +125,42 @@ header .main-menu > ul > li > ul > li {
 
 header .main-menu > ul > li > ul > li a {
     display: block;
-    padding: 5px 10px;
+    font-size: 14px;
+    padding: 5px 15px;
     text-decoration: none;
-    width: 150px;
+    width: 180px;
 }
 
 header .main-menu > ul > li > ul > li a span {
-    color: #545454;
+    color: #fff;
     display: block;
 }
 
-/* level 3 */
-header .main-menu > ul > li > ul > li ul {
+header .main-menu > ul > li > ul li:hover > a {
+    background: #00f;
+}
+
+/* level 3+ */
+header .main-menu > ul > li > ul li > ul {
     display: none;
     left: 100%;
     position: absolute;
     top: 0;
 }
 
-header .main-menu > ul > li > ul > li:hover ul {
+header .main-menu > ul > li > ul li:hover > ul {
     display: block;
+}
+
+header .main-menu > ul > li > ul li > ul::before {
+    background: #000;
+    content: '';
+    height: 100%;
+    left: 0;
+    opacity: .4;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 header .main-menu > ul > li > ul > li li {
