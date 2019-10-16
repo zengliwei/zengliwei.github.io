@@ -25,4 +25,9 @@ require.config( {
  */
 require( [ 'jquery', 'markdown', 'mousewheel', 'scrollbar' ], function( $, markdown ) {
 
+    let $header = $( 'header' );
+    let $footer = $( 'footer' );
+
+    $footer.html( 'Copyright &copy; ' + (new Date).getFullYear() + ' <a href="/">Zengliwei</a>' );
+
 } );

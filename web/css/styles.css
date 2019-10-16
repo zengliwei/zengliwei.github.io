@@ -31,12 +31,32 @@
 
 body {
     background: #fff;
-    color: #379aa0;
+    color: #545454;
     font: 16px/26px Consolas, Arial, Helvetica, sans-serif;
 }
 
 body.home header {
-    margin: 100px;
+    margin: 0 auto 180px;
+}
+
+body.home header .motto {
+    margin: 60px auto 60px;
+    width: 300px;
+}
+
+body.home header .motto img {
+    display: block;
+    width: 100%;
+}
+
+body.home footer {
+    font-size: 12px;
+    text-align: center;
+}
+
+body.home footer a {
+    color: #545454;
+    text-decoration: none;
 }
 
 
@@ -50,54 +70,42 @@ header .main-menu {
     width: 1000px;
 }
 
-header .main-menu:before {
-    background: #000;
-    border-radius: 5px;
-    content: '';
-    height: 100%;
-    left: 0;
-    opacity: .4;
-    position: absolute;
-    top: 0;
-    width: 100%;
-}
-
 /* level 1 */
 header .main-menu > ul {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: center;
     position: relative;
     z-index: 1;
 }
 
 header .main-menu > ul > li {
+    border-right: 1px solid #333;
     list-style: none;
+    margin: 0 0 0 30px;
+    padding: 0 30px 0 0;
     position: relative;
 }
 
+header .main-menu > ul > li:last-child {
+    border: 0;
+}
+
 header .main-menu > ul > li > a {
+    border-bottom: 1px solid #fff;
     display: block;
-    padding: 5px 10px;
+    padding: 5px 0;
     text-decoration: none;
     white-space: nowrap;
 }
 
 header .main-menu > ul > li > a span {
-    color: #fff;
+    color: #000;
     display: block;
-    padding: 0 10px;
 }
 
-header .main-menu > ul > li:hover > a::before {
-    background: #efefef;
-    content: '';
-    height: 100%;
-    left: 0;
-    opacity: .4;
-    position: absolute;
-    top: 0;
-    width: 100%;
+header .main-menu > ul > li:hover > a {
+    border-bottom: 1px solid #000;
 }
 
 /* level 2 */
@@ -115,7 +123,7 @@ header .main-menu > ul > li:hover > ul {
 
 header .main-menu > ul > li > ul::before {
     background: #000;
-    border-radius: 0  0 5px 5px;
+    border-radius: 0 0 5px 5px;
     content: '';
     height: 100%;
     left: 0;
