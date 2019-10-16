@@ -74,11 +74,17 @@
         }
 
         .css-style .info .style {
-            margin: 0 0 10px;
+            margin: 0 0 15px;
+        }
+
+        .css-style .info .style .desc {
+            color: #999;
+            font-style: italic;
+            padding: 5px 0 0 20px;
         }
 
         .demo-box {
-            padding: 10px;
+            padding: 15px 10px 0;
             width: 50%;
         }
 
@@ -93,8 +99,13 @@
             width: 30%;
         }
 
+        .demo-box .toolbar > div label {
+            display: block;
+            margin: 0 0 5px;
+        }
+
         .demo-box .demo {
-            margin: 10px 0 0;
+            margin: 15px 0 0;
         }
 
         .demo-box .demo .parent {
@@ -129,7 +140,7 @@
                 <div class="caption" data-bind="text: style.name"></div>
                 <ul>
                     <!-- ko foreach: { data: style.options, as: 'option' } -->
-                    <li data-bind="css: { active: $parent.parent[style.code]() === option.name }">
+                    <li data-bind="css: { active: $parent.parent[style.code].value() === option.name }">
                         <span data-bind="text: option.name, attr: { title: option.info }, click: $parent.setStyleOption"></span>
                     </li>
                     <!-- /ko -->
@@ -140,9 +151,9 @@
         <div class="info">
             <!-- ko foreach: { data: styleOptions, as: 'style', noChildContext: true } -->
             <div class="style">
-                <div class="name">
-                    <span data-bind="text: style.name"></span>:
-                    <span data-bind="text: parent[style.code]()"></span>
+                <div class="title">
+                    <span class="name" data-bind="text: style.name"></span>:
+                    <span class="value" data-bind="text: parent[style.code].value"></span>
                 </div>
                 <div class="desc" data-bind="text: parent[style.code].info"></div>
             </div>
@@ -152,17 +163,27 @@
     <div class="demo-box" id="demo-box">
         <div class="toolbar">
             <div class="num">
-                <input type="number" data-bind="textInput: num" />
+                <label for="item-number">元素个数：</label>
+                <input type="number" id="item-number" data-bind="textInput: num" />
             </div>
             <div class="width">
-                <input type="number" data-bind="textInput: defWidth" />
+                <label for="item-width">元素默认宽度：</label>
+                <input type="number" id="item-width" data-bind="textInput: defWidth" />
             </div>
             <div class="height">
-                <input type="text" data-bind="textInput: parent.height" />
+                <label for="wrapper-height">外框高度：</label>
+                <input type="text" id="wrapper-height" data-bind="textInput: parent.height" />
             </div>
         </div>
         <div class="demo">
-            <div class="parent" data-bind="style: parent">
+            <div class="parent" data-bind="style: {
+                flexDirection: parent.flexDirection.value,
+                flexWrap: parent.flexWrap.value,
+                justifyContent: parent.justifyContent.value,
+                alignItems: parent.alignItems.value,
+                alignContent: parent.alignContent.value,
+                height: parent.height
+            }">
                 <!-- ko foreach: { data: items, as: 'item' } -->
                 <div class="child" data-bind="style: item">
                     <div class="box">
@@ -195,6 +216,81 @@
 
         let defNum = 5;
         let defWidth = 200;
+        let defHeight = 'auto';
+
+        let styleOptions = {
+            flexDirection: {
+                name: 'flex-direction',
+                options: [
+                    { name: 'row', info: '横向显示下一级元素，每一行均根据元素的 order 由小到大，从左到右排列' },
+                    { name: 'row-reverse', info: '横向显示下一级元素，每一行均根据元素的 order 由小到大，从右到左排列' },
+                    { name: 'column', info: '纵向显示下一级元素，每一行均根据元素的 order 由小到大，从上到下排列' },
+                    { name: 'column-reverse', info: '纵向显示下一级元素，每一行均根据元素的 order 由小到大，从下到上排列' }
+                ]
+            },
+            flexWrap: {
+                name: 'flex-wrap',
+                options: [
+                    { name: 'nowrap', info: '不换行/列' },
+                    {
+                        name: 'wrap',
+                        info: '自动换行/列。当 flex-direction 为 row 或 row-reverse 时，往下换行；当 flex-direction 为 column 或 column-reverse 时，往右换列'
+                    },
+                    {
+                        name: 'wrap-reverse',
+                        info: '自动换行/列。当 flex-direction 为 row 或 row-reverse 时，往上换行；当 flex-direction 为 column 或 column-reverse 时，往左换列'
+                    }
+                ]
+            },
+            justifyContent: {
+                name: 'justify-content',
+                options: [
+                    { name: 'flex-start', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠左对齐' },
+                    { name: 'flex-end', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠右对齐' },
+                    { name: 'center', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素居中对齐' },
+                    { name: 'space-between', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠两边对齐' },
+                    { name: 'space-around', info: '当 flex-direction 为 row 或 row-reverse 时，每一行的每个元素两边保留相同间隔' }
+                ]
+            },
+            alignItems: {
+                name: 'align-items',
+                options: [
+                    { name: 'flex-start', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠上对齐；当 flex-direction 为 column 或 column-reverse 时，整列元素靠左对齐' },
+                    { name: 'flex-end', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠下对齐；当 flex-direction 为 column 或 column-reverse 时，整列元素靠右对齐' },
+                    { name: 'center', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素居中对齐；当 flex-direction 为 column 或 column-reverse 时，整列元素居中对齐' },
+                    { name: 'baseline', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素按基线对齐' },
+                    { name: 'stretch', info: '当 flex-direction 为 row 或 row-reverse 时，延伸元素高度至沾满所在行的高度' }
+                ]
+            },
+            alignContent: {
+                name: 'align-content',
+                options: [
+                    { name: 'flex-start', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。' },
+                    { name: 'flex-end', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。' },
+                    { name: 'center', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。' },
+                    { name: 'space-between', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。' },
+                    { name: 'space-around', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。' },
+                    { name: 'stretch', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。' }
+                ]
+            }
+        };
+
+        let itemModel = function( parent ) {
+            this.realWidth = ko.observable( '' );
+            this.flexGrow = ko.observable( '' );
+            this.flexShrink = ko.observable( '' );
+            this.flexBasis = ko.observable( '' );
+            this.order = ko.observable( '' );
+            this.width = ko.pureComputed( {
+                read: function() {
+                    return this.realWidth() || parent.defWidth();
+                },
+                write: function( value ) {
+                    this.realWidth( value );
+                },
+                owner: this
+            } );
+        };
 
         let viewModel = function() {
 
@@ -202,25 +298,9 @@
 
             this.defWidth = ko.observable( defWidth );
 
-            let itemModel = function() {
-                this.realWidth = ko.observable( '' );
-                this.flexGrow = ko.observable( '' );
-                this.flexShrink = ko.observable( '' );
-                this.flexBasis = ko.observable( '' );
-                this.order = ko.observable( '' );
-                this.width = ko.pureComputed( {
-                    read: function() {
-                        return this.realWidth() || self.defWidth();
-                    },
-                    write: function( value ) {
-                        this.realWidth( value );
-                    },
-                    owner: this
-                } );
-            };
             let items = [];
             for ( let i = 0; i < defNum; i++ ) {
-                items.push( new itemModel );
+                items.push( new itemModel( self ) );
             }
             this.items = ko.observableArray( items );
 
@@ -240,7 +320,8 @@
                                 width: ko.observable( this.defWidth() + 'px' )
                             } );
                         }
-                    } else if ( num < count ) {
+                    }
+                    else if ( num < count ) {
                         this.items.splice( num, count - num );
                     }
                 },
@@ -248,72 +329,34 @@
             } );
 
             this.parent = {
-                flexDirection: ko.observable( 'row' ),
-                flexWrap: ko.observable( 'nowrap' ),
-                justifyContent: ko.observable( 'flex-start' ),
-                alignItems: ko.observable( 'flex-start' ),
-                alignContent: ko.observable( 'flex-start' ),
-                height: ko.observable( 'auto' )
+                height: ko.observable( defHeight )
             };
+            this.styleOptions = [];
+            for ( let code in styleOptions ) {
 
-            this.styleOptions = [
-                {
-                    name: 'flex-direction',
-                    code: 'flexDirection',
-                    options: [
-                        { styleName: 'flexDirection', name: 'row', info: '' },
-                        { styleName: 'flexDirection', name: 'row-reverse', info: '' },
-                        { styleName: 'flexDirection', name: 'column', info: '' },
-                        { styleName: 'flexDirection', name: 'column-reverse', info: '' }
-                    ]
-                },
-                {
-                    name: 'flex-wrap',
-                    code: 'flexWrap',
-                    options: [
-                        { styleName: 'flexWrap', name: 'nowrap', info: '' },
-                        { styleName: 'flexWrap', name: 'wrap', info: '' },
-                        { styleName: 'flexWrap', name: 'wrap-reverse', info: '' }
-                    ]
-                },
-                {
-                    name: 'justify-content',
-                    code: 'justifyContent',
-                    options: [
-                        { styleName: 'justifyContent', name: 'flex-start', info: '' },
-                        { styleName: 'justifyContent', name: 'flex-end', info: '' },
-                        { styleName: 'justifyContent', name: 'center', info: '' },
-                        { styleName: 'justifyContent', name: 'space-between', info: '' },
-                        { styleName: 'justifyContent', name: 'space-around', info: '' }
-                    ]
-                },
-                {
-                    name: 'align-items',
-                    code: 'alignItems',
-                    options: [
-                        { styleName: 'alignItems', name: 'flex-start', info: '' },
-                        { styleName: 'alignItems', name: 'flex-end', info: '' },
-                        { styleName: 'alignItems', name: 'center', info: '' },
-                        { styleName: 'alignItems', name: 'baseline', info: '' },
-                        { styleName: 'alignItems', name: 'stretch', info: '' }
-                    ]
-                },
-                {
-                    name: 'align-content',
-                    code: 'alignContent',
-                    options: [
-                        { styleName: 'alignContent', name: 'flex-start', info: '' },
-                        { styleName: 'alignContent', name: 'flex-end', info: '' },
-                        { styleName: 'alignContent', name: 'center', info: '' },
-                        { styleName: 'alignContent', name: 'space-between', info: '' },
-                        { styleName: 'alignContent', name: 'space-around', info: '' },
-                        { styleName: 'alignContent', name: 'stretch', info: '' }
-                    ]
+                this.parent[code] = {
+                    value: ko.observable( styleOptions[code].options[0].name ),
+                    info: ko.observable( styleOptions[code].options[0].info )
                 }
-            ];
+
+                let options = [];
+                for ( let i = 0; i < styleOptions[code].options.length; i++ ) {
+                    options.push( {
+                        styleName: code,
+                        name: styleOptions[code].options[i].name,
+                        info: styleOptions[code].options[i].info
+                    } );
+                }
+                this.styleOptions.push( {
+                    name: styleOptions[code].name,
+                    code: code,
+                    options: options
+                } );
+            }
 
             this.setStyleOption = function() {
-                self.parent[this.styleName]( this.name );
+                self.parent[this.styleName].value( this.name );
+                self.parent[this.styleName].info( this.info );
             };
 
         };
