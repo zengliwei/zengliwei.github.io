@@ -35,11 +35,26 @@ body {
     font: 16px/26px Consolas, Arial, Helvetica, sans-serif;
 }
 
+img {
+    user-select: none;
+}
+
+header {
+    user-select: none;
+}
+
+footer {
+    user-select: none;
+}
+
 body.home header {
     margin: 0 auto 180px;
 }
 
 body.home header .motto {
+    background: url(../images/motto.png) center center no-repeat;
+    background-size: 100% auto;
+    height: 300px;
     margin: 60px auto 60px;
     width: 300px;
 }
