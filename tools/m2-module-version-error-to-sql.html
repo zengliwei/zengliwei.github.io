@@ -99,6 +99,16 @@
         return diff > 0 ? 1 : (diff === 0 ? 0 : -1);
     };
 
+    let arrayUnique = function( array ) {
+        let newArray = [];
+        for ( let i = 0; i < array.length; i++ ) {
+            if ( newArray.indexOf( array[i] ) === -1 ) {
+                newArray.push( array[i] );
+            }
+        }
+        return newArray;
+    };
+
     document.getElementsByName( 'source' )[0].oninput = function() {
         let arrSource = this.value.split( '\n' );
         let arrDist = [];
@@ -115,7 +125,7 @@
                 arrDist.push( 'UPDATE `setup_module` SET `' + type + '_version` = \'' + requiredVersion + '\' WHERE `module` = \'' + moduleName + '\';' );
             }
         }
-        document.getElementsByName( 'dist' )[0].value = arrDist.join( '\n' );
+        document.getElementsByName( 'dist' )[0].value = arrayUnique( arrDist ).join( '\n' );
     };
 
 </script>
