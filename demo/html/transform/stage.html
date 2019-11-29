@@ -1,0 +1,174 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="css,css3,html,html5,display,flex" />
+    <meta name="description" content="HTML5 + CSS3 Demo, display: flex" />
+    <base href="/" />
+    <title>transform - Stage</title>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico" />
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            outline: none;
+            padding: 0;
+        }
+
+        main {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+        }
+
+        .stage {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+
+            perspective: 1000px;
+        }
+
+        .stage .container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            transform-style: preserve-3d;
+        }
+
+        .stage .container .bg {
+            position: absolute;
+            bottom: -15%;
+            left: -10%;
+            right: -10%;
+            top: -15%;
+        }
+
+        .stage .container .bg img {
+            display: block;
+            width: 100%;
+        }
+
+        .stage .container .text {
+            text-align: center;
+            text-shadow: 0 0 12px #fff;
+
+            position: absolute;
+            left: 20%;
+            right: 20%;
+            top: 20%;
+            width: 60%;
+
+            transform: translateY(50px) translateZ(180px);
+        }
+
+        .stage .text h1 {
+            color: #fff;
+            font: 62px/80px Consolas, Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            margin: 0 0 25px;
+            text-transform: uppercase;
+        }
+
+        .stage .text p {
+            color: #fff;
+            font: 32px/60px Consolas, Helvetica, Arial, sans-serif;
+        }
+
+        .stage .cloud-1 {
+            background: url('web/images/html/transform/cloud.webp');
+            background-size: 60%;
+            opacity: .8;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            transform: translateZ(80px);
+        }
+
+        .stage .cloud-2 {
+            background: url('web/images/html/transform/cloud.webp');
+            background-size: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            transform: translateZ(380px);
+        }
+
+        footer {
+            bottom: 20px;
+            color: #fff;
+            font-size: 12px;
+            position: fixed;
+            width: 100%;
+            text-align: center;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+<main>
+
+    <div class="stage">
+        <div class="container" data-role="bg">
+            <div class="bg">
+                <img src="web/images/html/transform/bg.jpg" />
+            </div>
+            <div class="cloud-1"></div>
+            <div class="text">
+                <h1>Transform - Stage</h1>
+                <p>This is a test for making a stage with transform css.</p>
+            </div>
+            <div class="cloud-2"></div>
+        </div>
+    </div>
+
+    <script src="web/js/jquery.js"></script>
+    <script type="text/javascript">
+        jQuery( function( $ ) {
+
+            let $win = $( window );
+            let $stage = $( '.stage' );
+            let $container = $stage.find( '.container' );
+
+            let maxDegX = 10, maxDegY = 6;
+
+            let winW, winH;
+
+            let updateStage = function() {
+                winW = $win.outerWidth();
+                winH = $win.outerHeight();
+            };
+            $( window ).on( 'resize', updateStage );
+            updateStage();
+
+            $( document ).on( 'mousemove', function( evt ) {
+                let x = (evt.clientX - winW / 2) / (winW / maxDegX);
+                let y = (evt.clientY - winH / 2) / (winH / maxDegY);
+                $container.css( {
+                    transform: 'rotateY(' + x + 'deg) rotateX(' + y + 'deg)'
+                } );
+            } );
+
+        } );
+    </script>
+</main>
+<footer>
+    Copyright &copy; <span class="year" data-bind="text: year"></span> <a href="/">Zengliwei</a>
+</footer>
+</body>
+</html>
