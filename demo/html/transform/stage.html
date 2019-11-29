@@ -16,6 +16,7 @@
         }
 
         main {
+            background: #000;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -43,6 +44,7 @@
         }
 
         .stage .container .bg {
+            opacity: .8;
             position: absolute;
             bottom: -15%;
             left: -10%;
@@ -62,15 +64,15 @@
             position: absolute;
             left: 20%;
             right: 20%;
-            top: 20%;
+            top: 30%;
             width: 60%;
 
-            transform: translateY(50px) translateZ(180px);
+            transform: translateY(50%) translateZ(280px);
         }
 
         .stage .text h1 {
             color: #fff;
-            font: 62px/80px Consolas, Helvetica, Arial, sans-serif;
+            font: 48px/60px Consolas, Helvetica, Arial, sans-serif;
             font-weight: bold;
             margin: 0 0 25px;
             text-transform: uppercase;
@@ -78,10 +80,10 @@
 
         .stage .text p {
             color: #fff;
-            font: 32px/60px Consolas, Helvetica, Arial, sans-serif;
+            font: 28px/40px Consolas, Helvetica, Arial, sans-serif;
         }
 
-        .stage .cloud-1 {
+        .stage .cloud-behind {
             background: url('web/images/html/transform/cloud.webp');
             background-size: 60%;
             opacity: .8;
@@ -90,18 +92,19 @@
             left: 0;
             right: 0;
             top: 0;
-            transform: translateZ(80px);
+            transform: translateZ(160px);
         }
 
-        .stage .cloud-2 {
+        .stage .cloud-front {
             background: url('web/images/html/transform/cloud.webp');
             background-size: 100%;
+            opacity: .6;
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             top: 0;
-            transform: translateZ(380px);
+            transform: translateZ(680px);
         }
 
         footer {
@@ -128,12 +131,12 @@
             <div class="bg">
                 <img src="web/images/html/transform/bg.jpg" />
             </div>
-            <div class="cloud-1"></div>
+            <div class="cloud-behind"></div>
             <div class="text">
                 <h1>Transform - Stage</h1>
                 <p>This is a test for making a stage with transform css.</p>
             </div>
-            <div class="cloud-2"></div>
+            <div class="cloud-front"></div>
         </div>
     </div>
 
