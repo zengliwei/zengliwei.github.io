@@ -1,0 +1,213 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="css,css3,html,html5,display,flex" />
+    <meta name="description" content="HTML5 + CSS3 Demo, display: flex" />
+    <base href="/" />
+    <title>transform - Cubes</title>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico" />
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            outline: none;
+            padding: 0;
+        }
+
+        body {
+            color: #545454;
+            font: 14px/20px Consolas, Helvetica, Arial, sans-serif;
+        }
+
+        main {
+            margin: 50px auto 0;
+            height: 600px;
+            width: 600px;
+
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-content: space-around;
+
+            perspective: 600px;
+        }
+
+        .cube {
+            position: relative;
+            margin: 0 50px;
+            height: 100px;
+            width: 100px;
+
+            transform-style: preserve-3d;
+        }
+
+        .cube .side {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+
+            opacity: .6;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .cube .side:nth-child(1) {
+            background: #ff0000;
+            transform: translateZ(50px);
+        }
+
+        .cube .side:nth-child(2) {
+            background: #ffff00;
+            transform: translateX(50px) rotateY(90deg);
+        }
+
+        .cube .side:nth-child(3) {
+            background: #00ff00;
+            transform: translateZ(-50px) rotateY(180deg);
+        }
+
+        .cube .side:nth-child(4) {
+            background: #00ffff;
+            transform: translateX(-50px) rotateY(270deg);
+        }
+
+        .cube .side:nth-child(5) {
+            background: #0000ff;
+            transform: translateY(-50px) rotateX(270deg);
+        }
+
+        .cube .side:nth-child(6) {
+            background: #000000;
+            transform: translateY(50px) rotateX(90deg);
+        }
+
+        .cube .side span {
+            color: #fff;
+            display: block;
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 100%;
+        }
+
+        footer {
+            font-size: 12px;
+            margin: 200px 0 0;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #545454;
+            text-decoration: none;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+<main>
+    <div class="cube">
+        <div class="side"><span>1</span></div>
+        <div class="side"><span>2</span></div>
+        <div class="side"><span>3</span></div>
+        <div class="side"><span>4</span></div>
+        <div class="side"><span>5</span></div>
+        <div class="side"><span>6</span></div>
+    </div>
+
+    <div class="cube">
+        <div class="side"><span>1</span></div>
+        <div class="side"><span>2</span></div>
+        <div class="side"><span>3</span></div>
+        <div class="side"><span>4</span></div>
+        <div class="side"><span>5</span></div>
+        <div class="side"><span>6</span></div>
+    </div>
+
+    <div class="cube">
+        <div class="side"><span>1</span></div>
+        <div class="side"><span>2</span></div>
+        <div class="side"><span>3</span></div>
+        <div class="side"><span>4</span></div>
+        <div class="side"><span>5</span></div>
+        <div class="side"><span>6</span></div>
+    </div>
+
+    <div class="cube">
+        <div class="side"><span>1</span></div>
+        <div class="side"><span>2</span></div>
+        <div class="side"><span>3</span></div>
+        <div class="side"><span>4</span></div>
+        <div class="side"><span>5</span></div>
+        <div class="side"><span>6</span></div>
+    </div>
+
+    <div class="cube">
+        <div class="side"><span>1</span></div>
+        <div class="side"><span>2</span></div>
+        <div class="side"><span>3</span></div>
+        <div class="side"><span>4</span></div>
+        <div class="side"><span>5</span></div>
+        <div class="side"><span>6</span></div>
+    </div>
+
+    <div class="cube">
+        <div class="side"><span>1</span></div>
+        <div class="side"><span>2</span></div>
+        <div class="side"><span>3</span></div>
+        <div class="side"><span>4</span></div>
+        <div class="side"><span>5</span></div>
+        <div class="side"><span>6</span></div>
+    </div>
+
+    <div class="cube">
+        <div class="side"><span>1</span></div>
+        <div class="side"><span>2</span></div>
+        <div class="side"><span>3</span></div>
+        <div class="side"><span>4</span></div>
+        <div class="side"><span>5</span></div>
+        <div class="side"><span>6</span></div>
+    </div>
+
+    <div class="cube">
+        <div class="side"><span>1</span></div>
+        <div class="side"><span>2</span></div>
+        <div class="side"><span>3</span></div>
+        <div class="side"><span>4</span></div>
+        <div class="side"><span>5</span></div>
+        <div class="side"><span>6</span></div>
+    </div>
+
+    <div class="cube">
+        <div class="side"><span>1</span></div>
+        <div class="side"><span>2</span></div>
+        <div class="side"><span>3</span></div>
+        <div class="side"><span>4</span></div>
+        <div class="side"><span>5</span></div>
+        <div class="side"><span>6</span></div>
+    </div>
+
+    <script src="web/js/jquery.js"></script>
+    <script type="text/javascript">
+        jQuery( function( $ ) {
+            let $cube = $( '.cube' );
+            $( document ).on( 'mousemove', function( evt ) {
+                let x = evt.clientX;
+                let y = evt.clientY;
+                $cube.css( {
+                    transform: 'rotateY(' + x + 'deg) rotateX(-' + y + 'deg)'
+                } );
+            } );
+        } );
+    </script>
+</main>
+<footer>
+    Copyright &copy; <span class="year" data-bind="text: year"></span> <a href="/">Zengliwei</a>
+</footer>
+</body>
+</html>
