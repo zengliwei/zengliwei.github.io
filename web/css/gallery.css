@@ -77,17 +77,25 @@ main {
 main .section {
     box-shadow: 0 0 10px #000;
     height: 60%;
+    overflow: hidden;
     position: relative;
     z-index: 2;
 }
 
-main .section h2 {
+main .section .box {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+main .section .box h2 {
     font-weight: normal;
     position: relative;
     z-index: 2;
 }
 
-main .section h2 > span {
+main .section .box h2 > span {
     display: block;
     float: left;
     font-size: 28px;
@@ -97,7 +105,7 @@ main .section h2 > span {
     z-index: 2;
 }
 
-main .section h2 > span:before {
+main .section .box h2 > span:before {
     background: #000;
     content: '';
     left: 0;
@@ -109,13 +117,13 @@ main .section h2 > span:before {
     z-index: 1;
 }
 
-main .section h2 > span span {
+main .section .box h2 > span span {
     display: block;
     position: relative;
     z-index: 2;
 }
 
-main .section h2:after {
+main .section .box h2:after {
     border: solid 30px;
     border-color: #000 transparent transparent #000;
     content: '';
@@ -126,7 +134,7 @@ main .section h2:after {
     width: 0;
 }
 
-main .section .cover {
+main .section .box .cover {
     height: 100%;
     left: 0;
     overflow: hidden;
@@ -136,12 +144,12 @@ main .section .cover {
     z-index: 1;
 }
 
-main .section .cover a {
+main .section .box .cover a {
     display: block;
     margin: -15% 0 0;
 }
 
-main .section .cover img {
+main .section .box .cover img {
     display: block;
     width: 100%;
 }
@@ -156,21 +164,21 @@ main .section:last-child {
     z-index: 1;
 }
 
-main .section:first-child .cover,
-main .section:last-child .cover {
+main .section:first-child .box .cover,
+main .section:last-child .box .cover {
     opacity: .4;
 }
 
-main .section:first-child h2 > span,
-main .section:last-child h2 > span {
+main .section:first-child .box h2 > span,
+main .section:last-child .box h2 > span {
     color: #ccc;
     font-size: 20px;
     line-height: 40px;
     padding: 0 20px;
 }
 
-main .section:first-child h2:after,
-main .section:last-child h2:after {
+main .section:first-child .box h2:after,
+main .section:last-child .box h2:after {
     border-width: 20px;
 }
 

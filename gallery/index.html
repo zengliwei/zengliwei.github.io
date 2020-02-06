@@ -7,43 +7,48 @@
     <title>浮光掠影 - Zengliwei</title>
     <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="web/css/gallery.css" />
-    <script src="web/js/require.js" type="text/javascript"></script>
 </head>
 <body class="gallery">
     <header>
         <nav>
             <ul>
                 <li>
-                    <a href="#2017"><span>2017</span></a>
+                    <a href="gallery/#2017"><span>2017</span></a>
                     <ul>
-                        <li><a href="#2017-02"><span>February</span></a></li>
-                        <li><a href="#2017-03"><span>March</span></a></li>
-                        <li><a href="#2017-04"><span>April</span></a></li>
-                        <li><a href="#2017-05"><span>May</span></a></li>
-                        <li><a href="#2017-06"><span>June</span></a></li>
+                        <li><a href="gallery/#2017-02"><span>February</span></a></li>
+                        <li><a href="gallery/#2017-03"><span>March</span></a></li>
+                        <li><a href="gallery/#2017-04"><span>April</span></a></li>
+                        <li><a href="gallery/#2017-05"><span>May</span></a></li>
+                        <li><a href="gallery/#2017-06"><span>June</span></a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#2018"><span>2018</span></a>
+                    <a href="gallery/#2018"><span>2018</span></a>
                 </li>
                 <li>
-                    <a href="#2019"><span>2019</span></a>
+                    <a href="gallery/#2019"><span>2019</span></a>
                 </li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="section">
-            <h2><span><span>February 2017</span></span></h2>
-            <div class="cover"><a href="javascript:;"><img src="media/gallery/2017/02/cover.jpg" /></a></div>
+            <div class="box">
+                <h2><span><span>浮光掠影</span></span></h2>
+                <div class="cover"><a href="javascript:;"><img src="media/gallery/2017/04-a/cover.jpg" /></a></div>
+            </div>
         </div>
         <div class="section">
-            <h2><span><span>March 2017</span></span></h2>
-            <div class="cover"><a href="javascript:;"><img src="media/gallery/2017/03/cover.jpg" /></a></div>
+            <div class="box">
+                <h2><span><span>February 2017</span></span></h2>
+                <div class="cover"><a href="javascript:;"><img src="media/gallery/2017/02/cover.jpg" /></a></div>
+            </div>
         </div>
         <div class="section">
-            <h2><span><span>April 2017</span></span></h2>
-            <div class="cover"><a href="javascript:;"><img src="media/gallery/2017/04/cover.jpg" /></a></div>
+            <div class="box">
+                <h2><span><span>March 2017</span></span></h2>
+                <div class="cover"><a href="javascript:;"><img src="media/gallery/2017/03/cover.jpg" /></a></div>
+            </div>
         </div>
     </main>
     <footer>
@@ -60,5 +65,136 @@
             <a href="/">Zengliwei</a>
         </div>
     </footer>
+    <link rel="stylesheet" type="text/css" href="web/css/gallery.css" />
+    <script src="web/js/jquery.js" type="text/javascript"></script>
+    <script src="web/js/jquery.fancybox.min.js" type="text/javascript"></script>
+    <script src="web/js/jquery.mousewheel-3.0.6.min.js" type="text/javascript"></script>
+    <script>
+        jQuery( function ( $ ) {
+            let source = {
+                '2017': {
+                    '02': {
+                        title: 'February',
+                        images: [
+                            { img: '01.jpg' },
+                            { img: '02.jpg' },
+                            { img: '03.jpg' },
+                            { img: '04.jpg' },
+                            { img: '05.jpg' }
+                        ]
+                    },
+                    '03': {
+                        title: 'March',
+                        images: [
+                            { img: '01.jpg' },
+                            { img: '02.jpg' },
+                            { img: '03.jpg' },
+                            { img: '04.jpg' },
+                            { img: '05.jpg' },
+                            { img: '06.jpg' },
+                            { img: '07.jpg' },
+                            { img: '08.jpg' }
+                        ]
+                    },
+                    '04-a': {
+                        title: 'April',
+                        images: [
+                            { img: '01.jpg' },
+                            { img: '02.jpg' },
+                            { img: '03.jpg' },
+                            { img: '04.jpg' }
+                        ]
+                    },
+                    '04-b': {
+                        title: 'April',
+                        images: [
+                            { img: '01.jpg' },
+                            { img: '02.jpg' },
+                            { img: '03.jpg' },
+                            { img: '04.jpg' }
+                        ]
+                    },
+                    '05': {
+                        title: 'May',
+                        images: [
+                            { img: '01.jpg' },
+                            { img: '02.jpg' },
+                            { img: '03.jpg' },
+                            { img: '04.jpg' }
+                        ]
+                    },
+                    '06': {
+                        title: 'June',
+                        images: [
+                            { img: '01.jpg' },
+                            { img: '02.jpg' },
+                            { img: '03.jpg' },
+                            { img: '04.jpg' }
+                        ]
+                    }
+                },
+                '2018': {},
+                '2019': {}
+            };
+
+            let current = 0;
+            let groups = [];
+            let onAnimating = false;
+            let elSections = $( 'main > .section' );
+
+            for ( let year in source ) {
+                for ( let month in source[year] ) {
+                    let group = {
+                        title: source[year][month]['title'] + ' ' + year,
+                        cover: 'media/gallery/' + year + '/' + month + '/cover.jpg',
+                        gallery: []
+                    };
+                    for ( let i = 0; i < source[year][month]['images'].length; i++ ) {
+                        group['gallery'].push( {
+                            src: 'media/gallery/' + year + '/' + month + '/' + source[year][month]['images'][i],
+                            opts: { thumb: 'media/gallery/' + year + '/' + month + '/thumb/' + source[year][month]['images'][i] }
+                        } );
+                    }
+                    groups.push( group );
+                }
+            }
+
+            let switchGallery = function ( dir ) {
+                if ( onAnimating ) {
+                    return;
+                }
+                let tmp = current - dir;
+                if ( tmp == -1 || tmp == groups.length - 3 ) {
+                    return;
+                }
+                onAnimating = true;
+                current = tmp;
+                let completed = 0;
+                elSections.each( function ( i, el ) {
+                    el = $( el );
+                    let orgBox = el.find( '.box' );
+                    let num = current + i;
+                    let newBox = $( '<div class="box"></div>' );
+                    let html = '<h2><span><span>' + groups[num]['title'] + '</span></span></h2>' +
+                        '<div class="cover"><a href="javascript:;"><img src="' + groups[num]['cover'] + '" /></a></div>';
+                    newBox.append( html ).css( { top: ( dir == 1 ? '-' : '' ) + '100%', zIndex: 2 } );
+                    el.append( newBox );
+                    newBox.animate( { top: 0 }, {
+                        complete: function () {
+                            orgBox.remove();
+                            newBox.css( { zIndex: 1 } );
+                            if ( ++completed == elSections.length ) {
+                                onAnimating = false;
+                            }
+                        }
+                    } );
+                } );
+            };
+
+            $( document ).on( 'mousewheel', function ( evt, dir ) {
+                switchGallery( dir > 0 ? -1 : 1 );
+            } );
+        } );
+    </script>
 </body>
 </html>
