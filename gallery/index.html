@@ -180,9 +180,9 @@
                     let newBox = $( '<div class="box"></div>' );
                     let html = '<h2><span><span>' + groups[num]['title'] + '</span></span></h2>' +
                         '<div class="cover"><a href="javascript:;"><img src="' + groups[num]['cover'] + '" /></a></div>';
-                    newBox.append( html ).css( { top: ( dir == 1 ? '-' : '' ) + '100%', zIndex: 2 } );
+                    newBox.append( html ).css( { opacity: 0, top: ( dir == 1 ? '-' : '' ) + '100%', zIndex: 2 } );
                     el.append( newBox );
-                    newBox.animate( { top: 0 }, {
+                    newBox.animate( { opacity: 1, top: 0 }, {
                         complete: function () {
                             orgBox.remove();
                             newBox.css( { zIndex: 1 } );
