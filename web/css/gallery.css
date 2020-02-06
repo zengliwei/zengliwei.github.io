@@ -121,8 +121,15 @@ main .section .cover img {
 
 main .section:first-child,
 main .section:last-child {
-    height: 20%;
     opacity: .4;
+}
+
+main .section:first-child {
+    height: calc( 20% - 23px );
+}
+
+main .section:last-child {
+    height: calc( 20% + 23px );
 }
 
 main .section:first-child h2 > span,
