@@ -50,8 +50,10 @@ main {
 }
 
 main .section {
+    box-shadow: 0 0 10px #000;
     height: 60%;
     position: relative;
+    z-index: 2;
 }
 
 main .section h2 {
@@ -111,7 +113,7 @@ main .section .cover {
 
 main .section .cover a {
     display: block;
-    margin: -20% 0 0;
+    margin: -15% 0 0;
 }
 
 main .section .cover img {
@@ -119,21 +121,24 @@ main .section .cover img {
     width: 100%;
 }
 
-main .section:first-child,
-main .section:last-child {
-    opacity: .4;
-}
-
 main .section:first-child {
     height: calc( 20% - 23px );
+    z-index: 1;
 }
 
 main .section:last-child {
     height: calc( 20% + 23px );
+    z-index: 1;
+}
+
+main .section:first-child .cover,
+main .section:last-child .cover {
+    opacity: .4;
 }
 
 main .section:first-child h2 > span,
 main .section:last-child h2 > span {
+    color: #ccc;
     font-size: 20px;
     line-height: 40px;
     padding: 0 20px;
