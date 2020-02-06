@@ -1,0 +1,191 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    user-select: none;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background: #000;
+    color: #fff;
+    font: 16px/26px Consolas, Arial, Helvetica, sans-serif;
+    height: 100%;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header {
+    position: fixed;
+    right: 20px;
+    text-align: right;
+    top: 50px;
+    width: 200px;
+    z-index: 3;
+}
+
+header nav li {
+    list-style: none;
+}
+
+header nav > ul > li > a span {
+    font-size: 24px;
+}
+
+header nav > ul > li > ul {
+    padding: 5px 0 10px;
+}
+
+main {
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+main .section {
+    height: 60%;
+    position: relative;
+}
+
+main .section h2 {
+    font-weight: normal;
+    position: relative;
+    z-index: 2;
+}
+
+main .section h2 > span {
+    display: block;
+    float: left;
+    font-size: 28px;
+    line-height: 60px;
+    padding: 0 30px;
+    position: relative;
+    z-index: 2;
+}
+
+main .section h2 > span:before {
+    background: #000;
+    content: '';
+    left: 0;
+    height: 100%;
+    opacity: .6;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+main .section h2 > span span {
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+main .section h2:after {
+    border: solid 30px;
+    border-color: #000 transparent transparent #000;
+    content: '';
+    display: block;
+    float: left;
+    height: 0;
+    opacity: .6;
+    width: 0;
+}
+
+main .section .cover {
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+main .section .cover a {
+    display: block;
+    margin: -20% 0 0;
+}
+
+main .section .cover img {
+    display: block;
+    width: 100%;
+}
+
+main .section:first-child,
+main .section:last-child {
+    height: 20%;
+    opacity: .4;
+}
+
+main .section:first-child h2 > span,
+main .section:last-child h2 > span {
+    font-size: 20px;
+    line-height: 40px;
+    padding: 0 20px;
+}
+
+main .section:first-child h2:after,
+main .section:last-child h2:after {
+    border-width: 20px;
+}
+
+footer {
+    bottom: 0;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}
+
+footer:before {
+    background: #000;
+    content: '';
+    left: 0;
+    height: 100%;
+    opacity: .4;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+footer nav {
+    float: left;
+    position: relative;
+    z-index: 2;
+}
+
+footer nav ul:after {
+    clear: both;
+    content: '';
+    display: block;
+    height: 0;
+}
+
+footer nav ul > li {
+    float: left;
+    list-style: none;
+    padding: 0 15px;
+}
+
+footer .copyright {
+    float: right;
+    font-size: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+footer:after {
+    clear: both;
+    content: '';
+    display: block;
+    height: 0;
+}

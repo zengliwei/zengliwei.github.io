@@ -82,7 +82,6 @@ header .main-menu {
     margin: 0 auto;
     padding: 0 15px;
     position: relative;
-    width: 1000px;
 }
 
 /* level 1 */
@@ -132,6 +131,11 @@ header .main-menu > ul > li > ul {
     top: 100%;
 }
 
+header .main-menu > ul > li:last-child > ul {
+    left: auto;
+    right: 30px;
+}
+
 header .main-menu > ul > li:hover > ul {
     display: block;
 }
@@ -154,7 +158,7 @@ header .main-menu > ul > li > ul > li {
 }
 
 header .main-menu > ul > li > ul > li a {
-    display: block;
+    display: inline-block;
     font-size: 14px;
     padding: 5px 15px;
     text-decoration: none;
