@@ -65,7 +65,7 @@
             <a href="/">Zengliwei</a>
         </div>
     </footer>
-    <link rel="stylesheet" type="text/css" href="web/css/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="web/css/jquery.fancybox.min.css" />
     <script src="web/js/jquery.js" type="text/javascript"></script>
     <script src="web/js/jquery.fancybox.min.js" type="text/javascript"></script>
     <script src="web/js/jquery.mousewheel-3.0.6.min.js" type="text/javascript"></script>
@@ -76,60 +76,60 @@
                     '02': {
                         title: 'February',
                         images: [
-                            { img: '01.jpg' },
-                            { img: '02.jpg' },
-                            { img: '03.jpg' },
-                            { img: '04.jpg' },
-                            { img: '05.jpg' }
+                            { name: '01.jpg' },
+                            { name: '02.jpg' },
+                            { name: '03.jpg' },
+                            { name: '04.jpg' },
+                            { name: '05.jpg' }
                         ]
                     },
                     '03': {
                         title: 'March',
                         images: [
-                            { img: '01.jpg' },
-                            { img: '02.jpg' },
-                            { img: '03.jpg' },
-                            { img: '04.jpg' },
-                            { img: '05.jpg' },
-                            { img: '06.jpg' },
-                            { img: '07.jpg' },
-                            { img: '08.jpg' }
+                            { name: '01.jpg' },
+                            { name: '02.jpg' },
+                            { name: '03.jpg' },
+                            { name: '04.jpg' },
+                            { name: '05.jpg' },
+                            { name: '06.jpg' },
+                            { name: '07.jpg' },
+                            { name: '08.jpg' }
                         ]
                     },
                     '04-a': {
                         title: 'April',
                         images: [
-                            { img: '01.jpg' },
-                            { img: '02.jpg' },
-                            { img: '03.jpg' },
-                            { img: '04.jpg' }
+                            { name: '01.jpg' },
+                            { name: '02.jpg' },
+                            { name: '03.jpg' },
+                            { name: '04.jpg' }
                         ]
                     },
                     '04-b': {
                         title: 'April',
                         images: [
-                            { img: '01.jpg' },
-                            { img: '02.jpg' },
-                            { img: '03.jpg' },
-                            { img: '04.jpg' }
+                            { name: '01.jpg' },
+                            { name: '02.jpg' },
+                            { name: '03.jpg' },
+                            { name: '04.jpg' }
                         ]
                     },
                     '05': {
                         title: 'May',
                         images: [
-                            { img: '01.jpg' },
-                            { img: '02.jpg' },
-                            { img: '03.jpg' },
-                            { img: '04.jpg' }
+                            { name: '01.jpg' },
+                            { name: '02.jpg' },
+                            { name: '03.jpg' },
+                            { name: '04.jpg' }
                         ]
                     },
                     '06': {
                         title: 'June',
                         images: [
-                            { img: '01.jpg' },
-                            { img: '02.jpg' },
-                            { img: '03.jpg' },
-                            { img: '04.jpg' }
+                            { name: '01.jpg' },
+                            { name: '02.jpg' },
+                            { name: '03.jpg' },
+                            { name: '04.jpg' }
                         ]
                     }
                 },
@@ -151,8 +151,11 @@
                     };
                     for ( let i = 0; i < source[year][month]['images'].length; i++ ) {
                         group['gallery'].push( {
-                            src: 'media/gallery/' + year + '/' + month + '/' + source[year][month]['images'][i],
-                            opts: { thumb: 'media/gallery/' + year + '/' + month + '/thumb/' + source[year][month]['images'][i] }
+                            src: 'media/gallery/' + year + '/' + month + '/' + source[year][month]['images'][i]['name'],
+                            opts: {
+                                thumbs: { autoStart: true },
+                                thumb: 'media/gallery/' + year + '/' + month + '/thumb/' + source[year][month]['images'][i]['name']
+                            }
                         } );
                     }
                     groups.push( group );
@@ -167,8 +170,8 @@
                 if ( tmp == -1 || tmp == groups.length - 3 ) {
                     return;
                 }
-                onAnimating = true;
                 current = tmp;
+                onAnimating = true;
                 let completed = 0;
                 elSections.each( function ( i, el ) {
                     el = $( el );
@@ -188,6 +191,11 @@
                             }
                         }
                     } );
+                    if ( i === 1 ) {
+                        newBox.find( 'a' ).on( 'click', function () {
+                            $.fancybox.open( groups[num]['gallery'] );
+                        } );
+                    }
                 } );
             };
 
