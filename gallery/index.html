@@ -142,6 +142,83 @@
             let onAnimating = false;
             let elSections = $( 'main > .section' );
 
+            let elLoader = $( '<div class="loader"></div>' );
+            $( 'body' ).append( elLoader.hide() );
+
+            let loadImage = function ( src ) {
+                let img = new Image();
+                img.src = src;
+
+                let imgProgress = $.Deferred();
+                if ( img.complete ) {
+                    imgProgress.resolve();
+                }
+                else {
+                    $( img ).on( 'load', function () {
+                        imgProgress.resolve();
+                    } );
+                }
+                return imgProgress;
+            };
+
+            let switchGallery = function ( dir ) {
+                let tmp = current - dir;
+                if ( tmp == -1 || tmp == groups.length - 3 ) {
+                    return;
+                }
+                current = tmp;
+
+                if ( onAnimating ) {
+                    return;
+                }
+                onAnimating = true;
+
+                /**
+                 * Load images
+                 */
+                elLoader.show();
+                let imgProgresses = [];
+                elSections.each( function ( i, el ) {
+                    imgProgresses.push( loadImage( groups[current + i]['cover'] ) );
+                } );
+                $.when.apply( null, imgProgresses ).done( function () {
+                    elLoader.hide();
+                } );
+
+                /**
+                 * Slide images
+                 */
+                let slideProgresses = [];
+                elSections.each( function ( i, el ) {
+                    el = $( el );
+                    let orgBox = el.find( '.box' );
+                    let num = current + i;
+                    let newBox = $( '<div class="box"></div>' );
+                    let html = '<h2><span><span>' + groups[num]['title'] + '</span></span></h2>' +
+                        '<div class="cover"><a href="javascript:;"><img src="' + groups[num]['cover'] + '" /></a></div>';
+                    newBox.append( html ).css( { opacity: 0, top: ( dir == 1 ? '-' : '' ) + '100%', zIndex: 2 } );
+                    el.append( newBox );
+
+                    let slideProgress = $.Deferred();
+                    slideProgresses.push( slideProgress );
+                    newBox.animate( { opacity: 1, top: 0 }, {
+                        complete: function () {
+                            orgBox.remove();
+                            newBox.css( { zIndex: 1 } );
+                            slideProgress.resolve();
+                        }
+                    } );
+                    if ( i === 1 ) {
+                        newBox.find( 'a' ).on( 'click', function () {
+                            $.fancybox.open( groups[num]['gallery'] );
+                        } );
+                    }
+                } );
+                $.when.apply( null, slideProgresses ).done( function () {
+                    onAnimating = false;
+                } );
+            };
+
             for ( let year in source ) {
                 for ( let month in source[year] ) {
                     let group = {
@@ -161,43 +238,6 @@
                     groups.push( group );
                 }
             }
-
-            let switchGallery = function ( dir ) {
-                if ( onAnimating ) {
-                    return;
-                }
-                let tmp = current - dir;
-                if ( tmp == -1 || tmp == groups.length - 3 ) {
-                    return;
-                }
-                current = tmp;
-                onAnimating = true;
-                let completed = 0;
-                elSections.each( function ( i, el ) {
-                    el = $( el );
-                    let orgBox = el.find( '.box' );
-                    let num = current + i;
-                    let newBox = $( '<div class="box"></div>' );
-                    let html = '<h2><span><span>' + groups[num]['title'] + '</span></span></h2>' +
-                        '<div class="cover"><a href="javascript:;"><img src="' + groups[num]['cover'] + '" /></a></div>';
-                    newBox.append( html ).css( { opacity: 0, top: ( dir == 1 ? '-' : '' ) + '100%', zIndex: 2 } );
-                    el.append( newBox );
-                    newBox.animate( { opacity: 1, top: 0 }, {
-                        complete: function () {
-                            orgBox.remove();
-                            newBox.css( { zIndex: 1 } );
-                            if ( ++completed == elSections.length ) {
-                                onAnimating = false;
-                            }
-                        }
-                    } );
-                    if ( i === 1 ) {
-                        newBox.find( 'a' ).on( 'click', function () {
-                            $.fancybox.open( groups[num]['gallery'] );
-                        } );
-                    }
-                } );
-            };
 
             $( document ).on( 'mousewheel', function ( evt, dir ) {
                 switchGallery( dir > 0 ? -1 : 1 );

@@ -147,11 +147,14 @@ main .section .box .cover {
 main .section .box .cover a {
     display: block;
     margin: -15% 0 0;
+    position: relative;
 }
 
 main .section .box .cover img {
     display: block;
+    position: relative;
     width: 100%;
+    z-index: 1;
 }
 
 main .section:first-child {
@@ -164,9 +167,17 @@ main .section:last-child {
     z-index: 1;
 }
 
-main .section:first-child .box .cover,
-main .section:last-child .box .cover {
+main .section:first-child .box .cover a:after,
+main .section:last-child .box .cover a:after {
+    background: #000;
+    content: '';
+    left: 0;
+    height: 100%;
     opacity: .4;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 2;
 }
 
 main .section:first-child .box h2 > span,
@@ -233,4 +244,34 @@ footer:after {
     content: '';
     display: block;
     height: 0;
+}
+
+div.loader {
+    left: 0;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 99999;
+}
+
+div.loader:before {
+    background: #000;
+    content: '';
+    left: 0;
+    height: 100%;
+    opacity: .6;
+    position: absolute;
+    width: 100%;
+    top: 0;
+}
+
+div.loader:after {
+    background: url(../images/loading.gif) center center no-repeat;
+    content: '';
+    left: calc( 50% - 64px );
+    height: 38px;
+    position: absolute;
+    width: 128px;
+    top: 40%;
 }
