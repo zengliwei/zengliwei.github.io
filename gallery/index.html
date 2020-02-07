@@ -35,7 +35,7 @@
         <div class="section">
             <div class="box">
                 <h2><span><span>浮光掠影</span></span></h2>
-                <div class="cover"><a href="javascript:;"><img src="media/gallery/2017/04-a/cover.jpg" /></a></div>
+                <div class="cover"><a href="javascript:;"><img src="media/gallery/default.jpg" /></a></div>
             </div>
         </div>
         <div class="section">
@@ -123,13 +123,12 @@
                             { name: '04.jpg' }
                         ]
                     },
-                    '06': {
+                    '06-a': {
                         title: 'June',
                         images: [
                             { name: '01.jpg' },
                             { name: '02.jpg' },
-                            { name: '03.jpg' },
-                            { name: '04.jpg' }
+                            { name: '03.jpg' }
                         ]
                     }
                 },
@@ -167,9 +166,20 @@
                     el = $( el );
                     let orgBox = el.find( '.box' );
                     let newBox = $( '<div class="box"></div>' );
-                    let num = current + i;
-                    let html = '<h2><span><span>' + groups[num]['title'] + '</span></span></h2>' +
-                        '<div class="cover"><a href="javascript:;"><img src="' + groups[num]['cover'] + '" /></a></div>';
+                    let num = current + i - 1;
+
+                    let title, cover;
+                    if ( num >= 0 && num < groups.length ) {
+                        title = groups[num]['title'];
+                        cover = groups[num]['cover'];
+                    }
+                    else {
+                        title = '浮光掠影';
+                        cover = 'media/gallery/default.jpg';
+                    }
+
+                    let html = '<h2><span><span>' + title + '</span></span></h2>' +
+                        '<div class="cover"><a href="javascript:;"><img src="' + cover + '" /></a></div>';
                     newBox.append( html ).css( { opacity: 0, top: ( dir == 1 ? '-' : '' ) + '100%', zIndex: 2 } );
                     el.append( newBox );
 
@@ -193,16 +203,16 @@
                 } );
             };
 
-            let switchGallery = function ( dir ) {
-                let tmp = current - dir;
-                if ( tmp == -1 || tmp == groups.length - 3 ) {
+            let switchGallery = function ( num ) {
+                if ( num < 0 || num > groups.length - 1 ) {
                     return;
                 }
                 if ( onAnimating ) {
                     return;
                 }
 
-                current = tmp;
+                let dir = current > num ? -1 : 1;
+                current = num;
                 onAnimating = true;
 
                 /**
@@ -211,8 +221,10 @@
                 elLoader.show();
                 let imgProgresses = [];
                 elSections.each( function ( i ) {
-                    let result = loadImage( groups[current + i]['cover'] );
-                    imgProgresses.push( result.progress );
+                    if ( groups[current + i] ) {
+                        let result = loadImage( groups[current + i]['cover'] );
+                        imgProgresses.push( result.progress );
+                    }
                 } );
                 $.when.apply( null, imgProgresses ).done( function () {
                     elLoader.hide();
@@ -241,7 +253,7 @@
             }
 
             $( document ).on( 'mousewheel', function ( evt, dir ) {
-                switchGallery( dir > 0 ? -1 : 1 );
+                switchGallery( dir > 0 ? current - 1 : current + 1 );
             } );
         } );
     </script>
