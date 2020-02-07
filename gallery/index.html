@@ -149,51 +149,25 @@
                 let img = new Image();
                 img.src = src;
 
-                let imgProgress = $.Deferred();
+                let progress = $.Deferred();
                 if ( img.complete ) {
-                    imgProgress.resolve();
+                    progress.resolve();
                 }
                 else {
                     $( img ).on( 'load', function () {
-                        imgProgress.resolve();
+                        progress.resolve();
                     } );
                 }
-                return imgProgress;
+                return { img: img, progress: progress };
             };
 
-            let switchGallery = function ( dir ) {
-                let tmp = current - dir;
-                if ( tmp == -1 || tmp == groups.length - 3 ) {
-                    return;
-                }
-                current = tmp;
-
-                if ( onAnimating ) {
-                    return;
-                }
-                onAnimating = true;
-
-                /**
-                 * Load images
-                 */
-                elLoader.show();
-                let imgProgresses = [];
-                elSections.each( function ( i, el ) {
-                    imgProgresses.push( loadImage( groups[current + i]['cover'] ) );
-                } );
-                $.when.apply( null, imgProgresses ).done( function () {
-                    elLoader.hide();
-                } );
-
-                /**
-                 * Slide images
-                 */
+            let slideImages = function ( current, dir ) {
                 let slideProgresses = [];
                 elSections.each( function ( i, el ) {
                     el = $( el );
                     let orgBox = el.find( '.box' );
-                    let num = current + i;
                     let newBox = $( '<div class="box"></div>' );
+                    let num = current + i;
                     let html = '<h2><span><span>' + groups[num]['title'] + '</span></span></h2>' +
                         '<div class="cover"><a href="javascript:;"><img src="' + groups[num]['cover'] + '" /></a></div>';
                     newBox.append( html ).css( { opacity: 0, top: ( dir == 1 ? '-' : '' ) + '100%', zIndex: 2 } );
@@ -216,6 +190,33 @@
                 } );
                 $.when.apply( null, slideProgresses ).done( function () {
                     onAnimating = false;
+                } );
+            };
+
+            let switchGallery = function ( dir ) {
+                let tmp = current - dir;
+                if ( tmp == -1 || tmp == groups.length - 3 ) {
+                    return;
+                }
+                if ( onAnimating ) {
+                    return;
+                }
+
+                current = tmp;
+                onAnimating = true;
+
+                /**
+                 * Load images
+                 */
+                elLoader.show();
+                let imgProgresses = [];
+                elSections.each( function ( i ) {
+                    let result = loadImage( groups[current + i]['cover'] );
+                    imgProgresses.push( result.progress );
+                } );
+                $.when.apply( null, imgProgresses ).done( function () {
+                    elLoader.hide();
+                    slideImages( current, dir );
                 } );
             };
 
