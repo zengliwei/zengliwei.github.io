@@ -173,7 +173,7 @@ main .section:last-child .box .cover a:after {
     content: '';
     left: 0;
     height: 100%;
-    opacity: .4;
+    opacity: .6;
     position: absolute;
     width: 100%;
     top: 0;
