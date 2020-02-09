@@ -14,6 +14,7 @@ require( [
     let groups = [];
     let onAnimating = false;
     let elSections = $( 'main > .section' );
+    let elNav = $( 'header nav' );
 
     let elLoader = $( '<div class="loader"></div>' );
     $( 'body' ).append( elLoader.hide() );
@@ -106,25 +107,48 @@ require( [
         } );
     };
 
+    let getNumByToken = function ( token ) {
+        for ( let num = 0; num < groups.length; num++ ) {
+            if ( token === groups[num]['token'] ) {
+                return num;
+            }
+        }
+        return null;
+    };
+
+    let navHtml = '<ul>';
     for ( let year in source ) {
-        for ( let month in source[year] ) {
+        navHtml += '<li data-role="year">' +
+            '<a href="gallery/#' + year + '"><span>' + year + '</span></a>' +
+            '<ul>';
+        for ( let set in source[year] ) {
+            let token = year + '-' + set;
+            navHtml += '<li data-role="group"><a href="gallery/#' + token + '"><span>' + source[year][set]['title'] + '</span></a></li>';
             let group = {
-                title: source[year][month]['title'] + ' ' + year,
-                cover: 'media/gallery/' + year + '/' + month + '/cover.jpg',
+                title: source[year][set]['title'] + ' ' + year,
+                cover: 'media/gallery/' + year + '/' + set + '/cover.jpg',
+                token: token,
                 gallery: []
             };
-            for ( let i = 0; i < source[year][month]['images'].length; i++ ) {
+            for ( let i = 0; i < source[year][set]['images'].length; i++ ) {
                 group['gallery'].push( {
-                    src: 'media/gallery/' + year + '/' + month + '/' + source[year][month]['images'][i]['name'],
+                    src: 'media/gallery/' + year + '/' + set + '/' + source[year][set]['images'][i]['name'],
                     opts: {
                         thumbs: { autoStart: true },
-                        thumb: 'media/gallery/' + year + '/' + month + '/thumb/' + source[year][month]['images'][i]['name']
+                        thumb: 'media/gallery/' + year + '/' + set + '/thumb/' + source[year][set]['images'][i]['name']
                     }
                 } );
             }
             groups.push( group );
         }
+        navHtml += '</ul></li>';
     }
+    navHtml += '</ul>';
+    elNav.html( navHtml );
+
+    elNav.find( '[data-role=group] a' ).on( 'click', function () {
+        switchGallery( getNumByToken( this.hash.substr( 1 ) ) );
+    } );
 
     $( document ).on( 'mousewheel', function ( evt, dir ) {
         switchGallery( dir > 0 ? current - 1 : current + 1 );

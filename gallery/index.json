@@ -24,7 +24,7 @@
       ]
     },
     "04-a": {
-      "title": "April",
+      "title": "April - A",
       "images": [
         {"name": "01.jpg"},
         {"name": "02.jpg"},
@@ -33,7 +33,7 @@
       ]
     },
     "04-b": {
-      "title": "April",
+      "title": "April - B",
       "images": [
         {"name": "01.jpg"},
         {"name": "02.jpg"},
@@ -51,7 +51,7 @@
       ]
     },
     "06-a": {
-      "title": "June",
+      "title": "June - A",
       "images": [
         {"name": "01.jpg"},
         {"name": "02.jpg"},
