@@ -41,7 +41,8 @@ require( [
             el = $( el );
             let orgBox = el.find( '.box' );
             let newBox = $( '<div class="box"></div>' );
-            let num = current + i - 1;
+            //let num = current + i - 1;
+            let num = current + ( ( 2 - i ) % 3 ) - 1;
 
             let title, cover;
             if ( num >= 0 && num < groups.length ) {
@@ -116,34 +117,37 @@ require( [
         return null;
     };
 
-    let navHtml = '<ul>';
-    for ( let year in source ) {
-        navHtml += '<li data-role="year">' +
-            '<a href="gallery/#' + year + '"><span>' + year + '</span></a>' +
-            '<ul>';
-        for ( let set in source[year] ) {
-            let token = year + '-' + set;
-            navHtml += '<li data-role="group"><a href="gallery/#' + token + '"><span>' + source[year][set]['title'] + '</span></a></li>';
-            let group = {
-                title: source[year][set]['title'] + ' ' + year,
-                cover: 'media/gallery/' + year + '/' + set + '/cover.jpg',
-                token: token,
-                gallery: []
-            };
-            for ( let i = 0; i < source[year][set]['images'].length; i++ ) {
-                group['gallery'].push( {
-                    src: 'media/gallery/' + year + '/' + set + '/' + source[year][set]['images'][i]['name'],
-                    opts: {
-                        thumbs: { autoStart: true },
-                        thumb: 'media/gallery/' + year + '/' + set + '/thumb/' + source[year][set]['images'][i]['name']
-                    }
-                } );
-            }
-            groups.push( group );
+    let navHtml = '<ul>', year = null;
+    for ( let g = 0; g < source.length; g++ ) {
+        let token = source[g]['year'] + '-' + source[g]['token'];
+
+        if ( year !== source[g]['year'] ) {
+            navHtml += ( year !== null ? '</ul></li>' : '' ) +
+                '<li data-role="year">' +
+                '<a href="gallery/#' + source[g]['year'] + '"><span>' + source[g]['year'] + '</span></a>' +
+                '<ul>';
+            year = source[g]['year'];
         }
-        navHtml += '</ul></li>';
+        navHtml += '<li data-role="group"><a href="gallery/#' + token + '"><span>' + source[g]['title'] + '</span></a></li>';
+
+        let group = {
+            title: source[g]['title'] + ' ' + source[g]['year'],
+            cover: 'media/gallery/' + source[g]['year'] + '/' + source[g]['token'] + '/cover.jpg',
+            token: token,
+            gallery: []
+        };
+        for ( let i = 0; i < source[g]['images'].length; i++ ) {
+            group['gallery'].push( {
+                src: 'media/gallery/' + source[g]['year'] + '/' + source[g]['token'] + '/' + source[g]['images'][i]['name'],
+                opts: {
+                    thumbs: { autoStart: true },
+                    thumb: 'media/gallery/' + source[g]['year'] + '/' + source[g]['token'] + '/thumb/' + source[g]['images'][i]['name']
+                }
+            } );
+        }
+        groups.push( group );
     }
-    navHtml += '</ul>';
+    navHtml += '</li></ul>';
     elNav.html( navHtml );
 
     elNav.find( '[data-role=group] a' ).on( 'click', function () {

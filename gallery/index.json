@@ -1,64 +1,41 @@
-{
-  "2017": {
-    "02": {
-      "title": "February",
-      "images": [
-        {"name": "01.jpg"},
-        {"name": "02.jpg"},
-        {"name": "03.jpg"},
-        {"name": "04.jpg"},
-        {"name": "05.jpg"}
-      ]
-    },
-    "03": {
-      "title": "March",
-      "images": [
-        {"name": "01.jpg"},
-        {"name": "02.jpg"},
-        {"name": "03.jpg"},
-        {"name": "04.jpg"},
-        {"name": "05.jpg"},
-        {"name": "06.jpg"},
-        {"name": "07.jpg"},
-        {"name": "08.jpg"}
-      ]
-    },
-    "04-a": {
-      "title": "April - A",
-      "images": [
-        {"name": "01.jpg"},
-        {"name": "02.jpg"},
-        {"name": "03.jpg"},
-        {"name": "04.jpg"}
-      ]
-    },
-    "04-b": {
-      "title": "April - B",
-      "images": [
-        {"name": "01.jpg"},
-        {"name": "02.jpg"},
-        {"name": "03.jpg"},
-        {"name": "04.jpg"}
-      ]
-    },
-    "05": {
-      "title": "May",
-      "images": [
-        {"name": "01.jpg"},
-        {"name": "02.jpg"},
-        {"name": "03.jpg"},
-        {"name": "04.jpg"}
-      ]
-    },
-    "06-a": {
-      "title": "June - A",
-      "images": [
-        {"name": "01.jpg"},
-        {"name": "02.jpg"},
-        {"name": "03.jpg"}
-      ]
-    }
+[
+  {
+    "year": "2017",
+    "token": "02",
+    "title": "February",
+    "images": [{"name": "01.jpg"}, {"name": "02.jpg"}, {"name": "03.jpg"}, {"name": "04.jpg"}, {"name": "05.jpg"}]
   },
-  "2018": {},
-  "2019": {}
-}
+  {
+    "year": "2017",
+    "token": "03",
+    "title": "March",
+    "images": [
+      {"name": "01.jpg"}, {"name": "02.jpg"}, {"name": "03.jpg"}, {"name": "04.jpg"}, {"name": "05.jpg"},
+      {"name": "06.jpg"}, {"name": "07.jpg"}, {"name": "08.jpg"}
+    ]
+  },
+  {
+    "year": "2017",
+    "token": "04-a",
+    "title": "April - A",
+    "images": [{"name": "01.jpg"}, {"name": "02.jpg"}, {"name": "03.jpg"}, {"name": "04.jpg"}]
+  },
+  {
+    "year": "2017",
+    "token": "04-b",
+    "title": "April - B",
+    "images": [{"name": "01.jpg"}, {"name": "02.jpg"}, {"name": "03.jpg"}, {"name": "04.jpg"}]
+  },
+  {
+    "year": "2017",
+    "token": "05",
+    "title": "May",
+    "images": [{"name": "01.jpg"}, {"name": "02.jpg"}, {"name": "03.jpg"}, {"name": "04.jpg"}]
+  },
+  {
+    "year": "2017",
+    "token": "06-a",
+    "title": "June - A",
+    "images": [{"name": "01.jpg"}, {"name": "02.jpg"}, {"name": "03.jpg"}]
+  }
+]
