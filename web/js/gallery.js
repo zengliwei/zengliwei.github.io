@@ -13,7 +13,8 @@ require( [
     let current = 0;
     let groups = [];
     let onAnimating = false;
-    let elSections = $( 'main > .section' );
+    let elMain = $( 'main' );
+    let elSections = elMain.find( '.section' );
     let elNav = $( 'header nav' );
 
     let elLoader = $( '<div class="loader"></div>' );
@@ -154,7 +155,7 @@ require( [
         switchGallery( getNumByToken( this.hash.substr( 1 ) ) );
     } );
 
-    $( document ).on( 'mousewheel', function ( evt, dir ) {
+    elMain.on( 'mousewheel', function ( evt, dir ) {
         switchGallery( dir > 0 ? current - 1 : current + 1 );
     } );
     switchGallery( 0 );
