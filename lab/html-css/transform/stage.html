@@ -1,13 +1,13 @@
 <!DOCTYPE>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="css,css3,html,html5,transform,rotate,translateX,translateY,translateZ" />
-    <meta name="description" content="HTML5 + CSS3 Demo, transform: stage" />
-    <base href="/" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="css,css3,html,html5,transform,rotate,translateX,translateY,translateZ"/>
+    <meta name="description" content="HTML5 + CSS3 Demo, transform: stage"/>
+    <base href="/"/>
     <title>transform - Stage</title>
-    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico" />
-    <style type="text/css">
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
+    <style>
         * {
             box-sizing: border-box;
             margin: 0;
@@ -64,7 +64,7 @@
             position: absolute;
             left: 20%;
             right: 20%;
-            top: 30%;
+            top: 32%;
             width: 60%;
 
             transform: translateY(50%) translateZ(280px);
@@ -80,11 +80,11 @@
 
         .stage .text p {
             color: #fff;
-            font: 28px/40px Consolas, Helvetica, Arial, sans-serif;
+            font: 24px/40px Consolas, Helvetica, Arial, sans-serif;
         }
 
         .stage .cloud-behind {
-            background: url('web/images/html/transform/cloud.webp');
+            background: url('web/images/html-css/transform/cloud.webp');
             background-size: 60%;
             opacity: .8;
             position: absolute;
@@ -96,7 +96,7 @@
         }
 
         .stage .cloud-front {
-            background: url('web/images/html/transform/cloud.webp');
+            background: url('web/images/html-css/transform/cloud.webp');
             background-size: 100%;
             opacity: .6;
             position: absolute;
@@ -127,7 +127,7 @@
     <div class="stage">
         <div class="container" data-role="bg">
             <div class="bg">
-                <img src="web/images/html/transform/bg.jpg" />
+                <img src="web/images/html-css/transform/bg-03.jpg"/>
             </div>
             <div class="cloud-behind"></div>
             <div class="text">
@@ -144,32 +144,33 @@
 
 <script src="web/js/jquery.js"></script>
 <script type="text/javascript">
-    jQuery( function( $ ) {
+    jQuery(function ($) {
 
-        let $win = $( window );
-        let $stage = $( '.stage' );
-        let $container = $stage.find( '.container' );
+        let $win = $(window);
+        let $stage = $('.stage');
+        let $container = $stage.find('.container');
 
-        let maxDegX = 10, maxDegY = 6;
+        let maxDegX = 20, maxDegY = 20;
 
         let winW, winH;
 
-        let updateStage = function() {
+        let updateStage = function () {
             winW = $win.outerWidth();
             winH = $win.outerHeight();
         };
-        $( window ).on( 'resize', updateStage );
+        $(window).on('resize', updateStage);
         updateStage();
 
-        $( document ).on( 'mousemove', function( evt ) {
+        $(document).on('mousemove', function (evt) {
+            console.log(evt.clientX + ', ' + evt.clientY);
             let x = (evt.clientX - winW / 2) / (winW / maxDegX);
             let y = (evt.clientY - winH / 2) / (winH / maxDegY);
-            $container.css( {
+            $container.css({
                 transform: 'rotateY(' + x + 'deg) rotateX(' + y + 'deg)'
-            } );
-        } );
+            });
+        });
 
-    } );
+    });
 </script>
 </body>
 </html>

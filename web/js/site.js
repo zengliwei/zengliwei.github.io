@@ -10,6 +10,9 @@ require( [
     let $header = $( 'header' );
     let $footer = $( 'footer' );
 
-    $footer.html( 'Copyright &copy; ' + ( new Date ).getFullYear() + ' <a href="/">Zengliwei</a>' );
+    let footerHtml = '<div>Copyright &copy; ' + ( new Date ).getFullYear() + ' <a href="/">Zengliwei</a></div>' +
+        '<div>ICP备案编号： 粤ICP备18048031号</div>';
+
+    $footer.html( footerHtml );
 
 } );
