@@ -70,32 +70,44 @@
         const $bgSections = $bg.find('section');
         const $sections = $main.find('section');
 
-        /**
-         * Stage update
-         */
+        let currentSection = 0;
         let winW, winH;
-        const updateStage = function () {
-            winW = $win.outerWidth();
-            winH = $win.outerHeight();
-        };
-        $(window).on('resize', updateStage);
 
-        /**
-         * Global effect on switching section
-         */
-        $doc.on('scroll', function () {
-            const dividerY = 0.4;
+        const updateStage = function () {
+            const dividerRatio = 0.4;
             $sections.each(function (i, el) {
                 const $el = $(el);
-                if ($el.offset().top + $el.outerHeight() - $win.scrollTop() <= winH * dividerY) {
+                const elTop = $el.offset().top;
+                const elBottom = elTop + $el.outerHeight();
+                const scrollTop = $win.scrollTop();
+                const dividerY = winH * dividerRatio;
+
+                if (elBottom - scrollTop <= dividerY) {
                     $el.addClass('read');
                     $bgSections.eq(i).addClass('read');
                 } else {
                     $el.removeClass('read');
                     $bgSections.eq(i).removeClass('read');
                 }
+
+                if (elTop - scrollTop <= dividerY
+                    && elBottom - scrollTop > dividerY
+                ) {
+                    currentSection = i;
+                    $el.addClass('current').siblings().removeClass('current');
+                    $bgSections.eq(i).addClass('current').siblings().removeClass('current');
+                    $nav.find('a').eq(i).addClass('current').siblings().removeClass('current');
+                }
             });
-        });
+        };
+        $doc.on('scroll', updateStage);
+
+        const intStage = function () {
+            winW = $win.outerWidth();
+            winH = $win.outerHeight();
+            updateStage();
+        };
+        $(window).on('resize', intStage);
 
         $nav.find('a').on('click', function (evt) {
             $('html, body').animate({
@@ -134,7 +146,7 @@
         };
 
         initSectionA();
-        updateStage();
+        intStage();
 
     });
 </script>

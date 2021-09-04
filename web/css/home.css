@@ -1,3 +1,13 @@
+@font-face {
+    font-family:'Awesome Solid'; font-style:normal; font-weight:900;
+    src: url(../fonts/fa-solid-900.eot);
+    src: url(../fonts/fa-solid-900.eot?#iefix) format('embedded-opentype'),
+    url(../fonts/fa-solid-900.woff2) format('woff2'),
+    url(../fonts/fa-solid-900.woff) format('woff'),
+    url(../fonts/fa-solid-900.ttf) format('truetype'),
+    url(../fonts/fa-solid-900.svg#fontawesome) format('svg');
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -79,6 +89,14 @@ body > nav > a span {
 
 body > nav > a:hover {
     text-shadow: 0 0 12px #FFFDE7;
+}
+
+body > nav > a.current:before {
+    content: '\f104';
+    font-family: 'Awesome Solid';
+    position: absolute;
+    right: 16px;
+    top: 7px;
 }
 
 body > main {
