@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    outline: none;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font: 14px/24px Verdana, Arial, sans-serif;
+    height: 100%;
+}
+
+body > .bg {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+body > .bg > section {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+body > .bg .container {
+    position: absolute;
+    bottom: -15%;
+    left: -15%;
+    right: -15%;
+    top: -15%;
+    transform-style: preserve-3d;
+}
+
+body > .bg .container img {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+body > nav {
+    position: fixed;
+    right: 0;
+    top: 35%;
+    z-index: 3;
+}
+
+body > nav > a {
+    color: #fff;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    text-align: right;
+    text-decoration: none;
+    transition: text-shadow .4s;
+}
+
+body > nav > a span {
+    display: block;
+    padding: 6px 32px;
+    position: relative;
+}
+
+body > nav > a:hover {
+    text-shadow: 0 0 12px #FFFDE7;
+}
+
+body > main {
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+body > main > section {
+    height: 100%;
+}
+
+body > main > section .wrapper {
+    padding: 30px;
+    bottom: 30%;
+    left: 280px;
+    right: 280px;
+    top: 20%;
+    position: absolute;
+}
+
+body > main > section .wrapper:before {
+    background: #000;
+    border-radius: 6px;
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    opacity: .4;
+}
+
+body > main > section article {
+    color: #fff;
+    position: relative;
+}
+
+body > main > section article h1 {
+    font-size: 32px;
+    margin-bottom: 48px;
+}
+
+body > main > section article p {
+    margin-bottom: 15px;
+}
+

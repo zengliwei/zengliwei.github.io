@@ -1,18 +1,33 @@
 /**
+ * RequireJS config
+ */
+require.config({
+    waitSeconds: 0,
+    paths: {
+        jquery: 'web/js/jquery',
+        text: 'web/js/text',
+        markdown: 'web/js/showdown.min',
+        mousewheel: 'web/js/jquery.mousewheel-3.0.6.min',
+        popup: 'web/js/jquery.fancybox.min',
+        scrollbar: 'web/js/jquery.mCustomScrollbar.min'
+    },
+    shim: {
+        mousewheel: {
+            deps: ['jquery']
+        },
+        scrollbar: {
+            deps: ['jquery', 'mousewheel']
+        }
+    }
+});
+
+/**
  * Web page rendering
  */
-require( [
+require([
     'jquery',
     'mousewheel',
     'scrollbar'
-], function ( $ ) {
+], function ($) {
 
-    let $header = $( 'header' );
-    let $footer = $( 'footer' );
-
-    let footerHtml = '<div>Copyright &copy; ' + ( new Date ).getFullYear() + ' <a href="/">Zengliwei</a></div>' +
-        '<div>ICP备案编号： 粤ICP备18048031号</div>';
-
-    $footer.html( footerHtml );
-
-} );
+});

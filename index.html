@@ -1,39 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
-    <base href="/" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <base href="/"/>
     <title>Zengliwei</title>
-    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="web/css/styles.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="web/css/home.css"/>
 </head>
-<body class="home">
-    <header>
-        <div class="motto"></div>
-        <div class="main-menu">
-            <ul>
-                <li>
-                    <a href="javascript:;"><span>My Life</span></a>
-                    <ul>
-                        <li><a href="thinking"><span>随心所想</span></a></li>
-                        <li><a href="gallery"><span>浮光掠影</span></a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;"><span>About Work</span></a>
-                    <ul>
-                        <li><a target="_blank" href="https://magento2cn.github.io/"><span>Magento 2 笔记</span></a></li>
-                        <li><a target="_blank" href="https://crazy-cats.github.io/"><span>CrazyCat 框架</span></a></li>
-                        <li><a href="lab"><span>Demos</span></a></li>
-                        <li><a target="_blank" href="https://magento2cn.github.io/appendices/tools/"><span>Tools</span></a></li>
-                    </ul>
-                </li>
-            </ul>
+<body>
+
+<div class="bg" data-role="bg">
+    <section>
+        <div class="container" data-key="a"><img src="web/images/bg-3.jpg"/></div>
+    </section>
+    <section>
+    </section>
+</div>
+
+<main>
+    <section>
+        <div class="wrapper">
+            <article>
+                <h1>我是 Zengliwei</h1>
+                <p>苏格拉底曾经说过：“除了自己的无知，我一无所知。（I know nothing except the fact of my ignorance.）”</p>
+                <p>不管别人是如何解读，对于我来说，这句话是用来时刻提醒自己，一个人的所知永远有限。特别是在现在这个信息发达的互联网时代，技术更迭日新月异。作为一个开发者，更是需要不断深化学习、开阔知识面，才能在未来的社会继续生存。</p>
+                <p>学习新知识需要基础，自然离不开对旧知识的整理与甄别。这里记录了我在开发过程中遇到的问题和解决方案，以及部分解题过程，为日后作参考。</p>
+            </article>
         </div>
-    </header>
-    <script src="web/js/require.js" type="text/javascript"></script>
-    <script src="web/js/require-config.js" type="text/javascript"></script>
-    <script src="web/js/site.js" type="text/javascript"></script>
+    </section>
+    <section>
+
+    </section>
+</main>
+
+<nav>
+    <a href="notes"><span>Notes</span></a>
+    <a href="notes"><span>Resources</span></a>
+    <a href="profile"><span>Profile</span></a>
+    <a href="lab"><span>Lab</span></a>
+</nav>
+
+<script src="web/js/require.js" type="text/javascript"></script>
+<script>
+    require.config({
+        waitSeconds: 0,
+        paths: {
+            jquery: 'web/js/jquery'
+        }
+    });
+
+    require(['jquery'], function ($) {
+
+        const $win = $(window);
+        const $doc = $(document);
+        const $bg = $('[data-role="bg"]');
+        const $main = $('body > main');
+
+        let winW, winH;
+        const updateStage = function () {
+            winW = $win.outerWidth();
+            winH = $win.outerHeight();
+        };
+        updateStage();
+        $(window).on('resize', updateStage);
+
+        let transformData = {
+            a: {translateX: 0, translateY: 0, scale: 1}
+        };
+
+        const updateTransform = function (el) {
+            const t = transformData[el.data('key')];
+            console.log(t)
+            el.css('transform', 'translate(' + t.translateX + 'px, ' + t.translateY + 'px) scale(' + t.scale + ')');
+        };
+
+        const initSectionA = function () {
+            const $containerA = $bg.find('section .container').eq(0);
+            const $sectionA = $main.find('section').eq(0);
+            const ratio = 0.01;
+
+            $doc.on('mousemove', function (evt) {
+                transformData.a.translateX = (winW / 2 - evt.clientX) * ratio;
+                transformData.a.translateY = (winH / 2 - evt.clientY) * ratio;
+                updateTransform($containerA);
+            });
+
+            $doc.on('scroll', function (evt) {
+                transformData.a.scale = 1 + $win.scrollTop() / $sectionA.outerHeight() * 0.2;
+                updateTransform($containerA);
+            });
+        };
+
+
+        initSectionA();
+
+    });
+</script>
 </body>
 </html>
