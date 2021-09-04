@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <base href="/"/>
-    <title>Zengliwei</title>
+    <title>我是 Zengliwei</title>
     <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="web/css/home.css"/>
 </head>
@@ -14,8 +14,9 @@
     <section>
         <div class="container" data-key="a"><img src="web/images/bg-3.jpg"/></div>
     </section>
-    <section>
-    </section>
+    <section></section>
+    <section></section>
+    <section></section>
 </div>
 
 <main>
@@ -65,29 +66,60 @@
         const $doc = $(document);
         const $bg = $('[data-role="bg"]');
         const $main = $('body > main');
+        const $nav = $('body > nav');
+        const $bgSections = $bg.find('section');
+        const $sections = $main.find('section');
 
+        /**
+         * Stage update
+         */
         let winW, winH;
         const updateStage = function () {
             winW = $win.outerWidth();
             winH = $win.outerHeight();
         };
-        updateStage();
         $(window).on('resize', updateStage);
 
-        let transformData = {
-            a: {translateX: 0, translateY: 0, scale: 1}
-        };
+        /**
+         * Global effect on switching section
+         */
+        $doc.on('scroll', function () {
+            const dividerY = 0.4;
+            $sections.each(function (i, el) {
+                const $el = $(el);
+                if ($el.offset().top + $el.outerHeight() - $win.scrollTop() <= winH * dividerY) {
+                    $el.addClass('read');
+                    $bgSections.eq(i).addClass('read');
+                } else {
+                    $el.removeClass('read');
+                    $bgSections.eq(i).removeClass('read');
+                }
+            });
+        });
 
-        const updateTransform = function (el) {
-            const t = transformData[el.data('key')];
-            console.log(t)
-            el.css('transform', 'translate(' + t.translateX + 'px, ' + t.translateY + 'px) scale(' + t.scale + ')');
-        };
+        $nav.find('a').on('click', function (evt) {
+            $('html, body').animate({
+                scrollTop: $(evt.currentTarget.hash).offset().top
+            }, {duration: 1000});
+            return false;
+        });
 
+        /**
+         * Section A initialization
+         */
         const initSectionA = function () {
-            const $containerA = $bg.find('section .container').eq(0);
-            const $sectionA = $main.find('section').eq(0);
+            const $containerA = $bgSections.find('.container').eq(0);
+            const $sectionA = $sections.eq(0);
             const ratio = 0.01;
+
+            let transformData = {
+                a: {translateX: 0, translateY: 0, scale: 1}
+            };
+
+            const updateTransform = function (el) {
+                const t = transformData[el.data('key')];
+                el.css('transform', 'translate(' + t.translateX + 'px, ' + t.translateY + 'px) scale(' + t.scale + ')');
+            };
 
             $doc.on('mousemove', function (evt) {
                 transformData.a.translateX = (winW / 2 - evt.clientX) * ratio;
@@ -101,8 +133,8 @@
             });
         };
 
-
         initSectionA();
+        updateStage();
 
     });
 </script>

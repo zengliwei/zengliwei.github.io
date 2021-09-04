@@ -3,6 +3,7 @@
     margin: 0;
     outline: none;
     padding: 0;
+    user-select: none;
 }
 
 html {
@@ -10,6 +11,7 @@ html {
 }
 
 body {
+    background: #000;
     font: 14px/24px Verdana, Arial, sans-serif;
     height: 100%;
 }
@@ -24,13 +26,15 @@ body > .bg {
 }
 
 body > .bg > section {
+    opacity: 1;
     position: relative;
     height: 100%;
     width: 100%;
+    transition: opacity .6s;
     z-index: 1;
 }
 
-body > .bg .container {
+body > .bg > section .container {
     position: absolute;
     bottom: -15%;
     left: -15%;
@@ -39,11 +43,15 @@ body > .bg .container {
     transform-style: preserve-3d;
 }
 
-body > .bg .container img {
+body > .bg > section .container img {
     display: block;
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+
+body > .bg > section.read {
+    opacity: 0;
 }
 
 body > nav {
@@ -84,7 +92,7 @@ body > main > section {
 }
 
 body > main > section .wrapper {
-    padding: 30px;
+    padding: 50px 50px 30px;
     bottom: 30%;
     left: 280px;
     right: 280px;
@@ -107,6 +115,8 @@ body > main > section .wrapper:before {
 
 body > main > section article {
     color: #fff;
+    height: 100%;
+    overflow: hidden;
     position: relative;
 }
 
