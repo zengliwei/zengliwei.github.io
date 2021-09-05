@@ -11,12 +11,14 @@
 <body>
 
 <div class="bg" data-role="bg">
-    <section>
-        <div class="container" data-key="a"><img src="web/images/bg-3.jpg"/></div>
+    <section class="profile">
+        <div class="container" data-key="a"><img src="web/images/bg-profile.jpg"/></div>
     </section>
-    <section></section>
-    <section></section>
-    <section></section>
+    <section class="notes">
+        <div id="starry-sky"></div>
+    </section>
+    <section class="resources"></section>
+    <section class="lab"></section>
 </div>
 
 <main>
@@ -25,16 +27,27 @@
             <article>
                 <h1>我是 Zengliwei</h1>
                 <p>我是一名走在全栈开发路上的程序员。</p>
-                <p>苏格拉底曾经说过：“除了自己的无知，我一无所知。（I know nothing except the fact of my ignorance.）”</p>
+                <p>苏格拉底说过：“除了自己的无知，我一无所知。（I know nothing except the fact of my ignorance.）”</p>
                 <p>
                     不管别人是如何解读，对于我来说，这句话是用来时刻提醒自己，一个人的所知永远有限。特别是在现在这个信息发达的互联网时代，技术更迭日新月异。作为一个开发者，更是需要不断深化学习、开阔知识面，才能在未来的社会继续生存。</p>
                 <p>学习新知识需要基础，自然离不开对旧知识的整理与甄别。这里记录了我在开发过程中遇到的问题和解决方案，以作日后参考。</p>
-                <p>自学需要好的学习资源。这里收集了一些我过去中曾经访问过的，感觉不错的站点，方便以后持续深入学习。</p>
+                <p>自学需要好的资源。这里收集了一些我过去曾经访问过感觉不错的站点，方便以后持续深入学习。</p>
             </article>
         </div>
     </section>
     <section id="notes">
-
+        <div class="wrapper">
+            <h2>开发笔记 Notes</h2>
+            <article class="with-bg">
+                <a target="_blank" href="notes/php/common/array-to-xml.html">
+                    <h3>通过给定数组获得 XML</h3>
+                    <div class="summary">
+                        一个项目用到 XML 作为配置文件，需要把数组形式的数据转化为 XML 格式储存。由于只要创建 XML 文件，不用进行复杂的更新操作，于是选择 SimpleXMLElement 进行开发。
+                    </div>
+                    <div class="info"><span>2021-09-05</span></div>
+                </a>
+            </article>
+        </div>
     </section>
     <section id="resources">
 
@@ -45,36 +58,31 @@
 </main>
 
 <nav>
-    <a href="#profile"><span>Profile</span></a>
+    <a href="#profile" class="current"><span>Profile</span></a>
     <a href="#notes"><span>Notes</span></a>
     <a href="#resources"><span>Resources</span></a>
     <a href="#lab"><span>Lab</span></a>
 </nav>
 
-<script src="web/js/require.js" type="text/javascript"></script>
+<script src="web/js/lib/require.js" type="text/javascript"></script>
+<script src="web/js/require-config.js" type="text/javascript"></script>
 <script>
-    require.config({
-        waitSeconds: 0,
-        paths: {
-            jquery: 'web/js/jquery'
-        }
-    });
-
-    require(['jquery'], function ($) {
+    require(['jquery', '/web/js/starry-sky.js'], function ($) {
 
         const $win = $(window);
         const $doc = $(document);
+        const $scrollBody = $('html, body');
         const $bg = $('[data-role="bg"]');
         const $main = $('body > main');
         const $nav = $('body > nav');
         const $bgSections = $bg.find('section');
         const $sections = $main.find('section');
+        const dividerRatio = 0.4;
 
         let currentSection = 0;
         let winW, winH;
 
         const updateStage = function () {
-            const dividerRatio = 0.4;
             $sections.each(function (i, el) {
                 const $el = $(el);
                 const elTop = $el.offset().top;
@@ -96,32 +104,39 @@
                     currentSection = i;
                     $el.addClass('current').siblings().removeClass('current');
                     $bgSections.eq(i).addClass('current').siblings().removeClass('current');
-                    $nav.find('a').eq(i).addClass('current').siblings().removeClass('current');
                 }
             });
         };
-        $doc.on('scroll', updateStage);
 
         const intStage = function () {
             winW = $win.outerWidth();
             winH = $win.outerHeight();
             updateStage();
         };
-        $(window).on('resize', intStage);
 
-        $nav.find('a').on('click', function (evt) {
-            $('html, body').animate({
-                scrollTop: $(evt.currentTarget.hash).offset().top
-            }, {duration: 1000});
-            return false;
-        });
+        const initActions = function () {
+            $nav.find('a').on('click', function (evt) {
+                $(evt.currentTarget).addClass('current').siblings().removeClass('current');
+                $scrollBody.animate({
+                    scrollTop: $(evt.currentTarget.hash).offset().top
+                }, {duration: 1000});
+                return false;
+            });
+
+            $doc.on('scroll', updateStage);
+            $(window).on('resize', intStage);
+
+            setTimeout(function () {
+                $scrollBody.scrollTop(0);
+            }, 100);
+        };
 
         /**
-         * Section A initialization
+         * Section Profile initialization
          */
-        const initSectionA = function () {
-            const $containerA = $bgSections.find('.container').eq(0);
-            const $sectionA = $sections.eq(0);
+        const initSectionProfile = function () {
+            const $containerProfile = $bgSections.find('.container').eq(0);
+            const $sectionProfile = $sections.eq(0);
             const ratio = 0.01;
 
             let transformData = {
@@ -136,16 +151,26 @@
             $doc.on('mousemove', function (evt) {
                 transformData.a.translateX = (winW / 2 - evt.clientX) * ratio;
                 transformData.a.translateY = (winH / 2 - evt.clientY) * ratio;
-                updateTransform($containerA);
+                updateTransform($containerProfile);
             });
 
             $doc.on('scroll', function (evt) {
-                transformData.a.scale = 1 + $win.scrollTop() / $sectionA.outerHeight() * 0.2;
-                updateTransform($containerA);
+                transformData.a.scale = 1 + $win.scrollTop() / $sectionProfile.outerHeight() * 0.2;
+                updateTransform($containerProfile);
             });
         };
 
-        initSectionA();
+        const initSectionNote = function () {
+            // get sha https://api.github.com/repos/zengliwei/zengliwei.github.io/branches/master
+            // get contents https://api.github.com/repos/zengliwei/zengliwei.github.io/contents/
+            // get tree https://api.github.com/repos/zengliwei/zengliwei.github.io/git/trees/
+
+            $('#starry-sky').starrySky();
+        };
+
+        initActions();
+        initSectionProfile();
+        initSectionNote();
         intStage();
 
     });
