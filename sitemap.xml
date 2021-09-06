@@ -11,4 +11,9 @@
             <image:caption>Image</image:caption>
         </image:image>
     </url>
+    <url>
+        <loc>https://zengliwei.github.io/notes</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
 </urlset>

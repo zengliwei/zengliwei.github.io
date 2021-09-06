@@ -246,19 +246,6 @@ body > main > section#notes article a {
     transform: translateY(20px);
 }
 
-body > main > section#notes article a h3 {
-    color: #0277BD;
-    transition: color .3s;
-}
-
-body > main > section#notes article a:hover {
-    color: #fff;
-}
-
-body > main > section#notes article a:hover h3 {
-    color: #4FC3F7;
-}
-
 body > main > section#notes article:nth-of-type(5n+1) a {
     transition: color .3s, transform 1.2s .2s;
 }
@@ -277,6 +264,31 @@ body > main > section#notes article:nth-of-type(5n+4) a {
 
 body > main > section#notes article:nth-of-type(5n) a {
     transition: color .3s, transform 1.2s 1.2s;
+}
+
+body > main > section#notes article a * {
+    transition: color .3s 0s;
+}
+
+body > main > section#notes article a h3 {
+    color: #0277BD;
+}
+
+body > main > section#notes article a h3 .tag {
+    color: #999;
+    font-size: 14px;
+}
+
+body > main > section#notes article a:hover * {
+    color: #fff;
+}
+
+body > main > section#notes article a:hover h3 {
+    color: #4FC3F7;
+}
+
+body > main > section#notes article a:hover h3 .tag {
+    color: #fff;
 }
 
 body > main > section#notes article .info {
