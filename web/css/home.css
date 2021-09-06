@@ -218,6 +218,21 @@ body > main > section#notes .wrapper {
     padding: 50px 220px;
 }
 
+body > main > section#notes h2 .more {
+    font-size: 16px;
+    margin-left: 30px;
+    vertical-align: middle;
+}
+
+body > main > section#notes h2 .more a {
+    border: 0;
+    color: #4FC3F7;
+}
+
+body > main > section#notes h2 .more a:hover {
+    color: #fff;
+}
+
 body > main > section#notes article {
     margin-bottom: 15px;
 }
@@ -228,12 +243,12 @@ body > main > section#notes article a {
     color: #999;
     display: block;
     padding: 20px 38px;
-    transition: color .2s;
     transform: translateY(20px);
 }
 
 body > main > section#notes article a h3 {
-    color: #7B1FA2;
+    color: #0277BD;
+    transition: color .3s;
 }
 
 body > main > section#notes article a:hover {
@@ -241,27 +256,27 @@ body > main > section#notes article a:hover {
 }
 
 body > main > section#notes article a:hover h3 {
-    color: #BA68C8;
+    color: #4FC3F7;
 }
 
 body > main > section#notes article:nth-of-type(5n+1) a {
-    transition: color .2s, transform 1.2s .2s;
+    transition: color .3s, transform 1.2s .2s;
 }
 
 body > main > section#notes article:nth-of-type(5n+2) a {
-    transition: color .2s, transform 1.2s .4s;
+    transition: color .3s, transform 1.2s .4s;
 }
 
 body > main > section#notes article:nth-of-type(5n+3) a {
-    transition: color .2s, transform 1.2s .8s;
+    transition: color .3s, transform 1.2s .8s;
 }
 
 body > main > section#notes article:nth-of-type(5n+4) a {
-    transition: color .2s, transform 1.2s 1.0s;
+    transition: color .3s, transform 1.2s 1.0s;
 }
 
 body > main > section#notes article:nth-of-type(5n) a {
-    transition: color .2s, transform 1.2s 1.2s;
+    transition: color .3s, transform 1.2s 1.2s;
 }
 
 body > main > section#notes article .info {
