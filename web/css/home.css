@@ -102,10 +102,23 @@ body > .bg > section.profile {
 
 body > .bg > section.notes {
     opacity: 0;
-    transition: opacity .6s;
+    transition: opacity .6s, trasform .6s;
 }
 
 body > .bg > section.notes #starry-sky {
+    background: rgba(0, 0, 0, .6);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+body > .bg > section.notes:after {
+    background: #000;
+    content: '';
+    display: block;
+    opacity: .6;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -115,6 +128,10 @@ body > .bg > section.notes #starry-sky {
 
 body > .bg > section.notes.current {
     opacity: 1;
+}
+
+body > .bg > section.notes.read {
+    opacity: 0;
 }
 
 body > .bg .movie-stage .container {
@@ -209,7 +226,6 @@ body > main > section#profile article {
 }
 
 body > main > section#notes {
-    background: rgba(0, 0, 0, .6);
     opacity: 0;
     transition: opacity .6s;
 }

@@ -95,6 +95,7 @@
         const $bgNote = $bgSections.eq(1);
         const $sections = $main.find('section');
         const $sectionProfile = $sections.eq(0);
+        const $sectionNote = $sections.eq(1);
         const dividerRatio = 0.4;
 
         let currentSection = 0;
@@ -149,33 +150,30 @@
             }, 100);
         };
 
+        const updateTransform = function (el, transformData) {
+            el.css(
+                'transform',
+                'translate(' + transformData.translateX + 'px, ' + transformData.translateY + 'px) scale(' + transformData.scale + ')'
+            );
+        };
+
         /**
          * Section Profile initialization
          */
         const initSectionProfile = function () {
             const $containerProfile = $bgProfile.find('.container');
             const ratio = 0.01;
-
             let transformData = {
                 translateX: 0, translateY: 0, scale: 1
             };
-
-            const updateTransform = function (el) {
-                el.css(
-                    'transform',
-                    'translate(' + transformData.translateX + 'px, ' + transformData.translateY + 'px) scale(' + transformData.scale + ')'
-                );
-            };
-
             $doc.on('mousemove', function (evt) {
                 transformData.translateX = (winW / 2 - evt.clientX) * ratio;
                 transformData.translateY = (winH / 2 - evt.clientY) * ratio;
-                updateTransform($containerProfile);
+                updateTransform($containerProfile, transformData);
             });
-
             $doc.on('scroll', function (evt) {
                 transformData.scale = 1 + $win.scrollTop() / $sectionProfile.outerHeight() * 0.2;
-                updateTransform($containerProfile);
+                updateTransform($containerProfile, transformData);
             });
         };
 
@@ -191,11 +189,17 @@
 
             const $containerNote = $bgNote.find('.container');
             const ratio = 0.01;
+            let transformData = {
+                translateX: 0, translateY: 0, scale: 1
+            };
             $doc.on('mousemove', function (evt) {
-                $containerNote.css(
-                    'transform',
-                    'translate(' + (winW / 2 - evt.clientX) * ratio + 'px, ' + (winH / 2 - evt.clientY) * ratio + 'px)'
-                );
+                transformData.translateX = (winW / 2 - evt.clientX) * ratio;
+                transformData.translateY = (winH / 2 - evt.clientY) * ratio;
+                updateTransform($containerNote, transformData);
+            });
+            $doc.on('scroll', function (evt) {
+                transformData.scale = 1 + $win.scrollTop() / $sectionNote.outerHeight() * 0.2;
+                updateTransform($bgNote, transformData);
             });
         };
 
