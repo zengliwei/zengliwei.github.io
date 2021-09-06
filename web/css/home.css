@@ -209,7 +209,7 @@ body > main > section#profile article {
 }
 
 body > main > section#notes {
-    background: rgba(0, 0, 0, .4);
+    background: rgba(0, 0, 0, .6);
     opacity: 0;
     transition: opacity .6s;
 }
