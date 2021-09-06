@@ -11,10 +11,11 @@
 <body>
 
 <div class="bg" data-role="bg">
-    <section class="profile">
-        <div class="container" data-key="a"><img src="web/images/bg-profile.jpg"/></div>
+    <section class="profile movie-stage">
+        <div class="container"><img src="web/images/bg-profile.jpg"/></div>
     </section>
-    <section class="notes">
+    <section class="notes movie-stage">
+        <div class="container"><img src="web/images/bg-note.jpg"/></div>
         <div id="starry-sky"></div>
     </section>
     <section class="resources"></section>
@@ -38,6 +39,33 @@
     <section id="notes">
         <div class="wrapper">
             <h2>开发笔记 Notes</h2>
+            <article class="with-bg">
+                <a target="_blank" href="notes/php/common/array-to-xml.html">
+                    <h3>通过给定数组获得 XML</h3>
+                    <div class="summary">
+                        一个项目用到 XML 作为配置文件，需要把数组形式的数据转化为 XML 格式储存。由于只要创建 XML 文件，不用进行复杂的更新操作，于是选择 SimpleXMLElement 进行开发。
+                    </div>
+                    <div class="info"><span>2021-09-05</span></div>
+                </a>
+            </article>
+            <article class="with-bg">
+                <a target="_blank" href="notes/php/common/array-to-xml.html">
+                    <h3>通过给定数组获得 XML</h3>
+                    <div class="summary">
+                        一个项目用到 XML 作为配置文件，需要把数组形式的数据转化为 XML 格式储存。由于只要创建 XML 文件，不用进行复杂的更新操作，于是选择 SimpleXMLElement 进行开发。
+                    </div>
+                    <div class="info"><span>2021-09-05</span></div>
+                </a>
+            </article>
+            <article class="with-bg">
+                <a target="_blank" href="notes/php/common/array-to-xml.html">
+                    <h3>通过给定数组获得 XML</h3>
+                    <div class="summary">
+                        一个项目用到 XML 作为配置文件，需要把数组形式的数据转化为 XML 格式储存。由于只要创建 XML 文件，不用进行复杂的更新操作，于是选择 SimpleXMLElement 进行开发。
+                    </div>
+                    <div class="info"><span>2021-09-05</span></div>
+                </a>
+            </article>
             <article class="with-bg">
                 <a target="_blank" href="notes/php/common/array-to-xml.html">
                     <h3>通过给定数组获得 XML</h3>
@@ -76,7 +104,11 @@
         const $main = $('body > main');
         const $nav = $('body > nav');
         const $bgSections = $bg.find('section');
+        const $bgProfile = $bgSections.eq(0);
+        const $bgNote = $bgSections.eq(1);
         const $sections = $main.find('section');
+        const $sectionProfile = $sections.eq(0);
+        const $sectionNote = $sections.eq(1);
         const dividerRatio = 0.4;
 
         let currentSection = 0;
@@ -135,37 +167,50 @@
          * Section Profile initialization
          */
         const initSectionProfile = function () {
-            const $containerProfile = $bgSections.find('.container').eq(0);
-            const $sectionProfile = $sections.eq(0);
+            const $containerProfile = $bgProfile.find('.container');
             const ratio = 0.01;
 
             let transformData = {
-                a: {translateX: 0, translateY: 0, scale: 1}
+                translateX: 0, translateY: 0, scale: 1
             };
 
             const updateTransform = function (el) {
-                const t = transformData[el.data('key')];
-                el.css('transform', 'translate(' + t.translateX + 'px, ' + t.translateY + 'px) scale(' + t.scale + ')');
+                el.css(
+                    'transform',
+                    'translate(' + transformData.translateX + 'px, ' + transformData.translateY + 'px) scale(' + transformData.scale + ')'
+                );
             };
 
             $doc.on('mousemove', function (evt) {
-                transformData.a.translateX = (winW / 2 - evt.clientX) * ratio;
-                transformData.a.translateY = (winH / 2 - evt.clientY) * ratio;
+                transformData.translateX = (winW / 2 - evt.clientX) * ratio;
+                transformData.translateY = (winH / 2 - evt.clientY) * ratio;
                 updateTransform($containerProfile);
             });
 
             $doc.on('scroll', function (evt) {
-                transformData.a.scale = 1 + $win.scrollTop() / $sectionProfile.outerHeight() * 0.2;
+                transformData.scale = 1 + $win.scrollTop() / $sectionProfile.outerHeight() * 0.2;
                 updateTransform($containerProfile);
             });
         };
 
+        /**
+         * Section Note initialization
+         */
         const initSectionNote = function () {
             // get sha https://api.github.com/repos/zengliwei/zengliwei.github.io/branches/master
             // get contents https://api.github.com/repos/zengliwei/zengliwei.github.io/contents/
             // get tree https://api.github.com/repos/zengliwei/zengliwei.github.io/git/trees/
 
             $('#starry-sky').starrySky();
+
+            const $containerNote = $bgNote.find('.container');
+            const ratio = 0.01;
+            $doc.on('mousemove', function (evt) {
+                $containerNote.css(
+                    'transform',
+                    'translate(' + (winW / 2 - evt.clientX) * ratio + 'px, ' + (winH / 2 - evt.clientY) * ratio + 'px)'
+                );
+            });
         };
 
         initActions();

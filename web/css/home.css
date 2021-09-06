@@ -100,7 +100,24 @@ body > .bg > section.profile {
     top: 0;
 }
 
-body > .bg > section.profile .container {
+body > .bg > section.notes {
+    opacity: 0;
+    transition: opacity .6s;
+}
+
+body > .bg > section.notes #starry-sky {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+body > .bg > section.notes.current {
+    opacity: 1;
+}
+
+body > .bg .movie-stage .container {
     position: absolute;
     bottom: -15%;
     left: -15%;
@@ -108,26 +125,11 @@ body > .bg > section.profile .container {
     top: -15%;
 }
 
-body > .bg > section.profile .container img {
+body > .bg .movie-stage .container img {
     display: block;
     position: absolute;
     bottom: 0;
     width: 100%;
-}
-
-body > .bg > section.notes {
-    background: url(../images/bg-note.jpg) center center no-repeat;
-    background-size: cover;
-    opacity: 0;
-    transition: opacity .6s;
-}
-
-body > .bg > section.notes > div {
-    height: 100%;
-}
-
-body > .bg > section.notes.current {
-    opacity: 1;
 }
 
 
@@ -207,53 +209,72 @@ body > main > section#profile article {
 }
 
 body > main > section#notes {
+    background: rgba(0, 0, 0, .4);
     opacity: 0;
     transition: opacity .6s;
 }
 
+body > main > section#notes .wrapper {
+    padding: 50px 220px;
+}
+
+body > main > section#notes article {
+    margin-bottom: 15px;
+}
+
 body > main > section#notes article a {
     background: rgba(255, 255, 255, .1);
+    border: 0;
+    color: #999;
     display: block;
-    opacity: .6;
     padding: 20px 38px;
-    transition: opacity .2s;
+    transition: color .2s;
+    transform: translateY(20px);
+}
+
+body > main > section#notes article a h3 {
+    color: #7B1FA2;
 }
 
 body > main > section#notes article a:hover {
-    border-bottom: 1px solid;
-    opacity: 1;
+    color: #fff;
 }
 
-body > main > section#notes article:nth-child(n+1) a {
-    border-color: rgba(213, 0, 0, .6);
+body > main > section#notes article a:hover h3 {
+    color: #BA68C8;
 }
 
-body > main > section#notes article:nth-child(n+2) a {
-    border-color: rgba(98, 0, 234, .6);
+body > main > section#notes article:nth-of-type(5n+1) a {
+    transition: color .2s, transform 1.2s .2s;
 }
 
-body > main > section#notes article:nth-child(n+3) a {
-    border-color: rgba(213, 145, 234, .6);
+body > main > section#notes article:nth-of-type(5n+2) a {
+    transition: color .2s, transform 1.2s .4s;
 }
 
-body > main > section#notes article:nth-child(n+4) a {
-    border-color: rgba(0, 200, 83, .6);
+body > main > section#notes article:nth-of-type(5n+3) a {
+    transition: color .2s, transform 1.2s .8s;
 }
 
-body > main > section#notes article:nth-child(n+5) a {
-    border-color: rgba(255, 214, 0, .6);
+body > main > section#notes article:nth-of-type(5n+4) a {
+    transition: color .2s, transform 1.2s 1.0s;
+}
+
+body > main > section#notes article:nth-of-type(5n) a {
+    transition: color .2s, transform 1.2s 1.2s;
 }
 
 body > main > section#notes article .info {
+    font-size: 12px;
     font-style: italic;
     margin-top: 8px;
 }
 
-body > main > section#notes .wrapper {
-    padding: 30px 220px 30px 20px;
-}
-
 body > main > section#notes.current {
     opacity: 1;
+}
+
+body > main > section#notes.current article a {
+    transform: translateY(0);
 }
 

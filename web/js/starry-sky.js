@@ -26,18 +26,14 @@ define([
         const ctx = canvas.getContext('2d');
 
         let opts = $.extend(true, {
-            starNumber: 200,
+            starNumber: 500,
             maxStartRadius: 3,
             maxStartLightRadius: 18,
-            maxSpeed: 2,
+            maxSpeed: 2, // degrees per second
             colors: [[240, 253, 244], [15, 221, 172], [114, 136, 255], [197, 129, 152]]
         }, options);
 
         let stars = [], animationId;
-
-        const switchCoordinate = function (x, y) {
-            return [x, -y];
-        };
 
         const degreesToRadians = function (degrees) {
             return degrees / 360 * 2 * Math.PI;
@@ -72,14 +68,12 @@ define([
                 const A = degreesToRadians(this.D);
                 const x = Math.cos(A) * this.R + this.xo;
                 const y = -Math.sin(A) * this.R + this.yo;
-
                 const color = rgb.join(', ');
                 const gradient = ctx.createRadialGradient(x, y, this.r, x, y, this.rg);
                 gradient.addColorStop(0, 'rgba(' + color + ', 1)');
                 gradient.addColorStop(1, 'transparent');
                 ctx.fillStyle = gradient;
                 ctx.globalAlpha = this.alpha;
-
                 ctx.beginPath();
                 ctx.arc(x, y, this.rg, 0, 2 * Math.PI);
                 ctx.closePath();
@@ -106,18 +100,35 @@ define([
             }
         };
 
-        const updateStage = function () {
+        const updateStageSize = function () {
             window.cancelAnimationFrame(animationId);
 
             canvas.height = self.outerHeight();
             canvas.width = self.outerWidth();
 
+            const xo = canvas.width / 2;
+            const yo = canvas.height / 2;
+
             for (let i = 0; i < opts.starNumber; i++) {
-                stars[i].xo = canvas.width / 2;
-                stars[i].yo = canvas.height / 2;
+                stars[i].xo = xo;
+                stars[i].yo = yo;
             }
 
             doAnimation();
+        };
+
+        const updateStage = function (evt) {
+
+            const xo = canvas.width / 2;
+            const yo = canvas.height / 2;
+
+            const dx = evt.clientX - xo;
+            const dy = evt.clientY - yo;
+
+            for (let i = 0; i < opts.starNumber; i++) {
+                stars[i].xo = xo - dx * stars[i].R * 0.0002;
+                stars[i].yo = yo - dy * stars[i].R * 0.0002;
+            }
         };
 
         const doAnimation = function () {
@@ -129,10 +140,11 @@ define([
         };
 
         initStage();
-        updateStage();
+        updateStageSize();
         doAnimation();
 
-        $(window).on('resize', updateStage);
+        $(window).on('resize', updateStageSize);
+        $(window).on('mousemove', updateStage);
 
     };
 
