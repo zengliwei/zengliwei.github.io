@@ -27,30 +27,59 @@ define([
 
         let opts = $.extend(true, {
             starNumber: 200,
-            maxStartRadius: 1,
-            maxStartLightRadius: 3,
-            maxSpeed: 20,
-            colors: [[0, 0, 255], [0, 255, 0], [255, 0, 0], [255, 255, 0]]
+            maxStartRadius: 3,
+            maxStartLightRadius: 18,
+            maxSpeed: 2,
+            colors: [[240, 253, 244], [15, 221, 172], [114, 136, 255], [197, 129, 152]]
         }, options);
 
-        let stars = [];
+        let stars = [], animationId;
 
-        const Star = function (ro, A, dA, r, rg, rgb) {
-            this.ro = ro;
-            this.A = A;
-            this.dA = dA;
+        const switchCoordinate = function (x, y) {
+            return [x, -y];
+        };
+
+        const degreesToRadians = function (degrees) {
+            return degrees / 360 * 2 * Math.PI;
+        };
+
+        const rand = function (min, max) {
+            if (arguments.length < 2) {
+                max = min;
+                min = 0;
+            }
+            return min + Math.random() * (max - min);
+        };
+
+        const Star = function (R, D, dD, r, rg, rgb, alpha, deltaAlpha) {
+            this.R = R;
+            this.D = D;
+            this.dD = dD;
             this.r = r;
             this.rg = rg;
+            this.alpha = alpha;
+            this.maxAlpha = alpha;
+            this.deltaAlpha = deltaAlpha;
 
             this.draw = function () {
-                this.A += this.dA;
-                const x = Math.sin(this.A) * this.ro + this.xo;
-                const y = Math.cos(this.A) * this.ro + this.yo;
+                this.D += this.dD;
+
+                this.alpha += this.deltaAlpha;
+                if (this.alpha > this.maxAlpha || this.alpha < this.maxAlpha - 0.2) {
+                    this.deltaAlpha = -this.deltaAlpha;
+                }
+
+                const A = degreesToRadians(this.D);
+                const x = Math.cos(A) * this.R + this.xo;
+                const y = -Math.sin(A) * this.R + this.yo;
+
                 const color = rgb.join(', ');
                 const gradient = ctx.createRadialGradient(x, y, this.r, x, y, this.rg);
-                gradient.addColorStop(0, 'rgb(' + color + ')');
-                gradient.addColorStop(1, 'rgba(' + color + ', 0)');
+                gradient.addColorStop(0, 'rgba(' + color + ', 1)');
+                gradient.addColorStop(1, 'transparent');
                 ctx.fillStyle = gradient;
+                ctx.globalAlpha = this.alpha;
+
                 ctx.beginPath();
                 ctx.arc(x, y, this.rg, 0, 2 * Math.PI);
                 ctx.closePath();
@@ -58,43 +87,37 @@ define([
             };
         };
 
-        const rand = function (min, max) {
-            max = max || min;
-            min = max ? min : 0;
-            return min + Math.random() * (max - min);
-        };
-
         const initStage = function () {
             $(canvas).appendTo(self);
             canvas.height = self.outerHeight();
             canvas.width = self.outerWidth();
 
-            for (let i = 0; i < opts.starNumber; i++) {
-                const ro = canvas.width / 2 * Math.random();
-                const A = rand(360) * (2 * Math.PI / 360);
-                const r = opts.maxStartRadius * rand(.5, 1);
-                const rg = opts.maxStartLightRadius * rand(.5, 1);
-                //const dA = -(opts.maxSpeed * rand(.5, 1)) * (2 * Math.PI / 360) / ro;
-                const dA = -(opts.maxSpeed) * (2 * Math.PI / 360) / ro;
-                const rgb = opts.colors[Math.floor(opts.colors.length * Math.random())];
+            for (let i = 1; i <= opts.starNumber; i++) {
+                const R = canvas.width / 2 / opts.starNumber * i;
+                const D = 360 / opts.starNumber * i * rand(1, 1.7);
+                const dD = -opts.maxSpeed / 60 * rand(0.3, 1); // about 60 frames per second
+                const r = opts.maxStartRadius / opts.starNumber * i;
+                const rg = opts.maxStartLightRadius / opts.starNumber * i;
+                const rgb = opts.colors[Math.floor(rand(opts.colors.length))];
+                const alpha = 1 / opts.starNumber * i;
+                const deltaAlpha = rand(0.002, 0.01);
 
-                console.log(ro);
-                console.log(dA);
-                console.log(r);
-                console.log('------------');
-
-                stars.push(new Star(ro, A, dA, r, rg, rgb));
+                stars.push(new Star(R, D, dD, r, rg, rgb, alpha, deltaAlpha));
             }
         };
 
         const updateStage = function () {
+            window.cancelAnimationFrame(animationId);
+
             canvas.height = self.outerHeight();
             canvas.width = self.outerWidth();
+
             for (let i = 0; i < opts.starNumber; i++) {
-                stars[i].ro = canvas.width / 2 * Math.random();
                 stars[i].xo = canvas.width / 2;
                 stars[i].yo = canvas.height / 2;
             }
+
+            doAnimation();
         };
 
         const doAnimation = function () {
@@ -102,7 +125,7 @@ define([
             for (let i = 0; i < opts.starNumber; i++) {
                 stars[i].draw();
             }
-            window.requestAnimationFrame(doAnimation);
+            animationId = window.requestAnimationFrame(doAnimation);
         };
 
         initStage();
