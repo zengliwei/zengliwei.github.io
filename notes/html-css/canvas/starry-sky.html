@@ -57,7 +57,9 @@ ctx.fill();</code></pre>
         <p>其中 <code>fillStyle</code> 是填充模式，也可以用色值或者 pattern 实例（使用 <code>createPattern</code> 方法创建，这里不详述）赋值；<code>globalAlpha</code>
             则是介于 0.0 与 1.0 之间的透明度。</p>
 
-        <h2>单帧绘制</h2>
+        <h2>绘制星空</h2>
+
+        <h3>单帧绘制</h3>
         <p>首先是创建 Star 对象，用于记录每颗星的各种状态，包括坐标、角度、透明度等。这样后边的绘制程序就能分别对每颗星进行渲染。</p>
         <pre><code class="language-javascript">const Star = function (R, D, dD, r, rg, rgb, alpha, deltaAlpha) {
     this.R = R; // 运行轨道半径

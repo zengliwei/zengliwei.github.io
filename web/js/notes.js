@@ -75,9 +75,12 @@ require([
     if ($sections.length > 0) {
         $('<h3>本章目录</h3>').appendTo($index);
         $sections.each(function () {
-            const id = uuidv4();
             const el = $(this);
-            el.attr('id', id);
+            let id = el.attr('id');
+            if (!id) {
+                id = uuidv4();
+                el.attr('id', id);
+            }
             $('<a/>').attr('href', window.location.pathname + '#' + id)
                 .html('<span>' + el.html() + '</span>')
                 .addClass(this.tagName.toLowerCase())
