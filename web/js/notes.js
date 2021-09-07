@@ -15,6 +15,7 @@ require([
     const $searchForm = $('<form/>').appendTo($search);
     const $searchInput = $('<input type="text" placeholder="搜索标题"/>').appendTo($searchForm);
     const $nav = $('<nav/>').appendTo($sidebar);
+    const $footer = $('<footer/>').appendTo($body);
 
     const renderTree = function (tree, $parentNode, level) {
         for (let c = 0; c < tree.length; c++) {
@@ -87,5 +88,7 @@ require([
                 .appendTo($index);
         });
     }
+
+    $footer.html('Copyright &copy; <a href="/"><strong>Zengliwei</strong></a>. All rights reserved.');
 
 });

@@ -154,3 +154,10 @@ body > nav#index a.h3 {
     font-size: 12px;
     padding-left: 36px;
 }
+
+body > footer {
+    font-size: 12px;
+    margin: 0 320px 0 280px;
+    padding: 8px 0;
+    text-align: center;
+}
