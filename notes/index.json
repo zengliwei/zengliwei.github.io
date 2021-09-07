@@ -3,7 +3,7 @@
         "title": "HTML & CSS",
         "children": [
             {
-                "title": "使用 canvas 实现星空背景",
+                "title": "用 canvas 实现星空动画",
                 "path": "notes/html-css/canvas/starry-sky.html"
             }
         ]

@@ -57,7 +57,7 @@ define([
             this.maxAlpha = alpha;
             this.deltaAlpha = deltaAlpha;
 
-            this.draw = function () {
+            this.render = function () {
                 this.D += this.dD;
 
                 this.alpha += this.deltaAlpha;
@@ -121,13 +121,10 @@ define([
         };
 
         const updateStage = function (evt) {
-
             const xo = canvas.width / 2;
             const yo = canvas.height / 2;
-
             const dx = evt.clientX - xo;
             const dy = evt.clientY - yo;
-
             for (let i = 0; i < opts.starNumber; i++) {
                 stars[i].xo = xo - dx * stars[i].R * 0.0002;
                 stars[i].yo = yo - dy * stars[i].R * 0.0002;
@@ -137,7 +134,7 @@ define([
         const doAnimation = function () {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < opts.starNumber; i++) {
-                stars[i].draw();
+                stars[i].render();
             }
             animationId = window.requestAnimationFrame(doAnimation);
         };
