@@ -118,7 +118,7 @@ body > .bg > section.notes:after {
     background: #000;
     content: '';
     display: block;
-    opacity: .6;
+    opacity: .4;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -259,27 +259,27 @@ body > main > section#notes article a {
     color: #999;
     display: block;
     padding: 20px 38px;
-    transform: translateY(20px);
+    transform: translateY(80px);
 }
 
 body > main > section#notes article:nth-of-type(5n+1) a {
-    transition: color .3s, transform 1.2s .2s;
+    transition: color .3s, transform 1.2s 0s;
 }
 
 body > main > section#notes article:nth-of-type(5n+2) a {
-    transition: color .3s, transform 1.2s .4s;
+    transition: color .3s, transform 1.2s .2s;
 }
 
 body > main > section#notes article:nth-of-type(5n+3) a {
-    transition: color .3s, transform 1.2s .8s;
+    transition: color .3s, transform 1.2s .4s;
 }
 
 body > main > section#notes article:nth-of-type(5n+4) a {
-    transition: color .3s, transform 1.2s 1.0s;
+    transition: color .3s, transform 1.2s .6s;
 }
 
 body > main > section#notes article:nth-of-type(5n) a {
-    transition: color .3s, transform 1.2s 1.2s;
+    transition: color .3s, transform 1.2s .8s;
 }
 
 body > main > section#notes article a * {
@@ -317,7 +317,7 @@ body > main > section#notes.current {
     opacity: 1;
 }
 
-body > main > section#notes.current article a {
+body > main > section#notes.current article a,
+body > main > section#notes.read article a {
     transform: translateY(0);
 }
-

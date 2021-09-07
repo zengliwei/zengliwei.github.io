@@ -29,7 +29,7 @@ define([
             starNumber: 500,
             maxStartRadius: 3,
             maxStartLightRadius: 18,
-            maxSpeed: 2, // degrees per second
+            maxSpeed: 1, // degrees per second
             colors: [[240, 253, 244], [15, 221, 172], [114, 136, 255], [197, 129, 152]]
         }, options);
 
@@ -93,7 +93,7 @@ define([
                 const r = opts.maxStartRadius / opts.starNumber * i;
                 const rg = opts.maxStartLightRadius / opts.starNumber * i;
                 const rgb = opts.colors[Math.floor(rand(opts.colors.length))];
-                const alpha = 1 / opts.starNumber * i;
+                const alpha = (1 - 0.1) / opts.starNumber * i + 0.1;
                 const deltaAlpha = rand(0.002, 0.01);
 
                 stars.push(new Star(R, D, dD, r, rg, rgb, alpha, deltaAlpha));
