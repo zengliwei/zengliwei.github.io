@@ -59,10 +59,6 @@ require([
     });
 
     window.hljs.highlightAll();
-    $main.mCustomScrollbar({
-        axis: 'yx',
-        theme: 'minimal-dark'
-    });
 
     /**
      * @return {string} uuid

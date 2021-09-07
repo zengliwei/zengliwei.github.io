@@ -13,7 +13,6 @@ body {
     color: #545454;
     font: 14px/24px Verdana, Arial, Helvetica, sans-serif;
     height: 100%;
-    overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -75,6 +74,7 @@ input[type="text"] {
 
 body > .sidebar {
     background: #f6f6f9;
+    border-right: 1px solid #e0e0e3;
     overflow: hidden;
     position: fixed;
     bottom: 0;
@@ -111,14 +111,9 @@ body > .sidebar > nav a.level-1 {
 }
 
 body > main {
-    border-left: 1px solid #e0e0e3;
-    overflow: hidden;
-    padding: 0 320px 0 30px;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    width: calc(100% - 280px);
+    margin: 0 320px 0 280px;
+    padding: 0 0 0 30px;
+    position: relative;
 }
 
 body > main article * {
