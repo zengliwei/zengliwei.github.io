@@ -242,11 +242,11 @@ body > main > section#notes h2 .more {
 
 body > main > section#notes h2 .more a {
     border: 0;
-    color: #4FC3F7;
+    color: #669;
 }
 
 body > main > section#notes h2 .more a:hover {
-    color: #fff;
+    color: #99c;
 }
 
 body > main > section#notes article {
@@ -263,23 +263,23 @@ body > main > section#notes article a {
 }
 
 body > main > section#notes article:nth-of-type(5n+1) a {
-    transition: color .3s, transform 1.2s 0s;
+    transition: transform 1.2s 0s;
 }
 
 body > main > section#notes article:nth-of-type(5n+2) a {
-    transition: color .3s, transform 1.2s .2s;
+    transition: transform 1.2s .2s;
 }
 
 body > main > section#notes article:nth-of-type(5n+3) a {
-    transition: color .3s, transform 1.2s .4s;
+    transition: transform 1.2s .4s;
 }
 
 body > main > section#notes article:nth-of-type(5n+4) a {
-    transition: color .3s, transform 1.2s .6s;
+    transition: transform 1.2s .6s;
 }
 
 body > main > section#notes article:nth-of-type(5n) a {
-    transition: color .3s, transform 1.2s .8s;
+    transition: transform 1.2s .8s;
 }
 
 body > main > section#notes article a * {
@@ -287,7 +287,7 @@ body > main > section#notes article a * {
 }
 
 body > main > section#notes article a h3 {
-    color: #0277BD;
+    color: #669;
 }
 
 body > main > section#notes article a h3 .tag {
@@ -300,7 +300,7 @@ body > main > section#notes article a:hover * {
 }
 
 body > main > section#notes article a:hover h3 {
-    color: #4FC3F7;
+    color: #99c;
 }
 
 body > main > section#notes article a:hover h3 .tag {
