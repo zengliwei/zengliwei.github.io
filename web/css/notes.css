@@ -24,20 +24,36 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     font-size: 28px;
     line-height: 36px;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
     padding-top: 30px;
 }
 
 h2 {
-    font-size: 18px;
+    font-size: 22px;
     line-height: 26px;
     margin-bottom: 18px;
+    padding-top: 24px;
 }
 
 h3 {
     font-size: 16px;
     line-height: 28px;
     margin-bottom: 12px;
+}
+
+p, pre {
+    margin-bottom: 15px;
+}
+
+ul {
+    margin-bottom: 15px;
+    padding: 0 0 0 24px;
+}
+
+code {
+    color: #669;
+    font-family: Consolas, Arial, Helvetica, sans-serif;
+    font-style: italic;
 }
 
 input[type="text"] {
