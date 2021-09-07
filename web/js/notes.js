@@ -1,8 +1,9 @@
 require([
     'jquery',
+    'highlight',
     'mousewheel',
     'scrollbar'
-], function ($) {
+], function ($, highlight) {
     'use strict';
 
     const $win = $(window);
@@ -12,11 +13,8 @@ require([
     const $sidebar = $('<section class="sidebar"/>').insertBefore($main);
     const $search = $('<section id=search/>').appendTo($sidebar);
     const $searchForm = $('<form/>').appendTo($search);
-    const $searchInput = $('<input type="text" placeholder="Search"/>').appendTo($searchForm);
+    const $searchInput = $('<input type="text" placeholder="搜索标题"/>').appendTo($searchForm);
     const $nav = $('<nav/>').appendTo($sidebar);
-    const $index = $('<nav/>').appendTo($main);
-
-    let $navItems;
 
     const renderTree = function (tree, $parentNode, level) {
         for (let c = 0; c < tree.length; c++) {
@@ -35,6 +33,8 @@ require([
         }
     };
 
+    let $navItems;
+
     $.ajax({
         url: '/notes/index.json',
         success: function ($source) {
@@ -52,6 +52,17 @@ require([
                 el.innerText.indexOf(q) > -1 ? $(el).show() : $(el).hide();
             });
         }
+        $nav.mCustomScrollbar({
+            axis: 'yx',
+            theme: 'minimal-dark'
+        });
     });
+
+    window.hljs.highlightAll();
+    $main.mCustomScrollbar({
+        axis: 'yx',
+        theme: 'minimal-dark'
+    });
+    const $index = $('<nav/>').appendTo($main);
 
 });
