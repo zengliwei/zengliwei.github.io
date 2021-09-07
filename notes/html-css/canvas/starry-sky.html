@@ -16,6 +16,8 @@
             这里将过程简单记录，加深下印象。</p>
 
         <h2>canvas 元素的用法</h2>
+
+        <h3>初始化</h3>
         <p>canvas 中所有图像处理方法都是基于其 context 对象，而非 canvas 元素本身。因此凡是到 canvas，都要先实例化 context 对象。</p>
         <pre><code class="language-javascript">const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d'); // 2d 为固定参数，canvas 目前仅支持 2D 场景渲染</code></pre>
@@ -26,10 +28,34 @@ const ctx = canvas.getContext('2d'); // 2d 为固定参数，canvas 目前仅支
             <li>通过 <code>fillText</code> 或 <code>strokeText</code> 方法直接绘制文本</li>
         </ul>
         <p>其中第一种用得最多，星空背景就是用这个方式实现的，下边介绍其中用到的方法。</p>
-        <p>创建放射状环形渐变实例，准备用以渲染后边画出的路径。</p>
-        <pre><code class="language-javascript">const gradient = ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);
-gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+
+        <h3>创建渐变实例</h3>
+        <p>创建放射状环形渐变实例，准备用以渲染后边定义的路径：</p>
+        <pre><code class="language-javascript">const gradient = ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);</code></pre>
+        <p>其中 <code>x0</code>、<code>y0</code>、<code>r0</code>
+            分别是环形内圈的坐标和半径；<code>x1</code>、<code>y1</code>、<code>r1</code> 是外圈的坐标和半径。</p>
+        <p>并使用若干个 <code>addColorStop</code> 方法填充颜色：</p>
+        <pre><code class="language-javascript">gradient.addColorStop(0, 'rgb(255, 255, 255)');
+gradient.addColorStop(0.5, 'rgba(200, 200, 0, 0.4)');
 gradient.addColorStop(1, 'transparent');</code></pre>
+        <p>其中前一参数是介于 0.0 与 1.0 之间的值，表示渐变中开始与结束之间的位置；后者是色值，支持 HEX、RGB、RGBA、HSL 等格式。</p>
+
+        <h3>创建路径</h3>
+        <p>用 <code>arc</code> 方法创建圆形路径，其中 <code>x</code>、<code>y</code> 是坐标；<code>r</code>
+            是半径；<code>sAngle</code>、<code>eAngle</code> 分别是起始、结束角度，以弧度单位；<code>counterclockwise</code> 为 false
+            （默认）时按顺时针方向描绘，true 则相反。</p>
+        <pre><code class="language-javascript">ctx.beginPath();
+ctx.arc(x, y, r, sAngle, eAngle, counterclockwise);
+ctx.closePath();</code></pre>
+        <p>在描绘路径前后必须分别执行 <code>beginPath</code> 和 <code>closePath</code> 方法确定路径的起止。</p>
+
+        <h3>填充路径</h3>
+        <p>指定 <code>fillStyle</code> 和 <code>globalAlpha</code>，填充刚才创建的圆形路径：</p>
+        <pre><code class="language-javascript">ctx.fillStyle = gradient;
+ctx.globalAlpha = 0.5;
+ctx.fill();</code></pre>
+        <p>其中 <code>fillStyle</code> 是填充模式，也可以用色值或者 pattern 实例（使用 <code>createPattern</code> 方法创建，这里不详述）赋值；<code>globalAlpha</code>
+            则是介于 0.0 与 1.0 之间的透明度。</p>
 
         <h2>单帧绘制</h2>
         <p>首先是创建 Star 对象，用于记录每颗星的各种状态，包括坐标、角度、透明度等。这样后边的绘制程序就能分别对每颗星进行渲染。</p>
@@ -43,7 +69,7 @@ gradient.addColorStop(1, 'transparent');</code></pre>
     this.maxAlpha = alpha; // 最大透明度
     this.deltaAlpha = deltaAlpha; // 每帧增减的透明度，通过改变透明度实现闪烁
 };</code></pre>
-        <p>为 Start 对象增加渲染方法。</p>
+        <p>为 Start 对象增加渲染方法，用到上边提及过的方法。</p>
         <pre><code class="language-javascript">Star.prototype.render = function () {
 
     // 通过改变透明度实现闪烁
@@ -63,11 +89,12 @@ gradient.addColorStop(1, 'transparent');</code></pre>
     gradient.addColorStop(0, 'rgba(' + color + ', 1)');
     gradient.addColorStop(1, 'transparent');
 
-    ctx.fillStyle = gradient;
-    ctx.globalAlpha = this.alpha;
     ctx.beginPath();
     ctx.arc(x, y, this.rg, 0, 2 * Math.PI);
     ctx.closePath();
+
+    ctx.fillStyle = gradient;
+    ctx.globalAlpha = this.alpha;
     ctx.fill();
 };</code></pre>
     </article>

@@ -68,15 +68,18 @@ define([
                 const A = degreesToRadians(this.D);
                 const x = Math.cos(A) * this.R + this.xo;
                 const y = -Math.sin(A) * this.R + this.yo;
+
                 const color = rgb.join(', ');
                 const gradient = ctx.createRadialGradient(x, y, this.r, x, y, this.rg);
                 gradient.addColorStop(0, 'rgba(' + color + ', 1)');
                 gradient.addColorStop(1, 'transparent');
-                ctx.fillStyle = gradient;
-                ctx.globalAlpha = this.alpha;
+
                 ctx.beginPath();
                 ctx.arc(x, y, this.rg, 0, 2 * Math.PI);
                 ctx.closePath();
+
+                ctx.fillStyle = gradient;
+                ctx.globalAlpha = this.alpha;
                 ctx.fill();
             };
         };
