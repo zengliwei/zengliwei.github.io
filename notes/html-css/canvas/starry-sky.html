@@ -101,15 +101,18 @@ ctx.fill();</code></pre>
     const x = Math.cos(A) * this.R + this.xo;
     const y = -Math.sin(A) * this.R + this.yo;
 
+    // 创建放射状环形渐变实例
     const color = rgb.join(', ');
     const gradient = ctx.createRadialGradient(x, y, this.r, x, y, this.rg);
     gradient.addColorStop(0, 'rgba(' + color + ', 1)');
     gradient.addColorStop(1, 'transparent');
 
+    // 创建圆形路径
     ctx.beginPath();
     ctx.arc(x, y, this.rg, 0, 2 * Math.PI);
     ctx.closePath();
 
+    // 填充路径
     ctx.fillStyle = gradient;
     ctx.globalAlpha = this.alpha;
     ctx.fill();

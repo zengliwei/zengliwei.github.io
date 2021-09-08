@@ -126,6 +126,7 @@ body > main article pre code.hljs {
 }
 
 body > nav#index {
+    border-bottom: 1px solid #e0e0e3;
     position: fixed;
     right: 20px;
     top: 20px;
@@ -146,7 +147,7 @@ body > nav#index a {
 
 body > nav#index a.h2 {
     border-top: 2px solid #e0e0e3;
-    padding-left: 18px;
+    padding: 6px 0 6px 18px;
 }
 
 body > nav#index a.h3 {
