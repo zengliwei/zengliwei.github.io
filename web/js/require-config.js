@@ -3,7 +3,6 @@ require.config({
     paths: {
         jquery: 'web/js/lib/jquery',
         text: 'web/js/lib/text',
-        markdown: 'web/js/lib/showdown.min',
         mousewheel: 'web/js/lib/jquery.mousewheel-3.0.6.min',
         highlight: 'web/js/lib/highlight.min',
         popup: 'web/js/lib/jquery.fancybox.min',
