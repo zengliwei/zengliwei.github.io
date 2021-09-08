@@ -87,7 +87,8 @@ code {
 input[type="text"] {
     border: 1px solid #e0e0e3;
     border-radius: 3px;
-    padding: 8px 12px;
+    line-height: 24px;
+    padding: 6px 12px;
     width: 100%;
 }
 
@@ -112,6 +113,10 @@ body > .sidebar #search {
     background: #f0f0f6;
     border-bottom: 1px solid #e0e0e3;
     padding: 8px 12px;
+}
+
+body > .sidebar nav {
+    max-height: calc(100% - 55px);
 }
 
 body > .sidebar nav a {
@@ -148,7 +153,8 @@ body > main article * {
 
 body > main article pre code.hljs {
     background: #f0f0f6;
-    font: 14px/21px Consolas, Arial, Helvetica, sans-serif
+    font: 14px/21px Consolas, Arial, Helvetica, sans-serif;
+    padding: 15px 20px;
 }
 
 body > nav#index {
