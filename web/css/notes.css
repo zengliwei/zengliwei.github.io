@@ -1,5 +1,24 @@
-@import "jquery.mCustomScrollbar.min.css";
-@import "highlight/google-light.min.css";
+@import 'jquery.mCustomScrollbar.min.css';
+@import 'highlight/google-light.min.css';
+
+@font-face {
+    font-family: 'Awesome';
+    font-style: normal;
+    font-weight: bold;
+    src: url(../fonts/fa-solid-900.eot);
+    src: url(../fonts/fa-solid-900.eot?#iefix) format('embedded-opentype'),
+    url(../fonts/fa-solid-900.woff2) format('woff2'),
+    url(../fonts/fa-solid-900.woff) format('woff'),
+    url(../fonts/fa-solid-900.ttf) format('truetype'),
+    url(../fonts/fa-solid-900.svg#fontawesome) format('svg');
+}
+
+@font-face {
+    font-family: 'Awesome';
+    font-style: normal;
+    font-weight: 300;
+    src: url(../fonts/fa-light-300.woff2) format('woff2');
+}
 
 * {
     box-sizing: border-box;
@@ -72,6 +91,11 @@ input[type="text"] {
     width: 100%;
 }
 
+body > header {
+    display: none;
+    z-index: 3;
+}
+
 body > .sidebar {
     background: #f6f6f9;
     border-right: 1px solid #e0e0e3;
@@ -81,6 +105,7 @@ body > .sidebar {
     left: 0;
     top: 0;
     width: 280px;
+    z-index: 5;
 }
 
 body > .sidebar > #search {
@@ -114,6 +139,7 @@ body > main {
     margin: 0 320px 0 280px;
     padding: 0 0 180px 30px;
     position: relative;
+    z-index: 2;
 }
 
 body > main article * {
@@ -131,6 +157,7 @@ body > nav#index {
     right: 20px;
     top: 20px;
     width: 280px;
+    z-index: 4;
 }
 
 body > nav#index h3 {
@@ -161,4 +188,66 @@ body > footer {
     margin: 0 320px 0 280px;
     padding: 8px 0;
     text-align: center;
+    z-index: 1;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    body > header {
+        background: #fff;
+        border-bottom: 1px solid #e0e0e3;
+        display: block;
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding: 12px 10px;
+        height: 50px;
+        width: 100%;
+    }
+
+    body > header a#switcher {
+        display: inline-block;
+        text-align: center;
+        width: 25px;
+    }
+
+    body > header a#switcher:before {
+        color: #545454;
+        content: '\f0c9';
+        display: block;
+        font-family: 'Awesome';
+        font-size: 22px;
+        font-weight: 300;
+        transition: transform .4s;
+    }
+
+    body > header a#switcher.expanded:before {
+        content: '\f00d';
+        transform: rotateZ(360deg);
+    }
+
+    body > .sidebar {
+        left: -280px;
+        top: 50px;
+        transition: left .4s;
+    }
+
+    body > .sidebar.expanded {
+        left: 0;
+    }
+
+    body > main {
+        margin: 0;
+        padding: 50px 10px 120px;
+    }
+
+    body > nav#index {
+        right: -300px;
+    }
+
+    body > footer {
+        margin: 0;
+    }
+
 }

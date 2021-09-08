@@ -15,6 +15,7 @@ require([
     const $searchForm = $('<form/>').appendTo($search);
     const $searchInput = $('<input type="text" placeholder="搜索标题"/>').appendTo($searchForm);
     const $nav = $('<nav/>').appendTo($sidebar);
+    const $header = $('<header/>').insertBefore($main);
     const $footer = $('<footer/>').appendTo($body);
 
     const renderTree = function (tree, $parentNode, level) {
@@ -90,5 +91,16 @@ require([
     }
 
     $footer.html('Copyright &copy; <a href="/"><strong>Zengliwei</strong></a>. All rights reserved.');
+
+    const $sidebarSwitcher = $('<a id="switcher"></a>').appendTo($header);
+    $sidebarSwitcher.on('click', function () {
+        if ($sidebar.hasClass('expanded')) {
+            $sidebar.removeClass('expanded');
+            $sidebarSwitcher.removeClass('expanded');
+        } else {
+            $sidebar.addClass('expanded');
+            $sidebarSwitcher.addClass('expanded');
+        }
+    });
 
 });
