@@ -84,7 +84,7 @@
         }
 
         .stage .cloud-behind {
-            background: url('web/images/html-css/transform/cloud.webp');
+            background: url('web/images/lab/html-css/transform/cloud.webp');
             background-size: 60%;
             opacity: .8;
             position: absolute;
@@ -96,7 +96,7 @@
         }
 
         .stage .cloud-front {
-            background: url('web/images/html-css/transform/cloud.webp');
+            background: url('web/images/lab/html-css/transform/cloud.webp');
             background-size: 100%;
             opacity: .6;
             position: absolute;
@@ -127,7 +127,7 @@
     <div class="stage">
         <div class="container" data-role="bg">
             <div class="bg">
-                <img src="web/images/html-css/transform/bg-03.jpg"/>
+                <img src="web/images/lab/html-css/transform/bg-03.jpg"/>
             </div>
             <div class="cloud-behind"></div>
             <div class="text">
@@ -142,7 +142,7 @@
     Copyright &copy; <span class="year" data-bind="text: year"></span> <a href="/">Zengliwei</a>
 </footer>
 
-<script src="web/js/jquery.js"></script>
+<script src="web/js/lib/jquery.js"></script>
 <script type="text/javascript">
     jQuery(function ($) {
 
@@ -162,7 +162,6 @@
         updateStage();
 
         $(document).on('mousemove', function (evt) {
-            console.log(evt.clientX + ', ' + evt.clientY);
             let x = (evt.clientX - winW / 2) / (winW / maxDegX);
             let y = (evt.clientY - winH / 2) / (winH / maxDegY);
             $container.css({
