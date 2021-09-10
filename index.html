@@ -82,7 +82,7 @@
 <script src="web/js/lib/require.js" type="text/javascript"></script>
 <script src="web/js/require-config.js" type="text/javascript"></script>
 <script>
-    require(['jquery', '/web/js/starry-sky.js'], function ($) {
+    require(['jquery', 'scrollbar', '/web/js/starry-sky.js'], function ($) {
 
         const $win = $(window);
         const $doc = $(document);
@@ -161,6 +161,7 @@
          * Section Profile initialization
          */
         const initSectionProfile = function () {
+            $sectionProfile.find('.wrapper').mCustomScrollbar({theme: 'minimal-dark'});
             const $containerProfile = $bgProfile.find('.container');
             const ratio = 0.01;
             let transformData = {

@@ -115,23 +115,24 @@ class XmlGenerator
         <p>执行如下 PHP 代码：</p>
 
         <pre><code class="language-php">$xmlStr = XmlGenerator::arrayToXml([
-    'node_a' => null,
-    'node_b' => 'string',
-    'node_c' => ['@attribute' => 'string'],
-    'node_d' => ['@attribute' => 'string', 'string'],
-    'node_e' => [
+    'node_a' => null, // 赋空值
+    'node_b' => 'string', // 字符串值
+    'node_c' => ['@attribute' => 'string'], // 仅包含属性
+    'node_d' => ['@xmlns:xsi:attribute' => 'string'], // 带冒号的属性
+    'node_e' => ['@attribute' => 'string', 'string'], // 包含属性和赋值
+    'node_f' => [ // 多个同名节点
         [null],
         ['string'],
         ['@attribute' => 'string'],
         ['@attribute' => 'string', 'string']
     ],
-    'node_f' => [
+    'node_g' => [ // 包含子节点
         '@attribute' => 'string',
-        'node_f_a' => null,
-        'node_f_b' => 'string',
-        'node_f_c' => ['@attribute' => 'string'],
-        'node_f_d' => ['@attribute' => 'string', 'string'],
-        'node_f_e' => [
+        'node_g_a' => null,
+        'node_g_b' => 'string',
+        'node_g_c' => ['@attribute' => 'string'],
+        'node_g_d' => ['@attribute' => 'string', 'string'],
+        'node_g_e' => [
             [null],
             ['string'],
             ['@attribute' => 'string'],
@@ -147,21 +148,22 @@ class XmlGenerator
     &lt;node_a/&gt;
     &lt;node_b&gt;string&lt;/node_b&gt;
     &lt;node_c attribute="string"/&gt;
-    &lt;node_d attribute="string"&gt;string&lt;/node_d&gt;
-    &lt;node_e/&gt;
-    &lt;node_e&gt;string&lt;/node_e&gt;
-    &lt;node_e attribute="string"/&gt;
-    &lt;node_e attribute="string"&gt;string&lt;/node_e&gt;
-    &lt;node_f attribute="string"&gt;
-        &lt;node_f_a/&gt;
-        &lt;node_f_b&gt;string&lt;/node_f_b&gt;
-        &lt;node_f_c attribute="string"/&gt;
-        &lt;node_f_d attribute="string"&gt;string&lt;/node_f_d&gt;
-        &lt;node_f_e/&gt;
-        &lt;node_f_e&gt;string&lt;/node_f_e&gt;
-        &lt;node_f_e attribute="string"/&gt;
-        &lt;node_f_e attribute="string"&gt;string&lt;/node_f_e&gt;
-    &lt;/node_f&gt;
+    &lt;node_d xsi:attribute="string"/&gt;
+    &lt;node_e attribute="string"&gt;string&lt;/node_d&gt;
+    &lt;node_f/&gt;
+    &lt;node_f&gt;string&lt;/node_e&gt;
+    &lt;node_f attribute="string"/&gt;
+    &lt;node_f attribute="string"&gt;string&lt;/node_e&gt;
+    &lt;node_g attribute="string"&gt;
+        &lt;node_g_a/&gt;
+        &lt;node_g_b&gt;string&lt;/node_f_b&gt;
+        &lt;node_g_c attribute="string"/&gt;
+        &lt;node_g_d attribute="string"&gt;string&lt;/node_f_d&gt;
+        &lt;node_g_e/&gt;
+        &lt;node_g_e&gt;string&lt;/node_f_e&gt;
+        &lt;node_g_e attribute="string"/&gt;
+        &lt;node_g_e attribute="string"&gt;string&lt;/node_f_e&gt;
+    &lt;/node_g&gt;
 &lt;/root&gt;</code></pre>
 
     </article>

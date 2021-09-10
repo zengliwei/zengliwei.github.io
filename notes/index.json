@@ -1,6 +1,7 @@
 [
     {
         "title": "HTML & CSS",
+        "path": "notes/html-css",
         "children": [
             {
                 "title": "用 canvas 实现星空动画",
@@ -10,6 +11,7 @@
     },
     {
         "title": "PHP",
+        "path": "notes/php",
         "children": [
             {
                 "title": "通过给定数组获得 XML",
