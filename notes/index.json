@@ -16,6 +16,10 @@
             {
                 "title": "通过给定数组获得 XML",
                 "path": "notes/php/common/array-to-xml.html"
+            },
+            {
+                "title": "Windows 多项目开发环境",
+                "path": "notes/php/windows-dev.html"
             }
         ]
     }

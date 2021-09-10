@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="keywords" content="windows, php, 多项目, 开发环境"/>
+    <base href="/"/>
+    <title>Windows 多项目开发环境</title>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
+</head>
+<body>
+<main>
+    <article>
+        <h1>Windows 多项目开发环境</h1>
+
+        <h2>问题与解决方案</h2>
+        <p>多个 PHP 项目同时部署在 Windows 环境下会出现不少问题：</p>
+        <ul>
+            <li>项目都在同一个域名下 cookie、session 等数据互相干扰</li>
+            <li>不同项目的 PHP 版本不一样</li>
+            <li>PHP 在 Windows 下运行效率低下，项目越复杂越明显</li>
+            <li>邮件模板开发的测试非常麻烦</li>
+        </ul>
+        <p>为了解决这些问题，节省给新项目配置环境的时间，我用 <a target="_blank" href="https://www.docker.com/">Docker</a> 构建了这样一个框架：</p>
+        <ul>
+            <li>不同的项目有各自独立的域名</li>
+            <li>使用 Docker 让不同的项目工作在各自独立的容器中，解决了 PHP 版本冲突的问题</li>
+            <li>使用 Docker 虚拟 LAMP 环境，提高运行效率</li>
+            <li>本地即时收取邮件</li>
+        </ul>
+
+        <h2>框架内容</h2>
+        <p>这个框架使用 <a target="_blank" href="https://docs.docker.com/compose/">docker-compose</a> 构建，包含以下内容：</p>
+        <ul>
+            <li>基于 <a target="_blank" href="https://hub.docker.com/_/nginx">nginx</a> 镜像的自定义 router 容器，用于域名转发</li>
+            <li>基于 <a target="_blank" href="https://hub.docker.com/r/mailhog/mailhog">mailhog/mailhog</a> 镜像的 mailer
+                容器，用于本地邮件测试
+            </li>
+            <li>基于 <a target="_blank" href="https://hub.docker.com/_/phpmyadmin">phpmyadmin</a> 镜像的同名容器，用于数据库管理</li>
+            <li>名为 dev_net 的 network</li>
+        </ul>
+
+        <p>其中 nginx 容器的自定义部分主要包括：</p>
+        <ul>
+            <li>安装 <code>openssh-server</code> 以便通过这个容器 SSH 到其他项目容器，从而避免为每个项目容器指派一个 SSH 端口</li>
+            <li>安装 <code>openssl</code> 使其支持 HTTPS 请求的转发</li>
+        </ul>
+
+        <p>完整内容请访问 <a target="_blank" href="https://github.com/zengliwei/dev">https://github.com/zengliwei/dev</a>。</p>
+
+        <h3>目录结构</h3>
+        <p>框架的目录结构如下：</p>
+
+        <pre><code class="language-yaml">+-- config
++       +-- phpmyadmin
++       +-- router
++       +-- ssl
++-- images
++       +- router
++-- projects
++
++-- .env
++-- docker-compose.yml
++-- reload.cmd
++-- start.cmd</code></pre>
+
+        <p>这些目录和文件功能如下：</p>
+        <ul>
+            <li><strong>config/phpmyadmin</strong> - 挂载 phpmyadmin 容器的配置文件目录（/etc/phpmyadmin），方便直接在 Windows 下修改</li>
+            <li><strong>config/router</strong> - 挂载 router 容器的配置文件目录（/etc/nginx/conf.d），方便直接在 Windows 下修改</li>
+            <li><strong>config/ssl</strong> - 挂载 router 容器的证书目录（/etc/ssl/certs），作用下文会提及</li>
+            <li><strong>images/router</strong> - 用于创建 router 容器的自定义部分内容</li>
+            <li><strong>projects</strong> - 项目文件的安放目录，每个项目放在这个文件夹的一个子目录中，结构根据项目类型有所不同，下文会提及</li>
+            <li><strong>.env</strong> - 框架配置文件</li>
+            <li><strong>docker-compose.yml</strong> - docker-compose 配置文件</li>
+            <li><strong>reload.cmd</strong> - 修改配置文件后要执行的批处理命令</li>
+            <li><strong>start.cmd</strong> - 安装框架时要执行的批处理命令。执行后会自动创建容器，修改 Windows 的 hosts 文件，并在 Windows
+                的启动目录中创建一个自动关闭所有容器的批处理文件
+            </li>
+        </ul>
+
+        <h3>docker-compose.yml</h3>
+        <p>配置文件 docker-compose.yml 内容如下：</p>
+
+        <pre><code class="language-yaml">version: "3"
+
+services:
+
+  mailer:
+    image: mailhog/mailhog
+    container_name: ${COMPOSE_PROJECT_NAME}_mailer
+    restart: ${RESTART}
+    networks:
+      - net
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin
+    restart: ${RESTART}
+    environment:
+      PMA_ARBITRARY: 1
+    volumes:
+      - ${PHPMYADMIN_CONFIG_DIR}:/etc/phpmyadmin
+    networks:
+      - net
+
+  router:
+    image: dev-router
+    build:
+      context: ./images/router
+      args:
+        ssh_pswd: ${ROUTER_SSH_PSWD}
+    container_name: ${COMPOSE_PROJECT_NAME}_router
+    depends_on:
+      - mailer
+      - phpmyadmin
+    restart: ${RESTART}
+    networks:
+      - net
+    ports:
+      - ${ROUTER_PORT}:80
+      - ${ROUTER_SSL_PORT}:443
+      - ${ROUTER_SSH_PORT}:22
+    volumes:
+      - ${ROUTER_CONFIG_DIR}:/etc/nginx/conf.d
+      - ${ROUTER_SSL_DIR}:/etc/ssl/certs
+
+networks:
+
+  net:</code></pre>
+
+        <h3>.env</h3>
+        <p>配置文件 .env 内容如下：</p>
+
+        <pre><code>COMPOSE_PROJECT_NAME=dev
+
+ROUTER_CONFIG_DIR=./config/router
+ROUTER_PORT=127.0.0.1:80
+
+ROUTER_SSH_PORT=127.0.0.1:22
+ROUTER_SSH_PSWD=root
+
+ROUTER_SSL_DIR=./config/ssl
+ROUTER_SSL_PORT=127.0.0.1:443
+
+DB_PSWD=root
+
+PHPMYADMIN_CONFIG_DIR=./config/phpmyadmin
+
+RESTART=on-failure
+</code></pre>
+
+        <h2>使用方法</h2>
+
+        <h3>安装框架</h3>
+        <ol>
+            <li>正确安装并配置 <a target="_blank" href="https://docs.docker.com/desktop/windows/install/">Docker Desktop</a> 和 <a target="_blank" href="https://docs.docker.com/compose/install/">docker-compose</a>
+            </li>
+            <li>点击【<a target="_blank" href="https://github.com/zengliwei/dev/archive/refs/heads/master.zip">这里</a>】下载并解压框架文件到本地目录（解压后的目录为
+                dev_master，里边一层才是正式内容）
+            </li>
+            <li>确保本机的 22、80、443 几个端口未被占用，否则要修改框架配置文件 .env 让这个框架使用其他端口</li>
+            <li>运行批处理文件 start.cmd 安装框架</li>
+            <li>运行完毕后，在浏览器可以正常访问 <a target="_blank" href="http://db.localhost">http://db.localhost</a> 和 <a
+                    target="_blank" href="http://mail.localhost">http://mail.localhost</a> 说明安装成功
+            </li>
+        </ol>
+
+        <h3>安装新项目</h3>
+
+    </article>
+</main>
+<script src="web/js/lib/require.js" type="text/javascript"></script>
+<script src="web/js/require-config.js" type="text/javascript"></script>
+<script src="web/js/notes.js" type="text/javascript"></script>
+</body>
+</html>
