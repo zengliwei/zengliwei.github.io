@@ -28,6 +28,11 @@
     user-select: none;
 }
 
+*::selection {
+    background: #2196F3;
+    color: #fff;
+}
+
 body {
     color: #545454;
     font: 14px/24px Verdana, Arial, Helvetica, sans-serif;
@@ -66,7 +71,7 @@ a {
 }
 
 a:hover {
-    color: #545454;
+    border-bottom: 1px solid #669;
 }
 
 p, pre {
@@ -141,8 +146,12 @@ body > .sidebar #search {
     padding: 8px 12px;
 }
 
-body > .sidebar nav {
+body > .sidebar #nav {
     max-height: calc(100% - 55px);
+}
+
+body > .sidebar #nav .mCSB_container {
+    padding-bottom: 80px;
 }
 
 body > .sidebar nav a {
@@ -152,18 +161,54 @@ body > .sidebar nav a {
     display: block;
     font-size: 12px;
     padding: 4px 6px 4px 28px;
+    position: relative;
     text-decoration: none;
 }
 
 body > .sidebar nav a:hover {
-    background: #f0f0f6;
+    background: #FFF3E0;
 }
 
 body > .sidebar nav a.level-1 {
     background: none;
     color: #669;
-    margin-top: 6px;
     padding: 6px 6px 6px 18px;
+}
+
+body > .sidebar nav.links a.level-1:after {
+    color: #e0e0e3;
+    content: '\f104';
+    display: block;
+    font-family: Awesome;
+    font-weight: bold;
+    font-size: 12px;
+    position: absolute;
+    right: 18px;
+    top: 6px;
+    transform: rotateZ(0deg);
+}
+
+body > .sidebar nav.links a.level-1.current:after {
+    transform: rotateZ(-90deg);
+}
+
+body > .sidebar nav a.level-2 .favour {
+    display: block;
+    position: absolute;
+    right: 16px;
+    top: 4px;
+}
+
+body > .sidebar nav a.level-2 .favour:after {
+    color: #e0e0e3;
+    content: '\f005';
+    display: inline;
+    font-family: 'Awesome';
+    font-weight: 300;
+}
+
+body > .sidebar nav a.level-2.favoured .favour:after {
+    font-weight: bold;
 }
 
 body > main {
@@ -203,7 +248,12 @@ body > nav#index .index-box {
     max-height: calc(100% - 40px);
 }
 
+body > nav#index .index-box .mCSB_container {
+    padding-bottom: 60px;
+}
+
 body > nav#index a {
+    border: 0;
     color: #545454;
     display: block;
     padding: 4px 0;
