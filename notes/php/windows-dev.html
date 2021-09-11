@@ -47,7 +47,11 @@
             <li>安装 <code>openssl</code> 使其支持 HTTPS 请求的转发</li>
         </ul>
 
-        <p>完整内容请访问 <a target="_blank" href="https://github.com/zengliwei/dev">https://github.com/zengliwei/dev</a>。</p>
+        <p>这个框架的主要机制是建立一个 Docker 内部网络把各个项目容器和 router 容器连接起来，并将本机的 80/443 端口映射到 router 容器。这样所有指向本地 IP（127.0.0.1）的不同域名（在 Windows 的 hosts 文件中设置）请求都会通过 router 容器转发到对应的项目容器，从而达到不同项目对应不同域名的目的。</p>
+
+        <p>更新文件可以通过 putty 等软件设置 tunnel 通道，这样 SSH 连通 router 容器后就可以用 FTP 工具把文件上传到项目容器中；或者直接将项目容器的 22 端口映射到本机的某个端口，然后直接通过该端口上传。<strong>一定不要直接把项目文件挂载到 Windows</strong>，否则程序运行起来效率比直接在 Windows 下还要低。</p>
+
+        <p>下面简述框架的主要结构，完整内容请访问 <a target="_blank" href="https://github.com/zengliwei/dev">https://github.com/zengliwei/dev</a>。</p>
 
         <h3>目录结构</h3>
         <p>框架的目录结构如下：</p>
@@ -92,7 +96,7 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_mailer
     restart: ${RESTART}
     networks:
-      - net
+      - network
 
   phpmyadmin:
     image: phpmyadmin
@@ -103,7 +107,7 @@ services:
     volumes:
       - ${PHPMYADMIN_CONFIG_DIR}:/etc/phpmyadmin
     networks:
-      - net
+      - network
 
   router:
     image: dev-router
@@ -117,7 +121,7 @@ services:
       - phpmyadmin
     restart: ${RESTART}
     networks:
-      - net
+      - network
     ports:
       - ${ROUTER_PORT}:80
       - ${ROUTER_SSL_PORT}:443
@@ -128,7 +132,7 @@ services:
 
 networks:
 
-  net:</code></pre>
+  network:</code></pre>
 
         <h3>.env</h3>
         <p>配置文件 .env 内容如下：</p>
@@ -151,6 +155,62 @@ PHPMYADMIN_CONFIG_DIR=./config/phpmyadmin
 RESTART=on-failure
 </code></pre>
 
+        <h2>项目容器</h2>
+        <p>不同类型项目容器的结构都不一样，通常包含以下内容：</p>
+        <ul>
+            <li><strong>config</strong> - 挂载配置文件的目录</li>
+            <li><strong>src</strong> - 项目源文件的放置目录</li>
+            <li><strong>.env</strong> - 项目配置文件，设定域名、项目名等内容</li>
+            <li><strong>docker-compose.yml</strong> - docker-compose 配置文件</li>
+            <li><strong>start.cmd</strong> - 开启项目容器时要执行的批处理命令。在新项目中执行还会自动创建容器，在框架的 config 目录创建配置文件，并修改 Windows 的 hosts 文件增加域名指向</li>
+            <li><strong>stop.cmd</strong> - 关闭项目容器</li>
+        </ul>
+
+        <h3>docker-compose.yml</h3>
+        <p>不同类型项目的 docker-compose.yml 文件有所不同，格式如下：</p>
+
+        <pre><code class="language-yaml">version: "3"
+
+services:
+  ...
+
+networks:
+
+  network:
+    external:
+      name: ${NETWORK}</code></pre>
+
+        <h3>.env</h3>
+        <p>不同类型项目的配置文件有所不同，格式如下：</p>
+
+        <pre><code>COMPOSE_PROJECT_NAME=project
+DOMAIN=project.mine.com
+
+SSH_PSWD=root
+
+DB_ROOT=root
+DB_NAME=project
+DB_USER=project
+DB_PSWD=project
+
+RESTART=no
+
+NETWORK=dev_net
+</code></pre>
+
+        <h3>项目环境容器列表</h3>
+
+        <p>下边是一些做好的环境容器：</p>
+        <ul>
+            <li><a target="_blank" href="https://github.com/zengliwei/dev-php-5.x/tree/5.3">dev-php-5.3</a></li>
+            <li><a target="_blank" href="https://github.com/zengliwei/dev-php-5.x/tree/5.6">dev-php-5.6</a></li>
+            <li><a target="_blank" href="https://github.com/zengliwei/dev-php-7.x/tree/7.4">dev-php-7.4</a></li>
+            <li><a target="_blank" href="https://magento2cn.github.io/notes/appendices/dev-windows/magento.html">dev-magento</a> - 支持 Magento 1.9 到 2.4 几个版本</li>
+            <li><a target="_blank" href="https://github.com/zengliwei/dev-jupyter/tree/tensorflow">dev-jupyter-tensorflow</a></li>
+            <li><a target="_blank" href="https://github.com/zengliwei/dev-rabbitmq">dev-rabbitmq</a></li>
+            <li><a target="_blank" href="https://github.com/zengliwei/dev-varnish">dev-varnish</a></li>
+        </ul>
+
         <h2>使用方法</h2>
 
         <h3>安装框架</h3>
@@ -167,7 +227,20 @@ RESTART=on-failure
             </li>
         </ol>
 
+        <p>SSH 设置如下图所示：</p>
+        <p><img width="500" src="web/images/notes/php/windows-dev/ssh.png"/></p>
+
         <h3>安装新项目</h3>
+        <ol>
+            <li>从项目环境容器列表中选择一个合适的容器下载并解压到框架目录的 projects 文件夹下</li>
+            <li>解压后修改目录名为合适的名称</li>
+            <li>修改 .env 项目配置文件，主要是修改项目名和域名</li>
+            <li>运行批处理文件 start.cmd 初始化和开启容器</li>
+            <li>每次重启 Docker 后都需要运行所需项目的批处理文件 start.cmd 开启容器</li>
+        </ol>
+
+        <p>通过 Tunnel 通道上传文件的 SSH 设置如下图所示：</p>
+        <p><img width="500" src="web/images/notes/php/windows-dev/putty-tunnels.png"/></p>
 
     </article>
 </main>

@@ -222,6 +222,10 @@ body > main article * {
     user-select: text;
 }
 
+body > main article img {
+    max-width: 80%;
+}
+
 body > main article pre code.hljs {
     background: #f0f0f6;
     font: 14px/21px Consolas, Arial, Helvetica, sans-serif;
@@ -326,6 +330,10 @@ body > footer {
     body > main {
         margin: 0;
         padding: 50px 10px 120px;
+    }
+
+    body > main article img {
+        max-width: 100%;
     }
 
     body > nav#index {
