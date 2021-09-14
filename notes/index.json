@@ -18,6 +18,10 @@
                 "path": "https://magento2cn.github.io/notes"
             },
             {
+                "title": "Drupal 开发笔记",
+                "path": "https://drupal-cn.github.io/notes"
+            },
+            {
                 "title": "通过给定数组获得 XML",
                 "path": "notes/php/common/array-to-xml.html"
             },
