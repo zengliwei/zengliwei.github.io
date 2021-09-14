@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://zengliwei.github.io/</loc>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         <image:image>
             <image:loc>https://zengliwei.github.io/media/gallery/default.jpg</image:loc>
@@ -12,8 +12,25 @@
         </image:image>
     </url>
     <url>
+        <loc>https://zengliwei.github.io/lab/html-css/transform/cubes.html</loc>
+    </url>
+    <url>
+        <loc>https://zengliwei.github.io/lab/html-css/transform/stage.html</loc>
+    </url>
+    <url>
         <loc>https://zengliwei.github.io/notes</loc>
-        <changefreq>daily</changefreq>
         <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://zengliwei.github.io/notes/html-css/canvas/starry-sky.html</loc>
+    </url>
+    <url>
+        <loc>https://zengliwei.github.io/notes/php/common/array-to-xml.html</loc>
+    </url>
+    <url>
+        <loc>https://zengliwei.github.io/notes/php/windows-dev.html</loc>
+    </url>
+    <url>
+        <loc>https://zengliwei.github.io/extensions/privacy-policy.html</loc>
     </url>
 </urlset>
