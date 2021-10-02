@@ -15,11 +15,11 @@
         "children": [
             {
                 "title": "Magento 2 开发笔记",
-                "path": "https://magento2cn.github.io/notes"
+                "path": "https://magento2cn.github.io"
             },
             {
                 "title": "Drupal 开发笔记",
-                "path": "https://drupal-cn.github.io/notes"
+                "path": "https://drupal-cn.github.io"
             },
             {
                 "title": "通过给定数组获得 XML",
