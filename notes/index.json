@@ -30,5 +30,15 @@
                 "path": "notes/php/windows-dev.html"
             }
         ]
+    },
+    {
+        "title": "敏捷开发",
+        "path": "agile-development",
+        "children": [
+            {
+                "title": "敏捷开发 Scrum",
+                "path": "notes/agile-development/scrum.html"
+            }
+        ]
     }
 ]
