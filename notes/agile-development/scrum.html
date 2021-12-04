@@ -129,42 +129,135 @@
             <li>作为专业人士对彼此负责</li>
         </ul>
 
-        <h2>Scrum 事件</h2>
+        <h2>Scrum 事件（活动）</h2>
+        <p>Sprint 是所有其他事件（活动）的容器。Scrum 的每个活动都为检视和调整 Scrum 工件提供机会。
+            这些活动旨在实现 Scrum 框架所需的透明度，不按规定操办任何活动都可能失去检视和调整的机会。
+            Scrum 活动用于营造规律性，以达到尽量少地召开未定义会议的目的。
+            理想情况下，所有活动应在同一时间和地点举行，从而避免流程变得复杂。</p>
 
         <h3>Sprint</h3>
+        <p>Sprint 是 Scrum 的核心，构思在这里转化为价值。</p>
+        <p>Sprint 应是为期小于一个月，时长固定的活动。Sprint 之间需保持连贯性，新的 Sprint 在前一个结束后立即开始。</p>
+        <p>实现 <a href="notes/agile-development/scrum.html#product-goal">Product Goal</a> 所需的所有工作，包括
+            Sprint Planning、Daily Scrum、Sprint Review 和 Sprint Retrospective 都在 Sprint 内进行。</p>
+        <p>在 Sprint 期间</p>
+        <ul>
+            <li>不做可能导致 Sprint Goal 失败的修改</li>
+            <li>必须保证工作质量</li>
+            <li>根据需要精炼 Product Backlog</li>
+            <li>对项目细节有更多了解后，可与 Product Owner 重新协商 Product Backlog 的范围</li>
+        </ul>
+        <p>通过 Sprint 可确保至少每月一次，对达成 Product Goal 的进程进行检视和修正，以实现对未来进展的预测。
+            若 Sprint 为期过长，Sprint Goal 就可能失效，进而增加项目复杂性和风险。制定短期 Sprint
+            可产生更多学习周期，将成本和风险控制在更小的时间范围内。而每个 Sprint 都可视为一个短期项目。</p>
+        <p>多种实践可用于预测进展，比如燃尽图（burn-downs）、燃起图（burn-ups）、积流图（cumulative flows）等。
+            这些实践已被证明是有效的，但不能取代经验主义。在复杂的环境中，未来是难以推测的，只能通过已发生的事情作为前瞻性抉择的基础。</p>
+        <p>如果 Sprint Goal 已过时，可以取消 Sprint。仅 Product Owner 有此权限。</p>
 
         <h3>Sprint Planning</h3>
+        <p>Scrum Team 通过 Sprint Planning 规划在 Sprint 中要执行的工作来启动 Sprint。</p>
+        <p>Product Owner 确保与会者准备好讨论最重要的 Product Backlog 代办事项，以及 Product Goal 与其如何对应。
+            Scrum Team 可以邀请其他人参加 Sprint Planning 以提供建议。</p>
+        <p>Sprint Planning 一般包含下述话题：</p>
+
+        <p><strong>为什么这个 Sprint 有价值？</strong></p>
+        <p>Product Owner 建议如何在当前 Sprint 中增加产品价值，然后 Sprint Team 共同制定 Sprint Goal 来说明当前 Sprint
+            能给利益相关者创造价值的原因。</p>
+
+        <p><strong>这个 Sprint 能做些什么？</strong></p>
+        <p>通过与 Product Owner 讨论，Developer 从 Product Backlog 中选出要安排到当前 Sprint 的工作。Sprint Team
+            可以在这过程中细化被安排的内容，从而增加对项目的理解和信心。</p>
+        <p>为 Sprint 设定工作量是一件有挑战性的事情。Developer 对过往的表现、产能，以及 Definition of Done 了解的越多，
+            他们对 Sprint 的预测就会越有信心。</p>
+
+        <p><strong>如何完成所选工作</strong></p>
+        <p>对于选定的每项 Product Backlog 条目，Developer 都要对如何创造满足其 Definition of Done 的 Increment 进行规划。
+            通常是把 Product Backlog 拆分为一天或更小的任务，具体细节由 Developer 自行决定。</p>
+
+        <p>Sprint Goal、所选的 Product Backlog 任务，以及如何交付这些任务的计划被称之为 Sprint Backlog。</p>
+        <p>Sprint Planning 是有时间限制的。对于一个月的 Sprint，计划最多 8 小时；对于更短的 Sprint 计划时间相应缩短。</p>
 
         <h3>Daily Scrum</h3>
+        <p>Daily Scrum 的目的是检查 Sprint Goal 的进度，如有需要可调整 Sprint Backlog 中已计划的工作。</p>
+        <p>Daily Scrum 是一个由 Developer 参与的 15 分钟的活动。为降低复杂度，它在每个工作日的同一时间和地点举行。
+            如果 Product Owner 或 Scrum Master 正在处理 Sprint Backlog 条目，那么他们也应作为 Developer 参与其中。</p>
+        <p>只要在 Daily Scrum 中专注于 Sprint Goal 的进展，并为第二天的工作制定可行的计划，Developer
+            可以选择任何他们需要的架构和技术。这样有助于建立关注点和改善自我管理。</p>
+        <p>Daily Scrum 能够改善沟通、识别障碍、促进快速决策，从而让未定义会议变得不必要。</p>
+        <p>Daily Scrum 不是 Developer 调整计划的唯一一次活动，他们可以在一天中任何时间碰面，具体讨论如何调整或重新规划
+            Sprint 的剩余工作。</p>
 
         <h3>Sprint Review</h3>
+        <p>Sprint Review 的目的是检视 Sprint 成果并确定未来将如何调整。Scrum Team 向利益相关者展示工作成果，并讨论 Product
+            Goal 的进展。</p>
+        <p>Sprint Review 期间，Scrum Team 与利益相关者一起回顾这个 Sprint 所完成的工作，以及环境发生了什么变化。
+            依据这些信息，与会者可就接下来的工作进行协商。Product Backlog 也可能会进行调整，以适应新的机遇。
+            Sprint Review 是一个工作会议，Scrum Team 应避免局限于仅用作演示。</p>
+        <p>Sprint Review 是 Sprint 的倒数第二个活动，一个月的 Sprint 其回顾时间应限制为最多 4 小时，为期更短的 Sprint 其回顾时间通常也更短。</p>
 
         <h3>Sprint Retrospective</h3>
+        <p>Sprint Retrospective 的目的是商讨提高质量和效率的方法。</p>
+        <p>Scrum Team 检视上一个 Sprint 中个人、沟通、流程、工具和 Definition of Done 等方面的情况，被检查的元素通常随不同的工作领域而不同。
+            定位让他们走歪路的原因，并探索其源头。Scrum Team 总结在 Sprint 期间顺利开展的工作、遭遇的问题以及它们如何解决（或者为什么未被解决）的。</p>
+        <p>Scrum Team 找出有助于他们提高效率的修改，其中最具影响力的部分应尽快得到执行，甚至可以马上加入到下一个 Sprint Backlog 中。</p>
+        <p>Sprint Retrospective 总结了上一个 Sprint。一个月的 Sprint 其总结时间应限制为最多 3 小时，为期更短的 Sprint 其总结时间通常也更短。</p>
 
         <h2>Scrum 工件</h2>
+        <p>Scrum 工件指工作或价值。它们旨在最大限度地提高关键信息的透明度。因此，每个人都基于相同的 adaptation 对它们进行审视。</p>
+        <p>每个工件都包含一个承诺，以确保它提供的信息可增强透明度和量化进度 ：</p>
+        <ul>
+            <li>Product Goal 的工件是 Product Backlog</li>
+            <li>Sprint Goal 的工件是 Sprint Backlog</li>
+            <li>Definition of Done 的工件是 Increment</li>
+        </ul>
+        <p>这些承诺旨在强化经验主义，和 Scrum Team 及其利益相关者的 Scrum 价值观。</p>
 
         <h3>Product Backlog</h3>
+        <p>Product Backlog 是一份紧急、有序的需求清单。它是 Scrum Team 所承担工作的唯一来源。</p>
+        <p>由 Scrum Team 在一个 Sprint 中实现的 Product Backlog 条目，意味着它可以在 Sprint Planning 活动中作为选项。
+            它们通常在精炼后获得透明度。Product Backlog 细化是指将它们分解，并进一步定义为更小、更精确的事项。
+            这是一项持续进行的活动，用于条目细节，比如描述、优先顺序和规模等。这些属性通常随不同的工作领域而有所不同。</p>
+        <p>一个 Product Backlog 条目的规模由负责它的 Developer 进行调整，Product Owner 可以通过帮助 Developer 理解和权衡取舍来影响他们。</p>
 
         <h3>Sprint Backlog</h3>
+        <p>Sprint Backlog 由 Sprint Goal （为什么做）、为 Sprint 选择的 Product Backlog 条目（做什么）以及交付 Increment
+            的可执行计划（怎么做）组成。</p>
+        <p>Sprint Backlog 是一个由 Developer 制定的计划。
+            它是 Developer 在 Sprint 期间为实现 Sprint Goal 而计划完成的工作，是一个高度可视的实时工作画面。
+            因此，随着对更多信息的了解，Sprint Backlog 将在 Sprint 过程中进行更新。
+            它应该有足够多的细节，以便 Developer 可以在 Daily Scrum 中检视其进展。</p>
 
         <h3>Increment</h3>
+        <p>Increment 是迈向 Product Goal 的一块坚实基石。每个 Increment 都是之前所有 Increment 的累加，经过彻底验证，
+            确保整合在一起的所有 Increment 都能工作。为了提供价值，Increment 必须是可用的。</p>
+        <p>在一个 Sprint 中可以创建多个 Increment。Increment 的总和在 Sprint Review 中展示，从而支持经验主义。
+            但是，Increment 可以在 Sprint 结束之前交付给利益相关者。Sprint Review 不应被视为发布价值的关口。</p>
+        <p>一项工作除非符合 Definition of Done，否则不能将其视为 Increment 的一部分。</p>
 
-        <h2>词汇表</h2>
-
-        <h3>User Story</h3>
-        <p>
-            直译作 “用户故事”，是对一项独立功能的描述。<br/>
-            User Story 属于业务需求，不应使用技术语言进行描述。其内容通常包含 3 个 W（Who、What、Why），形如：
-            <br/>As a <strong>webmaster</strong>, I want to <strong>collect access number of each day's
-            visitors</strong>, so that <strong>I can understand how the website brings benefits</strong>.
-        </p>
-
-        <h3>Task</h3>
-        <p>将 User Story 拆分为若干个技术实现或特性，每一项对应一个 task。</p>
+        <h2>Commitment（承诺）</h2>
 
         <h3>Product Goal</h3>
+        <p>Product Goal 描述了产品的未来状态，可以作为 Scrum Team 制定计划的目标。Product Goal 包含在 Product Backlog 中。
+            Product Backlog 的其余部分以定义 “做什么” 来实现 Product Goal。</p>
+        <p>这里的 Product 是传递价值的工具。它有明确的边界、已知的利益相关者、定义明确的用户或客户。
+            Product 可以是服务、实体产品，或者其它更抽象的东西</p>
+        <p>Product Goal 是 Scrum Team 的长期目标。他们必须先实现（或放弃）一个目标，然后再开始下一个目标。</p>
+
+        <h3>Sprint Goal</h3>
+        <p>Sprint Goal 是 Sprint 的单个目标。尽管 Sprint Goal 是 Developer 的承诺，但它为实现该目标所需的具体工作提供了灵活性。
+            Sprint Goal 还创造了连贯性和专注点，鼓励 Scrum Team 一起工作而不是各自分开行动。</p>
+        <p>Sprint Goal 在 Sprint Planning 活动中建立，然后添加到 Sprint Backlog 中。当 Developer 在 Sprint 期间工作时，他们会记住
+            Sprint Goal。如果需要完成的工作与预期的不一致，他们将与 Product Owner 协作，在不影响 Sprint Goal 的情况下协商本次
+            Sprint Backlog 的范围。</p>
 
         <h3>Definition of Done</h3>
+        <p>Definition of Done 是当 Increment 符合产品所需的质量度量标准时对其状态的正式描述。</p>
+        <p>当一个 Product Backlog 条目符合 Definition of Done 时，就会产生一个 Increment。</p>
+        <p>Definition of Done 通过使每一个人对 “作为 Increment 的一部分，什么样的工作算是已完成” 有一个共同的理解来产生透明度。
+            如果一个 Product Backlog 条目不符合 Definition of Done，那么它就不能发布，甚至不应在 Sprint Review 中展示它。
+            相反，它应返回 Product Backlog 以备将来参考。</p>
+        <p>如果 Increment 的 Definition of Done 是组织标准的一部分，那么所有 Scrum Team 都必须以此作为最低标准。
+            否则，Scrum Team 必须制定适合于该产品的 Definition of Done。</p>
 
     </article>
 </main>
