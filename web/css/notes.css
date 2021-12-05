@@ -260,10 +260,16 @@ body > main article img {
     max-width: 80%;
 }
 
+body > main article pre code,
 body > main article pre code.hljs {
     background: #f0f0f6;
+    display: block;
     font: 14px/21px Consolas, Arial, Helvetica, sans-serif;
     padding: 15px 20px;
+}
+
+body > main article table pre code {
+    font-size: 12px;
 }
 
 body > nav#index {

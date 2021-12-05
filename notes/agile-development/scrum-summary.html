@@ -13,34 +13,47 @@
 <main>
     <article>
         <h1>Scrum 小结</h1>
-
+        <p>Scrum 是一套用于帮助人们解决复杂问题的框架（<a target="_blank" href="https://www.scrum.org/">https://www.scrum.org</a>）。
+            Scrum 的核心思想与敏捷开发相符，将其用于软件开发便成为敏捷开发的一种。</p>
         <p>本文是对【<a target="_blank" href="https://scrumguides.org/scrum-guide.html">The 2020 Scrum Guide</a>】的读后小结，
-            译文可参阅【<a target="_blank" href="notes/agile-development/scrum-guide.html">2020 Scrum 指南</a>】。</p>
+            译文参阅【<a target="_blank" href="notes/agile-development/scrum-guide.html">2020 Scrum 指南</a>】。</p>
 
         <h2>Scrum 角色</h2>
-
+        <p>Scrum 框架中，项目成员分为 4 种角色，分别负责不同的工作内容：</p>
         <table>
             <tr>
                 <th colspan="2">角色</th>
-                <th>描述 / 工作内容</th>
+                <th>描述 / 主要工作内容</th>
             </tr>
             <tr>
-                <td rowspan="3" style="width: 120px;">Scrum Team</td>
-                <td style="width: 120px;">Product Owner</td>
+                <td rowspan="3" style="width: 120px;">
+                    <a target="_blank" href="notes/agile-development/scrum-guide.html#scrum-team">Scrum Team</a>
+                </td>
+                <td style="width: 120px;">
+                    <a target="_blank" href="notes/agile-development/scrum-guide.html#product-owner">Product Owner</a>
+                </td>
                 <td>
                     确立 Product Goal；<br/>
-                    制定 Product Backlog
+                    制定 Product Backlog，包括待办事项及其优先顺序
                 </td>
             </tr>
             <tr>
-                <td>Developer</td>
+                <td>
+                    <a target="_blank" href="notes/agile-development/scrum-guide.html#developer">Developer</a>
+                </td>
                 <td>
                     制定 Sprint Backlog；<br/>
+                    逐一完成 Sprint Backlog 的待办事项
                 </td>
             </tr>
             <tr>
-                <td>Scrum Master</td>
-                <td></td>
+                <td>
+                    <a target="_blank" href="notes/agile-development/scrum-guide.html#scrum-master">Scrum Master</a>
+                </td>
+                <td>
+                    从各个方面帮助整个团队通过使用 Scrum 框架完成项目，详情参考
+                    【<a target="_blank" href="notes/agile-development/scrum-guide.html#scrum-master">这里</a>】。
+                </td>
             </tr>
             <tr>
                 <td colspan="2">利益相关者</td>
@@ -52,17 +65,20 @@
         </table>
 
         <h2>Scrum 活动</h2>
-        <p>指南提出 Scrum 活动有 5 种，实际上是 4 类正式会议，加上它们的容器 Sprint。</p>
+        <p>指南中定义的 Scrum 活动有 5 种，包括 4 类正式会议，加上它们的容器 Sprint。</p>
         <table>
             <tr>
                 <th style="width: 150px;">会议名称</th>
                 <th style="width: 180px;">参与者</th>
-                <th style="width: 110px;">会议时间</th>
-                <th style="width: 100px;">计划用时</th>
+                <th style="width: 110px;">与会时机</th>
+                <th style="width: 100px;">建议用时</th>
                 <th>内容简述</th>
             </tr>
             <tr>
-                <td>Sprint Planning</td>
+                <td>
+                    <a target="_blank"
+                       href="notes/agile-development/scrum-guide.html#sprint-planning">Sprint Planning</a>
+                </td>
                 <td>Scrum Team<br/>利益相关者（非必要）</td>
                 <td style="text-align: center;">Sprint 启动前</td>
                 <td style="text-align: center;">8 hrs</td>
@@ -73,25 +89,38 @@
                 </td>
             </tr>
             <tr>
-                <td>Daily Scrum</td>
+                <td>
+                    <a target="_blank" href="notes/agile-development/scrum-guide.html#daily-scrum">Daily Scrum</a>
+                </td>
                 <td>Developer<br/>Product Owner（非必要）<br/>Scrum Master（非必要）</td>
                 <td style="text-align: center;">Sprint 进行中<br/>（每个工作日）</td>
                 <td style="text-align: center;">15 min</td>
-                <td>检查进度，调整工作</td>
+                <td>检查进度，调整工作内容</td>
             </tr>
             <tr>
-                <td>Sprint Review</td>
+                <td>
+                    <a target="_blank"
+                       href="notes/agile-development/scrum-guide.html#sprint-review">Sprint Review</a>
+                </td>
                 <td>Scrum Team<br/>利益相关者</td>
-                <td style="text-align: center;"></td>
+                <td style="text-align: center;">
+                    Sprint Backlog 待办事项完成后，或到达 Sprint 期限
+                </td>
                 <td style="text-align: center;">4 hrs</td>
-                <td></td>
+                <td>
+                    展示工作成果；<br/>
+                    回顾 Sprint，根据实际情况调整 Product Backlog
+                </td>
             </tr>
             <tr>
-                <td>Sprint Retrospective</td>
+                <td>
+                    <a target="_blank"
+                       href="notes/agile-development/scrum-guide.html#sprint-retrospective">Sprint Retrospective</a>
+                </td>
                 <td>Scrum Team</td>
-                <td style="text-align: center;"></td>
+                <td style="text-align: center;">Sprint Review 之后</td>
                 <td style="text-align: center;">3 hrs</td>
-                <td></td>
+                <td>回顾 Sprint，商讨提高质量和效率的方法</td>
             </tr>
         </table>
 
@@ -99,19 +128,25 @@
         <table class="list">
             <tr>
                 <th>Product Goal</th>
-                <td></td>
+                <td>描述对项目成品的期望</td>
             </tr>
             <tr>
                 <th>Product Backlog</th>
-                <td></td>
+                <td>
+                    为达成 Product Goal 而罗列的有优先顺序的需求列表
+                </td>
             </tr>
             <tr>
                 <th>Sprint Goal</th>
-                <td></td>
+                <td>描述对 Sprint 成果的期望</td>
             </tr>
             <tr>
                 <th>Sprint Backlog</th>
-                <td></td>
+                <td>
+                    <pre><code class="nohighlight">Sprint Backlog = Sprint Goal + 待办事项 + 执行计划</code></pre>
+                    待办事项：从 Product Backlog 选取的需求<br/>
+                    执行计划：一般是将待办事项拆分成粒度更小的可量化需求，或对如何实现作分步规划
+                </td>
             </tr>
         </table>
     </article>

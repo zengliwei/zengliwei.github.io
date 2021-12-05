@@ -174,6 +174,10 @@ require([
             $win.on('resize', function () {
                 $indexBox.mCustomScrollbar('update');
             });
+
+            if (window.location.hash !== '' && $(window.location.hash).length > 0) {
+                $(document).scrollTop($(window.location.hash).offset().top);
+            }
         }
     };
 
