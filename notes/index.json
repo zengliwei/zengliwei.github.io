@@ -24,16 +24,12 @@
             {
                 "title": "通过给定数组获得 XML",
                 "path": "notes/php/common/array-to-xml.html"
-            },
-            {
-                "title": "Windows 多项目开发环境",
-                "path": "notes/php/windows-dev.html"
             }
         ]
     },
     {
-        "title": "敏捷开发",
-        "path": "agile-development",
+        "title": "项目开发",
+        "path": "development",
         "children": [
             {
                 "title": "Scrum 小结",
@@ -42,6 +38,10 @@
             {
                 "title": "2020 Scrum 指南",
                 "path": "notes/development/agile/scrum-guide.html"
+            },
+            {
+                "title": "Windows 多项目开发环境",
+                "path": "notes/development/windows-dev.html"
             }
         ]
     }
