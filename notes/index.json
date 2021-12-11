@@ -42,6 +42,10 @@
             {
                 "title": "Windows 多项目开发环境",
                 "path": "notes/development/windows-dev.html"
+            },
+            {
+                "title": "响应式布局",
+                "path": "notes/development/responsive-design.html"
             }
         ]
     }
