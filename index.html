@@ -37,11 +37,11 @@
         </div>
     </section>
     <section id="notes">
+        <h2>
+            <span>开发笔记 Notes</span>
+            <span class="more">[ <a target="_blank" href="notes">更多</a> ]</span>
+        </h2>
         <div class="wrapper">
-            <h2>
-                <span>开发笔记 Notes</span>
-                <span class="more">[ <a target="_blank" href="notes">更多</a> ]</span>
-            </h2>
             <article>
                 <a target="_blank" href="notes/development/agile/scrum-summary.html">
                     <h3><span class="tag">[DEV]</span> 敏捷开发 - Scrum 小结</h3>
@@ -82,7 +82,106 @@
         </div>
     </section>
     <section id="resources">
-
+        <h2><span>常用资源</span></h2>
+        <div class="wrapper">
+            <div class="container">
+                <div class="box">
+                    <h3>JavaScript 工具</h3>
+                    <ul>
+                        <li>
+                            <a target="_blank" href="http://requirejs.org/">RequireJs</a>
+                            <span>动态加载 JS 文件</span>
+                        </li>
+                        <li>
+                            <a target="_blank"
+                               href="https://knockoutjs.com/documentation/introduction.html">Knockout</a>
+                            <span>View Model 类</span>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://underscorejs.org/">Underscore</a>
+                            <span>常用工具函数集</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>JavaScript UI</h3>
+                    <ul>
+                        <li>
+                            <a target="_blank" href="http://manos.malihu.gr/jquery-custom-content-scroller/">Custom
+                                Scroller</a>
+                            <span>虚拟滚动条</span>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://kenwheeler.github.io/slick/">Slick</a>
+                            <span>自适应幻灯片</span>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://fancyapps.com/docs/ui/fancybox/">Fancybox</a>
+                            <span>Light Box</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>前端资源</h3>
+                    <ul>
+                        <li>
+                            <a target="_blank" href="https://fontawesome.com/">Font Awesome</a>
+                            <span>图标字体</span>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://simpleicons.org/">Simple Icons</a>
+                            <span>图标库</span>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://materialui.co/">Material UI</a>
+                            <span>配色工具</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>模板网站</h3>
+                    <ul>
+                        <li><a target="_blank" href="https://dribbble.com/">Dribbble</a></li>
+                        <li><a target="_blank" href="https://seantheme.com/">Sean Theme</a></li>
+                        <li><a target="_blank" href="https://www.template.net/">Template</a></li>
+                        <li><a target="_blank" href="https://themeforest.net/">Theme Forest</a></li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>PHP 框架</h3>
+                    <ul>
+                        <li><a target="_blank" href="https://www.drupal.org/">Drupal</a></li>
+                        <li><a target="_blank" href="https://www.joomla.org/">Joomla</a></li>
+                        <li><a target="_blank" href="https://laravel.com/">Laravel</a></li>
+                        <li><a target="_blank" href="https://www.yiiframework.com/">Yii</a></li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>测试工具</h3>
+                    <ul>
+                        <li>
+                            <a target="_blank" href="https://www.selenium.dev/">Selenium</a>
+                            <span>浏览器自动测试</span>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://crossbrowsertesting.com/">Cross Browser Testing</a>
+                            <span>跨平台浏览器</span>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://www.browserstack.com/">Browser Stack</a>
+                            <span>跨平台浏览器</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>设计工具</h3>
+                    <ul>
+                        <li><a target="_blank" href="https://www.adobe.com/products/xd.html">Adobe XD</a></li>
+                        <li><a target="_blank" href="https://www.figma.com/">Figma</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
     <section id="lab">
 
@@ -113,6 +212,7 @@
         const $sections = $main.find('section');
         const $sectionProfile = $sections.eq(0);
         const $sectionNote = $sections.eq(1);
+        const $sectionResource = $sections.eq(2);
         const dividerRatio = 0.4;
 
         let currentSection = 0;
@@ -178,12 +278,13 @@
          * Section Profile initialization
          */
         const initSectionProfile = function () {
-            $sectionProfile.find('.wrapper').mCustomScrollbar({theme: 'minimal-dark'});
+            const $box = $sectionProfile.find('.wrapper');
             const $containerProfile = $bgProfile.find('.container');
             const ratio = 0.01;
             let transformData = {
                 translateX: 0, translateY: 0, scale: 1
             };
+            $box.mCustomScrollbar({theme: 'minimal-dark'});
             $doc.on('mousemove', function (evt) {
                 transformData.translateX = (winW / 2 - evt.clientX) * ratio;
                 transformData.translateY = (winH / 2 - evt.clientY) * ratio;
@@ -192,6 +293,9 @@
             $doc.on('scroll', function (evt) {
                 transformData.scale = 1 + $win.scrollTop() / $sectionProfile.outerHeight() * 0.2;
                 updateTransform($containerProfile, transformData);
+            });
+            $win.on('resize', function () {
+                $box.mCustomScrollbar('update');
             });
         };
 
@@ -202,6 +306,12 @@
             // get sha https://api.github.com/repos/zengliwei/zengliwei.github.io/branches/master
             // get contents https://api.github.com/repos/zengliwei/zengliwei.github.io/contents/
             // get tree https://api.github.com/repos/zengliwei/zengliwei.github.io/git/trees/?recursive=1
+
+            const $box = $sectionNote.find('.wrapper');
+            $box.mCustomScrollbar({theme: 'minimal-dark'});
+            $win.on('resize', function () {
+                $box.mCustomScrollbar('update');
+            });
 
             $('#starry-sky').starrySky();
 
@@ -221,9 +331,21 @@
             });
         };
 
+        /**
+         * Section Resource initialization
+         */
+        const initSectionResource = function () {
+            const $box = $sectionResource.find('.wrapper');
+            $box.mCustomScrollbar({theme: 'minimal-dark'});
+            $win.on('resize', function () {
+                $box.mCustomScrollbar('update');
+            });
+        };
+
         initActions();
         initSectionProfile();
         initSectionNote();
+        initSectionResource();
         intStage();
 
     });
