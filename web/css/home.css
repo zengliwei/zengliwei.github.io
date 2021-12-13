@@ -217,6 +217,11 @@ body > main > section {
     position: relative;
 }
 
+
+/**
+ * Profile
+ */
+
 body > main > section#profile {
     display: flex;
     align-items: center;
@@ -238,6 +243,11 @@ body > main > section#profile article {
     overflow: hidden;
     position: relative;
 }
+
+
+/**
+ * Notes
+ */
 
 body > main > section#notes {
     padding: 50px 220px;
@@ -337,6 +347,11 @@ body > main > section#notes.read article a {
     transform: translateY(0);
 }
 
+
+/**
+ * Resources
+ */
+
 body > main > section#resources {
     padding: 50px 140px;
     opacity: 0;
@@ -350,6 +365,12 @@ body > main > section#resources .wrapper {
 body > main > section#resources .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+}
+
+@media screen and (max-width: 1200px) {
+    body > main > section#resources .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 body > main > section#resources .container .box {
