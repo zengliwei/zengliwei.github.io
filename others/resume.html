@@ -14,6 +14,7 @@
         }
 
         body {
+            color: #222;
             font: 14px/24px Deng, Arial;
         }
 
@@ -109,6 +110,10 @@
 
         .experience .item .job {
             margin-top: 6px;
+        }
+
+        .experience a {
+            color: #222;
         }
 
         h2 {
@@ -223,6 +228,34 @@
             <h2>项目经验</h2>
             <div class="item">
                 <div class="info">
+                    <span class="time">2015</span>
+                    <span class="separator">|</span>
+                    <span class="company">Robotkingdom</span>
+                </div>
+                <div class="job">
+                    <p>该项目为机器人主题的电子商务网站。</p>
+                    <p>本人负责部分后端开发，包括通过使用 Redis 实现秒杀功能。</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="info">
+                    <span class="time">2017</span>
+                    <span class="separator">|</span>
+                    <span class="company">ForeverPlay</span>
+                </div>
+                <div class="job">
+                    <p>该项目是店铺销售系统，本人负责如下功能：</p>
+                    <ul>
+                        <li>使用 pthreads（多线程）及 socket 实现服务器与店内多个终端（包括 Android APP IC 卡读写器及多个型号的 RFID 读写器）进行实时通信</li>
+                        <li>使用 IC 卡实现会员登录功能</li>
+                        <li>使用 RFID 读写器实现产品扫描入库及库存管理功能</li>
+                        <li>使用 Websocket 实现扫码（点券）支付功能</li>
+                        <li>与库存系统对接，实现数据定时及实时同步</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item">
+                <div class="info">
                     <span class="time">2020</span>
                     <span class="separator">|</span>
                     <span class="company">香港百老汇网站</span>
@@ -233,13 +266,10 @@
                         <li>E-portal 系统，控制商品信息生成、更新及审批</li>
                         <li>与 ERP 系统对接，实现数据定时同步</li>
                         <li>与 ERP 系统对接，实现用户信息实时同步</li>
+                        <li>采用 RabbitMQ 消息队列实现对产品属性、库存、优惠规则等内容的更新</li>
                         <li>后台价钱牌模板的所见即所得编辑器，及 PDF 生成</li>
                         <li>其它业务逻辑</li>
                     </ul>
-                    <p>开发 E-portal 系统期间，商品信息编辑 UI 及审批流程的细节应客户要求有多番修改。
-                        得益于开发初期对这部分代码架构较为完善，这些修改均能如期完成。</p>
-                    <p>另一难点在于数据每日定时同步功能。由于商品数量及种类较多，导致部分数据更新不完整，并影响网站执行效率。
-                        后通过添加完备 log 记录定位具体问题，并改为分时分批实现同步，问题得以解决。</p>
                 </div>
             </div>
             <div class="item">
@@ -250,8 +280,9 @@
                 </div>
                 <div class="job">
                     <p>该项目为 knitup 商务网站，本人负责整站前、后端开发。</p>
-                    <p>这个项目使用响应式设计，是本人首个负责整站前端开发的项目，期间遇到的不少细节性问题最终都得以解决，收获了不错的经验。</p>
-                    <p>这个项目也是本人首次在实战中体验敏捷开发框架 Scrum，见证了其对项目进程的增益，对 Scrum 框架有了更具体的认识。</p>
+                    <p>项目流程采用敏捷开发框架 Scrum，本人体验了其对项目进程的推进作用，作如下小结 <a target="_blank"
+                            href="https://zengliwei.github.io/notes/development/agile/scrum-summary.html">https://zengliwei.github.io/notes/development/agile/scrum-summary.html</a>。
+                    </p>
                 </div>
             </div>
         </div>
