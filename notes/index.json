@@ -28,6 +28,16 @@
         ]
     },
     {
+        "title": "MySQL",
+        "path": "notes/mysql",
+        "children": [
+            {
+                "title": "MySQL 优化",
+                "path": "notes/mysql/optimization/overview.html"
+            }
+        ]
+    },
+    {
         "title": "项目开发",
         "path": "development",
         "children": [

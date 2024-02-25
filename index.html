@@ -231,7 +231,7 @@
                     <ul>
                         <li>
                             <a target="_blank" href="https://ngrok.com/">ngrok</a>
-                            <span>local 网站公网化</span>
+                            <span>本地网站公网化</span>
                         </li>
                         <li>
                             <a target="_blank" href="https://temp-mail.org/">Temp Mail</a>
@@ -354,10 +354,11 @@
         };
 
         const updateTransform = function (el, transformData) {
-            el.css(
-                'transform',
-                'translate(' + transformData.translateX + 'px, ' + transformData.translateY + 'px) scale(' + transformData.scale + ')'
-            );
+            let scale = Math.ceil(transformData.scale * 100) / 100;
+            el.css({
+                //opacity: 1,
+                transform: 'translate(' + transformData.translateX + 'px, ' + transformData.translateY + 'px) scale(' + scale + ')'
+            });
         };
 
         /**
@@ -411,8 +412,8 @@
                 transformData.translateY = (winH / 2 - evt.clientY) * ratio;
                 updateTransform($containerNote, transformData);
             });
-            $doc.on('scroll', function (evt) {
-                transformData.scale = 1 + $win.scrollTop() / $sectionNote.outerHeight() * 0.2;
+            $doc.on('scroll', function () {
+                transformData.scale = 1 + ($win.scrollTop() - $sectionProfile.outerHeight()) / $sectionNote.outerHeight() * 0.2;
                 updateTransform($bgNote, transformData);
             });
         };
