@@ -192,6 +192,13 @@ body > .sidebar #nav .mCSB_container {
     padding-bottom: 80px;
 }
 
+body > .sidebar nav ul {
+    display: none;
+    list-style: none none;
+    margin: 0;
+    padding: 0;
+}
+
 body > .sidebar nav a {
     background: #fff;
     border-bottom: 1px solid #e0e0e3;
@@ -203,17 +210,44 @@ body > .sidebar nav a {
     text-decoration: none;
 }
 
-body > .sidebar nav a:hover {
+body > .sidebar nav > ul,
+body > .sidebar nav li.activated > ul {
+    display: block;
+}
+
+body > .sidebar nav li.has-child > a:before {
+    color: #e0e0e3;
+    content: '\f105';
+    display: block;
+    font-family: Awesome, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    position: absolute;
+    left: 12px;
+    top: 6px;
+}
+
+body > .sidebar nav a:hover,
+body > .sidebar nav li.current a {
     background: #FFF3E0;
 }
 
-body > .sidebar nav a.level-1 {
-    background: none;
-    color: #669;
-    padding: 6px 6px 6px 18px;
+body > .sidebar nav li.activated > a:before {
+    transform: rotateZ(90deg);
 }
 
-body > .sidebar nav.links a.level-1:after {
+body > .sidebar nav li.level-1 > a {
+    background: none;
+    color: #669;
+    padding: 6px 6px 6px 12px;
+}
+
+
+body > .sidebar nav li.level-1.has-child > a:before {
+    display: none;
+}
+
+body > .sidebar nav li.level-1.has-child > a:after {
     color: #e0e0e3;
     content: '\f104';
     display: block;
@@ -226,18 +260,18 @@ body > .sidebar nav.links a.level-1:after {
     transform: rotateZ(0deg);
 }
 
-body > .sidebar nav.links a.level-1.current:after {
+body > .sidebar nav li.level-1.activated > a:after {
     transform: rotateZ(-90deg);
 }
 
-body > .sidebar nav a.level-2 .favour {
+body > .sidebar nav a .favour {
     display: block;
     position: absolute;
     right: 16px;
     top: 4px;
 }
 
-body > .sidebar nav a.level-2 .favour:after {
+body > .sidebar nav a .favour:after {
     color: #e0e0e3;
     content: '\f005';
     display: inline;
@@ -245,7 +279,7 @@ body > .sidebar nav a.level-2 .favour:after {
     font-weight: 300;
 }
 
-body > .sidebar nav a.level-2.favoured .favour:after {
+body > .sidebar nav a.favoured .favour:after {
     font-weight: bold;
 }
 

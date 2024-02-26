@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+    <base href="/"/>
+    <title>通过给定数组获得 XML - Zengliwei 开发笔记</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta name="keywords" content="php, array, xml, 数组"/>
     <meta name="description" content="PHP 数组转化为 XML"/>
-    <base href="/"/>
-    <title>通过给定数组获得 XML - Zengliwei 开发笔记</title>
     <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
+    <script src="web/js/lib/require.js" type="text/javascript"></script>
+    <script src="web/js/require-config.js" type="text/javascript"></script>
+    <script src="web/js/notes.js" type="text/javascript"></script>
 </head>
 <body>
-<main>
-    <article>
-        <h1><span class="tag">[PHP]</span> 通过给定数组获得 XML</h1>
-        <p>一个项目用到 XML 作为配置文件，需要把数组形式的数据转化为 XML 格式储存。由于只要创建 XML 文件，不用进行复杂的更新操作，于是选择 SimpleXMLElement
-            进行开发。现将其整理成类，以备复用。</p>
 
-        <h2>XML 生成类</h2>
-        <pre><code class="language-php">/**
+<h1>
+    <span class="tag">[PHP]</span>
+    <span>通过给定数组获得 XML</span>
+</h1>
+
+<p>一个项目用到 XML 作为配置文件，需要把数组形式的数据转化为 XML 格式储存。由于只要创建 XML 文件，不用进行复杂的更新操作，于是选择 SimpleXMLElement
+    进行开发。现将其整理成类，以备复用。</p>
+
+<h2>XML 生成类</h2>
+<pre><code class="language-php">/**
  * SimpleXML of PHP is recommended to use to create or retrieve XML instead of completely management,
  * as there is not any update or remove methods in the related classes.
  *
@@ -110,11 +116,11 @@ class XmlGenerator
     }
 }</code></pre>
 
-        <h2>使用方法</h2>
+<h2>使用方法</h2>
 
-        <p>执行如下 PHP 代码：</p>
+<p>执行如下 PHP 代码：</p>
 
-        <pre><code class="language-php">$xmlStr = XmlGenerator::arrayToXml([
+<pre><code class="language-php">$xmlStr = XmlGenerator::arrayToXml([
     'node_a' => null, // 赋空值
     'node_b' => 'string', // 字符串值
     'node_c' => ['@attribute' => 'string'], // 仅包含属性
@@ -142,9 +148,9 @@ class XmlGenerator
 ]);
 </code></pre>
 
-        <p>将得到这样的 XML 字串：</p>
+<p>将得到这样的 XML 字串：</p>
 
-        <pre><code class="language-xml">&lt;root&gt;
+<pre><code class="language-xml">&lt;root&gt;
     &lt;node_a/&gt;
     &lt;node_b&gt;string&lt;/node_b&gt;
     &lt;node_c attribute="string"/&gt;
@@ -165,11 +171,5 @@ class XmlGenerator
         &lt;node_g_e attribute="string"&gt;string&lt;/node_f_e&gt;
     &lt;/node_g&gt;
 &lt;/root&gt;</code></pre>
-
-    </article>
-</main>
-<script src="web/js/lib/require.js" type="text/javascript"></script>
-<script src="web/js/require-config.js" type="text/javascript"></script>
-<script src="web/js/notes.js" type="text/javascript"></script>
 </body>
 </html>

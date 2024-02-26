@@ -1,61 +1,62 @@
 [
     {
         "title": "HTML & CSS",
-        "path": "notes/html-css",
         "children": [
             {
                 "title": "用 canvas 实现星空动画",
-                "path": "notes/html-css/canvas/starry-sky.html"
+                "url": "notes/html-css/canvas/starry-sky.html"
+            },
+            {
+                "title": "响应式布局",
+                "url": "notes/development/responsive-design.html"
             }
         ]
     },
     {
         "title": "PHP",
-        "path": "notes/php",
         "children": [
             {
                 "title": "Magento 2 开发笔记",
-                "path": "https://magento2cn.github.io"
+                "url": "https://magento2cn.github.io"
             },
             {
                 "title": "Drupal 开发笔记",
-                "path": "https://drupal-cn.github.io"
+                "url": "https://drupal-cn.github.io"
             },
             {
                 "title": "通过给定数组获得 XML",
-                "path": "notes/php/common/array-to-xml.html"
+                "url": "notes/php/common/array-to-xml.html"
             }
         ]
     },
     {
         "title": "MySQL",
-        "path": "notes/mysql",
         "children": [
             {
-                "title": "MySQL 优化",
-                "path": "notes/mysql/optimization/overview.html"
+                "title": "性能优化",
+                "children": [
+                    {
+                        "title": "MySQL 性能优化概述",
+                        "url": "notes/mysql/optimization/overview.html"
+                    }
+                ]
             }
         ]
     },
     {
         "title": "项目开发",
-        "path": "development",
         "children": [
             {
                 "title": "Scrum 小结",
-                "path": "notes/development/agile/scrum-summary.html"
+                "url": "notes/development/agile/scrum-summary.html"
             },
             {
                 "title": "2020 Scrum 指南",
-                "path": "notes/development/agile/scrum-guide.html"
+                "url": "notes/development/agile/scrum-guide.html"
             },
             {
                 "title": "Windows 多项目开发环境",
-                "path": "notes/development/windows-dev.html"
-            },
-            {
-                "title": "响应式布局",
-                "path": "notes/development/responsive-design.html"
+                "url": "notes/development/windows-dev.html"
             }
         ]
     }

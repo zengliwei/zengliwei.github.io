@@ -1,194 +1,108 @@
 require([
     'jquery',
-    'knockout',
+    'vue',
     'highlight',
     'mousewheel',
     'scrollbar'
-], function ($, ko) {
+], function ($, Vue) {
     'use strict';
 
-    const $win = $(window);
-    const $body = $('body');
-    const $main = $body.find('> main');
-    const $header = $('<header/>').insertBefore($main);
-    const $sidebar = $('<section class="sidebar"/>').insertBefore($main);
-    const $index = $('<nav id="index"/>').appendTo($body);
-    const $footer = $('<footer/>').appendTo($body);
+    const html = $('body').html();
 
-    const initHeader = function () {
-        const $sidebarSwitcher = $('<a id="switcher"></a>').appendTo($header);
-        $sidebarSwitcher.on('click', function () {
-            $body.hasClass('nav-expanded') ? $body.removeClass('nav-expanded') : $body.addClass('nav-expanded');
-        });
-    };
+    const app = Vue.createApp({
 
-    const initSidebar = function () {
+        template: `<aside class="sidebar">`
+            + `<section id="search"><input type="text" placeholder="搜索标题" v-model="keyword"/></section>`
+            + `<nav class="links"><nav-menu :items="menuItems" v-model:keyword="keyword"></nav-menu></nav>`
+            + `</aside>`
+            + `<main><article v-html="content"/></main>`
+            + `<footer>Copyright &copy; <a target="_blank" href="https://zengliwei.github.io/"><strong>Zengliwei</strong></a>. All rights reserved.</footer>`,
 
-        const $search = $('<section id="search"/>').appendTo($sidebar);
-        const $nav = $('<section id="nav"/>').appendTo($sidebar);
+        data: function () {
+            return {
+                content: html,
+                keyword: '',
+                menuItems: []
+            };
+        },
 
-        let favoursData = JSON.parse(window.localStorage.getItem('notes-favours') || '{}');
-
-        const updateLinks = function () {
-            const keyword = viewModel.keyword();
-            const links = viewModel.links();
-            for (let l = 0; l < links.length; l++) {
-                const visible = (keyword == '')
-                    ? (links[l]['level'] == 1 || links[l]['parent'] == viewModel.currentPath())
-                    : (new RegExp(keyword, 'i')).test(links[l]['title']);
-                links[l]['visible'](visible);
-            }
-        };
-
-        const viewModel = {
-            keyword: ko.observable(window.localStorage.getItem('notes-keyword') || ''),
-            links: ko.observableArray([]),
-            currentPath: ko.observable(null),
-
-            favours: ko.pureComputed(function () {
-                const links = viewModel.links();
-                let favours = [];
-                for (let l = 0; l < links.length; l++) {
-                    if (links[l].favoured()) {
-                        favours.push(links[l]);
+        methods: {
+            processMenuItems: function (menuItems, level = 1, parent) {
+                parent = parent || {};
+                menuItems.forEach(item => {
+                    item.level = level;
+                    if (item.url === this.currentUrl) {
+                        item.isCurrent = true;
+                        parent.activated = true;
                     }
-                }
-                return favours;
-            }),
-
-            click: function (link) {
-                if (link['level'] == 1) {
-                    viewModel.currentPath((link['path'] == viewModel.currentPath()) ? null : link['path']);
-                    updateLinks();
-                    return false;
-                }
-                return true;
-            },
-
-            favour: function (link) {
-                link.favoured(!link.favoured());
-                if (favoursData[link['path']]) {
-                    delete favoursData[link['path']];
-                } else {
-                    favoursData[link['path']] = true;
-                }
-                window.localStorage.setItem('notes-favours', JSON.stringify(favoursData));
-            }
-        };
-
-        $nav.html('<nav class="favours">'
-            + '<a class="level-1" data-bind="visible: (favours().length > 0 && keyword() == \'\')"><span>我的收藏</span></a>'
-            + '<!-- ko foreach: favours -->'
-            + '<a data-bind="attr: {title: title, href: path}, '
-            + 'class: (\'favoured level-\' + level), '
-            + 'visible: $parent.keyword() == \'\'">'
-            + '<span data-bind="text: title"/><span class="favour" data-bind="click: $parent.favour"/>'
-            + '</a>'
-            + '<!-- /ko -->'
-            + '</nav>'
-            + '<nav class="links" data-bind="foreach: links">'
-            + '<a data-bind="attr: {title: title, href: path}, '
-            + 'class: (\'level-\' + level), css: {favoured: favoured, current: (path == $parent.currentPath())}, '
-            + 'visible: visible, click: $parent.click">'
-            + '<span data-bind="text: title"/><span class="favour" data-bind="click: $parent.favour"/>'
-            + '</a>'
-            + '</nav>');
-
-        $.ajax({
-            url: '/notes/index.json',
-            success: function ($source) {
-                const collectLinksData = function (tree, parentPath, level) {
-                    const keyword = viewModel.keyword();
-                    let links = [];
-                    for (let c = 0; c < tree.length; c++) {
-                        const visible = (keyword == '')
-                            ? (level == 1)
-                            : (new RegExp(keyword, 'i')).test(tree[c]['title']);
-                        links.push({
-                            title: tree[c]['title'],
-                            path: tree[c]['path'],
-                            parent: parentPath,
-                            level: level,
-                            favoured: ko.observable(favoursData[tree[c]['path']] || false),
-                            visible: ko.observable(visible)
-                        });
-                        if (tree[c]['children']) {
-                            links.push.apply(links, collectLinksData(tree[c]['children'], tree[c]['path'], level + 1));
+                    if (this.favours[item.url]) {
+                        item.favoured = true
+                    }
+                    if (item.children) {
+                        if (item.children.length > 0) {
+                            this.processMenuItems(item.children, level + 1, item);
+                            item.activated && (parent.activated = true);
+                        } else {
+                            delete item.children;
                         }
                     }
-                    return links;
-                };
-                viewModel.links(collectLinksData($source, null, 1));
-                $nav.mCustomScrollbar({theme: 'minimal-dark'});
-                $win.on('resize', function () {
-                    $nav.mCustomScrollbar('update');
                 });
             }
-        });
+        },
 
-        $search.html('<input type="text" placeholder="搜索标题" data-bind="textInput: keyword"/>');
-        viewModel.keyword.subscribe(function (keyword) {
-            updateLinks();
-            window.localStorage.setItem('notes-keyword', keyword);
-        });
-
-        ko.applyBindings(viewModel, $sidebar.get(0));
-    };
-
-    const initMain = function () {
-        window.hljs.highlightAll();
-    };
-
-    const initIndex = function () {
-        const $sections = $main.find('h2, h3');
-        if ($sections.length > 0) {
-            $('<h3>本章目录</h3>').appendTo($index);
-            const $indexBox = $('<div class="index-box"/>').appendTo($index);
-
-            let idList = [];
-            const getUniqueId = function (id) {
-                for (let i = 2; i < 9999; i++) {
-                    if (idList.indexOf(id) > -1) {
-                        id = id + '-' + i;
-                    } else {
-                        break;
-                    }
-                }
-                idList.push(id);
-                return id;
-            };
-
-            $sections.each(function () {
-                const el = $(this);
-                let id = el.attr('id');
-                if (!id) {
-                    id = getUniqueId(el.text().toLowerCase().replace(/[\s+]/g, '-'));
-                    el.attr('id', id);
-                }
-                $('<a/>').attr('href', window.location.pathname + '#' + id)
-                    .html('<span>' + el.html() + '</span>')
-                    .addClass(this.tagName.toLowerCase())
-                    .appendTo($indexBox);
+        created: function () {
+            $.ajax('/notes/index.json').then((menuItems) => {
+                this.currentUrl = window.location.pathname.substr(1);
+                this.favours = JSON.parse(window.localStorage.getItem('notes-favours')) || {};
+                this.processMenuItems(menuItems);
+                this.menuItems = menuItems;
             });
-            $indexBox.mCustomScrollbar({theme: 'minimal-dark'});
-            $win.on('resize', function () {
-                $indexBox.mCustomScrollbar('update');
-            });
+        }
+    });
 
-            if (window.location.hash !== '' && $(window.location.hash).length > 0) {
-                $(document).scrollTop($(window.location.hash).offset().top);
+    app.component('nav-menu', {
+
+        template: `<ul><li v-for="item in items" :class="getItemClass(item)">`
+            + `<a href="javascript:" :class="{favoured: item.favoured}" @click="clickItem(item)">`
+            + `<span v-html="item.title"/>`
+            + `<span v-if="item.level > 1 && item.url" class="favour" @click="(evt) => switchFavour(evt, item)"/>`
+            + `</a>`
+            + `<nav-menu v-if="item.children && item.children.length > 0" :items="item.children"/>`
+            + `</li></ul>`,
+
+        props: {
+            items: Array,
+            keyword: String
+        },
+
+        emits: ['update:keyword'],
+
+        methods: {
+            getItemClass: function (item) {
+                return `level-${item.level} `
+                    + `${item.children ? 'has-child' : ''} `
+                    + `${item.isCurrent ? 'current' : ''} `
+                    + `${item.activated ? 'activated' : ''} `;
+            },
+
+            clickItem: function (item) {
+                if (item.url) {
+                    window.location.href = item.url;
+                } else {
+                    item.activated = !item.activated;
+                }
+                return false;
+            },
+
+            switchFavour: function (evt, item) {
+                evt.stopPropagation();
+                item.favoured = !item.favoured;
+                let favours = JSON.parse(window.localStorage.getItem('notes-favours')) || {};
+                favours[item.url] = item.favoured;
+                window.localStorage.setItem('notes-favours', JSON.stringify(favours));
             }
         }
-    };
+    });
 
-    const initFooter = function () {
-        $footer.html('Copyright &copy; <a target="_blank" href="https://zengliwei.github.io/"><strong>Zengliwei</strong></a>. All rights reserved.');
-    };
-
-    initHeader();
-    initSidebar();
-    initMain();
-    initIndex();
-    initFooter();
-
+    app.mount('body');
 });

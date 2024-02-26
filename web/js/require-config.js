@@ -6,7 +6,8 @@ require.config({
         knockout: 'web/js/lib/knockout',
         mousewheel: 'web/js/lib/jquery.mousewheel-3.0.6.min',
         highlight: 'web/js/lib/highlight.min',
-        scrollbar: 'web/js/lib/jquery.mCustomScrollbar.min'
+        scrollbar: 'web/js/lib/jquery.mCustomScrollbar.min',
+        vue: 'web/js/lib/vue.global.prod',
     },
     shim: {
         mousewheel: {
@@ -14,6 +15,9 @@ require.config({
         },
         scrollbar: {
             deps: ['jquery', 'mousewheel']
+        },
+        vue: {
+            exports: 'Vue'
         }
     }
 });
