@@ -83,6 +83,10 @@ ol, ul {
     padding: 0 0 0 24px;
 }
 
+ol:last-child, ul:last-child {
+    margin-bottom: 0;
+}
+
 code {
     color: #669;
     font-family: Consolas, Arial, Helvetica, sans-serif;
@@ -99,7 +103,7 @@ blockquote {
 blockquote:before {
     color: #e0e0e3;
     content: '\f10d';
-    font-family: Awesome;
+    font-family: Awesome, sans-serif;
     font-weight: bold;
     position: absolute;
     left: 20px;
@@ -109,7 +113,7 @@ blockquote:before {
 blockquote:after {
     color: #e0e0e3;
     content: '\f10e';
-    font-family: Awesome;
+    font-family: Awesome, sans-serif;
     font-weight: bold;
     position: absolute;
     bottom: 10px;
@@ -213,7 +217,7 @@ body > .sidebar nav.links a.level-1:after {
     color: #e0e0e3;
     content: '\f104';
     display: block;
-    font-family: Awesome;
+    font-family: Awesome, sans-serif;
     font-weight: bold;
     font-size: 12px;
     position: absolute;
@@ -237,7 +241,7 @@ body > .sidebar nav a.level-2 .favour:after {
     color: #e0e0e3;
     content: '\f005';
     display: inline;
-    font-family: 'Awesome';
+    font-family: 'Awesome', sans-serif;
     font-weight: 300;
 }
 
@@ -355,7 +359,7 @@ body > footer {
         color: #545454;
         content: '\f0c9';
         display: block;
-        font-family: 'Awesome';
+        font-family: 'Awesome', sans-serif;
         font-size: 22px;
         font-weight: 300;
         transition: transform .4s;
