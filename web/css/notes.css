@@ -48,22 +48,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 1.75rem;
-    line-height: 2.25rem;
+    font-size: 1.75rem; /* 28px */
+    line-height: 2.25rem; /* 36px */
     margin-bottom: 32px;
     padding-top: 30px;
 }
 
 h2 {
-    font-size: 1.5rem;
-    line-height: 1.625rem;
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.875rem; /* 30px */
     margin-bottom: 1.5rem;
     padding-top: 1.5rem;
 }
 
 h3 {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
     margin-bottom: 1.125rem;
     padding-top: 1.125rem;
 }
@@ -167,6 +167,10 @@ table.list tr th {
 body {
     color: #545454;
     font-size: .875rem;
+}
+
+body > header {
+    display: none;
 }
 
 body > .sidebar {
@@ -350,13 +354,13 @@ body > .index a {
     border-bottom: 0;
     color: #545454;
     display: block;
-    padding: 4px 0;
+    padding: 4px 1rem;
 }
 
 body > .index a.h2 {
     border-top: 2px solid #e0e0e3;
     font-size: .81255rem;
-    padding: 6px 0 6px 1.125rem;
+    padding-left: 1.125rem;
 }
 
 body > .index a.h3 {
@@ -388,6 +392,21 @@ body > footer {
 
 @media only screen and (max-width: 768px) {
 
+    h1 {
+        font-size: 1.5rem; /* 24px */
+        line-height: 2.25rem; /* 36px */
+    }
+
+    h2 {
+        font-size: 1.125rem; /* 18px */
+        line-height: 1.75rem; /* 28px */
+    }
+
+    h3 {
+        font-size: 1rem; /* 16px */
+        line-height: 1.5rem; /* 24px */
+    }
+
     body > header {
         background: #fff;
         border-bottom: 1px solid #e0e0e3;
@@ -398,15 +417,17 @@ body > footer {
         padding: .75rem 10px;
         height: 50px;
         width: 100%;
+        z-index: 3;
     }
 
-    body > header a#switcher {
+    body > header a.btn-switcher {
+        border-bottom: 0;
         display: inline-block;
         text-align: center;
         width: 25px;
     }
 
-    body > header a#switcher:before {
+    body > header a.btn-switcher:before {
         color: #545454;
         content: '\f0c9';
         display: block;
@@ -458,7 +479,7 @@ body > footer {
         opacity: 1;
     }
 
-    body.nav-expanded > header a#switcher:before {
+    body.nav-expanded > header a.btn-switcher:before {
         content: '\f00d';
         transform: rotateZ(360deg);
     }

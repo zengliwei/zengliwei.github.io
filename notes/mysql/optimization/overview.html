@@ -30,10 +30,10 @@
         things such as CPU cycles and I/O operations.
     </blockquote>
     <p>
-        数据库性能取决于数据表、查询语句，以及数据库配置等数据库级的若干因数。
+        数据库性能取决于数据表、查询语句，以及数据库配置等数据库层面的若干因数。
         这些软件结构作用于 CPU 和 I/O 等硬件级操作。
         初学数据库性能时，应从软件端和上层准则入手，使用进程总时间来衡量性能的高低。
-        熟悉以后再深入理解其内部因素，并通过 CPU 周期和 I/O 等更细节的东西作为衡量标准。
+        熟悉以后再深入理解其内部因素，并使用 CPU 周期和 I/O 等更细节的东西作为衡量标准。
     </p>
 
     <blockquote>
@@ -42,8 +42,8 @@
         own storage engines and hardware appliances to expand the MySQL ecosystem.
     </blockquote>
     <p>
-        多数用户的目标是在他们当前的软、硬件环境下取得最优的数据库性能。
-        高级用户会寻找机会提升 MySQL 软件本身，或者开发他们自己的存储引擎以及硬件设备，以扩展 MySQL 生态系统。
+        大多数用户的目标是在当前的软、硬件环境下取得最佳性能。
+        高级用户会设法提升 MySQL 软件本身，或者开发自己的存储引擎和硬件设备，以扩展 MySQL 生态系统。
     </p>
 
     <blockquote>
@@ -69,7 +69,7 @@
     </h2>
 
     <blockquote>The most important factor in making a database application fast is its basic design:</blockquote>
-    <p>提升一个数据库应用的最重要的因素是他的基础设计：</p>
+    <p>提升一个数据库应用的性能的最主要因素是他的基础设计，包含以下问题：</p>
 
     <blockquote>
         Are the tables structured properly? In particular, do the columns have the right data types, and does each
