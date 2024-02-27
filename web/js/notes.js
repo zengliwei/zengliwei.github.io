@@ -14,10 +14,11 @@ require([
         template: `<aside class="sidebar">`
             + `<section id="search"><input type="text" placeholder="搜索标题" v-model="keyword"/></section>`
             + `<nav class="favours"><ul>`
+            + `<li class="level-1 has-child activated"><a href="javascript:"><span>我的收藏</span></a><ul>`
             + `<li v-for="item in favours"><a class="favoured" :href="item.url">`
             + `<span v-html="item.title"/><span class="favour" @click="(evt) => switchFavour(evt, item)"/>`
             + `</a></li>`
-            + `</ul></nav>`
+            + `</ul></li></ul></nav>`
             + `<nav class="links"><nav-menu :items="menuItems"></nav-menu></nav>`
             + `</aside>`
             + `<main><article v-html="content"/></main>`
