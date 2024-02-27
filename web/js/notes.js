@@ -7,7 +7,7 @@ require([
 ], function ($, Vue) {
     'use strict';
 
-    const html = $('body').html();
+    const html = $('body > main').html();
 
     const app = Vue.createApp({
 

@@ -9,74 +9,73 @@
     <meta name="description" content="用 canvas 实现星空动画"/>
     <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
-    <script src="web/js/lib/require.js" type="text/javascript"></script>
-    <script src="web/js/require-config.js" type="text/javascript"></script>
-    <script src="web/js/notes.js" type="text/javascript"></script>
 </head>
 <body>
-<h1><span class="tag">[HTML5]</span> 用 canvas 实现星空动画</h1>
-<p>为了提醒自己对新知识保持探索精神，这个空间用了宇宙作为主题，今天给这个页面来了个星空背景。为巩固学习 canvas 的用法，没有直接使用百度来的代码，而是自己捣鼓了一下。
-    这里将过程简单记录，加深下印象。</p>
+<main>
+    <h1><span class="tag">[HTML5]</span> 用 canvas 实现星空动画</h1>
+    <p>为了提醒自己对新知识保持探索精神，这个空间用了宇宙作为主题，今天给这个页面来了个星空背景。为巩固学习 canvas 的用法，没有直接使用百度来的代码，而是自己捣鼓了一下。
+        这里将过程简单记录，加深下印象。</p>
 
-<h2>canvas 元素的用法</h2>
+    <h2>canvas 元素的用法</h2>
 
-<h3>初始化</h3>
-<p>canvas 中所有图像处理方法都是基于其 context 对象，而非 canvas 元素本身。因此凡用到 canvas 都要先实例化 context 对象。</p>
+    <h3>初始化</h3>
+    <p>canvas 中所有图像处理方法都是基于其 context 对象，而非 canvas 元素本身。因此凡用到 canvas 都要先实例化 context 对象。</p>
 
-<pre><code class="language-javascript">const canvas = document.createElement('canvas');
+    <pre><code class="language-javascript">const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d'); // 2d 为固定参数，canvas 目前仅支持 2D 场景渲染</code></pre>
 
-<p>往 canvas 添加内容的方式通常有三种：</p>
-<ul>
-    <li>先确定路径，再为闭合路径填充内容（或者描边）</li>
-    <li>通过 <code>drawImage</code> 方法直接加载外部图像、画布或者视频</li>
-    <li>通过 <code>fillText</code> 或 <code>strokeText</code> 方法直接绘制文本</li>
-</ul>
-<p>其中第一种用得最多，星空背景就是用这个方式实现的，下边列出有用到的方法。</p>
+    <p>往 canvas 添加内容的方式通常有三种：</p>
+    <ul>
+        <li>先确定路径，再为闭合路径填充内容（或者描边）</li>
+        <li>通过 <code>drawImage</code> 方法直接加载外部图像、画布或者视频</li>
+        <li>通过 <code>fillText</code> 或 <code>strokeText</code> 方法直接绘制文本</li>
+    </ul>
+    <p>其中第一种用得最多，星空背景就是用这个方式实现的，下边列出有用到的方法。</p>
 
-<h3>创建渐变实例</h3>
-<p>创建放射状环形渐变实例，准备用以渲染后边定义的路径：</p>
+    <h3>创建渐变实例</h3>
+    <p>创建放射状环形渐变实例，准备用以渲染后边定义的路径：</p>
 
-<pre><code class="language-javascript">const gradient = ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);</code></pre>
+    <pre><code
+            class="language-javascript">const gradient = ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);</code></pre>
 
-<p>其中 <code>x0</code>、<code>y0</code>、<code>r0</code>
-    分别是环形内圈的坐标和半径；<code>x1</code>、<code>y1</code>、<code>r1</code> 是外圈的坐标和半径。</p>
-<p>并使用若干个 <code>addColorStop</code> 方法填充颜色：</p>
+    <p>其中 <code>x0</code>、<code>y0</code>、<code>r0</code>
+        分别是环形内圈的坐标和半径；<code>x1</code>、<code>y1</code>、<code>r1</code> 是外圈的坐标和半径。</p>
+    <p>并使用若干个 <code>addColorStop</code> 方法填充颜色：</p>
 
-<pre><code class="language-javascript">gradient.addColorStop(0, 'rgb(255, 255, 255)');
+    <pre><code class="language-javascript">gradient.addColorStop(0, 'rgb(255, 255, 255)');
 gradient.addColorStop(0.5, 'rgba(200, 200, 0, 0.4)');
 gradient.addColorStop(1, 'transparent');</code></pre>
-<p>其中前一参数是介于 0.0 与 1.0 之间的值，表示渐变中开始与结束之间的位置；后者是色值，支持 HEX、RGB、RGBA、HSL 等格式。</p>
+    <p>其中前一参数是介于 0.0 与 1.0 之间的值，表示渐变中开始与结束之间的位置；后者是色值，支持 HEX、RGB、RGBA、HSL 等格式。</p>
 
-<h3>创建路径</h3>
-<p>用 <code>arc</code> 方法创建圆形路径，其中 <code>x</code>、<code>y</code> 是坐标；<code>r</code>
-    是半径；<code>sAngle</code>、<code>eAngle</code> 分别是起始、结束角度，以弧度单位；<code>counterclockwise</code> 为 false
-    （默认）时按顺时针方向描绘，true 则相反。</p>
+    <h3>创建路径</h3>
+    <p>用 <code>arc</code> 方法创建圆形路径，其中 <code>x</code>、<code>y</code> 是坐标；<code>r</code>
+        是半径；<code>sAngle</code>、<code>eAngle</code> 分别是起始、结束角度，以弧度单位；<code>counterclockwise</code> 为 false
+        （默认）时按顺时针方向描绘，true 则相反。</p>
 
-<pre><code class="language-javascript">ctx.beginPath();
+    <pre><code class="language-javascript">ctx.beginPath();
 ctx.arc(x, y, r, sAngle, eAngle, counterclockwise);
 ctx.closePath();</code></pre>
 
-<p>在描绘路径前后必须分别执行 <code>beginPath</code> 和 <code>closePath</code> 方法确定路径的起止。</p>
+    <p>在描绘路径前后必须分别执行 <code>beginPath</code> 和 <code>closePath</code> 方法确定路径的起止。</p>
 
-<h3>填充路径</h3>
-<p>指定 <code>fillStyle</code> 和 <code>globalAlpha</code>，填充刚才创建的圆形路径：</p>
+    <h3>填充路径</h3>
+    <p>指定 <code>fillStyle</code> 和 <code>globalAlpha</code>，填充刚才创建的圆形路径：</p>
 
-<pre><code class="language-javascript">ctx.fillStyle = gradient;
+    <pre><code class="language-javascript">ctx.fillStyle = gradient;
 ctx.globalAlpha = 0.5;
 ctx.fill();</code></pre>
 
-<p>其中 <code>fillStyle</code> 是填充模式，也可以用色值或者 pattern 实例（使用 <code>createPattern</code>
-    方法创建，这里不详述）赋值；<code>globalAlpha</code>
-    则是介于 0.0 与 1.0 之间的透明度。</p>
+    <p>其中 <code>fillStyle</code> 是填充模式，也可以用色值或者 pattern 实例（使用 <code>createPattern</code>
+        方法创建，这里不详述）赋值；<code>globalAlpha</code>
+        则是介于 0.0 与 1.0 之间的透明度。</p>
 
-<h2>绘制星空动画</h2>
-<p>动画原理简单来说就是快速轮番播放多张图片，让人眼觉得那是连续的动画。我把它分成两步进行：单帧绘制和多帧播放。</p>
+    <h2>绘制星空动画</h2>
+    <p>动画原理简单来说就是快速轮番播放多张图片，让人眼觉得那是连续的动画。我把它分成两步进行：单帧绘制和多帧播放。</p>
 
-<h3>单帧绘制</h3>
-<p>首先是创建 Star 对象，用于记录每颗星的各种状态，包括坐标、角度、透明度等，这样后边的绘制程序就能分别对每颗星进行渲染。由于几何知识都还给老师了，这里用正圆做运行轨迹，相关属性比较简单。</p>
+    <h3>单帧绘制</h3>
+    <p>首先是创建 Star 对象，用于记录每颗星的各种状态，包括坐标、角度、透明度等，这样后边的绘制程序就能分别对每颗星进行渲染。由于几何知识都还给老师了，这里用正圆做运行轨迹，相关属性比较简单。</p>
 
-<pre><code class="language-javascript">const Star = function (R, D, dD, r, rg, rgb, alpha, deltaAlpha) {
+    <pre><code class="language-javascript">const Star = function (R, D, dD, r, rg, rgb, alpha, deltaAlpha) {
     this.R = R; // 运行轨道半径
     this.D = D; // 当前偏转角度
     this.dD = dD; // 每帧偏转的角度，通过改变偏转角度实现按轨道运行
@@ -87,9 +86,9 @@ ctx.fill();</code></pre>
     this.deltaAlpha = deltaAlpha; // 每帧增减的透明度，通过改变透明度实现闪烁
 };</code></pre>
 
-<p>然后为 Start 对象增加渲染方法，用到了上边提及过的方法。</p>
+    <p>然后为 Start 对象增加渲染方法，用到了上边提及过的方法。</p>
 
-<pre><code class="language-javascript">Star.prototype.render = function () {
+    <pre><code class="language-javascript">Star.prototype.render = function () {
 
     // 通过改变透明度实现闪烁
     this.alpha += this.deltaAlpha;
@@ -120,14 +119,14 @@ ctx.fill();</code></pre>
     ctx.fill();
 };</code></pre>
 
-<p>这里用了一个角度转弧度的函数：</p>
-<pre><code class="language-javascript">const degreesToRadians = function (degrees) {
+    <p>这里用了一个角度转弧度的函数：</p>
+    <pre><code class="language-javascript">const degreesToRadians = function (degrees) {
     return degrees / 360 * 2 * Math.PI;
 };</code></pre>
 
-<p>再来就是实例化多个 Star 对象。从屏幕边缘到屏幕中心，每隔一段距离放置一个星。离边缘越近的星自身半径越大、透明度越低，这样转起来会有近大远小的透视效果。加上一些随机值让星星的分布看起来自然些。</p>
+    <p>再来就是实例化多个 Star 对象。从屏幕边缘到屏幕中心，每隔一段距离放置一个星。离边缘越近的星自身半径越大、透明度越低，这样转起来会有近大远小的透视效果。加上一些随机值让星星的分布看起来自然些。</p>
 
-<pre><code class="language-javascript">for (let i = 1; i <= opts.starNumber; i++) {
+    <pre><code class="language-javascript">for (let i = 1; i <= opts.starNumber; i++) {
     const R = canvas.width / 2 / opts.starNumber * i;
     const D = 360 / opts.starNumber * i * rand(1, 1.7);
     const dD = -opts.maxSpeed / 60 * rand(0.3, 1); // about 60 frames per second
@@ -140,8 +139,8 @@ ctx.fill();</code></pre>
     stars.push(new Star(R, D, dD, r, rg, rgb, alpha, deltaAlpha));
 }</code></pre>
 
-<p>这里用到一个自定义的随机函数：</p>
-<pre><code class="language-javascript">const rand = function (min, max) {
+    <p>这里用到一个自定义的随机函数：</p>
+    <pre><code class="language-javascript">const rand = function (min, max) {
     if (arguments.length < 2) {
         max = min;
         min = 0;
@@ -149,10 +148,10 @@ ctx.fill();</code></pre>
     return min + Math.random() * (max - min);
 };</code></pre>
 
-<h3>多帧播放</h3>
-<p>多帧播放比较简单，这里用了浏览器自带的 <code>requestAnimationFrame</code> 方法：</p>
+    <h3>多帧播放</h3>
+    <p>多帧播放比较简单，这里用了浏览器自带的 <code>requestAnimationFrame</code> 方法：</p>
 
-<pre><code class="language-javascript">const doAnimation = function () {
+    <pre><code class="language-javascript">const doAnimation = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < opts.starNumber; i++) {
         stars[i].render();
@@ -162,9 +161,9 @@ ctx.fill();</code></pre>
 
 doAnimation();</code></pre>
 
-<p>如果浏览器不支持，可以自定义一个：</p>
+    <p>如果浏览器不支持，可以自定义一个：</p>
 
-<pre><code class="language-javascript">if (!window.requestAnimationFrame) {
+    <pre><code class="language-javascript">if (!window.requestAnimationFrame) {
     window.requestAnimationFrame = function (callback) {
         return setTimeout(callback, 16); // 一秒 60 帧，大概等于 16ms 一帧
     };
@@ -175,14 +174,14 @@ if (!window.cancelAnimationFrame) {
     };
 }</code></pre>
 
-<h3>视觉控制</h3>
-<p>由于每颗星都是绕其轨道中心旋转的，因此控制了每颗星的中心位置就相当于控制了整体视觉。添加一个鼠标移动事件：</p>
+    <h3>视觉控制</h3>
+    <p>由于每颗星都是绕其轨道中心旋转的，因此控制了每颗星的中心位置就相当于控制了整体视觉。添加一个鼠标移动事件：</p>
 
-<pre><code class="language-javascript">$(window).on('mousemove', updateStage);</code></pre>
+    <pre><code class="language-javascript">$(window).on('mousemove', updateStage);</code></pre>
 
-<p>内容如下：</p>
+    <p>内容如下：</p>
 
-<pre><code class="language-javascript">const updateStage = function (evt) {
+    <pre><code class="language-javascript">const updateStage = function (evt) {
     const xo = canvas.width / 2;
     const yo = canvas.height / 2;
     const dx = evt.clientX - xo;
@@ -193,6 +192,10 @@ if (!window.cancelAnimationFrame) {
     }
 };</code></pre>
 
-<p>当鼠标移动后，这些星星的运行轨道就不再是同心圆；其圆心的移动距离与各自轨道半径成正比，也就有了一定的透视效果。</p>
+    <p>当鼠标移动后，这些星星的运行轨道就不再是同心圆；其圆心的移动距离与各自轨道半径成正比，也就有了一定的透视效果。</p>
+</main>
+<script src="web/js/lib/require.js" type="text/javascript"></script>
+<script src="web/js/require-config.js" type="text/javascript"></script>
+<script src="web/js/notes.js" type="text/javascript"></script>
 </body>
 </html>

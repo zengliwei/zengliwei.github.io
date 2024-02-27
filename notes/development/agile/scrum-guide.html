@@ -1,267 +1,264 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+    <base href="/"/>
+    <title>2020 Scrum 指南 - Zengliwei 开发笔记</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta name="keywords" content="敏捷开发, Scrum"/>
-    <base href="/"/>
-    <title>2020 Scrum 指南 - Zengliwei 开发笔记</title>
     <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
 </head>
 <body>
 <main>
-    <article>
-        <h1>2020 Scrum 指南</h1>
+    <h1>2020 Scrum 指南</h1>
 
-        <p>本文是对【The 2020 Scrum Guide】的翻译，原文请参阅：
-            <a target="_blank"
-               href="https://scrumguides.org/scrum-guide.html">https://scrumguides.org/scrum-guide.html</a>。</p>
+    <p>本文是对【The 2020 Scrum Guide】的翻译，原文请参阅：
+        <a target="_blank"
+           href="https://scrumguides.org/scrum-guide.html">https://scrumguides.org/scrum-guide.html</a>。</p>
 
-        <h2>Scrum 是什么</h2>
-        <p>Scrum 是一套用于帮助人们解决复杂问题的框架（<a target="_blank" href="https://www.scrum.org/">https://www.scrum.org</a>）。
-            这个框架是轻量的，仅定义了实现其理论的必要组成部分，而不包含具体的使用细则，这便于套用到各种不同领域。</p>
-        <P>简单来说，该框架由 <a href="notes/development/agile/scrum-guide.html#scrum-master">Scrum Master</a> 引导项目成员按以下方式开展工作：
-        </P>
-        <ul>
-            <li><a href="notes/development/agile/scrum-guide.html#product-owner">Product Owner</a> 将复杂问题拆分整理成 <a
-                    href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a>
-            </li>
-            <li><a href="notes/development/agile/scrum-guide.html#scrum-team">Scrum Team</a> 在 <a
-                    href="notes/development/agile/scrum-guide.html#sprint">Sprint</a> 期间将分拆出的工作转化为有价值的 <a
-                    href="notes/development/agile/scrum-guide.html#increment">Increment</a>
-            </li>
-            <li>Scrum Team 与项目利益相关者共同检视结果，并对下个 Sprint 进行调整</li>
-            <li>重复上述步骤，直至整个复杂问题得以解决</li>
-        </ul>
+    <h2>Scrum 是什么</h2>
+    <p>Scrum 是一套用于帮助人们解决复杂问题的框架（<a target="_blank" href="https://www.scrum.org/">https://www.scrum.org</a>）。
+        这个框架是轻量的，仅定义了实现其理论的必要组成部分，而不包含具体的使用细则，这便于套用到各种不同领域。</p>
+    <P>简单来说，该框架由 <a href="notes/development/agile/scrum-guide.html#scrum-master">Scrum Master</a> 引导项目成员按以下方式开展工作：
+    </P>
+    <ul>
+        <li><a href="notes/development/agile/scrum-guide.html#product-owner">Product Owner</a> 将复杂问题拆分整理成 <a
+                href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a>
+        </li>
+        <li><a href="notes/development/agile/scrum-guide.html#scrum-team">Scrum Team</a> 在 <a
+                href="notes/development/agile/scrum-guide.html#sprint">Sprint</a> 期间将分拆出的工作转化为有价值的 <a
+                href="notes/development/agile/scrum-guide.html#increment">Increment</a>
+        </li>
+        <li>Scrum Team 与项目利益相关者共同检视结果，并对下个 Sprint 进行调整</li>
+        <li>重复上述步骤，直至整个复杂问题得以解决</li>
+    </ul>
 
-        <h2>Scrum 理论</h2>
-        <p>Scrum 基于经验主义（Empiricism）和精益思维（Lean Thinking）。
-            经验主义主张知识源于实践经验，或根据可观察的事物作出的判断获得；精益思维专注于消除浪费，以尽量少的投入创造尽可能多的价值。</p>
-        <p>Scrum 使用迭代的方式把控风险，指导一群全栈或拥有某项专长的人员参与开发，并根据需要分享和学习所需技能。</p>
-        <p>Scrum 将 4 类事件（<a href="notes/development/agile/scrum-guide.html#sprint-planning">Sprint Planning</a>,
-            <a href="notes/development/agile/scrum-guide.html#daily-scrum">Daily Scrum</a>,
-            <a href="notes/development/agile/scrum-guide.html#sprint-review">Sprint Review</a>,
-            <a href="notes/development/agile/scrum-guide.html#sprint-retrospective">Sprint Retrospective</a>）组合在一起，
-            在 Sprint 中进行检视和修正。</p>
+    <h2>Scrum 理论</h2>
+    <p>Scrum 基于经验主义（Empiricism）和精益思维（Lean Thinking）。
+        经验主义主张知识源于实践经验，或根据可观察的事物作出的判断获得；精益思维专注于消除浪费，以尽量少的投入创造尽可能多的价值。</p>
+    <p>Scrum 使用迭代的方式把控风险，指导一群全栈或拥有某项专长的人员参与开发，并根据需要分享和学习所需技能。</p>
+    <p>Scrum 将 4 类事件（<a href="notes/development/agile/scrum-guide.html#sprint-planning">Sprint Planning</a>,
+        <a href="notes/development/agile/scrum-guide.html#daily-scrum">Daily Scrum</a>,
+        <a href="notes/development/agile/scrum-guide.html#sprint-review">Sprint Review</a>,
+        <a href="notes/development/agile/scrum-guide.html#sprint-retrospective">Sprint Retrospective</a>）组合在一起，
+        在 Sprint 中进行检视和修正。</p>
 
-        <h3>透明</h3>
-        <p>整个项目的过程对执行人员和接受工作的人员都必须是可见的。在 Scrum 中，重要决策都基于 3 个正式工件的感知状态，
-            工件透明度变低可能引致决策价值降低或增加决策风险。透明使检视成为可能，没有透明的检视会产生误导和浪费。</p>
+    <h3>透明</h3>
+    <p>整个项目的过程对执行人员和接受工作的人员都必须是可见的。在 Scrum 中，重要决策都基于 3 个正式工件的感知状态，
+        工件透明度变低可能引致决策价值降低或增加决策风险。透明使检视成为可能，没有透明的检视会产生误导和浪费。</p>
 
-        <h3>检视</h3>
-        <p>Scrum 工件的状态和项目中商定目标的进展必须经常进行检视，以便尽早发现与目标的差异和潜在问题。Scrum 的几类事件组合使项目在稳定的节奏中进行，
-            事件的存在旨在激发改变，从而帮助项目成员进行检视。检视使修正成为可能，没有修正的检视是毫无意义的。</p>
+    <h3>检视</h3>
+    <p>Scrum 工件的状态和项目中商定目标的进展必须经常进行检视，以便尽早发现与目标的差异和潜在问题。Scrum 的几类事件组合使项目在稳定的节奏中进行，
+        事件的存在旨在激发改变，从而帮助项目成员进行检视。检视使修正成为可能，没有修正的检视是毫无意义的。</p>
 
-        <h3>修正</h3>
-        <p>项目进行过程中任一方面出现了可接受范围外的问题，都必须尽快对当下的过程或期间处理的内容加以调整，使偏差控制在最小幅度内。</p>
+    <h3>修正</h3>
+    <p>项目进行过程中任一方面出现了可接受范围外的问题，都必须尽快对当下的过程或期间处理的内容加以调整，使偏差控制在最小幅度内。</p>
 
-        <h2>Scrum Team</h2>
-        <p>每个 Scrum Team 由一名 Scrum Master、一名 Product Owner 和若干名 Developer 组成。
-            Scrum Team 是 Scrum 的基本单位，其中不存在子团队和层次结构，是一个具有凝聚力的专业团体，它只专注于一个目标 <a
-                    href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a>。</p>
-        <p>Scrum Team 是夸职能的，团队成员（整体）具有在每个 Sprint 中创造价值所需的全部技能。
-            他们也是自管理的，这意味着团队成员做什么、什么时候做、怎么做都由团队内部决定。</p>
-        <p>Scrum Team 的规模通常应控制在 10 人以内，足够小以保持灵活，同时足够大以保证独立完成 Sprint 中分配的任务。
-            一般来说小团队便于沟通，效率更高。当 Scrum Team 变得太大，则应考虑将其重组为多个小团队。
-            这些小团队专注于同一产品，它们共享相同的 <a href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a>、
-            <a href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a>
-            和 <a href="notes/development/agile/scrum-guide.html#product-owner">Product Owner</a>。</p>
-        <p>Scrum Team 负责所有与产品相关的活动，包括并不限于与利益相关者的协作、验收、维护、运营、研究、实验、开发等。
-            组织组建并授权 Scrum Team 自行管理他们自己的工作。以可持续的速度在 Sprint 中工作，可以提高 Scrum Team 的专注度和一致性。</p>
+    <h2>Scrum Team</h2>
+    <p>每个 Scrum Team 由一名 Scrum Master、一名 Product Owner 和若干名 Developer 组成。
+        Scrum Team 是 Scrum 的基本单位，其中不存在子团队和层次结构，是一个具有凝聚力的专业团体，它只专注于一个目标 <a
+                href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a>。</p>
+    <p>Scrum Team 是夸职能的，团队成员（整体）具有在每个 Sprint 中创造价值所需的全部技能。
+        他们也是自管理的，这意味着团队成员做什么、什么时候做、怎么做都由团队内部决定。</p>
+    <p>Scrum Team 的规模通常应控制在 10 人以内，足够小以保持灵活，同时足够大以保证独立完成 Sprint 中分配的任务。
+        一般来说小团队便于沟通，效率更高。当 Scrum Team 变得太大，则应考虑将其重组为多个小团队。
+        这些小团队专注于同一产品，它们共享相同的 <a href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a>、
+        <a href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a>
+        和 <a href="notes/development/agile/scrum-guide.html#product-owner">Product Owner</a>。</p>
+    <p>Scrum Team 负责所有与产品相关的活动，包括并不限于与利益相关者的协作、验收、维护、运营、研究、实验、开发等。
+        组织组建并授权 Scrum Team 自行管理他们自己的工作。以可持续的速度在 Sprint 中工作，可以提高 Scrum Team 的专注度和一致性。</p>
 
-        <h3>Scrum Master</h3>
-        <p>Scrum Master 负责根据 Scrum 指南所定义的规则建立 Scrum 框架，帮助 Scrum Team 和组织的其他成员理解 Scrum 理论，并以此指导实践。</p>
-        <p>Scrum Master 对 Scrum Team 的效能负责，通过让团队成员在 Scrum 框架内改进实践来达到提升效能的目的。</p>
+    <h3>Scrum Master</h3>
+    <p>Scrum Master 负责根据 Scrum 指南所定义的规则建立 Scrum 框架，帮助 Scrum Team 和组织的其他成员理解 Scrum 理论，并以此指导实践。</p>
+    <p>Scrum Master 对 Scrum Team 的效能负责，通过让团队成员在 Scrum 框架内改进实践来达到提升效能的目的。</p>
 
-        <p>Scrum Master 以多种方式服务于 Scrum Team：</p>
-        <ul>
-            <li>作为教练在自管理和跨职能方面辅导 Scrum Team 成员</li>
-            <li>
-                帮助 Scrum Team 专注于创造符合
-                <a href="notes/development/agile/scrum-guide.html#definition-of-done">Definition of Done</a> 的高价值
-                Increment
-            </li>
-            <li>帮助 Scrum Team 在工作中移除障碍</li>
-            <li>确保所有 Scrum 事件积极、高效地呈现，并能按时完成</li>
-        </ul>
+    <p>Scrum Master 以多种方式服务于 Scrum Team：</p>
+    <ul>
+        <li>作为教练在自管理和跨职能方面辅导 Scrum Team 成员</li>
+        <li>
+            帮助 Scrum Team 专注于创造符合
+            <a href="notes/development/agile/scrum-guide.html#definition-of-done">Definition of Done</a> 的高价值
+            Increment
+        </li>
+        <li>帮助 Scrum Team 在工作中移除障碍</li>
+        <li>确保所有 Scrum 事件积极、高效地呈现，并能按时完成</li>
+    </ul>
 
-        <p>Scrum Master 以多种方式服务于 Product Owner：</p>
-        <ul>
-            <li>
-                帮助 Product Owner 找到有效定义 <a href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a>
-                和管理 <a href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a> 的技巧
-            </li>
-            <li>帮助 Scrum Team 理解简明清晰的 Product Backlog 的必要性</li>
-            <li>帮助 Product Owner 建立复杂环境下基于经验主义的产品规划</li>
-            <li>当有需要或被要求时，引导利益相关者进行协作</li>
-        </ul>
+    <p>Scrum Master 以多种方式服务于 Product Owner：</p>
+    <ul>
+        <li>
+            帮助 Product Owner 找到有效定义 <a href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a>
+            和管理 <a href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a> 的技巧
+        </li>
+        <li>帮助 Scrum Team 理解简明清晰的 Product Backlog 的必要性</li>
+        <li>帮助 Product Owner 建立复杂环境下基于经验主义的产品规划</li>
+        <li>当有需要或被要求时，引导利益相关者进行协作</li>
+    </ul>
 
-        <p>Scrum Master 以多种方式服务于组织：</p>
-        <ul>
-            <li>带领、培训和指导组织成员使用 Scrum 框架</li>
-            <li>在组织内部建议和规划 Scrum 的实施</li>
-            <li>帮助组织成员和利益相关者理解和制定针对复杂工作的方法</li>
-            <li>消除利益相关者和 Scrum Teams 之间的隔阂</li>
-        </ul>
+    <p>Scrum Master 以多种方式服务于组织：</p>
+    <ul>
+        <li>带领、培训和指导组织成员使用 Scrum 框架</li>
+        <li>在组织内部建议和规划 Scrum 的实施</li>
+        <li>帮助组织成员和利益相关者理解和制定针对复杂工作的方法</li>
+        <li>消除利益相关者和 Scrum Teams 之间的隔阂</li>
+    </ul>
 
-        <h3>Product Owner</h3>
-        <p>Product Owner 负责将 Scrum Team 的工作所产生的产品价值最大化。
-            关于如何做到这一点，在针对组织、Scrum Team 和个人之间可能存在较大差异。</p>
-        <p>Product Owner 还负责对 Product Backlog 进行有效管理，包括：</p>
-        <ul>
-            <li>制定并明确传达 <a href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a></li>
-            <li>创建并明确传达 <a href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a></li>
-            <li>对 Product Backlog 条目进行排序</li>
-            <li>确保 Product Backlog 透明、可见和被理解</li>
-        </ul>
-        <p>Product Owner 可以自己完成上述工作或者委托他人待办。但不管如何，Product Owner 将负最终责任。</p>
-        <p>为保证 Product Owner 取得成功，组织必须尊重他们的决定。
-            这些决定可以在 Product Backlog 的内容和顺序里看到，也能在 Sprint Review 中通过可检视的 Increment 予以体现。</p>
-        <p>Product Owner 是一个人，而非一个委员会。Product Owner 可以代表 Product Backlog 的利益相关者的需求，想修改
-            Product Backlog 的人可尝试通过说服 Product Owner 来达到目的。</p>
+    <h3>Product Owner</h3>
+    <p>Product Owner 负责将 Scrum Team 的工作所产生的产品价值最大化。
+        关于如何做到这一点，在针对组织、Scrum Team 和个人之间可能存在较大差异。</p>
+    <p>Product Owner 还负责对 Product Backlog 进行有效管理，包括：</p>
+    <ul>
+        <li>制定并明确传达 <a href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a></li>
+        <li>创建并明确传达 <a href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a></li>
+        <li>对 Product Backlog 条目进行排序</li>
+        <li>确保 Product Backlog 透明、可见和被理解</li>
+    </ul>
+    <p>Product Owner 可以自己完成上述工作或者委托他人待办。但不管如何，Product Owner 将负最终责任。</p>
+    <p>为保证 Product Owner 取得成功，组织必须尊重他们的决定。
+        这些决定可以在 Product Backlog 的内容和顺序里看到，也能在 Sprint Review 中通过可检视的 Increment 予以体现。</p>
+    <p>Product Owner 是一个人，而非一个委员会。Product Owner 可以代表 Product Backlog 的利益相关者的需求，想修改
+        Product Backlog 的人可尝试通过说服 Product Owner 来达到目的。</p>
 
-        <h3>Developer</h3>
-        <p>Developer 指 Scrum Team 中致力于为每个 Sprint 创造 Increment 的任何成员。</p>
-        <p>Developer 的专业技能通常比较广泛，并因工作领域不同而有较大差异。但他们都要负责以下内容：</p>
-        <ul>
-            <li>为 Sprint 制定计划，即 Sprint Backlog</li>
-            <li>通过贯彻 Definition of Done 来提高质量</li>
-            <li>每天根据 Sprint Goal 调整计划</li>
-            <li>作为专业人士对彼此负责</li>
-        </ul>
+    <h3>Developer</h3>
+    <p>Developer 指 Scrum Team 中致力于为每个 Sprint 创造 Increment 的任何成员。</p>
+    <p>Developer 的专业技能通常比较广泛，并因工作领域不同而有较大差异。但他们都要负责以下内容：</p>
+    <ul>
+        <li>为 Sprint 制定计划，即 Sprint Backlog</li>
+        <li>通过贯彻 Definition of Done 来提高质量</li>
+        <li>每天根据 Sprint Goal 调整计划</li>
+        <li>作为专业人士对彼此负责</li>
+    </ul>
 
-        <h2>Scrum 事件（活动）</h2>
-        <p>Sprint 是所有其他事件（活动）的容器。Scrum 的每个活动都为检视和调整 Scrum 工件提供机会。
-            这些活动旨在实现 Scrum 框架所需的透明度，不按规定操办任何活动都可能失去检视和调整的机会。
-            Scrum 活动用于营造规律性，以达到尽量少地召开未定义会议的目的。
-            理想情况下，所有活动应在同一时间和地点举行，从而避免流程变得复杂。</p>
+    <h2>Scrum 事件（活动）</h2>
+    <p>Sprint 是所有其他事件（活动）的容器。Scrum 的每个活动都为检视和调整 Scrum 工件提供机会。
+        这些活动旨在实现 Scrum 框架所需的透明度，不按规定操办任何活动都可能失去检视和调整的机会。
+        Scrum 活动用于营造规律性，以达到尽量少地召开未定义会议的目的。
+        理想情况下，所有活动应在同一时间和地点举行，从而避免流程变得复杂。</p>
 
-        <h3>Sprint</h3>
-        <p>Sprint 是 Scrum 的核心，构思在这里转化为价值。</p>
-        <p>Sprint 应是为期小于一个月，时长固定的活动。Sprint 之间需保持连贯性，新的 Sprint 在前一个结束后立即开始。</p>
-        <p>实现 <a href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a> 所需的所有工作，包括
-            Sprint Planning、Daily Scrum、Sprint Review 和 Sprint Retrospective 都在 Sprint 内进行。</p>
-        <p>在 Sprint 期间</p>
-        <ul>
-            <li>不做可能导致 Sprint Goal 失败的修改</li>
-            <li>必须保证工作质量</li>
-            <li>根据需要精炼 Product Backlog</li>
-            <li>对项目细节有更多了解后，可与 Product Owner 重新协商 Product Backlog 的范围</li>
-        </ul>
-        <p>通过 Sprint 可确保至少每月一次，对达成 Product Goal 的进程进行检视和修正，以实现对未来进展的预测。
-            若 Sprint 为期过长，Sprint Goal 就可能失效，进而增加项目复杂性和风险。制定短期 Sprint
-            可产生更多学习周期，将成本和风险控制在更小的时间范围内。而每个 Sprint 都可视为一个短期项目。</p>
-        <p>多种实践可用于预测进展，比如燃尽图（burn-downs）、燃起图（burn-ups）、积流图（cumulative flows）等。
-            这些实践已被证明是有效的，但不能取代经验主义。在复杂的环境中，未来是难以推测的，只能通过已发生的事情作为前瞻性抉择的基础。</p>
-        <p>如果 Sprint Goal 已过时，可以取消 Sprint。仅 Product Owner 有此权限。</p>
+    <h3>Sprint</h3>
+    <p>Sprint 是 Scrum 的核心，构思在这里转化为价值。</p>
+    <p>Sprint 应是为期小于一个月，时长固定的活动。Sprint 之间需保持连贯性，新的 Sprint 在前一个结束后立即开始。</p>
+    <p>实现 <a href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a> 所需的所有工作，包括
+        Sprint Planning、Daily Scrum、Sprint Review 和 Sprint Retrospective 都在 Sprint 内进行。</p>
+    <p>在 Sprint 期间</p>
+    <ul>
+        <li>不做可能导致 Sprint Goal 失败的修改</li>
+        <li>必须保证工作质量</li>
+        <li>根据需要精炼 Product Backlog</li>
+        <li>对项目细节有更多了解后，可与 Product Owner 重新协商 Product Backlog 的范围</li>
+    </ul>
+    <p>通过 Sprint 可确保至少每月一次，对达成 Product Goal 的进程进行检视和修正，以实现对未来进展的预测。
+        若 Sprint 为期过长，Sprint Goal 就可能失效，进而增加项目复杂性和风险。制定短期 Sprint
+        可产生更多学习周期，将成本和风险控制在更小的时间范围内。而每个 Sprint 都可视为一个短期项目。</p>
+    <p>多种实践可用于预测进展，比如燃尽图（burn-downs）、燃起图（burn-ups）、积流图（cumulative flows）等。
+        这些实践已被证明是有效的，但不能取代经验主义。在复杂的环境中，未来是难以推测的，只能通过已发生的事情作为前瞻性抉择的基础。</p>
+    <p>如果 Sprint Goal 已过时，可以取消 Sprint。仅 Product Owner 有此权限。</p>
 
-        <h3>Sprint Planning</h3>
-        <p>Scrum Team 通过 Sprint Planning 规划在 Sprint 中要执行的工作来启动 Sprint。</p>
-        <p>Product Owner 确保与会者准备好讨论最重要的 Product Backlog 待办事项，以及 Product Goal 与其如何对应。
-            Scrum Team 可以邀请其他人参加 Sprint Planning 以提供建议。</p>
-        <p>Sprint Planning 一般包含下述话题：</p>
+    <h3>Sprint Planning</h3>
+    <p>Scrum Team 通过 Sprint Planning 规划在 Sprint 中要执行的工作来启动 Sprint。</p>
+    <p>Product Owner 确保与会者准备好讨论最重要的 Product Backlog 待办事项，以及 Product Goal 与其如何对应。
+        Scrum Team 可以邀请其他人参加 Sprint Planning 以提供建议。</p>
+    <p>Sprint Planning 一般包含下述话题：</p>
 
-        <p><strong>为什么这个 Sprint 有价值？</strong></p>
-        <p>Product Owner 建议如何在当前 Sprint 中增加产品价值，然后 Sprint Team 共同制定 Sprint Goal 来说明当前 Sprint
-            能给利益相关者创造价值的原因。</p>
+    <p><strong>为什么这个 Sprint 有价值？</strong></p>
+    <p>Product Owner 建议如何在当前 Sprint 中增加产品价值，然后 Sprint Team 共同制定 Sprint Goal 来说明当前 Sprint
+        能给利益相关者创造价值的原因。</p>
 
-        <p><strong>这个 Sprint 能做些什么？</strong></p>
-        <p>通过与 Product Owner 讨论，Developer 从 Product Backlog 中选出要安排到当前 Sprint 的工作。Sprint Team
-            可以在这过程中细化被安排的内容，从而增加对项目的理解和信心。</p>
-        <p>为 Sprint 设定工作量是一件有挑战性的事情。Developer 对过往的表现、产能，以及 Definition of Done 了解的越多，
-            他们对 Sprint 的预测就会越有信心。</p>
+    <p><strong>这个 Sprint 能做些什么？</strong></p>
+    <p>通过与 Product Owner 讨论，Developer 从 Product Backlog 中选出要安排到当前 Sprint 的工作。Sprint Team
+        可以在这过程中细化被安排的内容，从而增加对项目的理解和信心。</p>
+    <p>为 Sprint 设定工作量是一件有挑战性的事情。Developer 对过往的表现、产能，以及 Definition of Done 了解的越多，
+        他们对 Sprint 的预测就会越有信心。</p>
 
-        <p><strong>如何完成所选工作</strong></p>
-        <p>对于选定的每项 Product Backlog 条目，Developer 都要对如何创造满足其 Definition of Done 的 Increment 进行规划。
-            通常是把 Product Backlog 拆分为一天或更小的任务，具体细节由 Developer 自行决定。</p>
+    <p><strong>如何完成所选工作</strong></p>
+    <p>对于选定的每项 Product Backlog 条目，Developer 都要对如何创造满足其 Definition of Done 的 Increment 进行规划。
+        通常是把 Product Backlog 拆分为一天或更小的任务，具体细节由 Developer 自行决定。</p>
 
-        <p>Sprint Goal、所选的 Product Backlog 任务，以及如何交付这些任务的计划被称之为 Sprint Backlog。</p>
-        <p>Sprint Planning 是有时间限制的。对于一个月的 Sprint，计划最多 8 小时；对于更短的 Sprint 计划时间相应缩短。</p>
+    <p>Sprint Goal、所选的 Product Backlog 任务，以及如何交付这些任务的计划被称之为 Sprint Backlog。</p>
+    <p>Sprint Planning 是有时间限制的。对于一个月的 Sprint，计划最多 8 小时；对于更短的 Sprint 计划时间相应缩短。</p>
 
-        <h3>Daily Scrum</h3>
-        <p>Daily Scrum 的目的是检查 Sprint Goal 的进度，如有需要可调整 Sprint Backlog 中已计划的工作。</p>
-        <p>Daily Scrum 是一个由 Developer 参与的 15 分钟的活动。为降低复杂度，它在每个工作日的同一时间和地点举行。
-            如果 Product Owner 或 Scrum Master 正在处理 Sprint Backlog 条目，那么他们也应作为 Developer 参与其中。</p>
-        <p>只要在 Daily Scrum 中专注于 Sprint Goal 的进展，并为第二天的工作制定可行的计划，Developer
-            可以选择任何他们需要的架构和技术。这样有助于建立关注点和改善自我管理。</p>
-        <p>Daily Scrum 能够改善沟通、识别障碍、促进快速决策，从而让未定义会议变得不必要。</p>
-        <p>Daily Scrum 不是 Developer 调整计划的唯一一次活动，他们可以在一天中任何时间碰面，具体讨论如何调整或重新规划
-            Sprint 的剩余工作。</p>
+    <h3>Daily Scrum</h3>
+    <p>Daily Scrum 的目的是检查 Sprint Goal 的进度，如有需要可调整 Sprint Backlog 中已计划的工作。</p>
+    <p>Daily Scrum 是一个由 Developer 参与的 15 分钟的活动。为降低复杂度，它在每个工作日的同一时间和地点举行。
+        如果 Product Owner 或 Scrum Master 正在处理 Sprint Backlog 条目，那么他们也应作为 Developer 参与其中。</p>
+    <p>只要在 Daily Scrum 中专注于 Sprint Goal 的进展，并为第二天的工作制定可行的计划，Developer
+        可以选择任何他们需要的架构和技术。这样有助于建立关注点和改善自我管理。</p>
+    <p>Daily Scrum 能够改善沟通、识别障碍、促进快速决策，从而让未定义会议变得不必要。</p>
+    <p>Daily Scrum 不是 Developer 调整计划的唯一一次活动，他们可以在一天中任何时间碰面，具体讨论如何调整或重新规划
+        Sprint 的剩余工作。</p>
 
-        <h3>Sprint Review</h3>
-        <p>Sprint Review 的目的是检视 Sprint 成果并确定未来将如何调整。Scrum Team 向利益相关者展示工作成果，并讨论 Product
-            Goal 的进展。</p>
-        <p>Sprint Review 期间，Scrum Team 与利益相关者一起回顾这个 Sprint 所完成的工作，以及环境发生了什么变化。
-            依据这些信息，与会者可就接下来的工作进行协商。Product Backlog 也可能会进行调整，以适应新的机遇。
-            Sprint Review 是一个工作会议，Scrum Team 应避免局限于仅用作演示。</p>
-        <p>Sprint Review 是 Sprint 的倒数第二个活动，一个月的 Sprint 其回顾时间应限制为最多 4 小时，为期更短的 Sprint 其回顾时间通常也更短。</p>
+    <h3>Sprint Review</h3>
+    <p>Sprint Review 的目的是检视 Sprint 成果并确定未来将如何调整。Scrum Team 向利益相关者展示工作成果，并讨论 Product
+        Goal 的进展。</p>
+    <p>Sprint Review 期间，Scrum Team 与利益相关者一起回顾这个 Sprint 所完成的工作，以及环境发生了什么变化。
+        依据这些信息，与会者可就接下来的工作进行协商。Product Backlog 也可能会进行调整，以适应新的机遇。
+        Sprint Review 是一个工作会议，Scrum Team 应避免局限于仅用作演示。</p>
+    <p>Sprint Review 是 Sprint 的倒数第二个活动，一个月的 Sprint 其回顾时间应限制为最多 4 小时，为期更短的 Sprint 其回顾时间通常也更短。</p>
 
-        <h3>Sprint Retrospective</h3>
-        <p>Sprint Retrospective 的目的是商讨提高质量和效率的方法。</p>
-        <p>Scrum Team 检视上一个 Sprint 中个人、沟通、流程、工具和 Definition of Done 等方面的情况，被检查的元素通常随不同的工作领域而不同。
-            定位让他们走歪路的原因，并探索其源头。Scrum Team 总结在 Sprint 期间顺利开展的工作、遭遇的问题以及它们如何解决（或者为什么未被解决）的。</p>
-        <p>Scrum Team 找出有助于他们提高效率的修改，其中最具影响力的部分应尽快得到执行，甚至可以马上加入到下一个 Sprint Backlog 中。</p>
-        <p>Sprint Retrospective 总结了上一个 Sprint。一个月的 Sprint 其总结时间应限制为最多 3 小时，为期更短的 Sprint 其总结时间通常也更短。</p>
+    <h3>Sprint Retrospective</h3>
+    <p>Sprint Retrospective 的目的是商讨提高质量和效率的方法。</p>
+    <p>Scrum Team 检视上一个 Sprint 中个人、沟通、流程、工具和 Definition of Done 等方面的情况，被检查的元素通常随不同的工作领域而不同。
+        定位让他们走歪路的原因，并探索其源头。Scrum Team 总结在 Sprint 期间顺利开展的工作、遭遇的问题以及它们如何解决（或者为什么未被解决）的。</p>
+    <p>Scrum Team 找出有助于他们提高效率的修改，其中最具影响力的部分应尽快得到执行，甚至可以马上加入到下一个 Sprint Backlog 中。</p>
+    <p>Sprint Retrospective 总结了上一个 Sprint。一个月的 Sprint 其总结时间应限制为最多 3 小时，为期更短的 Sprint 其总结时间通常也更短。</p>
 
-        <h2>Scrum 工件</h2>
-        <p>Scrum 工件指工作或价值。它们旨在最大限度地提高关键信息的透明度。因此，每个人都基于相同的 adaptation 对它们进行审视。</p>
-        <p>每个工件都包含一个承诺，以确保它提供的信息可增强透明度和量化进度 ：</p>
-        <ul>
-            <li>Product Goal 的工件是 Product Backlog</li>
-            <li>Sprint Goal 的工件是 Sprint Backlog</li>
-            <li>Definition of Done 的工件是 Increment</li>
-        </ul>
-        <p>这些承诺旨在强化经验主义，和 Scrum Team 及其利益相关者的 Scrum 价值观。</p>
+    <h2>Scrum 工件</h2>
+    <p>Scrum 工件指工作或价值。它们旨在最大限度地提高关键信息的透明度。因此，每个人都基于相同的 adaptation 对它们进行审视。</p>
+    <p>每个工件都包含一个承诺，以确保它提供的信息可增强透明度和量化进度 ：</p>
+    <ul>
+        <li>Product Goal 的工件是 Product Backlog</li>
+        <li>Sprint Goal 的工件是 Sprint Backlog</li>
+        <li>Definition of Done 的工件是 Increment</li>
+    </ul>
+    <p>这些承诺旨在强化经验主义，和 Scrum Team 及其利益相关者的 Scrum 价值观。</p>
 
-        <h3>Product Backlog</h3>
-        <p>Product Backlog 是一份紧急、有序的需求清单。它是 Scrum Team 所承担工作的唯一来源。</p>
-        <p>由 Scrum Team 在一个 Sprint 中实现的 Product Backlog 条目，意味着它可以在 Sprint Planning 活动中作为选项。
-            它们通常在精炼后获得透明度。Product Backlog 细化是指将它们分解，并进一步定义为更小、更精确的事项。
-            这是一项持续进行的活动，用于条目细节，比如描述、优先顺序和规模等。这些属性通常随不同的工作领域而有所不同。</p>
-        <p>一个 Product Backlog 条目的规模由负责它的 Developer 进行调整，Product Owner 可以通过帮助 Developer 理解和权衡取舍来影响他们。</p>
+    <h3>Product Backlog</h3>
+    <p>Product Backlog 是一份紧急、有序的需求清单。它是 Scrum Team 所承担工作的唯一来源。</p>
+    <p>由 Scrum Team 在一个 Sprint 中实现的 Product Backlog 条目，意味着它可以在 Sprint Planning 活动中作为选项。
+        它们通常在精炼后获得透明度。Product Backlog 细化是指将它们分解，并进一步定义为更小、更精确的事项。
+        这是一项持续进行的活动，用于条目细节，比如描述、优先顺序和规模等。这些属性通常随不同的工作领域而有所不同。</p>
+    <p>一个 Product Backlog 条目的规模由负责它的 Developer 进行调整，Product Owner 可以通过帮助 Developer 理解和权衡取舍来影响他们。</p>
 
-        <h3>Sprint Backlog</h3>
-        <p>Sprint Backlog 由 Sprint Goal （为什么做）、为 Sprint 选择的 Product Backlog 条目（做什么）以及交付 Increment
-            的可执行计划（怎么做）组成。</p>
-        <p>Sprint Backlog 是一个由 Developer 制定的计划。
-            它是 Developer 在 Sprint 期间为实现 Sprint Goal 而计划完成的工作，是一个高度可视的实时工作画面。
-            因此，随着对更多信息的了解，Sprint Backlog 将在 Sprint 过程中进行更新。
-            它应该有足够多的细节，以便 Developer 可以在 Daily Scrum 中检视其进展。</p>
+    <h3>Sprint Backlog</h3>
+    <p>Sprint Backlog 由 Sprint Goal （为什么做）、为 Sprint 选择的 Product Backlog 条目（做什么）以及交付 Increment
+        的可执行计划（怎么做）组成。</p>
+    <p>Sprint Backlog 是一个由 Developer 制定的计划。
+        它是 Developer 在 Sprint 期间为实现 Sprint Goal 而计划完成的工作，是一个高度可视的实时工作画面。
+        因此，随着对更多信息的了解，Sprint Backlog 将在 Sprint 过程中进行更新。
+        它应该有足够多的细节，以便 Developer 可以在 Daily Scrum 中检视其进展。</p>
 
-        <h3>Increment</h3>
-        <p>Increment 是迈向 Product Goal 的一块坚实基石。每个 Increment 都是之前所有 Increment 的累加，经过彻底验证，
-            确保整合在一起的所有 Increment 都能工作。为了提供价值，Increment 必须是可用的。</p>
-        <p>在一个 Sprint 中可以创建多个 Increment。Increment 的总和在 Sprint Review 中展示，从而支持经验主义。
-            但是，Increment 可以在 Sprint 结束之前交付给利益相关者。Sprint Review 不应被视为发布价值的关口。</p>
-        <p>一项工作除非符合 Definition of Done，否则不能将其视为 Increment 的一部分。</p>
+    <h3>Increment</h3>
+    <p>Increment 是迈向 Product Goal 的一块坚实基石。每个 Increment 都是之前所有 Increment 的累加，经过彻底验证，
+        确保整合在一起的所有 Increment 都能工作。为了提供价值，Increment 必须是可用的。</p>
+    <p>在一个 Sprint 中可以创建多个 Increment。Increment 的总和在 Sprint Review 中展示，从而支持经验主义。
+        但是，Increment 可以在 Sprint 结束之前交付给利益相关者。Sprint Review 不应被视为发布价值的关口。</p>
+    <p>一项工作除非符合 Definition of Done，否则不能将其视为 Increment 的一部分。</p>
 
-        <h2>Commitment（承诺）</h2>
+    <h2>Commitment（承诺）</h2>
 
-        <h3>Product Goal</h3>
-        <p>Product Goal 描述了产品的未来状态，可以作为 Scrum Team 制定计划的目标。Product Goal 包含在 Product Backlog 中。
-            Product Backlog 的其余部分以定义 “做什么” 来实现 Product Goal。</p>
-        <p>这里的 Product 是传递价值的工具。它有明确的边界、已知的利益相关者、定义明确的用户或客户。
-            Product 可以是服务、实体产品，或者其它更抽象的东西</p>
-        <p>Product Goal 是 Scrum Team 的长期目标。他们必须先实现（或放弃）一个目标，然后再开始下一个目标。</p>
+    <h3>Product Goal</h3>
+    <p>Product Goal 描述了产品的未来状态，可以作为 Scrum Team 制定计划的目标。Product Goal 包含在 Product Backlog 中。
+        Product Backlog 的其余部分以定义 “做什么” 来实现 Product Goal。</p>
+    <p>这里的 Product 是传递价值的工具。它有明确的边界、已知的利益相关者、定义明确的用户或客户。
+        Product 可以是服务、实体产品，或者其它更抽象的东西</p>
+    <p>Product Goal 是 Scrum Team 的长期目标。他们必须先实现（或放弃）一个目标，然后再开始下一个目标。</p>
 
-        <h3>Sprint Goal</h3>
-        <p>Sprint Goal 是 Sprint 的单个目标。尽管 Sprint Goal 是 Developer 的承诺，但它为实现该目标所需的具体工作提供了灵活性。
-            Sprint Goal 还创造了连贯性和专注点，鼓励 Scrum Team 一起工作而不是各自分开行动。</p>
-        <p>Sprint Goal 在 Sprint Planning 活动中建立，然后添加到 Sprint Backlog 中。当 Developer 在 Sprint 期间工作时，他们会记住
-            Sprint Goal。如果需要完成的工作与预期的不一致，他们将与 Product Owner 协作，在不影响 Sprint Goal 的情况下协商本次
-            Sprint Backlog 的范围。</p>
+    <h3>Sprint Goal</h3>
+    <p>Sprint Goal 是 Sprint 的单个目标。尽管 Sprint Goal 是 Developer 的承诺，但它为实现该目标所需的具体工作提供了灵活性。
+        Sprint Goal 还创造了连贯性和专注点，鼓励 Scrum Team 一起工作而不是各自分开行动。</p>
+    <p>Sprint Goal 在 Sprint Planning 活动中建立，然后添加到 Sprint Backlog 中。当 Developer 在 Sprint 期间工作时，他们会记住
+        Sprint Goal。如果需要完成的工作与预期的不一致，他们将与 Product Owner 协作，在不影响 Sprint Goal 的情况下协商本次
+        Sprint Backlog 的范围。</p>
 
-        <h3>Definition of Done</h3>
-        <p>Definition of Done 是当 Increment 符合产品所需的质量度量标准时对其状态的正式描述。</p>
-        <p>当一个 Product Backlog 条目符合 Definition of Done 时，就会产生一个 Increment。</p>
-        <p>Definition of Done 通过使每一个人对 “作为 Increment 的一部分，什么样的工作算是已完成” 有一个共同的理解来产生透明度。
-            如果一个 Product Backlog 条目不符合 Definition of Done，那么它就不能发布，甚至不应在 Sprint Review 中展示它。
-            相反，它应返回 Product Backlog 以备将来参考。</p>
-        <p>如果 Increment 的 Definition of Done 是组织标准的一部分，那么所有 Scrum Team 都必须以此作为最低标准。
-            否则，Scrum Team 必须制定适合于该产品的 Definition of Done。</p>
-
-    </article>
+    <h3>Definition of Done</h3>
+    <p>Definition of Done 是当 Increment 符合产品所需的质量度量标准时对其状态的正式描述。</p>
+    <p>当一个 Product Backlog 条目符合 Definition of Done 时，就会产生一个 Increment。</p>
+    <p>Definition of Done 通过使每一个人对 “作为 Increment 的一部分，什么样的工作算是已完成” 有一个共同的理解来产生透明度。
+        如果一个 Product Backlog 条目不符合 Definition of Done，那么它就不能发布，甚至不应在 Sprint Review 中展示它。
+        相反，它应返回 Product Backlog 以备将来参考。</p>
+    <p>如果 Increment 的 Definition of Done 是组织标准的一部分，那么所有 Scrum Team 都必须以此作为最低标准。
+        否则，Scrum Team 必须制定适合于该产品的 Definition of Done。</p>
 </main>
 <script src="web/js/lib/require.js" type="text/javascript"></script>
 <script src="web/js/require-config.js" type="text/javascript"></script>

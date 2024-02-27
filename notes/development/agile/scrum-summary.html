@@ -1,170 +1,169 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+    <base href="/"/>
+    <title>Scrum 小结 - Zengliwei 开发笔记</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta name="keywords" content="敏捷开发, Scrum"/>
-    <base href="/"/>
-    <title>Scrum 小结 - Zengliwei 开发笔记</title>
     <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
 </head>
 <body>
 <main>
-    <article>
-        <h1>Scrum 小结</h1>
-        <p>Scrum 是一套用于帮助人们解决复杂问题的框架（<a target="_blank" href="https://www.scrum.org/">https://www.scrum.org</a>）。</p>
-        <p>Scrum 的核心理念在于透明、检视、修正，并以尽量少的投入创造尽可能多的价值。</p>
-        <p>Scrum 的核心思想与敏捷开发相符，将其用于软件开发便成为敏捷开发的一种。</p>
-        <p>本文是对【<a target="_blank" href="https://scrumguides.org/scrum-guide.html">The 2020 Scrum Guide</a>】的读后小结，
-            译文参阅【<a target="_blank" href="notes/development/agile/scrum-guide.html">2020 Scrum 指南</a>】。</p>
+    <h1>Scrum 小结</h1>
 
-        <h2>Scrum 角色</h2>
-        <p>Scrum 框架中，项目成员分为 4 种角色，分别负责不同的工作内容：</p>
-        <table>
-            <tr>
-                <th colspan="2">角色</th>
-                <th>描述 / 主要工作内容</th>
-            </tr>
-            <tr>
-                <td rowspan="3" style="width: 120px;">
-                    <a target="_blank" href="notes/development/agile/scrum-guide.html#scrum-team">Scrum Team</a>
-                </td>
-                <td style="width: 120px;">
-                    <a target="_blank" href="notes/development/agile/scrum-guide.html#product-owner">Product Owner</a>
-                </td>
-                <td>
-                    确立 <a href="notes/development/agile/scrum-summary.html#product-goal">Product Goal</a>；<br/>
-                    制定 <a href="notes/development/agile/scrum-summary.html#product-backlog">Product Backlog</a>，包括待办事项及其优先顺序
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a target="_blank" href="notes/development/agile/scrum-guide.html#developer">Developer</a>
-                </td>
-                <td>
-                    制定 <a href="notes/development/agile/scrum-summary.html#sprint-backlog">Sprint Backlog</a>；<br/>
-                    逐一完成 Sprint Backlog 的待办事项
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a target="_blank" href="notes/development/agile/scrum-guide.html#scrum-master">Scrum Master</a>
-                </td>
-                <td>
-                    从各个方面帮助整个团队通过使用 Scrum 框架完成项目，详情参考
-                    【<a target="_blank" href="notes/development/agile/scrum-guide.html#scrum-master">这里</a>】。
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">利益相关者</td>
-                <td>
-                    在外包项目中指代客户；<br/>
-                    在内部项目中指代老板、资方等项目利益相关人员
-                </td>
-            </tr>
-        </table>
+    <p>Scrum 是一套用于帮助人们解决复杂问题的框架（<a target="_blank" href="https://www.scrum.org/">https://www.scrum.org</a>）。</p>
+    <p>Scrum 的核心理念在于透明、检视、修正，并以尽量少的投入创造尽可能多的价值。</p>
+    <p>Scrum 的核心思想与敏捷开发相符，将其用于软件开发便成为敏捷开发的一种。</p>
+    <p>本文是对【<a target="_blank" href="https://scrumguides.org/scrum-guide.html">The 2020 Scrum Guide</a>】的读后小结，
+        译文参阅【<a target="_blank" href="notes/development/agile/scrum-guide.html">2020 Scrum 指南</a>】。</p>
 
-        <h2>Scrum 活动</h2>
-        <p>指南中定义的 Scrum 活动有 5 种，包括 4 类正式会议，加上它们的容器 Sprint。</p>
-        <p>复杂问题（项目）被划分成多个阶段进行，每阶段为一个 Sprint；它通常是为期小于一个月，时长固定的活动。Sprint 是
-            Scrum 的核心，Scrum 的 4 类正式会议围绕 Sprint 进行。</p>
-        <table>
-            <tr>
-                <th style="width: 150px;">会议名称</th>
-                <th style="width: 180px;">参与者</th>
-                <th style="width: 110px;">开会时机</th>
-                <th style="width: 100px;">建议用时</th>
-                <th>内容简述</th>
-            </tr>
-            <tr>
-                <td>
-                    <a target="_blank"
-                       href="notes/development/agile/scrum-guide.html#sprint-planning">Sprint Planning</a>
-                </td>
-                <td>Scrum Team<br/>利益相关者（非必要）</td>
-                <td style="text-align: center;">Sprint 启动前</td>
-                <td style="text-align: center;">8 hrs</td>
-                <td>
-                    确立 Sprint Goal；<br/>
-                    规划 Sprint 待办事项：细化具体内容、设定工作量；<br/>
-                    制定 Definition of Done
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a target="_blank" href="notes/development/agile/scrum-guide.html#daily-scrum">Daily Scrum</a>
-                </td>
-                <td>Developer<br/>Product Owner（非必要）<br/>Scrum Master（非必要）</td>
-                <td style="text-align: center;">Sprint 进行中<br/>（每个工作日）</td>
-                <td style="text-align: center;">15 min</td>
-                <td>检查进度，调整工作内容</td>
-            </tr>
-            <tr>
-                <td>
-                    <a target="_blank"
-                       href="notes/development/agile/scrum-guide.html#sprint-review">Sprint Review</a>
-                </td>
-                <td>Scrum Team<br/>利益相关者</td>
-                <td style="text-align: center;">
-                    Sprint Backlog 待办事项完成后，或到达 Sprint 期限
-                </td>
-                <td style="text-align: center;">4 hrs</td>
-                <td>
-                    展示工作成果；<br/>
-                    回顾 Sprint，根据实际情况（包括外部和内部）调整 Product Backlog
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a target="_blank"
-                       href="notes/development/agile/scrum-guide.html#sprint-retrospective">Sprint Retrospective</a>
-                </td>
-                <td>Scrum Team</td>
-                <td style="text-align: center;">Sprint Review 之后</td>
-                <td style="text-align: center;">3 hrs</td>
-                <td>回顾 Sprint，商讨提高质量和效率的方法</td>
-            </tr>
-        </table>
+    <h2>Scrum 角色</h2>
+    <p>Scrum 框架中，项目成员分为 4 种角色，分别负责不同的工作内容：</p>
+    <table>
+        <tr>
+            <th colspan="2">角色</th>
+            <th>描述 / 主要工作内容</th>
+        </tr>
+        <tr>
+            <td rowspan="3" style="width: 120px;">
+                <a target="_blank" href="notes/development/agile/scrum-guide.html#scrum-team">Scrum Team</a>
+            </td>
+            <td style="width: 120px;">
+                <a target="_blank" href="notes/development/agile/scrum-guide.html#product-owner">Product Owner</a>
+            </td>
+            <td>
+                确立 <a href="notes/development/agile/scrum-summary.html#product-goal">Product Goal</a>；<br/>
+                制定 <a href="notes/development/agile/scrum-summary.html#product-backlog">Product Backlog</a>，包括待办事项及其优先顺序
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a target="_blank" href="notes/development/agile/scrum-guide.html#developer">Developer</a>
+            </td>
+            <td>
+                制定 <a href="notes/development/agile/scrum-summary.html#sprint-backlog">Sprint Backlog</a>；<br/>
+                逐一完成 Sprint Backlog 的待办事项
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a target="_blank" href="notes/development/agile/scrum-guide.html#scrum-master">Scrum Master</a>
+            </td>
+            <td>
+                从各个方面帮助整个团队通过使用 Scrum 框架完成项目，详情参考
+                【<a target="_blank" href="notes/development/agile/scrum-guide.html#scrum-master">这里</a>】。
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">利益相关者</td>
+            <td>
+                在外包项目中指代客户；<br/>
+                在内部项目中指代老板、资方等项目利益相关人员
+            </td>
+        </tr>
+    </table>
 
-        <h2>词汇表</h2>
-        <table class="list">
-            <tr>
-                <th>
-                    <a id="product-goal" target="_blank"
-                       href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a>
-                </th>
-                <td>描述对项目成品的期望</td>
-            </tr>
-            <tr>
-                <th>
-                    <a id="product-backlog" target="_blank"
-                       href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a>
-                </th>
-                <td>
-                    为达成 Product Goal 罗列的有优先次序的需求列表
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <a id="sprint-goal" target="_blank"
-                       href="notes/development/agile/scrum-guide.html#sprint-goal">Sprint Goal</a>
-                </th>
-                <td>描述对 Sprint 成果的期望</td>
-            </tr>
-            <tr>
-                <th>
-                    <a id="sprint-backlog" target="_blank"
-                       href="notes/development/agile/scrum-guide.html#sprint-backlog">Sprint Backlog</a>
-                </th>
-                <td>
-                    <pre><code class="nohighlight">Sprint Backlog = Sprint Goal + 待办事项 + 执行计划</code></pre>
-                    待办事项：从 Product Backlog 中选取的需求（User Story）<br/>
-                    执行计划：一般是将待办事项拆分成粒度更小的可量化需求（Task），或对如何实现作分步规划
-                </td>
-            </tr>
-        </table>
-    </article>
+    <h2>Scrum 活动</h2>
+    <p>指南中定义的 Scrum 活动有 5 种，包括 4 类正式会议，加上它们的容器 Sprint。</p>
+    <p>复杂问题（项目）被划分成多个阶段进行，每阶段为一个 Sprint；它通常是为期小于一个月，时长固定的活动。Sprint 是
+        Scrum 的核心，Scrum 的 4 类正式会议围绕 Sprint 进行。</p>
+    <table>
+        <tr>
+            <th style="width: 150px;">会议名称</th>
+            <th style="width: 180px;">参与者</th>
+            <th style="width: 110px;">开会时机</th>
+            <th style="width: 100px;">建议用时</th>
+            <th>内容简述</th>
+        </tr>
+        <tr>
+            <td>
+                <a target="_blank"
+                   href="notes/development/agile/scrum-guide.html#sprint-planning">Sprint Planning</a>
+            </td>
+            <td>Scrum Team<br/>利益相关者（非必要）</td>
+            <td style="text-align: center;">Sprint 启动前</td>
+            <td style="text-align: center;">8 hrs</td>
+            <td>
+                确立 Sprint Goal；<br/>
+                规划 Sprint 待办事项：细化具体内容、设定工作量；<br/>
+                制定 Definition of Done
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a target="_blank" href="notes/development/agile/scrum-guide.html#daily-scrum">Daily Scrum</a>
+            </td>
+            <td>Developer<br/>Product Owner（非必要）<br/>Scrum Master（非必要）</td>
+            <td style="text-align: center;">Sprint 进行中<br/>（每个工作日）</td>
+            <td style="text-align: center;">15 min</td>
+            <td>检查进度，调整工作内容</td>
+        </tr>
+        <tr>
+            <td>
+                <a target="_blank"
+                   href="notes/development/agile/scrum-guide.html#sprint-review">Sprint Review</a>
+            </td>
+            <td>Scrum Team<br/>利益相关者</td>
+            <td style="text-align: center;">
+                Sprint Backlog 待办事项完成后，或到达 Sprint 期限
+            </td>
+            <td style="text-align: center;">4 hrs</td>
+            <td>
+                展示工作成果；<br/>
+                回顾 Sprint，根据实际情况（包括外部和内部）调整 Product Backlog
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a target="_blank"
+                   href="notes/development/agile/scrum-guide.html#sprint-retrospective">Sprint Retrospective</a>
+            </td>
+            <td>Scrum Team</td>
+            <td style="text-align: center;">Sprint Review 之后</td>
+            <td style="text-align: center;">3 hrs</td>
+            <td>回顾 Sprint，商讨提高质量和效率的方法</td>
+        </tr>
+    </table>
+
+    <h2>词汇表</h2>
+    <table class="list">
+        <tr>
+            <th>
+                <a id="product-goal" target="_blank"
+                   href="notes/development/agile/scrum-guide.html#product-goal">Product Goal</a>
+            </th>
+            <td>描述对项目成品的期望</td>
+        </tr>
+        <tr>
+            <th>
+                <a id="product-backlog" target="_blank"
+                   href="notes/development/agile/scrum-guide.html#product-backlog">Product Backlog</a>
+            </th>
+            <td>
+                为达成 Product Goal 罗列的有优先次序的需求列表
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <a id="sprint-goal" target="_blank"
+                   href="notes/development/agile/scrum-guide.html#sprint-goal">Sprint Goal</a>
+            </th>
+            <td>描述对 Sprint 成果的期望</td>
+        </tr>
+        <tr>
+            <th>
+                <a id="sprint-backlog" target="_blank"
+                   href="notes/development/agile/scrum-guide.html#sprint-backlog">Sprint Backlog</a>
+            </th>
+            <td>
+                <pre><code class="nohighlight">Sprint Backlog = Sprint Goal + 待办事项 + 执行计划</code></pre>
+                待办事项：从 Product Backlog 中选取的需求（User Story）<br/>
+                执行计划：一般是将待办事项拆分成粒度更小的可量化需求（Task），或对如何实现作分步规划
+            </td>
+        </tr>
+    </table>
 </main>
 <script src="web/js/lib/require.js" type="text/javascript"></script>
 <script src="web/js/require-config.js" type="text/javascript"></script>
