@@ -21,7 +21,10 @@ require([
             + `</ul></li></ul></nav>`
             + `<nav class="links"><nav-menu :items="menuItems"></nav-menu></nav>`
             + `</aside>`
-            + `<main><article v-html="content"/></main>`
+            + `<main><article v-html="content" ref="article"/></main>`
+            + `<aside class="index"><h3>本文索引</h3><nav>`
+            + `<a v-for="item in indexItems" :class="item.tag" :href="item.url" >{{ item.title }}</a>`
+            + `</nav></aside>`
             + `<footer>Copyright &copy; <a target="_blank" href="https://zengliwei.github.io/"><strong>Zengliwei</strong></a>. All rights reserved.</footer>`,
 
         data: function () {
@@ -29,7 +32,8 @@ require([
                 content: html,
                 keyword: '',
                 favours: [],
-                menuItems: []
+                menuItems: [],
+                indexItems: []
             };
         },
 
@@ -84,6 +88,17 @@ require([
             $.ajax('/notes/index.json').then((menuItems) => {
                 this.processMenuItems(menuItems);
                 this.menuItems = menuItems;
+            });
+        },
+
+        mounted: function () {
+            $(this.$refs.article).find('h2, h3, h4').each((i, el) => {
+                el.id = el.id || `title-${i}`;
+                this.indexItems.push({
+                    title: el.innerText,
+                    url: `${this.currentUrl}#${el.id}`,
+                    tag: el.tagName.toLowerCase()
+                });
             });
         }
     });

@@ -1,6 +1,11 @@
 @import 'jquery.mCustomScrollbar.min.css';
 @import 'highlight/google-light.min.css';
 
+:root {
+    --nav-width: 280px;
+    --index-width: 320px;
+}
+
 @font-face {
     font-family: 'Awesome';
     font-style: normal;
@@ -20,6 +25,10 @@
     src: url(../fonts/fa-light-300.woff2) format('woff2');
 }
 
+html {
+    font: 14px/24px Verdana, Arial, Helvetica, sans-serif;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -31,12 +40,6 @@
 *::selection {
     background: #2196F3;
     color: #fff;
-}
-
-body {
-    color: #545454;
-    font: 14px/24px Verdana, Arial, Helvetica, sans-serif;
-    height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -161,9 +164,8 @@ table.list tr th {
     width: 150px;
 }
 
-body > header {
-    display: none;
-    z-index: 3;
+body {
+    color: #545454;
 }
 
 body > .sidebar {
@@ -174,7 +176,7 @@ body > .sidebar {
     bottom: 0;
     left: 0;
     top: 0;
-    width: 280px;
+    width: var(--nav-width);
     z-index: 5;
 }
 
@@ -292,7 +294,7 @@ body > .sidebar nav a.favoured .favour:after {
 }
 
 body > main {
-    margin: 0 320px 0 280px;
+    margin: 0 var(--index-width) 0 var(--nav-width);
     padding: 0 0 180px 30px;
     position: relative;
     z-index: 2;
@@ -318,59 +320,60 @@ body > main article table pre code {
     font-size: 12px;
 }
 
-body > nav#index {
-    height: calc(100% - 40px);
+body > .index {
+    padding: 20px;
     position: fixed;
-    right: 20px;
-    top: 20px;
-    width: 280px;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: var(--index-width);
     z-index: 4;
 }
 
-body > nav#index h3 {
+body > .index h3 {
     border-bottom: 2px solid #e0e0e3;
     color: #545454;
     margin: 0;
     padding: 0 0 8px 18px;
 }
 
-body > nav#index .index-box {
+body > .index .index-box {
     max-height: calc(100% - 40px);
 }
 
-body > nav#index .index-box .mCSB_container {
+body > .index .index-box .mCSB_container {
     padding-bottom: 60px;
 }
 
-body > nav#index a {
-    border: 0;
+body > .index a {
+    border-bottom: 0;
     color: #545454;
     display: block;
     padding: 4px 0;
 }
 
-body > nav#index a.h2 {
+body > .index a.h2 {
     border-top: 2px solid #e0e0e3;
     padding: 6px 0 6px 18px;
 }
 
-body > nav#index a.h3 {
+body > .index a.h3 {
     border-top: 1px solid #e0e0e3;
     font-size: 12px;
     padding-left: 36px;
 }
 
-body > nav#index a:first-child {
+body > .index a:first-child {
     border: 0;
 }
 
-body > nav#index a:last-child {
+body > .index a:last-child {
     border-bottom: 1px solid #e0e0e3;
 }
 
 body > footer {
     font-size: 12px;
-    margin: 0 320px 0 280px;
+    margin: 0 var(--index-width) 0 var(--nav-width);
     padding: 8px 0;
     text-align: center;
     z-index: 1;
@@ -422,7 +425,7 @@ body > footer {
         max-width: 100%;
     }
 
-    body > nav#index {
+    body > .index {
         right: -300px;
     }
 
