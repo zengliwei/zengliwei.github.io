@@ -77,39 +77,66 @@
 
     <blockquote>
         Once your data reaches a stable size, or a growing table has increased by tens or some hundreds of megabytes,
-        consider using the OPTIMIZE TABLE statement to reorganize the table and compact any wasted space. The
-        reorganized tables require less disk I/O to perform full table scans. This is a straightforward technique that
-        can improve performance when other techniques such as improving index usage or tuning application code are not
-        practical.
+        consider using the <code>OPTIMIZE TABLE</code> statement to reorganize the table and compact any wasted space.
+        The reorganized tables require less disk I/O to perform full table scans. This is a straightforward technique
+        that can improve performance when other techniques such as improving index usage or tuning application code are
+        not practical.
     </blockquote>
+    <p>
+        当表的数据量到达稳定值，或者增加了一定量时，可考虑使用 <code>OPTIMIZE TABLE</code> 语句进行整理以压缩空间。
+        整理后的表进行全表扫描所产生的磁盘 I/O 将更少。
+        当其他技术，如增加索引或调整程序代码不起作用时，可尝试用这种方法来提高性能。
+    </p>
 
     <blockquote>
-        OPTIMIZE TABLE copies the data part of the table and rebuilds the indexes. The benefits come from improved
-        packing of data within indexes, and reduced fragmentation within the tablespaces and on disk. The benefits vary
-        depending on the data in each table. You may find that there are significant gains for some and not for others,
-        or that the gains decrease over time until you next optimize the table. This operation can be slow if the table
-        is large or if the indexes being rebuilt do not fit into the buffer pool. The first run after adding a lot of
-        data to a table is often much slower than later runs.
+        <code>OPTIMIZE TABLE</code> copies the data part of the table and rebuilds the indexes. The benefits come from
+        improved packing of data within indexes, and reduced fragmentation within the tablespaces and on disk. The
+        benefits vary depending on the data in each table. You may find that there are significant gains for some and
+        not for others, or that the gains decrease over time until you next optimize the table. This operation can be
+        slow if the table is large or if the indexes being rebuilt do not fit into the buffer pool. The first run after
+        adding a lot of data to a table is often much slower than later runs.
     </blockquote>
+    <p>
+        <code>OPTIMIZE TABLE</code> 方法复制表的部分数据来重建索引。通过使用索引打包数据，压缩表空间和磁盘碎片。
+        这种优化的结果取决于表的数据，可能出现只有一部分表有效，或者收益随时间推移逐渐降低的情况。
+        当表很大或者缓存池尺寸不适用于重建的索引时，这个操作会很费时。增加大量数据后的第一次运行通常比后续操作慢很多。
+    </p>
 
     <blockquote>
         In InnoDB, having a long PRIMARY KEY (either a single column with a lengthy value, or several columns that form
         a long composite value) wastes a lot of disk space. The primary key value for a row is duplicated in all the
-        secondary index records that point to the same row. (See Section 14.6.2.1, “Clustered and Secondary Indexes”.)
-        Create an AUTO_INCREMENT column as the primary key if your primary key is long, or index a prefix of a long
-        VARCHAR column instead of the entire column.
+        secondary index records that point to the same row. (See <a target="_blank"
+                                                                    href="https://dev.mysql.com/doc/refman/5.7/en/innodb-index-types.html">Section
+        14.6.2.1, “Clustered and
+        Secondary Indexes”</a>.) Create an AUTO_INCREMENT column as the primary key if your primary key is long, or
+        index a prefix of a long VARCHAR column instead of the entire column.
     </blockquote>
+    <p>
+        使用 InnoDB 引擎的表，长主键（不管是单列还是多列组合）会浪费大量磁盘空间。
+        主键值会在所有指向同一行的二级索引记录中重复出现（见 <a target="_blank"
+                                      href="https://dev.mysql.com/doc/refman/5.7/en/innodb-index-types.html">Section
+        14.6.2.1, “Clustered and Secondary Indexes”</a>）。
+        当主键太长时，应该创建一个自增字段作为主键，或者对长 VARCHAR 列的前边部分而不是整个列进行索引。
+    </p>
 
     <blockquote>
         Use the VARCHAR data type instead of CHAR to store variable-length strings or for columns with many NULL values.
         A CHAR(N) column always takes N characters to store data, even if the string is shorter or its value is NULL.
         Smaller tables fit better in the buffer pool and reduce disk I/O.
     </blockquote>
+    <p>
+        应使用 VARCHAR 而不是 CHAR 来存储变长字符串，以及可能频繁出现空值的数据。
+        一个 CHAR(N) 型字段总是占用 N 个字符空间，即使字符串很短甚至为 NULL。
+        小表更适用于缓存池，减少磁盘 I/O。
+    </p>
 
     <blockquote>
         When using COMPACT row format (the default InnoDB format) and variable-length character sets, such as utf8 or
         sjis, CHAR(N) columns occupy a variable amount of space, but still at least N bytes.
     </blockquote>
+    <p>
+        当使用 COMPACT 格式（InnoDB 默认）和像 utf8 或 sjis 这样的变长字符集时，CHAR(N) 型字段所占用的空间是不固定的，但至少是 N 字节。
+    </p>
 
     <blockquote>
         For tables that are big, or contain lots of repetitive text or numeric data, consider using COMPRESSED row
@@ -117,6 +144,10 @@
         making a permanent decision, measure the amount of compression you can achieve by using COMPRESSED versus
         COMPACT row format.
     </blockquote>
+    <p>
+        对于大表或者包含大量重复数据的表，应考虑使用 COMPRESSED 行格式，这样不管是访问缓冲池还是进行全表扫描所产生的磁盘 I/O 都将更少。
+        在决定使用哪种格式之前，应先测试使用各自的压缩量。
+    </p>
 
 
     <h2 id="optimizing-innodb-transaction-management.html">InnoDB 事务管理</h2>
