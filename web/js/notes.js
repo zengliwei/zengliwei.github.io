@@ -18,7 +18,7 @@ require([
             + `<span v-html="item.title"/><span class="favour" @click="(evt) => switchFavour(evt, item)"/>`
             + `</a></li>`
             + `</ul></nav>`
-            + `<nav class="links"><nav-menu :items="menuItems" v-model:favours="favours" v-model:keyword="keyword"></nav-menu></nav>`
+            + `<nav class="links"><nav-menu :items="menuItems"></nav-menu></nav>`
             + `</aside>`
             + `<main><article v-html="content"/></main>`
             + `<footer>Copyright &copy; <a target="_blank" href="https://zengliwei.github.io/"><strong>Zengliwei</strong></a>. All rights reserved.</footer>`,
@@ -32,11 +32,21 @@ require([
             };
         },
 
+        provide: function () {
+            return {
+                keyword: Vue.computed(() => this.keyword),
+                favours: Vue.computed(() => this.favours)
+            }
+        },
+
         watch: {
             favours: {
                 deep: true,
                 handler: function (favours) {
-                    console.log(favours);
+                    favours.forEach(item => {
+                        this.favourUrls[item.url] = item.favoured;
+                    });
+                    window.localStorage.setItem('note-favours', JSON.stringify(this.favourUrls));
                 }
             }
         },
@@ -50,8 +60,9 @@ require([
                         item.isCurrent = true;
                         parent.activated = true;
                     }
-                    if (this.favours.indexOf(item.url) > -1) {
-                        item.favoured = true
+                    if (this.favourUrls[item.url]) {
+                        item.favoured = true;
+                        this.favours.push(item);
                     }
                     if (item.children) {
                         if (item.children.length > 0) {
@@ -66,8 +77,10 @@ require([
         },
 
         created: function () {
+            this.currentUrl = window.location.pathname.substr(1);
+            this.favourUrls = JSON.parse(window.localStorage.getItem('note-favours')) || {};
+
             $.ajax('/notes/index.json').then((menuItems) => {
-                this.currentUrl = window.location.pathname.substr(1);
                 this.processMenuItems(menuItems);
                 this.menuItems = menuItems;
             });
@@ -85,12 +98,10 @@ require([
             + `</li></ul>`,
 
         props: {
-            items: Array,
-            favours: Array,
-            keyword: String
+            items: Array
         },
 
-        emits: ['update:keyword', 'update:favours'],
+        inject: ['keyword', 'favours'],
 
         methods: {
             getItemClass: function (item) {
@@ -112,7 +123,9 @@ require([
             switchFavour: function (evt, item) {
                 evt.stopPropagation();
                 item.favoured = !item.favoured;
-                item.favoured ? this.favours.push(item.url) : this.favours.splice(this.favours.indexOf(item.url), 1);
+                item.favoured
+                    ? this.favours.push(item)
+                    : this.favours.splice(this.favours.indexOf(item), 1);
             }
         }
     });
