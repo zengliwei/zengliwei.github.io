@@ -199,20 +199,34 @@ body > .sidebar nav ul {
     padding: 0;
 }
 
-body > .sidebar nav a {
+body > .sidebar nav > ul,
+body > .sidebar nav li.activated > ul {
+    display: block;
+}
+
+body > .sidebar nav li a {
     background: #fff;
     border-bottom: 1px solid #e0e0e3;
     color: #545454;
     display: block;
     font-size: 12px;
-    padding: 4px 6px 4px 28px;
+    line-height: 20px;
+    padding: 6px 32px 6px 28px;
     position: relative;
     text-decoration: none;
 }
 
-body > .sidebar nav > ul,
-body > .sidebar nav li.activated > ul {
+body > .sidebar nav li a span {
     display: block;
+}
+
+body > .sidebar nav li a:hover,
+body > .sidebar nav li.current a {
+    background: #FFF3E0;
+}
+
+body > .sidebar nav li.activated > a:before {
+    transform: rotateZ(90deg);
 }
 
 body > .sidebar nav li.has-child > a:before {
@@ -227,21 +241,11 @@ body > .sidebar nav li.has-child > a:before {
     top: 6px;
 }
 
-body > .sidebar nav a:hover,
-body > .sidebar nav li.current a {
-    background: #FFF3E0;
-}
-
-body > .sidebar nav li.activated > a:before {
-    transform: rotateZ(90deg);
-}
-
 body > .sidebar nav li.level-1 > a {
     background: none;
     color: #669;
-    padding: 6px 6px 6px 12px;
+    padding-left: 12px;
 }
-
 
 body > .sidebar nav li.level-1.has-child > a:before {
     display: none;
@@ -262,6 +266,10 @@ body > .sidebar nav li.level-1.has-child > a:after {
 
 body > .sidebar nav li.level-1.activated > a:after {
     transform: rotateZ(-90deg);
+}
+
+body > .sidebar nav li.level-3 > a {
+    padding-left: 42px;
 }
 
 body > .sidebar nav a .favour {
