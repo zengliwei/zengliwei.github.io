@@ -36,7 +36,7 @@
                 "title": "性能优化",
                 "children": [
                     {
-                        "title": "MySQL 性能优化概述",
+                        "title": "[译] MySQL 性能优化概述",
                         "url": "notes/mysql/optimization/overview.html"
                     }
                 ]
