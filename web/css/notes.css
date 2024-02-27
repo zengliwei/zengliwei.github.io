@@ -373,6 +373,10 @@ body > .index a:last-child {
     border-bottom: 1px solid #e0e0e3;
 }
 
+body > .index a.current {
+    background: #f6f6f9;
+}
+
 body > footer {
     font-size: .75rem;
     margin: 0 var(--index-width) 0 var(--nav-width);

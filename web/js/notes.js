@@ -22,7 +22,7 @@ require([
             + `<nav class="links"><nav-menu :items="menuItems"></nav-menu></nav>`
             + `</aside>`
             + `<main><article v-html="content" ref="article"/></main>`
-            + `<aside v-show="indexItems.length > 0" class="index"><h3>本文索引</h3><nav>`
+            + `<aside v-show="indexItems.length > 0" class="index"><h3>本文索引</h3><nav ref="index">`
             + `<a v-for="item in indexItems" :class="item.tag" :href="item.url" >{{ item.title }}</a>`
             + `</nav></aside>`
             + `<footer>Copyright &copy; <a target="_blank" href="https://zengliwei.github.io/"><strong>Zengliwei</strong></a>. All rights reserved.</footer>`,
@@ -78,6 +78,13 @@ require([
                         }
                     }
                 });
+            },
+
+            generateId: function (prefix) {
+                prefix = prefix || '';
+                const timestamp = Date.now().toString();
+                const randomNum = Math.floor(Math.random() * 10000).toString();
+                return `${prefix}${timestamp}${randomNum}`;
             }
         },
 
@@ -92,12 +99,24 @@ require([
         },
 
         mounted: function () {
-            $(this.$refs.article).find('h2, h3, h4').each((i, el) => {
-                el.id = el.id || `title-${i}`;
+            const $article = $(this.$refs.article), $index = $(this.$refs.index);
+
+            $article.find('h2, h3, h4').each((i, el) => {
+                el.id = el.id || this.generateId('p-');
                 this.indexItems.push({
                     title: el.innerText,
                     url: `${this.currentUrl}#${el.id}`,
                     tag: el.tagName.toLowerCase()
+                });
+            });
+
+            $(document).on('scroll', () => {
+                let scrollTop = Math.ceil($('html').scrollTop());
+                $article.find('h2, h3, h4').each((i, el) => {
+                    let start = Math.floor($(el).position().top);
+                    if (scrollTop >= start) {
+                        $index.find('a').eq(i).addClass('current').siblings().removeClass('current');
+                    }
                 });
             });
         }
