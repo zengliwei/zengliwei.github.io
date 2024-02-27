@@ -26,7 +26,7 @@
 }
 
 html {
-    font: 14px/24px Verdana, Arial, Helvetica, sans-serif;
+    font: 16px/1.5rem Verdana, Arial, Helvetica, sans-serif;
 }
 
 * {
@@ -48,24 +48,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 1.75rem;
+    line-height: 2.25rem;
     margin-bottom: 32px;
     padding-top: 30px;
 }
 
 h2 {
-    font-size: 24px;
-    line-height: 26px;
-    margin-bottom: 24px;
-    padding-top: 24px;
+    font-size: 1.5rem;
+    line-height: 1.625rem;
+    margin-bottom: 1.5rem;
+    padding-top: 1.5rem;
 }
 
 h3 {
-    font-size: 18px;
-    line-height: 28px;
-    margin-bottom: 18px;
-    padding-top: 18px;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    margin-bottom: 1.125rem;
+    padding-top: 1.125rem;
 }
 
 a {
@@ -78,12 +78,12 @@ a:hover {
 }
 
 p, pre {
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
 }
 
 ol, ul {
-    margin-bottom: 15px;
-    padding: 0 0 0 24px;
+    margin-bottom: 1rem;
+    padding: 0 0 0 1.5rem;
 }
 
 ol:last-child, ul:last-child {
@@ -98,7 +98,7 @@ code {
 
 blockquote {
     background: #f6f6f9;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     padding: 20px 50px;
     position: relative;
 }
@@ -126,8 +126,8 @@ blockquote:after {
 input[type="text"] {
     border: 1px solid #e0e0e3;
     border-radius: 3px;
-    line-height: 24px;
-    padding: 6px 12px;
+    line-height: 1.5rem;
+    padding: 6px .75rem;
     width: 100%;
 }
 
@@ -154,11 +154,11 @@ table th {
 }
 
 table td {
-    font-size: 12px;
+    font-size: .75rem;
 }
 
 table.list tr th {
-    font-size: 12px;
+    font-size: .75rem;
     padding-right: 20px;
     text-align: right;
     width: 150px;
@@ -166,6 +166,7 @@ table.list tr th {
 
 body {
     color: #545454;
+    font-size: .875rem;
 }
 
 body > .sidebar {
@@ -183,7 +184,7 @@ body > .sidebar {
 body > .sidebar #search {
     background: #f0f0f6;
     border-bottom: 1px solid #e0e0e3;
-    padding: 8px 12px;
+    padding: 8px .75rem;
 }
 
 body > .sidebar #nav {
@@ -211,9 +212,9 @@ body > .sidebar nav li a {
     border-bottom: 1px solid #e0e0e3;
     color: #545454;
     display: block;
-    font-size: 12px;
+    font-size: .75rem;
     line-height: 20px;
-    padding: 6px 32px 6px 28px;
+    padding: 6px 32px 6px 1.75rem;
     position: relative;
     text-decoration: none;
 }
@@ -237,16 +238,16 @@ body > .sidebar nav li.has-child > a:before {
     display: block;
     font-family: Awesome, sans-serif;
     font-weight: bold;
-    font-size: 12px;
+    font-size: .75rem;
     position: absolute;
-    left: 12px;
+    left: .75rem;
     top: 6px;
 }
 
 body > .sidebar nav li.level-1 > a {
     background: none;
     color: #669;
-    padding-left: 12px;
+    padding-left: .75rem;
 }
 
 body > .sidebar nav li.level-1.has-child > a:before {
@@ -259,9 +260,9 @@ body > .sidebar nav li.level-1.has-child > a:after {
     display: block;
     font-family: Awesome, sans-serif;
     font-weight: bold;
-    font-size: 12px;
+    font-size: .75rem;
     position: absolute;
-    right: 18px;
+    right: 1.125rem;
     top: 6px;
     transform: rotateZ(0deg);
 }
@@ -312,12 +313,12 @@ body > main article pre code,
 body > main article pre code.hljs {
     background: #f0f0f6;
     display: block;
-    font: 14px/21px Consolas, Arial, Helvetica, sans-serif;
-    padding: 15px 20px;
+    font: .875rem/21px Consolas, Arial, Helvetica, sans-serif;
+    padding: 1rem 20px;
 }
 
 body > main article table pre code {
-    font-size: 12px;
+    font-size: .75rem;
 }
 
 body > .index {
@@ -334,7 +335,7 @@ body > .index h3 {
     border-bottom: 2px solid #e0e0e3;
     color: #545454;
     margin: 0;
-    padding: 0 0 8px 18px;
+    padding: 0 0 8px 1.125rem;
 }
 
 body > .index .index-box {
@@ -354,13 +355,14 @@ body > .index a {
 
 body > .index a.h2 {
     border-top: 2px solid #e0e0e3;
-    padding: 6px 0 6px 18px;
+    font-size: .81255rem;
+    padding: 6px 0 6px 1.125rem;
 }
 
 body > .index a.h3 {
     border-top: 1px solid #e0e0e3;
-    font-size: 12px;
-    padding-left: 36px;
+    font-size: .75rem;
+    padding-left: 2.25rem;
 }
 
 body > .index a:first-child {
@@ -372,7 +374,7 @@ body > .index a:last-child {
 }
 
 body > footer {
-    font-size: 12px;
+    font-size: .75rem;
     margin: 0 var(--index-width) 0 var(--nav-width);
     padding: 8px 0;
     text-align: center;
@@ -389,7 +391,7 @@ body > footer {
         position: fixed;
         left: 0;
         top: 0;
-        padding: 12px 10px;
+        padding: .75rem 10px;
         height: 50px;
         width: 100%;
     }

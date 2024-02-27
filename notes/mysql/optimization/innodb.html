@@ -15,8 +15,256 @@
     <h1>
         <span class="tag">[MySQL]</span>
         <span>[译] Optimizing for InnoDB Tables</span>
-        <span>InnoDB 表优化（译）</span>
+        <span class="translation">InnoDB 表优化</span>
     </h1>
+
+    <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb.html</a>
+    </p>
+
+    <blockquote>
+        <ul>
+            <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-storage-layout.html">Optimizing
+                Storage Layout for InnoDB Tables</a></li>
+            <li><a target="_blank"
+                   href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-transaction-management.html">Optimizing
+                InnoDB Transaction Management</a></li>
+            <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-ro-txn.html">Optimizing
+                InnoDB
+                Read-Only Transactions</a></li>
+            <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-logging.html">Optimizing
+                InnoDB Redo
+                Logging</a></li>
+            <li><a target="_blank"
+                   href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-bulk-data-loading.html">Bulk Data
+                Loading for InnoDB Tables</a></li>
+            <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-queries.html">Optimizing
+                InnoDB
+                Queries</a></li>
+            <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-ddl-operations.html">Optimizing
+                InnoDB DDL Operations</a></li>
+            <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-diskio.html">Optimizing
+                InnoDB Disk
+                I/O</a></li>
+            <li><a target="_blank"
+                   href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-configuration-variables.html">Optimizing
+                InnoDB Configuration Variables</a></li>
+            <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-many-tables.html">Optimizing
+                InnoDB
+                for Systems with Many Tables</a></li>
+        </ul>
+    </blockquote>
+    <ul>
+        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-storage-layout.html">InnoDB 表存储布局优化</a></li>
+        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-transaction-management.html">InnoDB 事务管理</a>
+        </li>
+        <li><a href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn.html">InnoDB 只读事务优化</a></li>
+        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-logging.html">InnoDB Redo 日志优化</a></li>
+        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-bulk-data-loading.html">InnoDB 表的数据批量加载</a>
+        </li>
+        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-queries.html">InnoDB 查询</a></li>
+        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-ddl-operations.html">InnoDB DDL 操作优化</a>
+        </li>
+        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-diskio.html">InnoDB 磁盘 I/O 优化</a></li>
+        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-configuration-variables.html">InnoDB
+            配置优化</a></li>
+        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-many-tables.html">InnoDB 多表优化</a></li>
+    </ul>
+
+    <h2 id="optimizing-innodb-storage-layout.html">InnoDB 表存储布局优化</h2>
+
+    <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-storage-layout.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-storage-layout.html</a>
+    </p>
+
+    <blockquote>
+        Once your data reaches a stable size, or a growing table has increased by tens or some hundreds of megabytes,
+        consider using the OPTIMIZE TABLE statement to reorganize the table and compact any wasted space. The
+        reorganized tables require less disk I/O to perform full table scans. This is a straightforward technique that
+        can improve performance when other techniques such as improving index usage or tuning application code are not
+        practical.
+    </blockquote>
+
+    <blockquote>
+        OPTIMIZE TABLE copies the data part of the table and rebuilds the indexes. The benefits come from improved
+        packing of data within indexes, and reduced fragmentation within the tablespaces and on disk. The benefits vary
+        depending on the data in each table. You may find that there are significant gains for some and not for others,
+        or that the gains decrease over time until you next optimize the table. This operation can be slow if the table
+        is large or if the indexes being rebuilt do not fit into the buffer pool. The first run after adding a lot of
+        data to a table is often much slower than later runs.
+    </blockquote>
+
+    <blockquote>
+        In InnoDB, having a long PRIMARY KEY (either a single column with a lengthy value, or several columns that form
+        a long composite value) wastes a lot of disk space. The primary key value for a row is duplicated in all the
+        secondary index records that point to the same row. (See Section 14.6.2.1, “Clustered and Secondary Indexes”.)
+        Create an AUTO_INCREMENT column as the primary key if your primary key is long, or index a prefix of a long
+        VARCHAR column instead of the entire column.
+    </blockquote>
+
+    <blockquote>
+        Use the VARCHAR data type instead of CHAR to store variable-length strings or for columns with many NULL values.
+        A CHAR(N) column always takes N characters to store data, even if the string is shorter or its value is NULL.
+        Smaller tables fit better in the buffer pool and reduce disk I/O.
+    </blockquote>
+
+    <blockquote>
+        When using COMPACT row format (the default InnoDB format) and variable-length character sets, such as utf8 or
+        sjis, CHAR(N) columns occupy a variable amount of space, but still at least N bytes.
+    </blockquote>
+
+    <blockquote>
+        For tables that are big, or contain lots of repetitive text or numeric data, consider using COMPRESSED row
+        format. Less disk I/O is required to bring data into the buffer pool, or to perform full table scans. Before
+        making a permanent decision, measure the amount of compression you can achieve by using COMPRESSED versus
+        COMPACT row format.
+    </blockquote>
+
+    <h2 id="optimizing-innodb-transaction-management.html">InnoDB 事务管理</h2>
+
+    <p>原文请参阅：<a target="_blank"
+                href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-transaction-management.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-transaction-management.html</a>
+    </p>
+
+    <blockquote>
+        To optimize InnoDB transaction processing, find the ideal balance between the performance overhead of
+        transactional features and the workload of your server. For example, an application might encounter performance
+        issues if it commits thousands of times per second, and different performance issues if it commits only every
+        2-3 hours.
+    </blockquote>
+
+    <blockquote>
+        The default MySQL setting AUTOCOMMIT=1 can impose performance limitations on a busy database server. Where
+        practical, wrap several related data change operations into a single transaction, by issuing SET AUTOCOMMIT=0 or
+        a START TRANSACTION statement, followed by a COMMIT statement after making all the changes.
+    </blockquote>
+
+    <blockquote>
+        InnoDB must flush the log to disk at each transaction commit if that transaction made modifications to the
+        database. When each change is followed by a commit (as with the default autocommit setting), the I/O throughput
+        of the storage device puts a cap on the number of potential operations per second.
+    </blockquote>
+
+    <blockquote>
+        Alternatively, for transactions that consist only of a single SELECT statement, turning on AUTOCOMMIT helps
+        InnoDB to recognize read-only transactions and optimize them. See Section 8.5.3, “Optimizing InnoDB Read-Only
+        Transactions” for requirements.
+    </blockquote>
+
+    <blockquote>
+        Avoid performing rollbacks after inserting, updating, or deleting huge numbers of rows. If a big transaction is
+        slowing down server performance, rolling it back can make the problem worse, potentially taking several times as
+        long to perform as the original data change operations. Killing the database process does not help, because the
+        rollback starts again on server startup.
+    </blockquote>
+
+    <blockquote>
+        To minimize the chance of this issue occurring:
+    </blockquote>
+
+    <blockquote>
+        Increase the size of the buffer pool so that all the data change changes can be cached rather than immediately
+        written to disk.
+    </blockquote>
+
+    <blockquote>
+        Set innodb_change_buffering=all so that update and delete operations are buffered in addition to inserts.
+    </blockquote>
+
+    <blockquote>
+        Consider issuing COMMIT statements periodically during the big data change operation, possibly breaking a single
+        delete or update into multiple statements that operate on smaller numbers of rows.
+    </blockquote>
+
+    <blockquote>
+        To get rid of a runaway rollback once it occurs, increase the buffer pool so that the rollback becomes CPU-bound
+        and runs fast, or kill the server and restart with innodb_force_recovery=3, as explained in Section 14.19.2,
+        “InnoDB Recovery”.
+    </blockquote>
+
+    <blockquote>
+        This issue is expected to be infrequent with the default setting innodb_change_buffering=all, which allows
+        update and delete operations to be cached in memory, making them faster to perform in the first place, and also
+        faster to roll back if needed. Make sure to use this parameter setting on servers that process long-running
+        transactions with many inserts, updates, or deletes.
+    </blockquote>
+
+    <blockquote>
+        If you can afford the loss of some of the latest committed transactions if an unexpected exit occurs, you can
+        set the innodb_flush_log_at_trx_commit parameter to 0. InnoDB tries to flush the log once per second anyway,
+        although the flush is not guaranteed. Also, set the value of innodb_support_xa to 0, which reduces the number of
+        disk flushes due to synchronizing on disk data and the binary log.
+    </blockquote>
+
+    <blockquote>
+        Note: innodb_support_xa is deprecated; expect it to be removed in a future release. As of MySQL 5.7.10, InnoDB
+        support for two-phase commit in XA transactions is always enabled and disabling innodb_support_xa is no longer
+        permitted.
+    </blockquote>
+
+    <blockquote>
+        When rows are modified or deleted, the rows and associated undo logs are not physically removed immediately, or
+        even immediately after the transaction commits. The old data is preserved until transactions that started
+        earlier or concurrently are finished, so that those transactions can access the previous state of modified or
+        deleted rows. Thus, a long-running transaction can prevent InnoDB from purging data that was changed by a
+        different transaction.
+    </blockquote>
+
+    <blockquote>
+        When rows are modified or deleted within a long-running transaction, other transactions using the READ COMMITTED
+        and REPEATABLE READ isolation levels have to do more work to reconstruct the older data if they read those same
+        rows.
+    </blockquote>
+
+    <blockquote>
+        When a long-running transaction modifies a table, queries against that table from other transactions do not make
+        use of the covering index technique. Queries that normally could retrieve all the result columns from a
+        secondary index, instead look up the appropriate values from the table data.
+    </blockquote>
+
+    <blockquote>
+        If secondary index pages are found to have a PAGE_MAX_TRX_ID that is too new, or if records in the secondary
+        index are delete-marked, InnoDB may need to look up records using a clustered index.
+    </blockquote>
+
+    <h2 id="innodb-performance-ro-txn.html">InnoDB 只读事务优化</h2>
+
+    <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-ro-txn.html">https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-ro-txn.html</a>
+    </p>
+
+    <h2 id="optimizing-innodb-logging.html">InnoDB Redo 日志优化</h2>
+
+    <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-logging.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-logging.html</a>
+    </p>
+
+    <h2 id="optimizing-innodb-bulk-data-loading.html">InnoDB 表的数据批量加载</h2>
+
+    <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-bulk-data-loading.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-bulk-data-loading.html</a>
+    </p>
+
+    <h2 id="optimizing-innodb-queries.html">InnoDB 查询</h2>
+
+    <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-queries.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-queries.html</a>
+    </p>
+
+    <h2 id="optimizing-innodb-ddl-operations.html">InnoDB DDL 操作优化</h2>
+
+    <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-ddl-operations.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-ddl-operations.html</a>
+    </p>
+
+    <h2 id="optimizing-innodb-diskio.html">InnoDB 磁盘 I/O 优化</h2>
+
+    <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-diskio.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-diskio.html</a>
+    </p>
+
+    <h2 id="optimizing-innodb-configuration-variables.html">InnoDB 配置优化</h2>
+
+    <p>原文请参阅：<a target="_blank"
+                href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-configuration-variables.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-configuration-variables.html</a>
+    </p>
+
+    <h2 id="optimizing-innodb-many-tables.html">InnoDB 多表优化</h2>
+
+    <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-many-tables.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-many-tables.html</a>
+    </p>
 </main>
 <script src="web/js/lib/require.js" type="text/javascript"></script>
 <script src="web/js/require-config.js" type="text/javascript"></script>

@@ -38,6 +38,10 @@
                     {
                         "title": "[译] MySQL 性能优化概述",
                         "url": "notes/mysql/optimization/overview.html"
+                    },
+                    {
+                        "title": "[译] InnoDB 表性能优化",
+                        "url": "notes/mysql/optimization/innodb.html"
                     }
                 ]
             }
