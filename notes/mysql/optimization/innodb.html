@@ -162,24 +162,43 @@
         issues if it commits thousands of times per second, and different performance issues if it commits only every
         2-3 hours.
     </blockquote>
+    <p>
+        要优化 InnoDB 事务处理，应先找到事务特性的开销与服务器工作负载之间的平衡点。
+        比如，应用在一秒内提交上千次请求遇到了性能问题，但同样的请求在 2 到 3 小时内提交则没有出现这个问题。
+    </p>
 
     <blockquote>
-        The default MySQL setting AUTOCOMMIT=1 can impose performance limitations on a busy database server. Where
-        practical, wrap several related data change operations into a single transaction, by issuing SET AUTOCOMMIT=0 or
-        a START TRANSACTION statement, followed by a COMMIT statement after making all the changes.
+        <p>The default MySQL setting AUTOCOMMIT=1 can impose performance limitations on a busy database server. Where
+            practical, wrap several related data change operations into a single transaction, by issuing SET
+            AUTOCOMMIT=0 or a START TRANSACTION statement, followed by a COMMIT statement after making all the
+            changes.</p>
+
+        <p>InnoDB must flush the log to disk at each transaction commit if that transaction made modifications to the
+            database. When each change is followed by a commit (as with the default autocommit setting), the I/O
+            throughput of the storage device puts a cap on the number of potential operations per second.</p>
     </blockquote>
+    <p>
+        MySQL 的默认设置 AUTOCOMMIT=1 可能会让繁忙的数据库服务器产生性能问题。
+        这时，应根据实际情况通过 <code>SET AUTOCOMMIT=0</code> 或 <code>START TRANSACTION</code> 语句发出事务声明，
+        将多项数据变更操作封装到一个事务中，再用 <code>COMMIT</code> 语句执行这个事务。
+    </p>
+    <p>
+        如果一个事务将对数据库进行修改，InnoDB 会在它提交后将日志刷新到磁盘中。
+        如果每一项修改操作都立即提交（默认设置），它有可能严重影响存储设备的每秒 I/O 吞吐量。
+    </p>
 
     <blockquote>
-        InnoDB must flush the log to disk at each transaction commit if that transaction made modifications to the
-        database. When each change is followed by a commit (as with the default autocommit setting), the I/O throughput
-        of the storage device puts a cap on the number of potential operations per second.
-    </blockquote>
-
-    <blockquote>
-        Alternatively, for transactions that consist only of a single SELECT statement, turning on AUTOCOMMIT helps
+        Alternatively, for transactions that consist only of a single
+        <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/select.html">SELECT</a>
+        statement, turning on AUTOCOMMIT helps
         InnoDB to recognize read-only transactions and optimize them. See Section 8.5.3, “Optimizing InnoDB Read-Only
         Transactions” for requirements.
     </blockquote>
+    <p>
+        对于只包含一个 <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/select.html">SELECT</a>
+        语句的事务，打开 AUTOCOMMIT 有利于 InnoDB 对其进行只读识别和优化。见 “<a
+            href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn.html">InnoDB 只读事务优化</a>”。
+    </p>
 
     <blockquote>
         Avoid performing rollbacks after inserting, updating, or deleting huge numbers of rows. If a big transaction is
@@ -187,30 +206,43 @@
         long to perform as the original data change operations. Killing the database process does not help, because the
         rollback starts again on server startup.
     </blockquote>
+    <p>
+        应尽量避免在插入、更新或删除大批量数据后进行回滚。
+        如果一个事务影响了服务器性能，那么对它进行回滚会让情况变得更差，回滚花的时间通常是原来的几倍。
+        关闭进程没有意义，因为服务器重启后回滚操作会再次自动执行。
+    </p>
 
     <blockquote>
-        To minimize the chance of this issue occurring:
+        <p>To minimize the chance of this issue occurring:</p>
+        <ul>
+            <li>Increase the size of the buffer pool so that all the data change changes can be cached rather than
+                immediately written to disk.
+            </li>
+            <li>Set innodb_change_buffering=all so that update and delete operations are buffered in addition to
+                inserts.
+            </li>
+            <li>Consider issuing COMMIT statements periodically during the big data change operation, possibly breaking
+                a single delete or update into multiple statements that operate on smaller numbers of rows.
+            </li>
+        </ul>
     </blockquote>
-
-    <blockquote>
-        Increase the size of the buffer pool so that all the data change changes can be cached rather than immediately
-        written to disk.
-    </blockquote>
-
-    <blockquote>
-        Set innodb_change_buffering=all so that update and delete operations are buffered in addition to inserts.
-    </blockquote>
-
-    <blockquote>
-        Consider issuing COMMIT statements periodically during the big data change operation, possibly breaking a single
-        delete or update into multiple statements that operate on smaller numbers of rows.
-    </blockquote>
+    <p>以下操作可避免性能问题：</p>
+    <ul>
+        <li>增加缓存池大小，以便所有数据修改都通过缓存进行，而不是立即写入磁盘</li>
+        <li>设置 innodb_change_buffering=all 让更新和删除操作也使用缓存</li>
+        <li>将大数据变更操作拆分成多次小批量操作</li>
+    </ul>
 
     <blockquote>
         To get rid of a runaway rollback once it occurs, increase the buffer pool so that the rollback becomes CPU-bound
         and runs fast, or kill the server and restart with innodb_force_recovery=3, as explained in Section 14.19.2,
         “InnoDB Recovery”.
     </blockquote>
+    <p>
+        如 “<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-recovery.html">InnoDB Recovery</a>” 所述，
+        要消除失控性回滚，应增加缓存池大小，让回滚操作全部绑定 CPU 快速执行；
+        或者关闭服务器，并通过参数 innodb_force_recovery=3 进行重启。
+    </p>
 
     <blockquote>
         This issue is expected to be infrequent with the default setting innodb_change_buffering=all, which allows
@@ -218,19 +250,29 @@
         faster to roll back if needed. Make sure to use this parameter setting on servers that process long-running
         transactions with many inserts, updates, or deletes.
     </blockquote>
+    <p>
+        默认设置 innodb_change_buffering=all 允许将更新、删除及其回滚操作都通过缓存快速执行。
+        应确保在频繁进行插入、更新或删除操作的服务器上启用此参数。
+    </p>
 
     <blockquote>
-        If you can afford the loss of some of the latest committed transactions if an unexpected exit occurs, you can
-        set the innodb_flush_log_at_trx_commit parameter to 0. InnoDB tries to flush the log once per second anyway,
-        although the flush is not guaranteed. Also, set the value of innodb_support_xa to 0, which reduces the number of
-        disk flushes due to synchronizing on disk data and the binary log.
-    </blockquote>
+        <p>If you can afford the loss of some of the latest committed transactions if an unexpected exit occurs, you can
+            set the innodb_flush_log_at_trx_commit parameter to 0. InnoDB tries to flush the log once per second anyway,
+            although the flush is not guaranteed. Also, set the value of innodb_support_xa to 0, which reduces the
+            number of disk flushes due to synchronizing on disk data and the binary log.</p>
 
-    <blockquote>
-        Note: innodb_support_xa is deprecated; expect it to be removed in a future release. As of MySQL 5.7.10, InnoDB
-        support for two-phase commit in XA transactions is always enabled and disabling innodb_support_xa is no longer
-        permitted.
+        <p>Note: innodb_support_xa is deprecated; expect it to be removed in a future release. As of MySQL 5.7.10,
+            InnoDB support for two-phase commit in XA transactions is always enabled and disabling innodb_support_xa is
+            no longer permitted.</p>
     </blockquote>
+    <p>
+        如果你能接受因意外退出服务导致最后一次更新操作的数据丢失，可以将 innodb_flush_log_at_trx_commit 参数设为 0。
+        这样 InnoDB 会改变策略，由每次提交事务都刷新日志变为每秒刷新一次，以此减少由数据同步和更新二进制日志所产生的磁盘刷新次数。
+    </p>
+    <p>
+        注：innodb_support_xa 参数已被弃用，且将在后续版本中删除。
+        从 MySQL 5.7.10 起，始终启用 InnoDB 对 XA 事务两阶段提交的支持，不再允许通过 innodb_support_xa 参数进行禁用。
+    </p>
 
     <blockquote>
         When rows are modified or deleted, the rows and associated undo logs are not physically removed immediately, or
@@ -239,23 +281,37 @@
         deleted rows. Thus, a long-running transaction can prevent InnoDB from purging data that was changed by a
         different transaction.
     </blockquote>
+    <p>
+        修改或删除行数据时，其内容以及相关的 undo log 不会立即被物理性删除，甚至不会在事务提交后立即删除。
+        旧数据将被保留，直到同期执行的事务全部完成，以便有需要时系统可以重新取得数据更新前的状态。
+        因此，长时间运行的事务会阻止 InnoDB 清除期间由其它事务修改的数据。
+    </p>
 
     <blockquote>
         When rows are modified or deleted within a long-running transaction, other transactions using the READ COMMITTED
         and REPEATABLE READ isolation levels have to do more work to reconstruct the older data if they read those same
         rows.
     </blockquote>
+    <p>
+        当行数据被一个长时间运行的事务修改或删除，此时若其它使用 READ COMMITTED 或 REPEATABLE READ 隔离级别的事务读取这些数据，
+        系统需要执行更多操作来重现旧数据。
+    </p>
 
     <blockquote>
-        When a long-running transaction modifies a table, queries against that table from other transactions do not make
-        use of the covering index technique. Queries that normally could retrieve all the result columns from a
-        secondary index, instead look up the appropriate values from the table data.
-    </blockquote>
+        <p>When a long-running transaction modifies a table, queries against that table from other transactions do not
+            make use of the covering index technique. Queries that normally could retrieve all the result columns from a
+            secondary index, instead look up the appropriate values from the table data.</p>
 
-    <blockquote>
-        If secondary index pages are found to have a PAGE_MAX_TRX_ID that is too new, or if records in the secondary
-        index are delete-marked, InnoDB may need to look up records using a clustered index.
+        <p>If secondary index pages are found to have a PAGE_MAX_TRX_ID that is too new, or if records in the secondary
+            index are delete-marked, InnoDB may need to look up records using a clustered index.</p>
     </blockquote>
+    <p>
+        当一个长时间运行的事务修改了一个表，这期间其它事务对这个表的查询将不会使用全覆盖索引技术直接从索引读取内容，
+        而是先走二级索引定位记录，再从表里提取合适的数据。
+    </p>
+    <p>
+        当二级索引页中存在太新的 PAGE_MAX_TRX_ID，或者其中的记录被标记为已删除，InnoDB 会转为通过聚合索引检索数据。
+    </p>
 
 
     <h2 id="innodb-performance-ro-txn.html">InnoDB 只读事务优化</h2>
