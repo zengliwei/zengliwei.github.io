@@ -14,12 +14,12 @@ require([
         template: `<header><a class="btn-switcher"></a></header>`
             + `<aside class="sidebar">`
             + `<section id="search"><input type="text" placeholder="搜索标题" v-model="keyword"/></section>`
-            + `<nav class="favours"><ul>`
-            + `<li class="level-1 has-child activated"><a href="javascript:"><span>我的收藏</span></a><ul>`
-            + `<li v-for="item in favours"><a class="favoured" :href="item.url">`
-            + `<span v-html="item.title"/><span class="favour" @click="(evt) => switchFavour(evt, item)"/>`
-            + `</a></li>`
-            + `</ul></li></ul></nav>`
+            + `<nav v-if="favours.length > 0" class="favours"><ul><li class="level-1 has-child activated">`
+            + `<a href="javascript:"><span>我的收藏</span></a>`
+            + `<ul><li v-for="item in favours"><a class="favoured" :href="item.url">`
+            + `<span v-html="item.title"></span><span class="favour" @click.stop.prevent="(evt) => switchFavour(item)"></span>`
+            + `</a></li></ul>`
+            + `</li></ul></nav>`
             + `<nav class="links"><nav-menu :items="menuItems"></nav-menu></nav>`
             + `</aside>`
             + `<main><article v-html="content" ref="article"/></main>`
@@ -49,10 +49,12 @@ require([
             favours: {
                 deep: true,
                 handler: function (favours) {
+                    let favourUrls = {};
                     favours.forEach(item => {
-                        this.favourUrls[item.url] = item.favoured;
+                        favourUrls[item.url] = item.favoured;
                     });
-                    window.localStorage.setItem('note-favours', JSON.stringify(this.favourUrls));
+                    this.favourUrls = favourUrls;
+                    window.localStorage.setItem('note-favours', JSON.stringify(favourUrls));
                 }
             }
         },
@@ -86,6 +88,13 @@ require([
                 const timestamp = Date.now().toString();
                 const randomNum = Math.floor(Math.random() * 10000).toString();
                 return `${prefix}${timestamp}${randomNum}`;
+            },
+
+            switchFavour: function (item) {
+                item.favoured = !item.favoured;
+                item.favoured
+                    ? this.favours.push(item)
+                    : this.favours.splice(this.favours.indexOf(item), 1);
             }
         },
 
@@ -132,7 +141,7 @@ require([
         template: `<ul><li v-for="item in items" :class="getItemClass(item)">`
             + `<a href="javascript:" :class="{favoured: item.favoured}" @click="clickItem(item)">`
             + `<span v-html="item.title"/>`
-            + `<span v-if="item.level > 1 && item.url" class="favour" @click="(evt) => switchFavour(evt, item)"/>`
+            + `<span v-if="item.level > 1 && item.url" class="favour" @click.stop="(evt) => switchFavour(item)"/>`
             + `</a>`
             + `<nav-menu v-if="item.children && item.children.length > 0" :items="item.children"/>`
             + `</li></ul>`,
@@ -160,8 +169,7 @@ require([
                 return false;
             },
 
-            switchFavour: function (evt, item) {
-                evt.stopPropagation();
+            switchFavour: function (item) {
                 item.favoured = !item.favoured;
                 item.favoured
                     ? this.favours.push(item)
