@@ -69,12 +69,12 @@ h3 {
 }
 
 a {
-    color: #669;
+    color: rgb(32, 107, 196);
     text-decoration: none;
 }
 
 a:hover {
-    border-bottom: 1px solid #669;
+    border-bottom: 1px solid rgb(32, 107, 196);
 }
 
 p, pre {

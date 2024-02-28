@@ -218,7 +218,9 @@
             <li>Increase the size of the buffer pool so that all the data change changes can be cached rather than
                 immediately written to disk.
             </li>
-            <li>Set innodb_change_buffering=all so that update and delete operations are buffered in addition to
+            <li>Set <a target="_blank"
+                       href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>
+                so that update and delete operations are buffered in addition to
                 inserts.
             </li>
             <li>Consider issuing COMMIT statements periodically during the big data change operation, possibly breaking
@@ -229,35 +231,50 @@
     <p>以下操作可避免性能问题：</p>
     <ul>
         <li>增加缓存池大小，以便所有数据修改都通过缓存进行，而不是立即写入磁盘</li>
-        <li>设置 innodb_change_buffering=all 让更新和删除操作也使用缓存</li>
+        <li>设置 <a target="_blank"
+                  href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>
+            让更新和删除操作也使用缓存
+        </li>
         <li>将大数据变更操作拆分成多次小批量操作</li>
     </ul>
 
     <blockquote>
         To get rid of a runaway rollback once it occurs, increase the buffer pool so that the rollback becomes CPU-bound
-        and runs fast, or kill the server and restart with innodb_force_recovery=3, as explained in Section 14.19.2,
+        and runs fast, or kill the server and restart with
+        <a target="_blank"
+           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_force_recovery">innodb_force_recovery=3</a>,
+        as explained in Section 14.19.2,
         “InnoDB Recovery”.
     </blockquote>
     <p>
         如 “<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-recovery.html">InnoDB Recovery</a>” 所述，
         要消除失控性回滚，应增加缓存池大小，让回滚操作全部绑定 CPU 快速执行；
-        或者关闭服务器，并通过参数 innodb_force_recovery=3 进行重启。
+        或者关闭服务器，并通过参数 <a target="_blank"
+                         href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_force_recovery">innodb_force_recovery=3</a>
+        进行重启。
     </p>
 
     <blockquote>
-        This issue is expected to be infrequent with the default setting innodb_change_buffering=all, which allows
+        This issue is expected to be infrequent with the default setting
+        <a target="_blank"
+           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>,
+        which allows
         update and delete operations to be cached in memory, making them faster to perform in the first place, and also
         faster to roll back if needed. Make sure to use this parameter setting on servers that process long-running
         transactions with many inserts, updates, or deletes.
     </blockquote>
     <p>
-        默认设置 innodb_change_buffering=all 允许将更新、删除及其回滚操作都通过缓存快速执行。
+        默认设置 <a target="_blank"
+                href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>
+        允许将更新、删除及其回滚操作都通过缓存快速执行。
         应确保在频繁进行插入、更新或删除操作的服务器上启用此参数。
     </p>
 
     <blockquote>
         <p>If you can afford the loss of some of the latest committed transactions if an unexpected exit occurs, you can
-            set the innodb_flush_log_at_trx_commit parameter to 0. InnoDB tries to flush the log once per second anyway,
+            set the <a target="_blank"
+                       href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</a>
+            parameter to 0. InnoDB tries to flush the log once per second anyway,
             although the flush is not guaranteed. Also, set the value of innodb_support_xa to 0, which reduces the
             number of disk flushes due to synchronizing on disk data and the binary log.</p>
 
@@ -266,7 +283,10 @@
             no longer permitted.</p>
     </blockquote>
     <p>
-        如果你能接受因意外退出服务导致最后一次更新操作的数据丢失，可以将 innodb_flush_log_at_trx_commit 参数设为 0。
+        如果你能接受因意外退出服务导致最后一次更新操作的数据丢失，可以将
+        <a target="_blank"
+           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</a>
+        参数设为 0。
         这样 InnoDB 会改变策略，由每次提交事务都刷新日志变为每秒刷新一次，以此减少由数据同步和更新二进制日志所产生的磁盘刷新次数。
     </p>
     <p>
@@ -288,12 +308,23 @@
     </p>
 
     <blockquote>
-        When rows are modified or deleted within a long-running transaction, other transactions using the READ COMMITTED
-        and REPEATABLE READ isolation levels have to do more work to reconstruct the older data if they read those same
+        When rows are modified or deleted within a long-running transaction, other transactions using the
+        <a target="_blank"
+           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_read-committed">READ
+            COMMITTED</a>
+        and <a target="_blank"
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_repeatable-read">REPEATABLE
+        READ</a> isolation levels have to do more work to reconstruct the older data if they read those same
         rows.
     </blockquote>
     <p>
-        当行数据被一个长时间运行的事务修改或删除，此时若其它使用 READ COMMITTED 或 REPEATABLE READ 隔离级别的事务读取这些数据，
+        当行数据被一个长时间运行的事务修改或删除，此时若其它使用
+        <a target="_blank"
+           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_read-committed">READ
+            COMMITTED</a> 或
+        <a target="_blank"
+           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_repeatable-read">REPEATABLE
+            READ</a> 隔离级别的事务读取这些数据，
         系统需要执行更多操作来重现旧数据。
     </p>
 
