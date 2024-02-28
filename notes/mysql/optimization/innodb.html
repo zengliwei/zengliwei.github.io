@@ -508,69 +508,120 @@
     </p>
 
     <blockquote>
-        These performance tips supplement the general guidelines for fast inserts in Section 8.2.4.1, “Optimizing INSERT
-        Statements”.
+        These performance tips supplement the general guidelines for fast inserts in Section 8.2.4.1,
+        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html">Optimizing INSERT
+        Statements</a>”.
     </blockquote>
+    <p>
+        本章的性能提示补充了
+        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html">Optimizing INSERT
+        Statements</a>” 的内容。
+    </p>
 
     <blockquote>
         When importing data into InnoDB, turn off autocommit mode, because it performs a log flush to disk for every
         insert. To disable autocommit during your import operation, surround it with SET autocommit and COMMIT
         statements:
     </blockquote>
+    <p>
+        将数据导入 InnoDB 表时应关闭自动提交模式，因为每次插入操作都会刷新磁盘日志。
+        要在导入操作期间禁用自动提交，可使用 SET autocommit 和 COMMIT 将导入语句包起来：
+    </p>
+
+    <pre><code>SET autocommit=0;
+... SQL import statements ...
+COMMIT;</code></pre>
 
     <blockquote>
-        SET autocommit=0;
-        ... SQL import statements ...
-        COMMIT;
         The mysqldump option --opt creates dump files that are fast to import into an InnoDB table, even without
         wrapping them with the SET autocommit and COMMIT statements.
     </blockquote>
+    <p>
+        使用 mysqldump 命令的 --opt 参数，即使不带 SET autocommit 和 COMMIT 语句也能创建用于快速导入的转储文件。
+    </p>
 
     <blockquote>
         If you have UNIQUE constraints on secondary keys, you can speed up table imports by temporarily turning off the
         uniqueness checks during the import session:
     </blockquote>
+    <p>
+        如果二级索引包含 UNIQUE 约束，可以通过临时关闭唯一性检查来加速导入操作：
+    </p>
+
+    <pre><code>SET unique_checks=0;
+... SQL import statements ...
+SET unique_checks=1;</code></pre>
 
     <blockquote>
-        SET unique_checks=0;
-        ... SQL import statements ...
-        SET unique_checks=1;
         For big tables, this saves a lot of disk I/O because InnoDB can use its change buffer to write secondary index
         records in a batch. Be certain that the data contains no duplicate keys.
     </blockquote>
+    <p>
+        对大表来说，这项操作将节省大量磁盘 I/O，因为 InnoDB 可以通过更新缓存来批量写入二级索引。
+        但操作前须确保数据中不包含重复的关键字。
+    </p>
 
     <blockquote>
         If you have FOREIGN KEY constraints in your tables, you can speed up table imports by turning off the foreign
         key checks for the duration of the import session:
     </blockquote>
+    <p>
+        如果二级索引包含 FOREIGN KEY 约束，可以通过临时关闭外键检查来加速导入操作：
+    </p>
+
+    <pre><code>SET foreign_key_checks=0;
+... SQL import statements ...
+SET foreign_key_checks=1;</code></pre>
 
     <blockquote>
-        SET foreign_key_checks=0;
-        ... SQL import statements ...
-        SET foreign_key_checks=1;
         For big tables, this can save a lot of disk I/O.
     </blockquote>
+    <p>
+        对大表来说，这项操作将节省大量磁盘 I/O。
+    </p>
 
     <blockquote>
         Use the multiple-row INSERT syntax to reduce communication overhead between the client and the server if you
         need to insert many rows:
     </blockquote>
+    <p>
+        插入多行数据时应使用专用语法来降低客户端与服务器之间的通信开销：
+    </p>
+
+    <pre><code>INSERT INTO yourtable VALUES (1,2), (5,5), ...;</code></pre>
 
     <blockquote>
-        INSERT INTO yourtable VALUES (1,2), (5,5), ...;
         This tip is valid for inserts into any table, not just InnoDB tables.
     </blockquote>
+    <p>
+        这个方法对除 InnoDB 以外的引擎也有效。
+    </p>
 
     <blockquote>
-        When doing bulk inserts into tables with auto-increment columns, set innodb_autoinc_lock_mode to 2 instead of
-        the default value 1. See Section 14.6.1.6, “AUTO_INCREMENT Handling in InnoDB” for details.
+        When doing bulk inserts into tables with auto-increment columns, set
+        <a target="_blank"
+           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode">innodb_autoinc_lock_mode</a>
+        to 2 instead of the default value 1. See Section 14.6.1.6,
+        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">AUTO_INCREMENT
+        Handling in InnoDB</a>” for details.
     </blockquote>
+    <p>
+        往带自增字段的表批量插入数据时，可将参数
+        <a target="_blank"
+           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode">innodb_autoinc_lock_mode</a>
+        设为 2。详见 “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">AUTO_INCREMENT
+        Handling in InnoDB</a>”
+    </p>
 
     <blockquote>
         When performing bulk inserts, it is faster to insert rows in PRIMARY KEY order. InnoDB tables use a clustered
         index, which makes it relatively fast to use data in the order of the PRIMARY KEY. Performing bulk inserts in
         PRIMARY KEY order is particularly important for tables that do not fit entirely within the buffer pool.
     </blockquote>
+    <p>
+        由于 InnoDB 表使用聚合索引，因此插入大批量数据时，按主键顺序来操作速度更快。
+        对不能完全被缓存的表来说，按主键顺序插入数据尤为重要。
+    </p>
 
     <blockquote>
         For optimal performance when loading data into an InnoDB FULLTEXT index, follow this set of steps:
