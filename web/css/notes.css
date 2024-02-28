@@ -169,6 +169,7 @@ table.list tr th {
 body {
     color: #545454;
     font-size: .875rem;
+    letter-spacing: .5px;
 }
 
 body > header {

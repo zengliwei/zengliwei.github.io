@@ -356,50 +356,98 @@
         or locking reads such as SELECT ... FOR UPDATE. Eliminating unnecessary transaction IDs reduces the size of
         internal data structures that are consulted each time a query or data change statement constructs a read view.
     </blockquote>
+    <p>
+        InnoDB 不会为只读事务设定事务 ID（TRX_ID 字段），事务 ID 只用于包含写操作或加锁读操作的事务。
+        消除不必要的事务 ID 可以为每次查询或更新操作减少内部数据结构所使用的空间。
+    </p>
 
     <blockquote>
-        InnoDB detects read-only transactions when:
+        <p>InnoDB detects read-only transactions when:</p>
+        <ul>
+            <li>
+                The transaction is started with the START TRANSACTION READ ONLY statement. In this case, attempting
+                to make changes to the database (for InnoDB, MyISAM, or other types of tables) causes an error, and
+                the transaction continues in read-only state:<br/><br/>
+
+                <code>ERROR 1792 (25006): Cannot execute statement in a READ ONLY transaction.</code><br/><br/>
+
+                You can still make changes to session-specific temporary tables in a read-only transaction, or issue
+                locking queries for them, because those changes and locks are not visible to any other
+                transaction.<br/><br/>
+            </li>
+            <li>
+                The <a target="_blank"
+                       href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_autocommit">autocommit</a>
+                setting is turned on, so that the transaction is guaranteed to be a single statement, and
+                the single statement making up the transaction is a “non-locking” SELECT statement. That is, a
+                SELECT that does not use a FOR UPDATE or LOCK IN SHARED MODE clause.<br/><br/>
+            </li>
+            <li>
+                The transaction is started without the READ ONLY option, but no updates or statements that explicitly
+                lock rows have been executed yet. Until updates or explicit locks are required, a transaction stays
+                in read-only mode.
+            </li>
+        </ul>
     </blockquote>
 
-    <blockquote>
-        The transaction is started with the START TRANSACTION READ ONLY statement. In this case, attempting to make
-        changes to the database (for InnoDB, MyISAM, or other types of tables) causes an error, and the transaction
-        continues in read-only state:
-    </blockquote>
-
-    <blockquote>
-        ERROR 1792 (25006): Cannot execute statement in a READ ONLY transaction.
-        You can still make changes to session-specific temporary tables in a read-only transaction, or issue locking
-        queries for them, because those changes and locks are not visible to any other transaction.
-    </blockquote>
-
-    <blockquote>
-        The autocommit setting is turned on, so that the transaction is guaranteed to be a single statement, and the
-        single statement making up the transaction is a “non-locking” SELECT statement. That is, a SELECT that does not
-        use a FOR UPDATE or LOCK IN SHARED MODE clause.
-    </blockquote>
-
-    <blockquote>
-        The transaction is started without the READ ONLY option, but no updates or statements that explicitly lock rows
-        have been executed yet. Until updates or explicit locks are required, a transaction stays in read-only mode.
-    </blockquote>
+    <p>
+        InnoDB 于以下情景将事务标识为只读：
+    </p>
+    <ul>
+        <li>
+            <p>
+                使用 <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/commit.html">START TRANSACTION
+                READ ONLY</a> 定义的事务。
+                这种情况下，对数据库的任意修改（包括 InnoDB、MyISAM 或者其它引擎的表）都会触发以下错误，且事务会保持只读状态：
+            </p>
+            <pre><code>ERROR 1792 (25006): Cannot execute statement in a READ ONLY transaction.</code></pre>
+            <p>
+                在只读事务中仍然可以修改或锁定指定会话中的临时表，因为这些修改对于其它事务来说都是不可见的。
+            </p>
+        </li>
+        <li>
+            参数 <a target="_blank"
+                  href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_autocommit">autocommit</a>
+            已开启，保证每个事务都只有一条语句，且执行一个没加锁的 SELECT 语句。<br/><br/>
+        </li>
+        <li>
+            事务没有以 READ ONLY 定义，但也没有执行显式的更新或加锁语句。在执行这类语句之前，事务都被视作只读。
+        </li>
+    </ul>
+    <br/>
 
     <blockquote>
         Thus, for a read-intensive application such as a report generator, you can tune a sequence of InnoDB queries by
         grouping them inside START TRANSACTION READ ONLY and COMMIT, or by turning on the autocommit setting before
         running the SELECT statements, or simply by avoiding any data change statements interspersed with the queries.
     </blockquote>
+    <p>
+        因此，对于一个类似报表生成器的读密集型应用，可以使用 START TRANSACTION READ ONLY 和 COMMIT 包装 InnoDB 查询序列，
+        或者在执行 SELECT 语句之前启用 autocommit 设置，或者避免在请求中执行数据更新语句。
+    </p>
 
     <blockquote>
-        For information about START TRANSACTION and autocommit, see Section 13.3.1, “START TRANSACTION, COMMIT, and
-        ROLLBACK Statements”.
+        For information about START TRANSACTION and autocommit, see Section 13.3.1,
+        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/commit.html">START
+        TRANSACTION, COMMIT, and ROLLBACK Statements</a>”.
     </blockquote>
+    <p>
+        关于 START TRANSACTION 和 autocommit 的更多信息，请参阅
+        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/commit.html">START
+        TRANSACTION, COMMIT, and ROLLBACK Statements</a>”。
+    </p>
 
     <blockquote>
-        Note
-        Transactions that qualify as auto-commit, non-locking, and read-only (AC-NL-RO) are kept out of certain internal
-        InnoDB data structures and are therefore not listed in SHOW ENGINE INNODB STATUS output.
+        Note: Transactions that qualify as auto-commit, non-locking, and read-only (AC-NL-RO) are kept out of certain
+        internal InnoDB data structures and are therefore not listed in
+        <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/show-engine.html">SHOW ENGINE INNODB STATUS</a>
+        output.
     </blockquote>
+    <p>
+        注：符合自动提交、非锁定和只读（AC-NL-RO）条件的事务被排除在某些内部 InnoDB 数据结构之外，因此不在
+        <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/show-engine.html">SHOW ENGINE InnoDB STATUS</a>
+        中列出。
+    </p>
 
 
     <h2 id="optimizing-innodb-logging.html">InnoDB Redo 日志优化</h2>
