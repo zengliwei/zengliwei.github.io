@@ -9,6 +9,9 @@ require.config({
         vue: 'lib/vue.global.prod'
     },
     shim: {
+        highlight: {
+            exports: 'hljs'
+        },
         mousewheel: {
             deps: ['jquery']
         },
