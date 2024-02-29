@@ -21,7 +21,7 @@
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb.html</a>
     </p>
 
-    <blockquote>
+    <blockquote class="reference" data-id="optimizing-innodb">
         <ul>
             <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-storage-layout.html">Optimizing
                 Storage Layout for InnoDB Tables</a></li>
@@ -29,145 +29,131 @@
                    href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-transaction-management.html">Optimizing
                 InnoDB Transaction Management</a></li>
             <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-ro-txn.html">Optimizing
-                InnoDB
-                Read-Only Transactions</a></li>
+                InnoDB Read-Only Transactions</a></li>
             <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-logging.html">Optimizing
-                InnoDB Redo
-                Logging</a></li>
+                InnoDB Redo Logging</a></li>
             <li><a target="_blank"
                    href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-bulk-data-loading.html">Bulk Data
                 Loading for InnoDB Tables</a></li>
             <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-queries.html">Optimizing
-                InnoDB
-                Queries</a></li>
+                InnoDB Queries</a></li>
             <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-ddl-operations.html">Optimizing
                 InnoDB DDL Operations</a></li>
             <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-diskio.html">Optimizing
-                InnoDB Disk
-                I/O</a></li>
+                InnoDB Disk I/O</a></li>
             <li><a target="_blank"
                    href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-configuration-variables.html">Optimizing
                 InnoDB Configuration Variables</a></li>
             <li><a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-many-tables.html">Optimizing
-                InnoDB
-                for Systems with Many Tables</a></li>
+                InnoDB for Systems with Many Tables</a></li>
         </ul>
     </blockquote>
-    <ul>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-storage-layout.html">InnoDB 表存储布局优化</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-transaction-management.html">InnoDB 事务管理</a>
-        </li>
-        <li><a href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn.html">InnoDB 只读事务优化</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-logging.html">InnoDB Redo 日志优化</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-bulk-data-loading.html">InnoDB 表的数据批量加载</a>
-        </li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-queries.html">InnoDB 查询</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-ddl-operations.html">InnoDB DDL 操作优化</a>
-        </li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-diskio.html">InnoDB 磁盘 I/O 优化</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-configuration-variables.html">InnoDB
-            配置优化</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-many-tables.html">InnoDB 多表优化</a></li>
-    </ul>
 
-    <h2 id="optimizing-innodb-storage-layout.html">InnoDB 表存储布局优化</h2>
+    <div class="translation" data-ref="optimizing-innodb">
+        <ul>
+            <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-storage-layout">InnoDB 表存储布局优化</a>
+            </li>
+            <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-transaction-management">InnoDB
+                事务管理</a>
+            </li>
+            <li><a href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn">InnoDB 只读事务优化</a></li>
+            <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-logging">InnoDB Redo 日志优化</a></li>
+            <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-bulk-data-loading">InnoDB
+                表的数据批量加载</a>
+            </li>
+            <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-queries">InnoDB 查询</a></li>
+            <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-ddl-operations">InnoDB DDL 操作优化</a>
+            </li>
+            <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-diskio">InnoDB 磁盘 I/O 优化</a></li>
+            <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-configuration-variables">InnoDB
+                配置优化</a></li>
+            <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-many-tables">InnoDB 多表优化</a></li>
+        </ul>
+    </div>
+
+    <h2 id="optimizing-innodb-storage-layout">InnoDB 表存储布局优化</h2>
 
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-storage-layout.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-storage-layout.html</a>
     </p>
 
-    <blockquote>
-        Once your data reaches a stable size, or a growing table has increased by tens or some hundreds of megabytes,
-        consider using the <code>OPTIMIZE TABLE</code> statement to reorganize the table and compact any wasted space.
-        The reorganized tables require less disk I/O to perform full table scans. This is a straightforward technique
-        that can improve performance when other techniques such as improving index usage or tuning application code are
-        not practical.
+    <blockquote class="reference" data-id="optimizing-innodb-storage-layout">
+        <p>Once your data reaches a stable size, or a growing table has increased by tens or some hundreds of
+            megabytes, consider using the <code>OPTIMIZE TABLE</code> statement to reorganize the table and compact any
+            wasted space. The reorganized tables require less disk I/O to perform full table scans. This is a
+            straightforward technique that can improve performance when other techniques such as improving index usage
+            or tuning application code are not practical.</p>
+
+        <p><code>OPTIMIZE TABLE</code> copies the data part of the table and rebuilds the indexes. The benefits come
+            from improved packing of data within indexes, and reduced fragmentation within the tablespaces and on disk.
+            The benefits vary depending on the data in each table. You may find that there are significant gains for
+            some and not for others, or that the gains decrease over time until you next optimize the table. This
+            operation can be slow if the table is large or if the indexes being rebuilt do not fit into the buffer pool.
+            The first run after adding a lot of data to a table is often much slower than later runs.</p>
+
+        <p>In InnoDB, having a long PRIMARY KEY (either a single column with a lengthy value, or several columns that
+            form a long composite value) wastes a lot of disk space. The primary key value for a row is duplicated in
+            all the secondary index records that point to the same row. (See Section 14.6.2.1, “Clustered and Secondary
+            Indexes”.) Create an AUTO_INCREMENT column as the primary key if your primary key is long, or index a prefix
+            of a long VARCHAR column instead of the entire column.</p>
+
+        <p>Use the VARCHAR data type instead of CHAR to store variable-length strings or for columns with many NULL
+            values. A CHAR(N) column always takes N characters to store data, even if the string is shorter or its value
+            is NULL. Smaller tables fit better in the buffer pool and reduce disk I/O.</p>
+
+        <p>When using COMPACT row format (the default InnoDB format) and variable-length character sets, such as utf8
+            or sjis, CHAR(N) columns occupy a variable amount of space, but still at least N bytes.</p>
+
+        <p>For tables that are big, or contain lots of repetitive text or numeric data, consider using COMPRESSED row
+            format. Less disk I/O is required to bring data into the buffer pool, or to perform full table scans. Before
+            making a permanent decision, measure the amount of compression you can achieve by using COMPRESSED versus
+            COMPACT row format.</p>
     </blockquote>
-    <p>
-        当表的数据量到达稳定值，或者增加了一定量时，可考虑使用 <code>OPTIMIZE TABLE</code> 语句进行整理以压缩空间。
-        整理后的表进行全表扫描所产生的磁盘 I/O 将更少。
-        当其他技术，如增加索引或调整程序代码不起作用时，可尝试用这种方法来提高性能。
-    </p>
 
-    <blockquote>
-        <code>OPTIMIZE TABLE</code> copies the data part of the table and rebuilds the indexes. The benefits come from
-        improved packing of data within indexes, and reduced fragmentation within the tablespaces and on disk. The
-        benefits vary depending on the data in each table. You may find that there are significant gains for some and
-        not for others, or that the gains decrease over time until you next optimize the table. This operation can be
-        slow if the table is large or if the indexes being rebuilt do not fit into the buffer pool. The first run after
-        adding a lot of data to a table is often much slower than later runs.
-    </blockquote>
-    <p>
-        <code>OPTIMIZE TABLE</code> 方法复制表的部分数据来重建索引。通过使用索引打包数据，压缩表空间和磁盘碎片。
-        这种优化的结果取决于表的数据，可能出现只有一部分表有效，或者收益随时间推移逐渐降低的情况。
-        当表很大或者缓存池尺寸不适用于重建的索引时，这个操作会很费时。增加大量数据后的第一次运行通常比后续操作慢很多。
-    </p>
-
-    <blockquote>
-        In InnoDB, having a long PRIMARY KEY (either a single column with a lengthy value, or several columns that form
-        a long composite value) wastes a lot of disk space. The primary key value for a row is duplicated in all the
-        secondary index records that point to the same row. (See <a target="_blank"
-                                                                    href="https://dev.mysql.com/doc/refman/5.7/en/innodb-index-types.html">Section
-        14.6.2.1, “Clustered and
-        Secondary Indexes”</a>.) Create an AUTO_INCREMENT column as the primary key if your primary key is long, or
-        index a prefix of a long VARCHAR column instead of the entire column.
-    </blockquote>
-    <p>
-        使用 InnoDB 引擎的表，长主键（不管是单列还是多列组合）会浪费大量磁盘空间。
-        主键值会在所有指向同一行的二级索引记录中重复出现（见 <a target="_blank"
-                                      href="https://dev.mysql.com/doc/refman/5.7/en/innodb-index-types.html">Section
-        14.6.2.1, “Clustered and Secondary Indexes”</a>）。
-        当主键太长时，应该创建一个自增字段作为主键，或者对长 VARCHAR 列的前边部分而不是整个列进行索引。
-    </p>
-
-    <blockquote>
-        Use the VARCHAR data type instead of CHAR to store variable-length strings or for columns with many NULL values.
-        A CHAR(N) column always takes N characters to store data, even if the string is shorter or its value is NULL.
-        Smaller tables fit better in the buffer pool and reduce disk I/O.
-    </blockquote>
-    <p>
-        应使用 VARCHAR 而不是 CHAR 来存储变长字符串，以及可能频繁出现空值的数据。
-        一个 CHAR(N) 型字段总是占用 N 个字符空间，即使字符串很短甚至为 NULL。
-        小表更适用于缓存池，减少磁盘 I/O。
-    </p>
-
-    <blockquote>
-        When using COMPACT row format (the default InnoDB format) and variable-length character sets, such as utf8 or
-        sjis, CHAR(N) columns occupy a variable amount of space, but still at least N bytes.
-    </blockquote>
-    <p>
-        当使用 COMPACT 格式（InnoDB 默认）和像 utf8 或 sjis 这样的变长字符集时，CHAR(N) 型字段所占用的空间是不固定的，但至少是 N 字节。
-    </p>
-
-    <blockquote>
-        For tables that are big, or contain lots of repetitive text or numeric data, consider using COMPRESSED row
-        format. Less disk I/O is required to bring data into the buffer pool, or to perform full table scans. Before
-        making a permanent decision, measure the amount of compression you can achieve by using COMPRESSED versus
-        COMPACT row format.
-    </blockquote>
-    <p>
-        对于大表或者包含大量重复数据的表，应考虑使用 COMPRESSED 行格式，这样不管访问缓冲池还是进行全表扫描所产生的磁盘 I/O 都将更少。
-        在决定使用哪种格式之前，应先测试各自的压缩量。
-    </p>
+    <div class="translation" data-ref="optimizing-innodb-storage-layout">
+        <p>
+            当表的数据量到达稳定值，或者增加了一定量时，可考虑使用 <code>OPTIMIZE TABLE</code> 语句进行整理以压缩空间。
+            整理后的表进行全表扫描所产生的磁盘 I/O 将更少。
+            当其他技术，如增加索引或调整程序代码不起作用时，可尝试用这种方法来提高性能。
+        </p>
+        <p>
+            <code>OPTIMIZE TABLE</code> 方法复制表的部分数据来重建索引。通过使用索引打包数据，压缩表空间和磁盘碎片。
+            这种优化的结果取决于表的数据，可能出现只有一部分表有效，或者收益随时间推移逐渐降低的情况。
+            当表很大或者缓存池尺寸不适用于重建的索引时，这个操作会很费时。增加大量数据后的第一次运行通常比后续操作慢很多。
+        </p>
+        <p>
+            使用 InnoDB 引擎的表，长主键（不管是单列还是多列组合）会浪费大量磁盘空间。
+            主键值会在所有指向同一行的二级索引记录中重复出现（见
+            <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-index-types.html">Section
+                14.6.2.1, “Clustered and Secondary Indexes”</a>）。
+            当主键太长时，应该创建一个自增字段作为主键，或者对长 VARCHAR 列的前边部分而不是整个列进行索引。
+        </p>
+        <p>
+            应使用 VARCHAR 而不是 CHAR 来存储变长字符串，以及可能频繁出现空值的数据。
+            一个 CHAR(N) 型字段总是占用 N 个字符空间，即使字符串很短甚至为 NULL。
+            小表更适用于缓存池，减少磁盘 I/O。
+        </p>
+        <p>
+            当使用 COMPACT 格式（InnoDB 默认）和像 utf8 或 sjis 这样的变长字符集时，CHAR(N) 型字段所占用的空间是不固定的，但至少是 N 字节。
+        </p>
+        <p>
+            对于大表或者包含大量重复数据的表，应考虑使用 COMPRESSED 行格式，这样不管访问缓冲池还是进行全表扫描所产生的磁盘 I/O 都将更少。
+            在决定使用哪种格式之前，应先测试各自的压缩量。
+        </p>
+    </div>
 
 
-    <h2 id="optimizing-innodb-transaction-management.html">InnoDB 事务管理</h2>
+    <h2 id="optimizing-innodb-transaction-management">InnoDB 事务管理</h2>
 
     <p>原文请参阅：<a target="_blank"
                 href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-transaction-management.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-transaction-management.html</a>
     </p>
 
-    <blockquote>
-        To optimize InnoDB transaction processing, find the ideal balance between the performance overhead of
-        transactional features and the workload of your server. For example, an application might encounter performance
-        issues if it commits thousands of times per second, and different performance issues if it commits only every
-        2-3 hours.
-    </blockquote>
-    <p>
-        要优化 InnoDB 事务处理，应先找到事务特性的开销与服务器工作负载之间的平衡点。
-        比如，应用在一秒内提交上千次请求遇到了性能问题，但同样的请求在 2 到 3 小时内提交则没有出现这个问题。
-    </p>
+    <blockquote class="reference" data-id="optimizing-innodb-transaction-management">
+        <p>To optimize InnoDB transaction processing, find the ideal balance between the performance overhead of
+            transactional features and the workload of your server. For example, an application might encounter
+            performance issues if it commits thousands of times per second, and different performance issues if it
+            commits only every 2-3 hours.</p>
 
-    <blockquote>
         <p>The default MySQL setting AUTOCOMMIT=1 can impose performance limitations on a busy database server. Where
             practical, wrap several related data change operations into a single transaction, by issuing SET
             AUTOCOMMIT=0 or a START TRANSACTION statement, followed by a COMMIT statement after making all the
@@ -176,159 +162,58 @@
         <p>InnoDB must flush the log to disk at each transaction commit if that transaction made modifications to the
             database. When each change is followed by a commit (as with the default autocommit setting), the I/O
             throughput of the storage device puts a cap on the number of potential operations per second.</p>
-    </blockquote>
-    <p>
-        MySQL 的默认设置 AUTOCOMMIT=1 可能会让繁忙的数据库服务器产生性能问题。
-        这时，应根据实际情况通过 <code>SET AUTOCOMMIT=0</code> 或 <code>START TRANSACTION</code> 语句发出事务声明，
-        将多项数据变更操作封装到一个事务中，再用 <code>COMMIT</code> 语句执行这个事务。
-    </p>
-    <p>
-        如果一个事务将对数据库进行修改，InnoDB 会在它提交后将日志刷新到磁盘中。
-        如果每一项修改操作都立即提交（默认设置），它有可能严重影响存储设备的每秒 I/O 吞吐量。
-    </p>
 
-    <blockquote>
-        Alternatively, for transactions that consist only of a single
-        <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/select.html">SELECT</a>
-        statement, turning on AUTOCOMMIT helps
-        InnoDB to recognize read-only transactions and optimize them. See Section 8.5.3, “Optimizing InnoDB Read-Only
-        Transactions” for requirements.
-    </blockquote>
-    <p>
-        对于只包含一个 <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/select.html">SELECT</a>
-        语句的事务，打开 AUTOCOMMIT 有利于 InnoDB 对其进行只读识别和优化。见 “<a
-            href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn.html">InnoDB 只读事务优化</a>”。
-    </p>
+        <p>Alternatively, for transactions that consist only of a single SELECT statement, turning on AUTOCOMMIT helps
+            InnoDB to recognize read-only transactions and optimize them. See Section 8.5.3, “Optimizing InnoDB
+            Read-Only Transactions” for requirements.</p>
 
-    <blockquote>
-        Avoid performing rollbacks after inserting, updating, or deleting huge numbers of rows. If a big transaction is
-        slowing down server performance, rolling it back can make the problem worse, potentially taking several times as
-        long to perform as the original data change operations. Killing the database process does not help, because the
-        rollback starts again on server startup.
-    </blockquote>
-    <p>
-        应尽量避免在插入、更新或删除大批量数据后进行回滚。
-        如果一个事务影响了服务器性能，那么对它进行回滚会让情况变得更差，回滚花的时间通常是原来的几倍。
-        关闭进程没有意义，因为服务器重启后回滚操作会再次自动执行。
-    </p>
+        <p>Avoid performing rollbacks after inserting, updating, or deleting huge numbers of rows. If a big transaction
+            is slowing down server performance, rolling it back can make the problem worse, potentially taking several
+            times as long to perform as the original data change operations. Killing the database process does not help,
+            because the rollback starts again on server startup.</p>
 
-    <blockquote>
         <p>To minimize the chance of this issue occurring:</p>
+
         <ul>
             <li>Increase the size of the buffer pool so that all the data change changes can be cached rather than
                 immediately written to disk.
             </li>
-            <li>Set <a target="_blank"
-                       href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>
-                so that update and delete operations are buffered in addition to
+            <li>Set innodb_change_buffering=all so that update and delete operations are buffered in addition to
                 inserts.
             </li>
             <li>Consider issuing COMMIT statements periodically during the big data change operation, possibly breaking
                 a single delete or update into multiple statements that operate on smaller numbers of rows.
             </li>
         </ul>
-    </blockquote>
-    <p>以下操作可避免性能问题：</p>
-    <ul>
-        <li>增加缓存池大小，以便所有数据修改都通过缓存进行，而不是立即写入磁盘</li>
-        <li>设置 <a target="_blank"
-                  href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>
-            让更新和删除操作也使用缓存
-        </li>
-        <li>将大数据变更操作拆分成多次小批量操作</li>
-    </ul>
 
-    <blockquote>
-        To get rid of a runaway rollback once it occurs, increase the buffer pool so that the rollback becomes CPU-bound
-        and runs fast, or kill the server and restart with
-        <a target="_blank"
-           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_force_recovery">innodb_force_recovery=3</a>,
-        as explained in Section 14.19.2,
-        “InnoDB Recovery”.
-    </blockquote>
-    <p>
-        如 “<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-recovery.html">InnoDB Recovery</a>” 所述，
-        要消除失控性回滚，应增加缓存池大小，让回滚操作全部绑定 CPU 快速执行；
-        或者关闭服务器，并通过参数 <a target="_blank"
-                         href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_force_recovery">innodb_force_recovery=3</a>
-        进行重启。
-    </p>
+        <p>To get rid of a runaway rollback once it occurs, increase the buffer pool so that the rollback becomes
+            CPU-bound and runs fast, or kill the server and restart with innodb_force_recovery=3, as explained in
+            Section 14.19.2, “InnoDB Recovery”.</p>
 
-    <blockquote>
-        This issue is expected to be infrequent with the default setting
-        <a target="_blank"
-           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>,
-        which allows
-        update and delete operations to be cached in memory, making them faster to perform in the first place, and also
-        faster to roll back if needed. Make sure to use this parameter setting on servers that process long-running
-        transactions with many inserts, updates, or deletes.
-    </blockquote>
-    <p>
-        默认设置 <a target="_blank"
-                href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>
-        允许将更新、删除及其回滚操作都通过缓存快速执行。
-        应确保在频繁进行插入、更新或删除操作的服务器上启用此参数。
-    </p>
+        <p>This issue is expected to be infrequent with the default setting innodb_change_buffering=all, which allows
+            update and delete operations to be cached in memory, making them faster to perform in the first place, and
+            also faster to roll back if needed. Make sure to use this parameter setting on servers that process
+            long-running transactions with many inserts, updates, or deletes.</p>
 
-    <blockquote>
         <p>If you can afford the loss of some of the latest committed transactions if an unexpected exit occurs, you can
-            set the <a target="_blank"
-                       href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</a>
-            parameter to 0. InnoDB tries to flush the log once per second anyway,
+            set the innodb_flush_log_at_trx_commit parameter to 0. InnoDB tries to flush the log once per second anyway,
             although the flush is not guaranteed. Also, set the value of innodb_support_xa to 0, which reduces the
             number of disk flushes due to synchronizing on disk data and the binary log.</p>
 
         <p>Note: innodb_support_xa is deprecated; expect it to be removed in a future release. As of MySQL 5.7.10,
             InnoDB support for two-phase commit in XA transactions is always enabled and disabling innodb_support_xa is
             no longer permitted.</p>
-    </blockquote>
-    <p>
-        如果你能接受因意外退出服务导致最后一次更新操作的数据丢失，可以将
-        <a target="_blank"
-           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</a>
-        参数设为 0。
-        这样 InnoDB 会改变策略，由每次提交事务都刷新日志变为每秒刷新一次，以此减少由数据同步和更新二进制日志所产生的磁盘刷新次数。
-    </p>
-    <p>
-        注：innodb_support_xa 参数已被弃用，且将在后续版本中删除。
-        从 MySQL 5.7.10 起，始终启用 InnoDB 对 XA 事务两阶段提交的支持，不再允许通过 innodb_support_xa 参数进行禁用。
-    </p>
 
-    <blockquote>
-        When rows are modified or deleted, the rows and associated undo logs are not physically removed immediately, or
-        even immediately after the transaction commits. The old data is preserved until transactions that started
-        earlier or concurrently are finished, so that those transactions can access the previous state of modified or
-        deleted rows. Thus, a long-running transaction can prevent InnoDB from purging data that was changed by a
-        different transaction.
-    </blockquote>
-    <p>
-        修改或删除行数据时，其内容以及相关的 undo log 不会立即被物理性删除，甚至不会在事务提交后立即删除。
-        旧数据将被保留，直到同期执行的事务全部完成，以便有需要时系统可以重新取得数据更新前的状态。
-        因此，长时间运行的事务会阻止 InnoDB 清除期间由其它事务修改的数据。
-    </p>
+        <p>When rows are modified or deleted, the rows and associated undo logs are not physically removed immediately,
+            or even immediately after the transaction commits. The old data is preserved until transactions that started
+            earlier or concurrently are finished, so that those transactions can access the previous state of modified
+            or deleted rows. Thus, a long-running transaction can prevent InnoDB from purging data that was changed by a
+            different transaction.</p>
 
-    <blockquote>
-        When rows are modified or deleted within a long-running transaction, other transactions using the
-        <a target="_blank"
-           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_read-committed">READ
-            COMMITTED</a>
-        and <a target="_blank"
-               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_repeatable-read">REPEATABLE
-        READ</a> isolation levels have to do more work to reconstruct the older data if they read those same
-        rows.
-    </blockquote>
-    <p>
-        当行数据被一个长时间运行的事务修改或删除，此时若其它使用
-        <a target="_blank"
-           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_read-committed">READ
-            COMMITTED</a> 或
-        <a target="_blank"
-           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_repeatable-read">REPEATABLE
-            READ</a> 隔离级别的事务读取这些数据，
-        系统需要执行更多操作来重现旧数据。
-    </p>
+        <p>When rows are modified or deleted within a long-running transaction, other transactions using the READ
+            COMMITTED and REPEATABLE READ isolation levels have to do more work to reconstruct the older data if they
+            read those same rows.</p>
 
-    <blockquote>
         <p>When a long-running transaction modifies a table, queries against that table from other transactions do not
             make use of the covering index technique. Queries that normally could retrieve all the result columns from a
             secondary index, instead look up the appropriate values from the table data.</p>
@@ -336,51 +221,118 @@
         <p>If secondary index pages are found to have a PAGE_MAX_TRX_ID that is too new, or if records in the secondary
             index are delete-marked, InnoDB may need to look up records using a clustered index.</p>
     </blockquote>
-    <p>
-        当一个长时间运行的事务修改了一个表，这期间其它事务对这个表的查询将不会使用全覆盖索引技术直接从索引读取内容，
-        而是先走二级索引定位记录，再从表里提取合适的数据。
-    </p>
-    <p>
-        当二级索引页中存在太新的 PAGE_MAX_TRX_ID，或者其中的记录被标记为已删除，InnoDB 会转为通过聚合索引检索数据。
-    </p>
 
+    <div class="translation" data-ref="optimizing-innodb-transaction-management">
+        <p>
+            要优化 InnoDB 事务处理，应先找到事务特性的开销与服务器工作负载之间的平衡点。
+            比如，应用在一秒内提交上千次请求遇到了性能问题，但同样的请求在 2 到 3 小时内提交则没有出现这个问题。
+        </p>
+        <p>
+            MySQL 的默认设置 AUTOCOMMIT=1 可能会让繁忙的数据库服务器产生性能问题。
+            这时，应根据实际情况通过 <code>SET AUTOCOMMIT=0</code> 或 <code>START TRANSACTION</code> 语句发出事务声明，
+            将多项数据变更操作封装到一个事务中，再用 <code>COMMIT</code> 语句执行这个事务。
+        </p>
+        <p>
+            如果一个事务将对数据库进行修改，InnoDB 会在它提交后将日志刷新到磁盘中。
+            如果每一项修改操作都立即提交（默认设置），它有可能严重影响存储设备的每秒 I/O 吞吐量。
+        </p>
+        <p>
+            对于只包含一个 <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/select.html">SELECT</a>
+            语句的事务，打开 AUTOCOMMIT 有利于 InnoDB 对其进行只读识别和优化。见 “<a
+                href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn">InnoDB 只读事务优化</a>”。
+        </p>
+        <p>
+            应尽量避免在插入、更新或删除大批量数据后进行回滚。
+            如果一个事务影响了服务器性能，那么对它进行回滚会让情况变得更差，回滚花的时间通常是原来的几倍。
+            关闭进程没有意义，因为服务器重启后回滚操作会再次自动执行。
+        </p>
+        <p>以下操作可以避免性能问题：</p>
+        <ul>
+            <li>增加缓存池大小，以便所有数据修改都通过缓存进行，而不是立即写入磁盘</li>
+            <li>设置 <a target="_blank"
+                      href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>
+                让更新和删除操作也使用缓存
+            </li>
+            <li>将大数据变更操作拆分成多次小批量操作</li>
+        </ul>
+        <p>
+            如 “<a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-recovery.html">InnoDB Recovery</a>” 所述，
+            要消除失控性回滚，应增加缓存池大小，让回滚操作全部绑定 CPU 快速执行；
+            或者关闭服务器，并通过参数 <a target="_blank"
+                             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_force_recovery">innodb_force_recovery=3</a>
+            进行重启。
+        </p>
+        <p>
+            默认设置 <a target="_blank"
+                    href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_change_buffering">innodb_change_buffering=all</a>
+            允许将更新、删除及其回滚操作都通过缓存快速执行。
+            应确保在频繁进行插入、更新或删除操作的服务器上启用此参数。
+        </p>
+        <p>
+            如果你能接受因意外退出服务导致最后一次更新操作的数据丢失，可以将
+            <a target="_blank"
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</a>
+            参数设为 0。
+            这样 InnoDB 会改变策略，由每次提交事务都刷新日志变为每秒刷新一次，以此减少由数据同步和更新二进制日志所产生的磁盘刷新次数。
+        </p>
+        <p>
+            注：innodb_support_xa 参数已被弃用，且将在后续版本中删除。
+            从 MySQL 5.7.10 起，始终启用 InnoDB 对 XA 事务两阶段提交的支持，不再允许通过 innodb_support_xa 参数进行禁用。
+        </p>
+        <p>
+            修改或删除行数据时，其内容以及相关的 undo log 不会立即被物理性删除，甚至不会在事务提交后立即删除。
+            旧数据将被保留，直到同期执行的事务全部完成，以便有需要时系统可以重新取得数据更新前的状态。
+            因此，长时间运行的事务会阻止 InnoDB 清除期间由其它事务修改的数据。
+        </p>
+        <p>
+            当行数据被一个长时间运行的事务修改或删除，此时若其它使用
+            <a target="_blank"
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_read-committed">READ
+                COMMITTED</a> 或
+            <a target="_blank"
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-transaction-isolation-levels.html#isolevel_repeatable-read">REPEATABLE
+                READ</a> 隔离级别的事务读取这些数据，
+            系统需要执行更多操作来重现旧数据。
+        </p>
+        <p>
+            当一个长时间运行的事务修改了一个表，这期间其它事务对这个表的查询将不会使用全覆盖索引技术直接从索引读取内容，
+            而是先走二级索引定位记录，再从表里提取合适的数据。
+        </p>
+        <p>
+            当二级索引页中存在太新的 PAGE_MAX_TRX_ID，或者其中的记录被标记为已删除，InnoDB 会转为通过聚合索引检索数据。
+        </p>
+    </div>
 
-    <h2 id="innodb-performance-ro-txn.html">InnoDB 只读事务优化</h2>
+    <h2 id="innodb-performance-ro-txn">InnoDB 只读事务优化</h2>
 
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-ro-txn.html">https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-ro-txn.html</a>
     </p>
 
-    <blockquote>
-        InnoDB can avoid the overhead associated with setting up the transaction ID (TRX_ID field) for transactions that
-        are known to be read-only. A transaction ID is only needed for a transaction that might perform write operations
-        or locking reads such as SELECT ... FOR UPDATE. Eliminating unnecessary transaction IDs reduces the size of
-        internal data structures that are consulted each time a query or data change statement constructs a read view.
-    </blockquote>
-    <p>
-        InnoDB 不会为只读事务设定事务 ID（TRX_ID 字段），事务 ID 只用于包含写操作或加锁读操作的事务。
-        消除不必要的事务 ID 可以为每次查询或更新操作减少内部数据结构所使用的空间。
-    </p>
+    <blockquote class="reference" data-id="innodb-performance-ro-txn">
+        <p>InnoDB can avoid the overhead associated with setting up the transaction ID (TRX_ID field) for transactions
+            that are known to be read-only. A transaction ID is only needed for a transaction that might perform write
+            operations or locking reads such as SELECT ... FOR UPDATE. Eliminating unnecessary transaction IDs reduces
+            the size of internal data structures that are consulted each time a query or data change statement
+            constructs a read view.</p>
 
-    <blockquote>
         <p>InnoDB detects read-only transactions when:</p>
+
         <ul>
             <li>
                 The transaction is started with the START TRANSACTION READ ONLY statement. In this case, attempting
                 to make changes to the database (for InnoDB, MyISAM, or other types of tables) causes an error, and
-                the transaction continues in read-only state:<br/><br/>
+                the transaction continues in read-only state:
 
-                <code>ERROR 1792 (25006): Cannot execute statement in a READ ONLY transaction.</code><br/><br/>
+                <code>ERROR 1792 (25006): Cannot execute statement in a READ ONLY transaction.</code>
 
                 You can still make changes to session-specific temporary tables in a read-only transaction, or issue
                 locking queries for them, because those changes and locks are not visible to any other
-                transaction.<br/><br/>
+                transaction.
             </li>
             <li>
-                The <a target="_blank"
-                       href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_autocommit">autocommit</a>
-                setting is turned on, so that the transaction is guaranteed to be a single statement, and
-                the single statement making up the transaction is a “non-locking” SELECT statement. That is, a
-                SELECT that does not use a FOR UPDATE or LOCK IN SHARED MODE clause.<br/><br/>
+                The autocommit setting is turned on, so that the transaction is guaranteed to be a single statement, and
+                the single statement making up the transaction is a “non-locking” SELECT statement. That is, a SELECT
+                that does not use a FOR UPDATE or LOCK IN SHARED MODE clause.<br/><br/>
             </li>
             <li>
                 The transaction is started without the READ ONLY option, but no updates or statements that explicitly
@@ -388,297 +340,256 @@
                 in read-only mode.
             </li>
         </ul>
+
+        <p>Thus, for a read-intensive application such as a report generator, you can tune a sequence of InnoDB queries
+            by grouping them inside START TRANSACTION READ ONLY and COMMIT, or by turning on the autocommit setting
+            before running the SELECT statements, or simply by avoiding any data change statements interspersed with the
+            queries.</p>
+
+        <p>For information about START TRANSACTION and autocommit, see Section 13.3.1, “START TRANSACTION, COMMIT, and
+            ROLLBACK Statements”.</p>
+
+        <p>Note: Transactions that qualify as auto-commit, non-locking, and read-only (AC-NL-RO) are kept out of certain
+            internal InnoDB data structures and are therefore not listed in SHOW ENGINE INNODB STATUS output.</p>
     </blockquote>
 
-    <p>
-        InnoDB 于以下情景将事务标识为只读：
-    </p>
-    <ul>
-        <li>
-            <p>
-                使用 <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/commit.html">START TRANSACTION
-                READ ONLY</a> 定义的事务。
-                这种情况下，对数据库的任意修改（包括 InnoDB、MyISAM 或者其它引擎的表）都会触发以下错误，且事务会保持只读状态：
-            </p>
-            <pre><code>ERROR 1792 (25006): Cannot execute statement in a READ ONLY transaction.</code></pre>
-            <p>
-                在只读事务中仍然可以修改或锁定指定会话中的临时表，因为这些修改对于其它事务来说都是不可见的。
-            </p>
-        </li>
-        <li>
-            参数 <a target="_blank"
-                  href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_autocommit">autocommit</a>
-            已开启，保证每个事务都只有一条语句，且执行一个没加锁的 SELECT 语句。<br/><br/>
-        </li>
-        <li>
-            事务没有以 READ ONLY 定义，但也没有执行显式的更新或加锁语句。在执行这类语句之前，事务都被视作只读。
-        </li>
-    </ul>
-    <br/>
+    <div class="translation" data-ref="innodb-performance-ro-txn">
+        <p>
+            InnoDB 不会为只读事务设定事务 ID（TRX_ID 字段），事务 ID 只用于包含写操作或加锁读操作的事务。
+            消除不必要的事务 ID 可以为每次查询或更新操作减少内部数据结构所使用的空间。
+        </p>
+        <p>
+            InnoDB 于以下情景将事务标识为只读：
+        </p>
+        <ul>
+            <li>
+                <p>
+                    使用 <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/commit.html">START TRANSACTION
+                    READ ONLY</a> 定义的事务。
+                    这种情况下，对数据库的任意修改（包括 InnoDB、MyISAM 或者其它引擎的表）都会触发以下错误，且事务会保持只读状态：
+                </p>
+                <pre><code>ERROR 1792 (25006): Cannot execute statement in a READ ONLY transaction.</code></pre>
+                <p>
+                    在只读事务中仍然可以修改或锁定指定会话中的临时表，因为这些修改对于其它事务来说都是不可见的。
+                </p>
+            </li>
+            <li>
+                参数 <a target="_blank"
+                      href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_autocommit">autocommit</a>
+                已开启，保证每个事务都只有一条语句，且执行一个没加锁的 SELECT 语句。<br/><br/>
+            </li>
+            <li>
+                事务没有以 READ ONLY 定义，但也没有执行显式的更新或加锁语句。在执行这类语句之前，事务都被视作只读。
+            </li>
+        </ul>
+        <p>
+            因此，对于一个类似报表生成器的读密集型应用，可以使用 START TRANSACTION READ ONLY 和 COMMIT 包装 InnoDB 查询序列，
+            或者在执行 SELECT 语句之前启用 autocommit 设置，或者避免在请求中执行数据更新语句。
+        </p>
+        <p>
+            关于 START TRANSACTION 和 autocommit 的更多信息，请参阅
+            “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/commit.html">START
+            TRANSACTION, COMMIT, and ROLLBACK Statements</a>”。
+        </p>
+        <p>
+            注：符合自动提交、非锁定和只读（AC-NL-RO）条件的事务被排除在某些内部 InnoDB 数据结构之外，因此不在
+            <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/show-engine.html">SHOW ENGINE InnoDB
+                STATUS</a>
+            中列出。
+        </p>
+    </div>
 
-    <blockquote>
-        Thus, for a read-intensive application such as a report generator, you can tune a sequence of InnoDB queries by
-        grouping them inside START TRANSACTION READ ONLY and COMMIT, or by turning on the autocommit setting before
-        running the SELECT statements, or simply by avoiding any data change statements interspersed with the queries.
-    </blockquote>
-    <p>
-        因此，对于一个类似报表生成器的读密集型应用，可以使用 START TRANSACTION READ ONLY 和 COMMIT 包装 InnoDB 查询序列，
-        或者在执行 SELECT 语句之前启用 autocommit 设置，或者避免在请求中执行数据更新语句。
-    </p>
-
-    <blockquote>
-        For information about START TRANSACTION and autocommit, see Section 13.3.1,
-        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/commit.html">START
-        TRANSACTION, COMMIT, and ROLLBACK Statements</a>”.
-    </blockquote>
-    <p>
-        关于 START TRANSACTION 和 autocommit 的更多信息，请参阅
-        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/commit.html">START
-        TRANSACTION, COMMIT, and ROLLBACK Statements</a>”。
-    </p>
-
-    <blockquote>
-        Note: Transactions that qualify as auto-commit, non-locking, and read-only (AC-NL-RO) are kept out of certain
-        internal InnoDB data structures and are therefore not listed in
-        <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/show-engine.html">SHOW ENGINE INNODB STATUS</a>
-        output.
-    </blockquote>
-    <p>
-        注：符合自动提交、非锁定和只读（AC-NL-RO）条件的事务被排除在某些内部 InnoDB 数据结构之外，因此不在
-        <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/show-engine.html">SHOW ENGINE InnoDB STATUS</a>
-        中列出。
-    </p>
-
-
-    <h2 id="optimizing-innodb-logging.html">InnoDB Redo 日志优化</h2>
+    <h2 id="optimizing-innodb-logging">InnoDB Redo 日志优化</h2>
 
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-logging.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-logging.html</a>
     </p>
 
-    <blockquote>
-        Consider the following guidelines for optimizing redo logging:
-    </blockquote>
+    <blockquote class="reference">
+        <p>Consider the following guidelines for optimizing redo logging:</p>
 
-    <blockquote>
-        Make your redo log files big, even as big as the buffer pool. When InnoDB has written the redo log files full,
-        it must write the modified contents of the buffer pool to disk in a checkpoint. Small redo log files cause many
-        unnecessary disk writes. Although historically big redo log files caused lengthy recovery times, recovery is now
-        much faster and you can confidently use large redo log files.
-    </blockquote>
+        <p>Make your redo log files big, even as big as the buffer pool. When InnoDB has written the redo log files
+            full, it must write the modified contents of the buffer pool to disk in a checkpoint. Small redo log files
+            cause many unnecessary disk writes. Although historically big redo log files caused lengthy recovery times,
+            recovery is now much faster and you can confidently use large redo log files.</p>
 
-    <blockquote>
-        The size and number of redo log files are configured using the innodb_log_file_size and
-        innodb_log_files_in_group configuration options. For information about modifying an existing redo log file
-        configuration, see Changing the Number or Size of InnoDB Redo Log Files.
-    </blockquote>
+        <p>The size and number of redo log files are configured using the innodb_log_file_size and
+            innodb_log_files_in_group configuration options. For information about modifying an existing redo log file
+            configuration, see Changing the Number or Size of InnoDB Redo Log Files.</p>
 
-    <blockquote>
-        Consider increasing the size of the log buffer. A large log buffer enables large transactions to run without a
-        need to write the log to disk before the transactions commit. Thus, if you have transactions that update,
-        insert, or delete many rows, making the log buffer larger saves disk I/O. Log buffer size is configured using
-        the innodb_log_buffer_size configuration option.
-    </blockquote>
+        <p>Consider increasing the size of the log buffer. A large log buffer enables large transactions to run without
+            a need to write the log to disk before the transactions commit. Thus, if you have transactions that update,
+            insert, or delete many rows, making the log buffer larger saves disk I/O. Log buffer size is configured
+            using the innodb_log_buffer_size configuration option.</p>
 
-    <blockquote>
-        Configure the innodb_log_write_ahead_size configuration option to avoid “read-on-write”. This option defines the
-        write-ahead block size for the redo log. Set innodb_log_write_ahead_size to match the operating system or file
-        system cache block size. Read-on-write occurs when redo log blocks are not entirely cached to the operating
-        system or file system due to a mismatch between write-ahead block size for the redo log and operating system or
-        file system cache block size.
-    </blockquote>
+        <p>Configure the innodb_log_write_ahead_size configuration option to avoid “read-on-write”. This option defines
+            the write-ahead block size for the redo log. Set innodb_log_write_ahead_size to match the operating system
+            or file system cache block size. Read-on-write occurs when redo log blocks are not entirely cached to the
+            operating system or file system due to a mismatch between write-ahead block size for the redo log and
+            operating system or file system cache block size.</p>
 
-    <blockquote>
-        Valid values for innodb_log_write_ahead_size are multiples of the InnoDB log file block size (2n). The minimum
-        value is the InnoDB log file block size (512). Write-ahead does not occur when the minimum value is specified.
-        The maximum value is equal to the innodb_page_size value. If you specify a value for innodb_log_write_ahead_size
-        that is larger than the innodb_page_size value, the innodb_log_write_ahead_size setting is truncated to the
-        innodb_page_size value.
-    </blockquote>
+        <p>Valid values for innodb_log_write_ahead_size are multiples of the InnoDB log file block size (2n). The
+            minimum value is the InnoDB log file block size (512). Write-ahead does not occur when the minimum value is
+            specified. The maximum value is equal to the innodb_page_size value. If you specify a value for
+            innodb_log_write_ahead_size that is larger than the innodb_page_size value, the innodb_log_write_ahead_size
+            setting is truncated to the innodb_page_size value.</p>
 
-    <blockquote>
-        Setting the innodb_log_write_ahead_size value too low in relation to the operating system or file system cache
-        block size results in read-on-write. Setting the value too high may have a slight impact on fsync performance
-        for log file writes due to several blocks being written at once.
+        <p>Setting the innodb_log_write_ahead_size value too low in relation to the operating system or file system
+            cache block size results in read-on-write. Setting the value too high may have a slight impact on fsync
+            performance for log file writes due to several blocks being written at once.</p>
     </blockquote>
 
 
-    <h2 id="optimizing-innodb-bulk-data-loading.html">InnoDB 表的数据批量加载</h2>
+    <h2 id="optimizing-innodb-bulk-data-loading">InnoDB 表的数据批量加载</h2>
 
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-bulk-data-loading.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-bulk-data-loading.html</a>
     </p>
 
-    <blockquote>
-        These performance tips supplement the general guidelines for fast inserts in Section 8.2.4.1,
-        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html">Optimizing INSERT
-        Statements</a>”.
-    </blockquote>
-    <p>
-        本章的性能提示补充了
-        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html">Optimizing INSERT
-        Statements</a>” 的内容。
-    </p>
+    <blockquote class="reference" data-id="optimizing-innodb-bulk-data-loading">
+        <p>These performance tips supplement the general guidelines for fast inserts in Section 8.2.4.1, Optimizing
+            INSERT Statements”.</p>
 
-    <blockquote>
-        When importing data into InnoDB, turn off autocommit mode, because it performs a log flush to disk for every
-        insert. To disable autocommit during your import operation, surround it with SET autocommit and COMMIT
-        statements:
-    </blockquote>
-    <p>
-        将数据导入 InnoDB 表时应关闭自动提交模式，因为每次插入操作都会刷新磁盘日志。
-        要在导入操作期间禁用自动提交，可使用 SET autocommit 和 COMMIT 将导入语句包起来：
-    </p>
+        <p>When importing data into InnoDB, turn off autocommit mode, because it performs a log flush to disk for every
+            insert. To disable autocommit during your import operation, surround it with SET autocommit and COMMIT
+            statements:</p>
 
-    <pre><code>SET autocommit=0;
+        <pre><code>SET autocommit=0;
 ... SQL import statements ...
 COMMIT;</code></pre>
 
-    <blockquote>
-        The mysqldump option --opt creates dump files that are fast to import into an InnoDB table, even without
-        wrapping them with the SET autocommit and COMMIT statements.
-    </blockquote>
-    <p>
-        使用 mysqldump 命令的 --opt 参数，即使不带 SET autocommit 和 COMMIT 语句也能创建用于快速导入的转储文件。
-    </p>
+        <p>The mysqldump option --opt creates dump files that are fast to import into an InnoDB table, even without
+            wrapping them with the SET autocommit and COMMIT statements.</p>
 
-    <blockquote>
-        If you have UNIQUE constraints on secondary keys, you can speed up table imports by temporarily turning off the
-        uniqueness checks during the import session:
-    </blockquote>
-    <p>
-        如果二级索引包含 UNIQUE 约束，可以通过临时关闭唯一性检查来加速导入操作：
-    </p>
+        <p>If you have UNIQUE constraints on secondary keys, you can speed up table imports by temporarily turning off
+            the uniqueness checks during the import session:</p>
 
-    <pre><code>SET unique_checks=0;
+        <p>For big tables, this saves a lot of disk I/O because InnoDB can use its change buffer to write secondary
+            index records in a batch. Be certain that the data contains no duplicate keys.</p>
+
+        <p>If you have FOREIGN KEY constraints in your tables, you can speed up table imports by turning off the
+            foreign key checks for the duration of the import session:</p>
+
+        <p>When performing bulk inserts, it is faster to insert rows in PRIMARY KEY order. InnoDB tables use a
+            clustered index, which makes it relatively fast to use data in the order of the PRIMARY KEY. Performing bulk
+            insertsin PRIMARY KEY order is particularly important for tables that do not fit entirely within the buffer
+            pool.</p>
+
+        <p>For big tables, this can save a lot of disk I/O.</p>
+
+        <p>Use the multiple-row INSERT syntax to reduce communication overhead between the client and the server if you
+            need to insert many rows:</p>
+
+        <p>This tip is valid for inserts into any table, not just InnoDB tables.</p>
+
+        <p>When doing bulk inserts into tables with auto-increment columns, set innodb_autoinc_lock_mode to 2 instead of
+            the default value 1. See Section 14.6.1.6, “AUTO_INCREMENT Handling in InnoDB” for details.</p>
+
+        <p>For optimal performance when loading data into an InnoDB FULLTEXT index, follow this set of steps:</p>
+
+        <p>Define a column FTS_DOC_ID at table creation time, of type BIGINT UNSIGNED NOT NULL, with a unique index
+            named FTS_DOC_ID_INDEX. For example:</p>
+
+        <pre><code>CREATE TABLE t1 (
+FTS_DOC_ID BIGINT unsigned NOT NULL AUTO_INCREMENT,
+title varchar(255) NOT NULL DEFAULT '',
+text mediumtext NOT NULL,
+PRIMARY KEY (`FTS_DOC_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE UNIQUE INDEX FTS_DOC_ID_INDEX on t1(FTS_DOC_ID);
+Load the data into the table.</code></pre>
+
+        <p>Create the FULLTEXT index after the data is loaded.</p>
+
+        <p>Note: When adding FTS_DOC_ID column at table creation time, ensure that the FTS_DOC_ID column is updated when
+            the FULLTEXT indexed column is updated, as the FTS_DOC_ID must increase monotonically with each INSERT or
+            UPDATE. If you choose not to add the FTS_DOC_ID at table creation time and have InnoDB manage DOC IDs for
+            you, InnoDB adds the FTS_DOC_ID as a hidden column with the next CREATE FULLTEXT INDEX call. This approach,
+            however, requires a table rebuild which can impact performance.</p>
+    </blockquote>
+
+    <div class="translation" data-ref="optimizing-innodb-bulk-data-loading">
+        <p>
+            本章的性能提示补充了
+            “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/insert-optimization.html">Optimizing
+            INSERT
+            Statements</a>” 的内容。
+        </p>
+
+        <p>
+            将数据导入 InnoDB 表时应关闭自动提交模式，因为每次插入操作都会刷新磁盘日志。
+            要在导入操作期间禁用自动提交，可使用 SET autocommit 和 COMMIT 将导入语句包起来：
+        </p>
+
+        <pre><code>SET autocommit=0;
+... SQL import statements ...
+COMMIT;</code></pre>
+
+        <p>
+            使用 mysqldump 命令的 --opt 参数，即使不带 SET autocommit 和 COMMIT 语句也能创建用于快速导入的转储文件。
+        </p>
+
+        <p>
+            如果二级索引包含 UNIQUE 约束，可以通过临时关闭唯一性检查来加速导入操作：
+        </p>
+
+        <pre><code>SET unique_checks=0;
 ... SQL import statements ...
 SET unique_checks=1;</code></pre>
 
-    <blockquote>
-        For big tables, this saves a lot of disk I/O because InnoDB can use its change buffer to write secondary index
-        records in a batch. Be certain that the data contains no duplicate keys.
-    </blockquote>
-    <p>
-        对大表来说，这项操作将节省大量磁盘 I/O，因为 InnoDB 可以通过更新缓存来批量写入二级索引。
-        但操作前须确保数据中不包含重复的关键字。
-    </p>
+        <p>
+            对大表来说，这项操作将节省大量磁盘 I/O，因为 InnoDB 可以通过更新缓存来批量写入二级索引。
+            但操作前须确保数据中不包含重复的关键字。
+        </p>
 
-    <blockquote>
-        If you have FOREIGN KEY constraints in your tables, you can speed up table imports by turning off the foreign
-        key checks for the duration of the import session:
-    </blockquote>
-    <p>
-        如果二级索引包含 FOREIGN KEY 约束，可以通过临时关闭外键检查来加速导入操作：
-    </p>
+        <p>
+            如果二级索引包含 FOREIGN KEY 约束，可以通过临时关闭外键检查来加速导入操作：
+        </p>
 
-    <pre><code>SET foreign_key_checks=0;
+        <pre><code>SET foreign_key_checks=0;
 ... SQL import statements ...
 SET foreign_key_checks=1;</code></pre>
 
-    <blockquote>
-        For big tables, this can save a lot of disk I/O.
-    </blockquote>
-    <p>
-        对大表来说，这项操作将节省大量磁盘 I/O。
-    </p>
+        <p>对大表来说，这项操作将节省大量磁盘 I/O。</p>
 
-    <blockquote>
-        Use the multiple-row INSERT syntax to reduce communication overhead between the client and the server if you
-        need to insert many rows:
-    </blockquote>
-    <p>
-        插入多行数据时应使用专用语法来降低客户端与服务器之间的通信开销：
-    </p>
+        <p>插入多行数据时应使用专用语法来降低客户端与服务器之间的通信开销：</p>
 
-    <pre><code>INSERT INTO yourtable VALUES (1,2), (5,5), ...;</code></pre>
+        <pre><code>INSERT INTO yourtable VALUES (1,2), (5,5), ...;</code></pre>
 
-    <blockquote>
-        This tip is valid for inserts into any table, not just InnoDB tables.
-    </blockquote>
-    <p>
-        这个方法对除 InnoDB 以外的引擎也有效。
-    </p>
+        <p>这个方法对除 InnoDB 以外的引擎也有效。</p>
 
-    <blockquote>
-        When doing bulk inserts into tables with auto-increment columns, set
-        <a target="_blank"
-           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode">innodb_autoinc_lock_mode</a>
-        to 2 instead of the default value 1. See Section 14.6.1.6,
-        “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">AUTO_INCREMENT
-        Handling in InnoDB</a>” for details.
-    </blockquote>
-    <p>
-        往带自增字段的表批量插入数据时，可将参数
-        <a target="_blank"
-           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode">innodb_autoinc_lock_mode</a>
-        设为 2。详见 “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">AUTO_INCREMENT
-        Handling in InnoDB</a>”
-    </p>
+        <p>往带自增字段的表批量插入数据时，可将参数
+            <a target="_blank"
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode">innodb_autoinc_lock_mode</a>
+            设为 2。详见 “<a target="_blank"
+                        href="https://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">AUTO_INCREMENT
+                Handling in InnoDB</a>”</p>
 
-    <blockquote>
-        When performing bulk inserts, it is faster to insert rows in PRIMARY KEY order. InnoDB tables use a clustered
-        index, which makes it relatively fast to use data in the order of the PRIMARY KEY. Performing bulk inserts in
-        PRIMARY KEY order is particularly important for tables that do not fit entirely within the buffer pool.
-    </blockquote>
-    <p>
-        由于 InnoDB 表使用聚合索引，因此插入大批量数据时，按主键顺序来操作速度更快。
-        对不能完全被缓存的表来说，按主键顺序插入数据尤为重要。
-    </p>
-
-    <blockquote>
-        For optimal performance when loading data into an InnoDB FULLTEXT index, follow this set of steps:
-    </blockquote>
-
-    <blockquote>
-        Define a column FTS_DOC_ID at table creation time, of type BIGINT UNSIGNED NOT NULL, with a unique index named
-        FTS_DOC_ID_INDEX. For example:
-    </blockquote>
-
-    <blockquote>
-        CREATE TABLE t1 (
-        FTS_DOC_ID BIGINT unsigned NOT NULL AUTO_INCREMENT,
-        title varchar(255) NOT NULL DEFAULT '',
-        text mediumtext NOT NULL,
-        PRIMARY KEY (`FTS_DOC_ID`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-        CREATE UNIQUE INDEX FTS_DOC_ID_INDEX on t1(FTS_DOC_ID);
-        Load the data into the table.
-    </blockquote>
-
-    <blockquote>
-        Create the FULLTEXT index after the data is loaded.
-    </blockquote>
-
-    <blockquote>
-        Note
-        When adding FTS_DOC_ID column at table creation time, ensure that the FTS_DOC_ID column is updated when the
-        FULLTEXT indexed column is updated, as the FTS_DOC_ID must increase monotonically with each INSERT or UPDATE. If
-        you choose not to add the FTS_DOC_ID at table creation time and have InnoDB manage DOC IDs for you, InnoDB adds
-        the FTS_DOC_ID as a hidden column with the next CREATE FULLTEXT INDEX call. This approach, however, requires a
-        table rebuild which can impact performance.
-    </blockquote>
+        <p>由于 InnoDB 表使用聚合索引，因此插入大批量数据时，按主键顺序来操作速度更快。
+            对不能被完全缓存的表来说，按主键顺序插入数据尤为重要。</p>
+    </div>
 
 
-    <h2 id="optimizing-innodb-queries.html">InnoDB 查询</h2>
+    <h2 id="optimizing-innodb-queries">InnoDB 查询</h2>
 
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-queries.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-queries.html</a>
     </p>
 
-    <blockquote>
+    <blockquote class="reference">
         To tune queries for InnoDB tables, create an appropriate set of indexes on each table. See Section 8.3.1, “How
         MySQL Uses Indexes” for details. Follow these guidelines for InnoDB indexes:
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Because each InnoDB table has a primary key (whether you request one or not), specify a set of primary key
         columns for each table, columns that are used in the most important and time-critical queries.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Do not specify too many or too long columns in the primary key, because these column values are duplicated in
         each secondary index. When an index contains unnecessary data, the I/O to read this data and memory to cache it
         reduce the performance and scalability of the server.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Do not create a separate secondary index for each column, because each query can only make use of one index.
         Indexes on rarely tested columns or columns with only a few different values might not be helpful for any
         queries. If you have many queries for the same table, testing different combinations of columns, try to create a
@@ -687,85 +598,85 @@ SET foreign_key_checks=1;</code></pre>
         the table data at all.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         If an indexed column cannot contain any NULL values, declare it as NOT NULL when you create the table. The
         optimizer can better determine which index is most effective to use for a query, when it knows whether each
         column contains NULL values.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         You can optimize single-query transactions for InnoDB tables, using the technique in Section 8.5.3, “Optimizing
         InnoDB Read-Only Transactions”.
     </blockquote>
 
 
-    <h2 id="optimizing-innodb-ddl-operations.html">InnoDB DDL 操作优化</h2>
+    <h2 id="optimizing-innodb-ddl-operations">InnoDB DDL 操作优化</h2>
 
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-ddl-operations.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-ddl-operations.html</a>
     </p>
 
-    <blockquote>
+    <blockquote class="reference">
         Many DDL operations on tables and indexes (CREATE, ALTER, and DROP statements) can be performed online. See
         Section 14.13, “InnoDB and Online DDL” for details.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Online DDL support for adding secondary indexes means that you can generally speed up the process of creating
         and loading a table and associated indexes by creating the table without secondary indexes, then adding
         secondary indexes after the data is loaded.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Use TRUNCATE TABLE to empty a table, not DELETE FROM tbl_name. Foreign key constraints can make a TRUNCATE
         statement work like a regular DELETE statement, in which case a sequence of commands like DROP TABLE and CREATE
         TABLE might be fastest.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Because the primary key is integral to the storage layout of each InnoDB table, and changing the definition of
         the primary key involves reorganizing the whole table, always set up the primary key as part of the CREATE TABLE
         statement, and plan ahead so that you do not need to ALTER or DROP the primary key afterward.
     </blockquote>
 
 
-    <h2 id="optimizing-innodb-diskio.html">InnoDB 磁盘 I/O 优化</h2>
+    <h2 id="optimizing-innodb-diskio">InnoDB 磁盘 I/O 优化</h2>
 
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-diskio.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-diskio.html</a>
     </p>
 
-    <blockquote>
+    <blockquote class="reference">
         If you follow best practices for database design and tuning techniques for SQL operations, but your database is
         still slow due to heavy disk I/O activity, consider these disk I/O optimizations. If the Unix top tool or the
         Windows Task Manager shows that the CPU usage percentage with your workload is less than 70%, your workload is
         probably disk-bound.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Increase buffer pool size
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         When table data is cached in the InnoDB buffer pool, it can be accessed repeatedly by queries without requiring
         any disk I/O. Specify the size of the buffer pool with the innodb_buffer_pool_size option. This memory area is
         important enough that it is typically recommended that innodb_buffer_pool_size is configured to 50 to 75 percent
         of system memory. For more information see, Section 8.12.4.1, “How MySQL Uses Memory”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Adjust the flush method
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         In some versions of GNU/Linux and Unix, flushing files to disk with the Unix fsync() call (which InnoDB uses by
         default) and similar methods is surprisingly slow. If database write performance is an issue, conduct benchmarks
         with the innodb_flush_method parameter set to O_DSYNC.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Use a noop or deadline I/O scheduler with native AIO on Linux
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         InnoDB uses the asynchronous I/O subsystem (native AIO) on Linux to perform read-ahead and write requests for
         data file pages. This behavior is controlled by the innodb_use_native_aio configuration option, which is enabled
         by default. With native AIO, the type of I/O scheduler has greater influence on I/O performance. Generally, noop
@@ -774,11 +685,11 @@ SET foreign_key_checks=1;</code></pre>
         I/O on Linux”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Use direct I/O on Solaris 10 for x86_64 architecture
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         When using the InnoDB storage engine on Solaris 10 for x86_64 architecture (AMD Opteron), use direct I/O for
         InnoDB-related files to avoid degradation of InnoDB performance. To use direct I/O for an entire UFS file system
         used for storing InnoDB-related files, mount it with the forcedirectio option; see mount_ufs(1M). (The default
@@ -787,11 +698,11 @@ SET foreign_key_checks=1;</code></pre>
         fcntl() for I/O to data files (not for I/O to log files).
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Use raw storage for data and log files with Solaris 2.6 or later
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         When using the InnoDB storage engine with a large innodb_buffer_pool_size value on any release of Solaris 2.6
         and up and any platform (sparc/x86/x64/amd64), conduct benchmarks with InnoDB data files and log files on raw
         devices or on a separate direct I/O UFS file system, using the forcedirectio mount option as described
@@ -799,152 +710,152 @@ SET foreign_key_checks=1;</code></pre>
         I/O for the log files.) Users of the Veritas file system VxFS should use the convosync=direct mount option.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Do not place other MySQL data files, such as those for MyISAM tables, on a direct I/O file system. Executables
         or libraries must not be placed on a direct I/O file system.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Use additional storage devices
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Additional storage devices could be used to set up a RAID configuration. For related information, see Section
         8.12.2, “Optimizing Disk I/O”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Alternatively, InnoDB tablespace data files and log files can be placed on different physical disks. For more
         information, refer to the following sections:
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Section 14.8.1, “InnoDB Startup Configuration”
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Section 14.6.1.2, “Creating Tables Externally”
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Creating a General Tablespace
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Section 14.6.1.4, “Moving or Copying InnoDB Tables”
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Consider non-rotational storage
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Non-rotational storage generally provides better performance for random I/O operations; and rotational storage
         for sequential I/O operations. When distributing data and log files across rotational and non-rotational storage
         devices, consider the type of I/O operations that are predominantly performed on each file.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Random I/O-oriented files typically include file-per-table and general tablespace data files, undo tablespace
         files, and temporary tablespace files. Sequential I/O-oriented files include InnoDB system tablespace files (due
         to doublewrite buffering and change buffering) and log files such as binary log files and redo log files.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Review settings for the following configuration options when using non-rotational storage:
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         innodb_checksum_algorithm
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         The crc32 option uses a faster checksum algorithm and is recommended for fast storage systems.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         innodb_flush_neighbors
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Optimizes I/O for rotational storage devices. Disable it for non-rotational storage or a mix of rotational and
         non-rotational storage.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         innodb_io_capacity
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         The default setting of 200 is generally sufficient for a lower-end non-rotational storage device. For
         higher-end, bus-attached devices, consider a higher setting such as 1000.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         innodb_io_capacity_max
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         The default value of 2000 is intended for workloads that use non-rotational storage. For a high-end,
         bus-attached non-rotational storage device, consider a higher setting such as 2500.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         innodb_log_compressed_pages
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         If redo logs are on non-rotational storage, consider disabling this option to reduce logging. See Disable
         logging of compressed pages.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         innodb_log_file_size
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         If redo logs are on non-rotational storage, configure this option to maximize caching and write combining.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         innodb_page_size
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Consider using a page size that matches the internal sector size of the disk. Early-generation SSD devices often
         have a 4KB sector size. Some newer devices have a 16KB sector size. The default InnoDB page size is 16KB.
         Keeping the page size close to the storage device block size minimizes the amount of unchanged data that is
         rewritten to disk.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         binlog_row_image
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         If binary logs are on non-rotational storage and all tables have primary keys, consider setting this option to
         minimal to reduce logging.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Ensure that TRIM support is enabled for your operating system. It is typically enabled by default.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Increase I/O capacity to avoid backlogs
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         If throughput drops periodically because of InnoDB checkpoint operations, consider increasing the value of the
         innodb_io_capacity configuration option. Higher values cause more frequent flushing, avoiding the backlog of
         work that can cause dips in throughput.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Lower I/O capacity if flushing does not fall behind
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         If the system is not falling behind with InnoDB flushing operations, consider lowering the value of the
         innodb_io_capacity configuration option. Typically, you keep this option value as low as practical, but not so
         low that it causes periodic drops in throughput as mentioned in the preceding bullet. In a typical scenario
@@ -952,30 +863,30 @@ SET foreign_key_checks=1;</code></pre>
         INNODB STATUS:
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         History list length low, below a few thousand.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Insert buffer merges close to rows inserted.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Modified pages in buffer pool consistently well below innodb_max_dirty_pages_pct of the buffer pool. (Measure at
         a time when the server is not doing bulk inserts; it is normal during bulk inserts for the modified pages
         percentage to rise significantly.)
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Log sequence number - Last checkpoint is at less than 7/8 or ideally less than 6/8 of the total size of the
         InnoDB log files.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Store system tablespace files on Fusion-io devices
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         You can take advantage of a doublewrite buffer-related I/O optimization by storing system tablespace files
         (“ibdata files”) on Fusion-io devices that support atomic writes. In this case, doublewrite buffering
         (innodb_doublewrite) is automatically disabled and Fusion-io atomic writes are used for all data files. This
@@ -983,16 +894,16 @@ SET foreign_key_checks=1;</code></pre>
         advantage of this feature, an innodb_flush_method setting of O_DIRECT is recommended.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Note: Because the doublewrite buffer setting is global, doublewrite buffering is also disabled for data files
         residing on non-Fusion-io hardware.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Disable logging of compressed pages
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         When using the InnoDB table compression feature, images of re-compressed pages are written to the redo log when
         changes are made to compressed data. This behavior is controlled by innodb_log_compressed_pages, which is
         enabled by default to prevent corruption that can occur if a different version of the zlib compression algorithm
@@ -1001,85 +912,85 @@ SET foreign_key_checks=1;</code></pre>
     </blockquote>
 
 
-    <h2 id="optimizing-innodb-configuration-variables.html">InnoDB 配置优化</h2>
+    <h2 id="optimizing-innodb-configuration-variables">InnoDB 配置优化</h2>
 
     <p>原文请参阅：<a target="_blank"
                 href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-configuration-variables.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-configuration-variables.html</a>
     </p>
 
-    <blockquote>
+    <blockquote class="reference">
         Different settings work best for servers with light, predictable loads, versus servers that are running near
         full capacity all the time, or that experience spikes of high activity.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Because the InnoDB storage engine performs many of its optimizations automatically, many performance-tuning
         tasks involve monitoring to ensure that the database is performing well, and changing configuration options when
         performance drops. See Section 14.17, “InnoDB Integration with MySQL Performance Schema” for information about
         detailed InnoDB performance monitoring.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         The main configuration steps you can perform include:
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Enabling InnoDB to use high-performance memory allocators on systems that include them. See Section 14.8.4,
         “Configuring the Memory Allocator for InnoDB”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Controlling the types of data change operations for which InnoDB buffers the changed data, to avoid frequent
         small disk writes. See Configuring Change Buffering. Because the default is to buffer all types of data change
         operations, only change this setting if you need to reduce the amount of buffering.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Turning the adaptive hash indexing feature on and off using the innodb_adaptive_hash_index option. See Section
         14.5.3, “Adaptive Hash Index” for more information. You might change this setting during periods of unusual
         activity, then restore it to its original setting.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Setting a limit on the number of concurrent threads that InnoDB processes, if context switching is a bottleneck.
         See Section 14.8.5, “Configuring Thread Concurrency for InnoDB”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Controlling the amount of prefetching that InnoDB does with its read-ahead operations. When the system has
         unused I/O capacity, more read-ahead can improve the performance of queries. Too much read-ahead can cause
         periodic drops in performance on a heavily loaded system. See Section 14.8.3.4, “Configuring InnoDB Buffer Pool
         Prefetching (Read-Ahead)”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Increasing the number of background threads for read or write operations, if you have a high-end I/O subsystem
         that is not fully utilized by the default values. See Section 14.8.6, “Configuring the Number of Background
         InnoDB I/O Threads”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Controlling how much I/O InnoDB performs in the background. See Section 14.8.8, “Configuring InnoDB I/O
         Capacity”. You might scale back this setting if you observe periodic drops in performance.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Controlling the algorithm that determines when InnoDB performs certain types of background writes. See Section
         14.8.3.5, “Configuring Buffer Pool Flushing”. The algorithm works for some types of workloads but not others, so
         might turn off this setting if you observe periodic drops in performance.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Taking advantage of multicore processors and their cache memory configuration, to minimize delays in context
         switching. See Section 14.8.9, “Configuring Spin Lock Polling”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Preventing one-time operations such as table scans from interfering with the frequently accessed data stored in
         the InnoDB buffer cache. See Section 14.8.3.3, “Making the Buffer Pool Scan Resistant”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Adjusting log files to a size that makes sense for reliability and crash recovery. InnoDB log files have often
         been kept small to avoid long startup times after a crash. Optimizations introduced in MySQL 5.5 speed up
         certain steps of the crash recovery process. In particular, scanning the redo log and applying the redo log are
@@ -1088,23 +999,23 @@ SET foreign_key_checks=1;</code></pre>
         recycling of redo log records.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Configuring the size and number of instances for the InnoDB buffer pool, especially important for systems with
         multi-gigabyte buffer pools. See Section 14.8.3.2, “Configuring Multiple Buffer Pool Instances”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Increasing the maximum number of concurrent transactions, which dramatically improves scalability for the
         busiest databases. See Section 14.6.7, “Undo Logs”.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Moving purge operations (a type of garbage collection) into a background thread. See Section 14.8.10, “Purge
         Configuration”. To effectively measure the results of this setting, tune the other I/O-related and
         thread-related configuration settings first.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Reducing the amount of switching that InnoDB does between concurrent threads, so that SQL operations on a busy
         server do not queue up and form a “traffic jam”. Set a value for the innodb_thread_concurrency option, up to
         approximately 32 for a high-powered modern system. Increase the value for the innodb_concurrency_tickets option,
@@ -1114,12 +1025,12 @@ SET foreign_key_checks=1;</code></pre>
     </blockquote>
 
 
-    <h2 id="optimizing-innodb-many-tables.html">InnoDB 多表优化</h2>
+    <h2 id="optimizing-innodb-many-tables">InnoDB 多表优化</h2>
 
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-many-tables.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-many-tables.html</a>
     </p>
 
-    <blockquote>
+    <blockquote class="reference">
         If you have configured non-persistent optimizer statistics (a non-default configuration), InnoDB computes index
         cardinality values for a table the first time that table is accessed after startup, instead of storing such
         values in the table. This step can take significant time on systems that partition the data into many tables.
@@ -1127,7 +1038,7 @@ SET foreign_key_checks=1;</code></pre>
         it immediately after startup by issuing a statement such as SELECT 1 FROM tbl_name LIMIT 1.
     </blockquote>
 
-    <blockquote>
+    <blockquote class="reference">
         Optimizer statistics are persisted to disk by default, enabled by the innodb_stats_persistent configuration
         option. For information about persistent optimizer statistics, see Section 14.8.11.1, “Configuring Persistent
         Optimizer Statistics Parameters”.

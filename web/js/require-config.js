@@ -1,13 +1,12 @@
 require.config({
     waitSeconds: 0,
+    baseUrl: '/web/js',
     paths: {
-        jquery: 'web/js/lib/jquery',
-        text: 'web/js/lib/text',
-        knockout: 'web/js/lib/knockout',
-        mousewheel: 'web/js/lib/jquery.mousewheel-3.0.6.min',
-        highlight: 'web/js/lib/highlight.min',
-        scrollbar: 'web/js/lib/jquery.mCustomScrollbar.min',
-        vue: 'web/js/lib/vue.global.prod',
+        jquery: 'lib/jquery',
+        highlight: 'lib/highlight.min',
+        mousewheel: 'lib/jquery.mousewheel-3.0.6.min',
+        scrollbar: 'lib/jquery.mCustomScrollbar.min',
+        vue: 'lib/vue.global.prod'
     },
     shim: {
         mousewheel: {

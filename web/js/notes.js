@@ -109,7 +109,7 @@ require([
         },
 
         mounted: function () {
-            const $article = $(this.$refs.article), $index = $(this.$refs.index);
+            const $article = $(this.$refs.article), $index = $(this.$refs.index), $detail = $(this.$refs.detail);
 
             $article.find('h2, h3, h4').each((i, el) => {
                 el.id = el.id || this.generateId('p-');
@@ -129,6 +129,25 @@ require([
                     }
                 });
             });
+
+            /*$article.find('[data-ref]').each((i, el) => {
+                let $translation = $(el),
+                    $orgContent = $article.find('[data-id="' + $translation.data('ref') + '"]');
+                if ($orgContent.length === 0) {
+                    return;
+                }
+                $translation.find('> *').each((i, el) => {
+                    let $content = $orgContent.find('> *').eq(i);
+                    if ($content.length > 0) {
+                        let $el = $(el);
+                        $el.on('mouseenter', () => {
+                            let pos = $el.position();
+                            $detail.html(`${$content.html()}`).show()
+                                .css({left: `${pos.left}px`, top: `${pos.top - $detail.outerHeight()}px`});
+                        });
+                    }
+                });
+            });*/
 
             $('.btn-switcher').on('click', () => {
                 $('body').toggleClass('nav-expanded');
