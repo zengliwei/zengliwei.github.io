@@ -265,8 +265,8 @@ body > .sidebar nav li.has-child > a:before {
 }
 
 body > .sidebar nav li.level-1 > a {
-    color: var(--theme-color);
-    /*color: black;*/
+    /*color: var(--theme-color);*/
+    color: black;
     padding-left: .75rem;
 }
 
