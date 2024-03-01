@@ -1,12 +1,12 @@
 <!DOCTYPE>
-<html>
+<html lang="zh">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="css,css3,html,html5,transform,rotate,translateX,translateY,translateZ,cube" />
-    <meta name="description" content="HTML5 + CSS3 Demo, transform: cube" />
-    <base href="/" />
+    <base href="/"/>
     <title>transform - Cubes</title>
-    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="css,css3,html,html5,transform,rotate,translateX,translateY,translateZ,cube"/>
+    <meta name="description" content="HTML5 + CSS3 Demo, transform: cube"/>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
     <style>
         * {
             box-sizing: border-box;
@@ -193,16 +193,16 @@
 
     <script src="web/js/lib/jquery.js"></script>
     <script type="text/javascript">
-        jQuery( function( $ ) {
-            let $cube = $( '.cube' );
-            $( document ).on( 'mousemove', function( evt ) {
+        jQuery(function ($) {
+            let $cube = $('.cube');
+            $(document).on('mousemove', function (evt) {
                 let x = evt.clientX;
                 let y = evt.clientY;
-                $cube.css( {
+                $cube.css({
                     transform: 'rotateY(' + x + 'deg) rotateX(-' + y + 'deg)'
-                } );
-            } );
-        } );
+                });
+            });
+        });
     </script>
 </main>
 <footer>

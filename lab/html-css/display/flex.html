@@ -1,0 +1,405 @@
+<!DOCTYPE>
+<html lang="zh">
+<head>
+    <base href="/"/>
+    <title>display: flex</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="css,css3,html,html5,display,flex"/>
+    <meta name="description" content="HTML5 + CSS3 Demo, display: flex"/>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            outline: none;
+            padding: 0;
+        }
+
+        body {
+            color: #545454;
+            font: 14px/20px Consolas, Helvetica, Arial, sans-serif;
+        }
+
+        input {
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            display: block;
+            height: 30px;
+            padding: 5px 10px;
+            width: 100%;
+        }
+
+        .wrapper {
+            display: flex;
+        }
+
+        .css-style {
+            padding: 15px 10px 0;
+            width: 50%;
+        }
+
+        .css-style .parent-styles {
+            display: flex;
+        }
+
+        .css-style .parent-style {
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+
+        .css-style .parent-style .caption {
+            color: #669;
+            font-weight: bold;
+        }
+
+        .css-style .parent-style ul {
+            margin: 15px 0 0;
+        }
+
+        .css-style .parent-style li {
+            list-style: none;
+        }
+
+        .css-style .parent-style li span {
+            color: #999;
+            cursor: pointer;
+            font-style: italic;
+        }
+
+        .css-style .parent-style li.active span {
+            color: #000;
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        .css-style .info {
+            margin: 15px 0 0;
+        }
+
+        .css-style .info .style {
+            margin: 0 0 15px;
+        }
+
+        .css-style .info .style .title .name {
+            color: #669;
+            font-weight: bold;
+        }
+
+        .css-style .info .style .desc {
+            color: #999;
+            font-style: italic;
+            padding: 5px 0 0 20px;
+        }
+
+        .demo-box {
+            padding: 15px 10px 0;
+            width: 50%;
+        }
+
+        .demo-box .toolbar {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+
+        .demo-box .toolbar > div {
+            width: 30%;
+        }
+
+        .demo-box .toolbar > div label {
+            display: block;
+            margin: 0 0 5px;
+        }
+
+        .demo-box .demo {
+            margin: 15px 0 0;
+        }
+
+        .demo-box .demo .parent {
+            background: #f6f6f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            display: flex;
+        }
+
+        .demo-box .demo .child {
+            background: #f0f0f6;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .demo-box .demo .style {
+            margin: 0 0 5px;
+        }
+
+        .demo-box .demo .style:last-child {
+            margin: 0;
+        }
+
+        footer {
+            font-size: 12px;
+            margin: 200px 0 0;
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #545454;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class="wrapper">
+        <div class="css-style">
+            <div class="parent-styles">
+                <!-- ko foreach: { data: styleOptions, as: 'style', noChildContext: true } -->
+                <div class="parent-style">
+                    <div class="caption" data-bind="text: style.name"></div>
+                    <ul>
+                        <!-- ko foreach: { data: style.options, as: 'option' } -->
+                        <li data-bind="css: { active: $parent.parent[style.code].value() === option.name }">
+                            <span data-bind="text: option.name, attr: { title: option.info }, click: $parent.setStyleOption"></span>
+                        </li>
+                        <!-- /ko -->
+                    </ul>
+                </div>
+                <!-- /ko -->
+            </div>
+            <div class="info">
+                <!-- ko foreach: { data: styleOptions, as: 'style', noChildContext: true } -->
+                <div class="style">
+                    <div class="title">
+                        <span class="name" data-bind="text: style.name"></span>:
+                        <span class="value" data-bind="text: parent[style.code].value"></span>
+                    </div>
+                    <div class="desc" data-bind="text: parent[style.code].info"></div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <div class="demo-box">
+            <div class="toolbar">
+                <div class="num">
+                    <label for="item-number">元素个数：</label>
+                    <input type="number" id="item-number" data-bind="textInput: num"/>
+                </div>
+                <div class="width">
+                    <label for="item-width">元素默认宽度：</label>
+                    <input type="number" id="item-width" data-bind="textInput: defWidth"/>
+                </div>
+                <div class="height">
+                    <label for="wrapper-height">外框高度：</label>
+                    <input type="text" id="wrapper-height" data-bind="textInput: parent.height"/>
+                </div>
+            </div>
+            <div class="demo">
+                <div class="parent" data-bind="style: {
+                flexDirection: parent.flexDirection.value,
+                flexWrap: parent.flexWrap.value,
+                justifyContent: parent.justifyContent.value,
+                alignItems: parent.alignItems.value,
+                alignContent: parent.alignContent.value,
+                height: parent.height
+            }">
+                    <!-- ko foreach: { data: items, as: 'item' } -->
+                    <div class="child" data-bind="style: item">
+                        <div class="box">
+                            <div class="style">
+                                <span data-bind="text: $index() + 1"></span>
+                            </div>
+                            <div class="style">
+                                <input type="text" placeholder="flex-grow" data-bind="textInput: item.flexGrow"/>
+                            </div>
+                            <div class="style">
+                                <input type="text" placeholder="flex-shrink" data-bind="textInput: item.flexShrink"/>
+                            </div>
+                            <div class="style">
+                                <input type="text" placeholder="flex-basis" data-bind="textInput: item.flexBasis"/>
+                            </div>
+                            <div class="style">
+                                <input type="text" placeholder="order" data-bind="textInput: item.order"/>
+                            </div>
+                            <div class="style">
+                                <input type="text" placeholder="width" data-bind="textInput: item.width"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    Copyright &copy; <span class="year" data-bind="text: year"></span> <a href="/">Zengliwei</a>
+</footer>
+
+<script src="../../../web/js/lib/knockout.js"></script>
+<script>
+
+    let defNum = 5;
+    let defWidth = 200;
+    let defHeight = 'auto';
+
+    let styleOptions = {
+        flexDirection: {
+            name: 'flex-direction',
+            options: [
+                {name: 'row', info: '横向显示下一级元素，每一行均根据元素的 order 由小到大，从左到右排列'},
+                {name: 'row-reverse', info: '横向显示下一级元素，每一行均根据元素的 order 由小到大，从右到左排列'},
+                {name: 'column', info: '纵向显示下一级元素，每一行均根据元素的 order 由小到大，从上到下排列'},
+                {name: 'column-reverse', info: '纵向显示下一级元素，每一行均根据元素的 order 由小到大，从下到上排列'}
+            ]
+        },
+        flexWrap: {
+            name: 'flex-wrap',
+            options: [
+                {name: 'nowrap', info: '不换行/列'},
+                {
+                    name: 'wrap',
+                    info: '自动换行/列。当 flex-direction 为 row 或 row-reverse 时，往下换行；当 flex-direction 为 column 或 column-reverse 时，往右换列'
+                },
+                {
+                    name: 'wrap-reverse',
+                    info: '自动换行/列。当 flex-direction 为 row 或 row-reverse 时，往上换行；当 flex-direction 为 column 或 column-reverse 时，往左换列'
+                }
+            ]
+        },
+        justifyContent: {
+            name: 'justify-content',
+            options: [
+                {name: 'flex-start', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠左对齐'},
+                {name: 'flex-end', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠右对齐'},
+                {name: 'center', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素居中对齐'},
+                {name: 'space-between', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠两边对齐'},
+                {name: 'space-around', info: '当 flex-direction 为 row 或 row-reverse 时，每一行的每个元素两边保留相同间隔'}
+            ]
+        },
+        alignItems: {
+            name: 'align-items',
+            options: [
+                {
+                    name: 'flex-start',
+                    info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠上对齐；当 flex-direction 为 column 或 column-reverse 时，整列元素靠左对齐'
+                },
+                {
+                    name: 'flex-end',
+                    info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素靠下对齐；当 flex-direction 为 column 或 column-reverse 时，整列元素靠右对齐'
+                },
+                {
+                    name: 'center',
+                    info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素居中对齐；当 flex-direction 为 column 或 column-reverse 时，整列元素居中对齐'
+                },
+                {name: 'baseline', info: '当 flex-direction 为 row 或 row-reverse 时，每一行元素按基线对齐'},
+                {name: 'stretch', info: '当 flex-direction 为 row 或 row-reverse 时，延伸元素高度至沾满所在行的高度'}
+            ]
+        },
+        alignContent: {
+            name: 'align-content',
+            options: [
+                {name: 'flex-start', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。'},
+                {name: 'flex-end', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。'},
+                {name: 'center', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。'},
+                {name: 'space-between', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。'},
+                {name: 'space-around', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。'},
+                {name: 'stretch', info: '当 flex-wrap 为 wrap 或 wrap-reverse 时生效。'}
+            ]
+        }
+    };
+
+    let itemModel = function (parent) {
+        this.realWidth = ko.observable('');
+        this.flexGrow = ko.observable('');
+        this.flexShrink = ko.observable('');
+        this.flexBasis = ko.observable('');
+        this.order = ko.observable('');
+        this.width = ko.pureComputed({
+            read: function () {
+                return this.realWidth() || parent.defWidth();
+            },
+            write: function (value) {
+                this.realWidth(value);
+            },
+            owner: this
+        });
+    };
+
+    let viewModel = function () {
+
+        let self = this;
+
+        this.defWidth = ko.observable(defWidth);
+
+        let items = [];
+        for (let i = 0; i < defNum; i++) {
+            items.push(new itemModel(self));
+        }
+        this.items = ko.observableArray(items);
+
+        this.num = ko.pureComputed({
+            read: function () {
+                return this.items().length;
+            },
+            write: function (num) {
+                let count = this.items().length;
+                if (num > count) {
+                    for (let i = count; i < num; i++) {
+                        this.items.push({
+                            flexGrow: ko.observable(''),
+                            flexShrink: ko.observable(''),
+                            flexBasis: ko.observable(''),
+                            order: ko.observable(''),
+                            width: ko.observable(this.defWidth() + 'px')
+                        });
+                    }
+                } else if (num < count) {
+                    this.items.splice(num, count - num);
+                }
+            },
+            owner: this
+        });
+
+        this.parent = {
+            height: ko.observable(defHeight)
+        };
+        this.styleOptions = [];
+        for (let code in styleOptions) {
+
+            this.parent[code] = {
+                value: ko.observable(styleOptions[code].options[0].name),
+                info: ko.observable(styleOptions[code].options[0].info)
+            }
+
+            let options = [];
+            for (let i = 0; i < styleOptions[code].options.length; i++) {
+                options.push({
+                    styleName: code,
+                    name: styleOptions[code].options[i].name,
+                    info: styleOptions[code].options[i].info
+                });
+            }
+            this.styleOptions.push({
+                name: styleOptions[code].name,
+                code: code,
+                options: options
+            });
+        }
+
+        this.setStyleOption = function () {
+            self.parent[this.styleName].value(this.name);
+            self.parent[this.styleName].info(this.info);
+        };
+
+        this.year = (new Date).getFullYear();
+
+    };
+
+    ko.applyBindings(new viewModel);
+
+</script>
+</body>
+</html>
