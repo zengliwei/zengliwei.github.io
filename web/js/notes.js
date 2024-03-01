@@ -109,9 +109,11 @@ require([
         },
 
         mounted: function () {
-            const $article = $(this.$refs.article), $index = $(this.$refs.index), $detail = $(this.$refs.detail);
+            const $article = $(this.$refs.article), $index = $(this.$refs.index);
 
             Highlight.highlightAll();
+
+            $article.css('paddingBottom', $(window).height());
 
             $article.find('h2, h3, h4').each((i, el) => {
                 el.id = el.id || this.generateId('p-');
