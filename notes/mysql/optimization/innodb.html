@@ -261,57 +261,79 @@
         Statements</a>” 的内容。
     </p>
 
-    <p>
-        将数据导入 InnoDB 表时应关闭自动提交模式，因为每次插入操作都会刷新磁盘日志。
-        要在导入操作期间禁用自动提交，可使用 SET autocommit 和 COMMIT 将导入语句包起来：
-    </p>
-
-    <pre><code>SET autocommit=0;
+    <ul>
+        <li>
+            <p>
+                将数据导入 InnoDB 表时应关闭自动提交模式，因为每次插入操作都会刷新磁盘日志。
+                要在导入操作期间禁用自动提交，可使用 SET autocommit 和 COMMIT 将导入语句包起来：
+            </p>
+            <pre><code>SET autocommit=0;
 ... SQL import statements ...
 COMMIT;</code></pre>
-
-    <p>
-        使用 mysqldump 命令的 --opt 参数，即使不带 SET autocommit 和 COMMIT 语句也能创建用于快速导入的转储文件。
-    </p>
-
-    <p>
-        如果二级索引包含 UNIQUE 约束，可以通过临时关闭唯一性检查来加速导入操作：
-    </p>
-
-    <pre><code>SET unique_checks=0;
+            <p>
+                使用 mysqldump 命令的 --opt 参数，即使不带 SET autocommit 和 COMMIT 语句也能创建用于快速导入的转储文件。
+            </p>
+        </li>
+        <li>
+            <p>
+                如果二级索引包含 UNIQUE 约束，可以通过临时关闭唯一性检查来加速导入操作：
+            </p>
+            <pre><code>SET unique_checks=0;
 ... SQL import statements ...
 SET unique_checks=1;</code></pre>
-
-    <p>
-        对大表来说，这项操作将节省大量磁盘 I/O，因为 InnoDB 可以通过更新缓存来批量写入二级索引。
-        但操作前须确保数据中不包含重复的关键字。
-    </p>
-
-    <p>
-        如果二级索引包含 FOREIGN KEY 约束，可以通过临时关闭外键检查来加速导入操作：
-    </p>
-
-    <pre><code>SET foreign_key_checks=0;
+            <p>
+                对大表来说，这项操作将节省大量磁盘 I/O，因为 InnoDB 可以通过更新缓存来批量写入二级索引。
+                但操作前须确保数据中不包含重复的关键字。
+            </p>
+        </li>
+        <li>
+            <p>
+                如果二级索引包含 FOREIGN KEY 约束，可以通过临时关闭外键检查来加速导入操作：
+            </p>
+            <pre><code>SET foreign_key_checks=0;
 ... SQL import statements ...
 SET foreign_key_checks=1;</code></pre>
-
-    <p>对大表来说，这项操作将节省大量磁盘 I/O。</p>
-
-    <p>插入多行数据时应使用专用语法来降低客户端与服务器之间的通信开销：</p>
-
-    <pre><code>INSERT INTO yourtable VALUES (1,2), (5,5), ...;</code></pre>
-
-    <p>这个方法对除 InnoDB 以外的引擎也有效。</p>
-
-    <p>往带自增字段的表批量插入数据时，可将参数
-        <a target="_blank"
-           href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode">innodb_autoinc_lock_mode</a>
-        设为 2。详见 “<a target="_blank"
-                    href="https://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">AUTO_INCREMENT
-            Handling in InnoDB</a>”</p>
-
-    <p>由于 InnoDB 表使用聚合索引，因此插入大批量数据时，按主键顺序来操作速度更快。
-        对不能被完全缓存的表来说，按主键顺序插入数据尤为重要。</p>
+            <p>对大表来说，这项操作将节省大量磁盘 I/O。</p>
+        </li>
+        <li>
+            <p>插入多行数据时应使用专用语法来降低客户端与服务器之间的通信开销：</p>
+            <pre><code>INSERT INTO yourtable VALUES (1,2), (5,5), ...;</code></pre>
+            <p>这个方法对除 InnoDB 以外的引擎也有效。</p>
+        </li>
+        <li>
+            <p>往带自增字段的表批量插入数据时，可将参数
+                <a target="_blank"
+                   href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode">innodb_autoinc_lock_mode</a>
+                设为 2。详见 “<a target="_blank"
+                            href="https://dev.mysql.com/doc/refman/5.7/en/innodb-auto-increment-handling.html">AUTO_INCREMENT
+                    Handling in InnoDB</a>”</p>
+        </li>
+        <li>
+            <p>由于 InnoDB 表使用聚合索引，因此插入大批量数据时，按主键顺序来操作速度更快。
+                对不能被完全缓存的表来说，按主键顺序插入数据尤为重要。</p>
+        </li>
+        <li>
+            <p>按以下步骤操作，可加速导入带全文索引的数据：</p>
+            <ol>
+                <li>
+                    建表时用参数 BIGINT UNSIGNED NOT NULL 定义一个 FTS_DOC_ID 字段，并用它设置一个名为 FTS_DOC_ID_INDEX 的唯一索引，比如：
+                    <pre><code>CREATE TABLE t1 (
+  FTS_DOC_ID BIGINT unsigned NOT NULL AUTO_INCREMENT,
+  title varchar(255) NOT NULL DEFAULT '',
+  text mediumtext NOT NULL,
+  PRIMARY KEY (`FTS_DOC_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE UNIQUE INDEX FTS_DOC_ID_INDEX on t1(FTS_DOC_ID);</code></pre>
+                </li>
+                <li>将数据导入到新建的表中</li>
+                <li>导入完成后再创建全文索引</li>
+            </ol>
+            <p>
+                注：建表时应确认在插入数据之前添加 FTS_DOC_ID 字段，否则 InnoDB 引擎将在下次创建全文索引时，自动增加一个名为 FTS_DOC_ID 的隐藏字段。
+                这个自动创建的操作显然是对插入数据之后的表进行修改，效率低下。
+            </p>
+        </li>
+    </ul>
 
 
     <h2 id="optimizing-innodb-queries">InnoDB 查询</h2>
@@ -319,41 +341,24 @@ SET foreign_key_checks=1;</code></pre>
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-queries.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-queries.html</a>
     </p>
 
-    <p>
-        To tune queries for InnoDB tables, create an appropriate set of indexes on each table. See Section 8.3.1, “How
-        MySQL Uses Indexes” for details. Follow these guidelines for InnoDB indexes:
-    </p>
+    <p>优化 InnoDB 表查询，应针对每个表建立合适的索引，详见 “<a
+            target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html">How
+        MySQL Uses Indexes</a>”。下文是针对 InnoDB 引擎相关索引的提示：</p>
 
-    <p>
-        Because each InnoDB table has a primary key (whether you request one or not), specify a set of primary key
-        columns for each table, columns that are used in the most important and time-critical queries.
-    </p>
+    <p>即使建表时没有定义主键，InnoDB 也会强制创建一个字段作为主键，因此我们应该在建表时就将一组关键字段定义为主键，以提高查询性能。</p>
 
-    <p>
-        Do not specify too many or too long columns in the primary key, because these column values are duplicated in
-        each secondary index. When an index contains unnecessary data, the I/O to read this data and memory to cache it
-        reduce the performance and scalability of the server.
-    </p>
+    <p>不要将太多字段或者长度太大的字段定义为主键，因为这些字段的内容将被复制到二级索引中。
+        当一个索引包含不必要的内容时，读取这些内容就导致浪费磁盘 I/O 和内存，进而影响性能。</p>
 
-    <p>
-        Do not create a separate secondary index for each column, because each query can only make use of one index.
-        Indexes on rarely tested columns or columns with only a few different values might not be helpful for any
-        queries. If you have many queries for the same table, testing different combinations of columns, try to create a
-        small number of concatenated indexes rather than a large number of single-column indexes. If an index contains
-        all the columns needed for the result set (known as a covering index), the query might be able to avoid reading
-        the table data at all.
-    </p>
+    <p>不要单独为每个字段建立二级索引，因为一个查询只能使用一个索引，只包含一个字段的的索引可能对查询没有任务帮助。
+        如果对同一个表会进行多种不同条件的查询，那么建立索引时应多作尝试，创建少量联合索引，而不是多个字段的单独索引。
+        如果索引包含结果集所需的所有字段（覆盖索引），那么这个查询可以避免继续检索表数据，从而提高性能。</p>
 
-    <p>
-        If an indexed column cannot contain any NULL values, declare it as NOT NULL when you create the table. The
-        optimizer can better determine which index is most effective to use for a query, when it knows whether each
-        column contains NULL values.
-    </p>
+    <p>如果被索引的字段不会包含 NULL 值，那么定义表时就应将其设为 NOT NULL。
+        因为了解每个索引的哪些字段包含空值，优化器就可以更好地确定使用哪个索引。</p>
 
-    <p>
-        You can optimize single-query transactions for InnoDB tables, using the technique in Section 8.5.3, “Optimizing
-        InnoDB Read-Only Transactions”.
-    </p>
+    <p>你可以利用 “<a href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn">InnoDB 只读事务优化</a>”
+        提到的内容来优化单个查询事务。</p>
 
 
     <h2 id="optimizing-innodb-ddl-operations">InnoDB DDL 操作优化</h2>
@@ -361,28 +366,18 @@ SET foreign_key_checks=1;</code></pre>
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-ddl-operations.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-ddl-operations.html</a>
     </p>
 
-    <p>
-        Many DDL operations on tables and indexes (CREATE, ALTER, and DROP statements) can be performed online. See
-        Section 14.13, “InnoDB and Online DDL” for details.
-    </p>
+    <p>很多关于表和索引的 DDL 操作（CREATE、ALTER 和 DROP 语句）都可以在线执行，详见
+        <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-online-ddl.html">InnoDB and Online
+            DDL</a>。</p>
 
-    <p>
-        Online DDL support for adding secondary indexes means that you can generally speed up the process of creating
-        and loading a table and associated indexes by creating the table without secondary indexes, then adding
-        secondary indexes after the data is loaded.
-    </p>
+    <p>对二级索引的在线 DDL 支持，意味着我们可以在导入表和数据后再增加二级索引，以此加速索引的建立过程
+        （这一点是相对那种必须先建立索引，再增加数据的数据库来说的）。</p>
 
-    <p>
-        Use TRUNCATE TABLE to empty a table, not DELETE FROM tbl_name. Foreign key constraints can make a TRUNCATE
-        statement work like a regular DELETE statement, in which case a sequence of commands like DROP TABLE and CREATE
-        TABLE might be fastest.
-    </p>
+    <p>使用 <code>TRUNCATE TABLE</code> 而不是 <code>DELETE FROM tbl_name</code> 来清空数据库。
+        存在外键的表会让 TRUNCATE 也像 DELETE 一样清空前做外键检查，这种情况下先删表再重现重建是更快速的选择。</p>
 
-    <p>
-        Because the primary key is integral to the storage layout of each InnoDB table, and changing the definition of
-        the primary key involves reorganizing the whole table, always set up the primary key as part of the CREATE TABLE
-        statement, and plan ahead so that you do not need to ALTER or DROP the primary key afterward.
-    </p>
+    <p>由于主键是必定存在于每个 InnoDB 表的，而且修改主键的定义就意味着对整表进行重组，因此使用 <code>CREATE TABLE</code>
+        建表时应该同时定义好主键，避免后续通过 <code>ALTER</code> 或 <code>DROP</code> 重建。</p>
 
 
     <h2 id="optimizing-innodb-diskio">InnoDB 磁盘 I/O 优化</h2>
