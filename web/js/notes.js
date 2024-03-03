@@ -166,7 +166,11 @@ require([
 
             clickItem: function (item) {
                 if (item.url) {
-                    window.location.href = item.url;
+                    if (/^http(s):\/\/.+/.test(item.url)) {
+                        window.open(item.url, '_blank');
+                    } else if (!item.isCurrent) {
+                        window.location.href = item.url;
+                    }
                 } else {
                     item.activated = !item.activated;
                 }
