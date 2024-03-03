@@ -216,37 +216,49 @@
     <p>原文请参阅：<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-logging.html">https://dev.mysql.com/doc/refman/5.7/en/optimizing-innodb-logging.html</a>
     </p>
 
-    <p>Consider the following guidelines for optimizing redo logging:</p>
+    <p>按以下操作优化 redo log：</p>
 
-    <p>Make your redo log files big, even as big as the buffer pool. When InnoDB has written the redo log files
-        full, it must write the modified contents of the buffer pool to disk in a checkpoint. Small redo log files
-        cause many unnecessary disk writes. Although historically big redo log files caused lengthy recovery times,
-        recovery is now much faster and you can confidently use large redo log files.</p>
+    <ul>
+        <li>
+            <p>将 redo log 文件容量尽量设大，甚至和缓冲池一样大。当 InnoDB 写满 redo log 文件时，会在 checkpoint 中把缓冲池的修改内容写入磁盘。
+                小的 redo log 文件会导致不必要的磁盘写入操作。以前大的 redo log 文件会导致数据恢复耗时很多，但现在恢复速度很快，
+                无需担心。</p>
 
-    <p>The size and number of redo log files are configured using the innodb_log_file_size and
-        innodb_log_files_in_group configuration options. For information about modifying an existing redo log file
-        configuration, see Changing the Number or Size of InnoDB Redo Log Files.</p>
+            <p>redo log 文件的大小和数量分别由
+                <a target="_blank"
+                   href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_file_size">innodb_log_file_size</a>
+                和 <a target="_blank"
+                     href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_files_in_group">innodb_log_files_in_group</a>
+                参数决定。有关修改现有重做日志文件配置的信息，请参阅
+                <a target="_blank"
+                   href="https://dev.mysql.com/doc/refman/5.7/en/innodb-redo-log.html#innodb-redo-log-file-reconfigure">Changing
+                    the Number or Size of InnoDB Redo Log Files</a>。</p>
+        </li>
+        <li>
+            <p>考虑增加日志缓冲区的大小。大的日志缓冲区可以让大型事务提交前不必写入磁盘。
+                因此，对于同时更新、插入或删除多行数据的事务，增大日志缓冲区可以减少磁盘 I/O。日志缓冲区的大小由
+                <a target="_blank"
+                   href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_buffer_size">innodb_log_buffer_size</a>
+                参数配置。</p>
+        </li>
+        <li>
+            <p>修改 <a target="_blank"
+                     href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_write_ahead_size">innodb_log_write_ahead_size</a>
+                参数来设置 redo log 的预写块大小，以匹配操作系统（或文件系统）的缓存块大小，避免 “写时读” 现象。
+                当 redo log 的预写块大小与操作系统（或文件系统）的缓存块大小不匹配，导致 redo log 块未完全缓存到操作系统（或文件系统）时，会发生“写时读”现象。</p>
 
-    <p>Consider increasing the size of the log buffer. A large log buffer enables large transactions to run without
-        a need to write the log to disk before the transactions commit. Thus, if you have transactions that update,
-        insert, or delete many rows, making the log buffer larger saves disk I/O. Log buffer size is configured
-        using the innodb_log_buffer_size configuration option.</p>
+            <p><code>innodb_log_write_ahead_size</code> 的有效值是 Innodb 日志文件块大小的倍数。
+                最小值是 InnoDB 日志文件块大小（512），当指定最小值时，不会执行预写操作。
+                最大值等于 <a target="_blank"
+                         href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_page_size">innodb_page_size</a>
+                值。
+                如果 <code>innodb_log_write_ahead_size</code> 的指定值大于 <code>innodb_page_size</code>，则 <code>innodb_og_write_ahead_size</code>
+                的实际值将被强制改为 <code>innodb_page_size</code> 值。</p>
 
-    <p>Configure the innodb_log_write_ahead_size configuration option to avoid “read-on-write”. This option defines
-        the write-ahead block size for the redo log. Set innodb_log_write_ahead_size to match the operating system
-        or file system cache block size. Read-on-write occurs when redo log blocks are not entirely cached to the
-        operating system or file system due to a mismatch between write-ahead block size for the redo log and
-        operating system or file system cache block size.</p>
-
-    <p>Valid values for innodb_log_write_ahead_size are multiples of the InnoDB log file block size (2n). The
-        minimum value is the InnoDB log file block size (512). Write-ahead does not occur when the minimum value is
-        specified. The maximum value is equal to the innodb_page_size value. If you specify a value for
-        innodb_log_write_ahead_size that is larger than the innodb_page_size value, the innodb_log_write_ahead_size
-        setting is truncated to the innodb_page_size value.</p>
-
-    <p>Setting the innodb_log_write_ahead_size value too low in relation to the operating system or file system
-        cache block size results in read-on-write. Setting the value too high may have a slight impact on fsync
-        performance for log file writes due to several blocks being written at once.</p>
+            <p>以操作系统（或文件系统）的缓存块大小为参考，将 <code>innodb_log_write_ahead_size</code> 设得太低会导致 “写时读” 现象；
+                设得太高则会对日志文件写入的 fsync 性能产生轻微影响，因为会同时写入多个块。</p>
+        </li>
+    </ul>
 
 
     <h2 id="optimizing-innodb-bulk-data-loading">InnoDB 表的数据批量加载</h2>
