@@ -711,16 +711,15 @@ CREATE UNIQUE INDEX FTS_DOC_ID_INDEX on t1(FTS_DOC_ID);</code></pre>
                     Configuration</a>”</p>
         </li>
         <li>
-            Reducing the amount of switching that InnoDB does between concurrent threads, so that SQL operations on a
-            busy
-            server do not queue up and form a “traffic jam”. Set a value for the innodb_thread_concurrency option, up to
-            approximately 32 for a high-powered modern system. Increase the value for the innodb_concurrency_tickets
-            option,
-            typically to 5000 or so. This combination of options sets a cap on the number of threads that InnoDB
-            processes
-            at any one time, and allows each thread to do substantial work before being swapped out, so that the number
-            of
-            waiting threads stays low and operations can complete without excessive context switching.
+            <p>减少 InnoDB 在并发线程之间的切换量，这样即使服务器工作负载较大，SQL 操作也不会因排队而形成 “交通堵塞”。
+                为 <a target="_blank"
+                     href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_thread_concurrency">innodb_thread_concurrency</a>
+                参数设定一个值，对高性能的现代系统最高可设为 32。
+                增加 <a target="_blank"
+                      href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_concurrency_tickets">innodb_concurrency_tickets</a>
+                参数的值，通常为 5000。
+                这套选项组合限制了 InnoDB 线程数的最大值，并允许每个线程在交换之前完成大量工作，
+                这样等待的线程数可以保持在较低水平，并能在不过度切换上下文的情况下完成操作。</p>
         </li>
     </ul>
 
