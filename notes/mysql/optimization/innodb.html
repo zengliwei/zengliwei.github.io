@@ -610,106 +610,119 @@ CREATE UNIQUE INDEX FTS_DOC_ID_INDEX on t1(FTS_DOC_ID);</code></pre>
         full capacity all the time, or that experience spikes of high activity.
     </p>
 
-    <p>
-        Because the InnoDB storage engine performs many of its optimizations automatically, many performance-tuning
-        tasks involve monitoring to ensure that the database is performing well, and changing configuration options when
-        performance drops. See Section 14.17, “InnoDB Integration with MySQL Performance Schema” for information about
-        detailed InnoDB performance monitoring.
-    </p>
+    <p>由于 InnoDB 存储引擎自动执行许多优化，因此许多性能调整任务涉及监视以确保数据库性能良好，并在性能下降时更改配置选项。
+        关于 InnoDB 性能监控详情，请参阅
+        “<a target="_blank"
+            href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-schema.html">InnoDB Integration with MySQL
+            Performance Schema</a>”。</p>
 
-    <p>
-        The main configuration steps you can perform include:
-    </p>
+    <p>主要设置包括：</p>
 
-    <p>
-        Enabling InnoDB to use high-performance memory allocators on systems that include them. See Section 14.8.4,
-        “Configuring the Memory Allocator for InnoDB”.
-    </p>
-
-    <p>
-        Controlling the types of data change operations for which InnoDB buffers the changed data, to avoid frequent
-        small disk writes. See Configuring Change Buffering. Because the default is to buffer all types of data change
-        operations, only change this setting if you need to reduce the amount of buffering.
-    </p>
-
-    <p>
-        Turning the adaptive hash indexing feature on and off using the innodb_adaptive_hash_index option. See Section
-        14.5.3, “Adaptive Hash Index” for more information. You might change this setting during periods of unusual
-        activity, then restore it to its original setting.
-    </p>
-
-    <p>
-        Setting a limit on the number of concurrent threads that InnoDB processes, if context switching is a bottleneck.
-        See Section 14.8.5, “Configuring Thread Concurrency for InnoDB”.
-    </p>
-
-    <p>
-        Controlling the amount of prefetching that InnoDB does with its read-ahead operations. When the system has
-        unused I/O capacity, more read-ahead can improve the performance of queries. Too much read-ahead can cause
-        periodic drops in performance on a heavily loaded system. See Section 14.8.3.4, “Configuring InnoDB Buffer Pool
-        Prefetching (Read-Ahead)”.
-    </p>
-
-    <p>
-        Increasing the number of background threads for read or write operations, if you have a high-end I/O subsystem
-        that is not fully utilized by the default values. See Section 14.8.6, “Configuring the Number of Background
-        InnoDB I/O Threads”.
-    </p>
-
-    <p>
-        Controlling how much I/O InnoDB performs in the background. See Section 14.8.8, “Configuring InnoDB I/O
-        Capacity”. You might scale back this setting if you observe periodic drops in performance.
-    </p>
-
-    <p>
-        Controlling the algorithm that determines when InnoDB performs certain types of background writes. See Section
-        14.8.3.5, “Configuring Buffer Pool Flushing”. The algorithm works for some types of workloads but not others, so
-        might turn off this setting if you observe periodic drops in performance.
-    </p>
-
-    <p>
-        Taking advantage of multicore processors and their cache memory configuration, to minimize delays in context
-        switching. See Section 14.8.9, “Configuring Spin Lock Polling”.
-    </p>
-
-    <p>
-        Preventing one-time operations such as table scans from interfering with the frequently accessed data stored in
-        the InnoDB buffer cache. See Section 14.8.3.3, “Making the Buffer Pool Scan Resistant”.
-    </p>
-
-    <p>
-        Adjusting log files to a size that makes sense for reliability and crash recovery. InnoDB log files have often
-        been kept small to avoid long startup times after a crash. Optimizations introduced in MySQL 5.5 speed up
-        certain steps of the crash recovery process. In particular, scanning the redo log and applying the redo log are
-        faster due to improved algorithms for memory management. If you have kept your log files artificially small to
-        avoid long startup times, you can now consider increasing log file size to reduce the I/O that occurs due
-        recycling of redo log records.
-    </p>
-
-    <p>
-        Configuring the size and number of instances for the InnoDB buffer pool, especially important for systems with
-        multi-gigabyte buffer pools. See Section 14.8.3.2, “Configuring Multiple Buffer Pool Instances”.
-    </p>
-
-    <p>
-        Increasing the maximum number of concurrent transactions, which dramatically improves scalability for the
-        busiest databases. See Section 14.6.7, “Undo Logs”.
-    </p>
-
-    <p>
-        Moving purge operations (a type of garbage collection) into a background thread. See Section 14.8.10, “Purge
-        Configuration”. To effectively measure the results of this setting, tune the other I/O-related and
-        thread-related configuration settings first.
-    </p>
-
-    <p>
-        Reducing the amount of switching that InnoDB does between concurrent threads, so that SQL operations on a busy
-        server do not queue up and form a “traffic jam”. Set a value for the innodb_thread_concurrency option, up to
-        approximately 32 for a high-powered modern system. Increase the value for the innodb_concurrency_tickets option,
-        typically to 5000 or so. This combination of options sets a cap on the number of threads that InnoDB processes
-        at any one time, and allows each thread to do substantial work before being swapped out, so that the number of
-        waiting threads stays low and operations can complete without excessive context switching.
-    </p>
+    <ul>
+        <li>
+            <p>为 InnoDB 启用系统的高性能内存分配器。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-schema.html">Configuring the
+                    Memory
+                    Allocator for InnoDB</a>”。</p>
+        </li>
+        <li>
+            <p>控制 InnoDB 的数据变更操作类型，避免频繁的小磁盘写入。
+                默认设置为缓冲所有类型的数据变更操作，只有在需要减少缓冲量时才修改此设置。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-change-buffer.html#innodb-change-buffer-configuration">Configuring
+                    Change Buffering</a>”。</p>
+        </li>
+        <li>
+            <p>使用 <a target="_blank"
+                     href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_adaptive_hash_index">innodb_adaptive_hash_index</a>
+                参数打开和关闭自适应哈希索引功能。
+                你可以在异常活动期间修改此设置，活动完毕后复原。
+                详情请参阅 “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-adaptive-hash.html">Adaptive
+                    Hash Index</a>”。</p>
+        </li>
+        <li>
+            <p>如果上下文切换达到瓶颈，则应限制 InnoDB 并发线程数。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-thread_concurrency.html">Configuring
+                    Thread Concurrency for InnoDB</a>”。</p>
+        </li>
+        <li>
+            <p>控制 InnoDB 预读操作的预取量。
+                当系统存在未使用的 I/O 容量时，更多的预读可以提高查询性能。
+                但过多的预读可能导致重负载系统的性能周期性下降。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-read_ahead.html">Configuring
+                    InnoDB Buffer Pool Prefetching (Read-Ahead)</a>”。</p>
+        </li>
+        <li>
+            <p>如果默认的用于读写操作的后台线程数未能让你的高端 I/O 子系统得到充分利用，请增加它。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-multiple_io_threads.html">Configuring
+                    the Number of Background InnoDB I/O Threads</a>”。</p>
+        </li>
+        <li>
+            <p>控制 InnoDB 在后台执行的 I/O 量。如果观察到性能周期性下降，可尝试降低此参数值。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-configuring-io-capacity.html">Configuring
+                    InnoDB I/O Capacity</a>”</p>
+        </li>
+        <li>
+            <p>控制 InnoDB 用于确定何时执行某部分类型后台写入的算法。
+                此算法只适用于部分类型的工作负载，如果观察到性能周期性下降，可尝试关闭此参数。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-buffer-pool-flushing.html">Configuring
+                    Buffer Pool Flushing</a>”</p>
+        </li>
+        <li>
+            <p>利用多核处理器及其缓存配置，最大限度地减少上下文切换的延迟。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-spin_lock_polling.html">Configuring
+                    Spin Lock Polling</a>”。</p>
+        </li>
+        <li>
+            <p>防止全表扫描等一次性操作让 InnoDB 频繁访问缓冲区数据。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-performance-midpoint_insertion.html">Making
+                    the Buffer Pool Scan Resistant</a>”。</p>
+        </li>
+        <li>
+            <p>综合考虑系统性能和故障恢复效率来调整日志文件的大小。
+                InnoDB 日志文件的容量通常被设置得比较小，以避免崩溃后启动时间过长。
+                MySQL 5.5 引入的优化加速了崩溃后的恢复过程。由于改进了内存管理算法，扫描和应用 redo log 的效率比以前更高。
+                如果你过去人为地将日志文件设得很小来避免较长的启动时间，现在可以考虑增大容量，以减少因回收 redo log 记录而产生的 I/O。</p>
+        </li>
+        <li>
+            <p>为 InnoDB 缓冲池配置实例的大小和数量，对具有千兆字节缓冲池的系统来说尤其重要。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-multiple-buffer-pools.html">Configuring
+                    Multiple Buffer Pool Instances</a>”。</p>
+        </li>
+        <li>
+            <p>增加并发事务的最大数量，可以大幅提高繁忙数据库的可扩展性。
+                详情请参阅 “<a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/innodb-undo-logs.html">Undo
+                    Logs</a>”。</p>
+        </li>
+        <li>
+            <p>将 Purge（垃圾回收）操作迁移到后台线程执行。
+                要有效测量此设置的结果，请先调整其他与 I/O 及线程相关的参数。
+                详情请参阅 “<a target="_blank"
+                          href="https://dev.mysql.com/doc/refman/5.7/en/innodb-purge-configuration.html">Purge
+                    Configuration</a>”</p>
+        </li>
+        <li>
+            Reducing the amount of switching that InnoDB does between concurrent threads, so that SQL operations on a
+            busy
+            server do not queue up and form a “traffic jam”. Set a value for the innodb_thread_concurrency option, up to
+            approximately 32 for a high-powered modern system. Increase the value for the innodb_concurrency_tickets
+            option,
+            typically to 5000 or so. This combination of options sets a cap on the number of threads that InnoDB
+            processes
+            at any one time, and allows each thread to do substantial work before being swapped out, so that the number
+            of
+            waiting threads stays low and operations can complete without excessive context switching.
+        </li>
+    </ul>
 
 
     <h2 id="optimizing-innodb-many-tables">InnoDB 多表优化</h2>
