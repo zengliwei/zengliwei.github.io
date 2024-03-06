@@ -174,9 +174,14 @@ table td {
 
 table.list tr th {
     font-size: .75rem;
+    padding-left: 10px;
     padding-right: 20px;
-    text-align: right;
+    text-align: left;
     width: 150px;
+}
+
+table tbody th {
+    background: var(--theme-bg);
 }
 
 body {

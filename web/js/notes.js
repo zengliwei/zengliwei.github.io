@@ -143,9 +143,9 @@ require([
     app.component('nav-menu', {
 
         template: `<ul><li v-for="item in items" :class="getItemClass(item)">`
-            + `<a href="javascript:" :class="{favoured: item.favoured}" @click="clickItem(item)">`
+            + `<a :href="item.url ? item.url : 'javascript:'" :class="{favoured: item.favoured}" @click.prevent="clickItem(item)">`
             + `<span v-html="item.title"/>`
-            + `<span v-if="item.level > 1 && item.url" class="favour" @click.stop="(evt) => switchFavour(item)"/>`
+            + `<span v-if="item.level > 1 && item.url" class="favour" @click.prevent.stop="(evt) => switchFavour(item)"/>`
             + `</a>`
             + `<nav-menu v-if="item.children && item.children.length > 0" :items="item.children"/>`
             + `</li></ul>`,

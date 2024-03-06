@@ -36,6 +36,10 @@
                 "title": "性能优化",
                 "children": [
                     {
+                        "title": "MySQL 优化设置整理",
+                        "url": "notes/mysql/optimization/summary.html"
+                    },
+                    {
                         "title": "[译] MySQL 性能优化概述",
                         "url": "notes/mysql/optimization/overview.html"
                     },
