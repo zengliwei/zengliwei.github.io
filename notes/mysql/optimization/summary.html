@@ -39,10 +39,8 @@
         <tr>
             <th><a href="notes/mysql/optimization/summary.html#innodb_buffer_pool_instances">innodb_buffer_pool_instances</a>
             </th>
-            <td>缓冲池实例数。
-                <code>innodb_buffer_pool_size</code> 小于 1G 时默认 1，
-                <code>innodb_buffer_pool_size</code> 大于等于 1G 时默认 <code>innodb_buffer_pool_size</code> / <code>innodb_buffer_pool_chunk_size</code>。
-            </td>
+            <td>缓冲池实例数。<code>innodb_buffer_pool_size</code> 小于 1G 时默认 1，大于等于 1G 时默认 8。
+                推荐 <code>innodb_buffer_pool_size</code> / <code>innodb_buffer_pool_chunk_size</code>。</td>
         </tr>
         <tr>
             <th><a href="notes/mysql/optimization/summary.html#innodb_page_size">innodb_page_size</a></th>
