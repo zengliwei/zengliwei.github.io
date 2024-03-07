@@ -20,7 +20,8 @@
             font: 14px/20px Consolas, Helvetica, Arial, sans-serif;
         }
 
-        input {
+        input,
+        select {
             border: 1px solid #e0e0e0;
             border-radius: 3px;
             display: block;
@@ -212,19 +213,40 @@
                                 <span data-bind="text: $index() + 1"></span>
                             </div>
                             <div class="style">
-                                <input type="text" placeholder="flex-grow" data-bind="textInput: item.flexGrow"/>
+                                <label>
+                                    <input type="text" placeholder="flex-grow"
+                                           data-bind="textInput: item.flexGrow"/>
+                                </label>
                             </div>
                             <div class="style">
-                                <input type="text" placeholder="flex-shrink" data-bind="textInput: item.flexShrink"/>
+                                <label>
+                                    <input type="text" placeholder="flex-shrink"
+                                           data-bind="textInput: item.flexShrink"/>
+                                </label>
                             </div>
                             <div class="style">
-                                <input type="text" placeholder="flex-basis" data-bind="textInput: item.flexBasis"/>
+                                <label>
+                                    <input type="text" placeholder="flex-basis"
+                                           data-bind="textInput: item.flexBasis"/>
+                                </label>
                             </div>
                             <div class="style">
-                                <input type="text" placeholder="order" data-bind="textInput: item.order"/>
+                                <label>
+                                    <select data-bind="options: ['auto', 'flex-start', 'flex-end', 'center', 'baseline', 'stretch'],
+                                        value: item.alignSelf"></select>
+                                </label>
                             </div>
                             <div class="style">
-                                <input type="text" placeholder="width" data-bind="textInput: item.width"/>
+                                <label>
+                                    <input type="text" placeholder="order"
+                                           data-bind="textInput: item.order"/>
+                                </label>
+                            </div>
+                            <div class="style">
+                                <label>
+                                    <input type="text" placeholder="width"
+                                           data-bind="textInput: item.width"/>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -238,12 +260,12 @@
     Copyright &copy; <span class="year" data-bind="text: year"></span> <a href="/">Zengliwei</a>
 </footer>
 
-<script src="../../../web/js/lib/knockout.js"></script>
+<script src="web/js/lib/knockout.js"></script>
 <script>
 
-    let defNum = 5;
-    let defWidth = 200;
-    let defHeight = 'auto';
+    let defNum = 4;
+    let defWidth = 150;
+    let defHeight = 300;
 
     let styleOptions = {
         flexDirection: {
@@ -316,6 +338,7 @@
         this.flexGrow = ko.observable('');
         this.flexShrink = ko.observable('');
         this.flexBasis = ko.observable('');
+        this.alignSelf = ko.observable('auto');
         this.order = ko.observable('');
         this.width = ko.pureComputed({
             read: function () {
@@ -348,13 +371,7 @@
                 let count = this.items().length;
                 if (num > count) {
                     for (let i = count; i < num; i++) {
-                        this.items.push({
-                            flexGrow: ko.observable(''),
-                            flexShrink: ko.observable(''),
-                            flexBasis: ko.observable(''),
-                            order: ko.observable(''),
-                            width: ko.observable(this.defWidth() + 'px')
-                        });
+                        this.items.push(new itemModel(self));
                     }
                 } else if (num < count) {
                     this.items.splice(num, count - num);
@@ -366,13 +383,14 @@
         this.parent = {
             height: ko.observable(defHeight)
         };
+
         this.styleOptions = [];
         for (let code in styleOptions) {
 
             this.parent[code] = {
                 value: ko.observable(styleOptions[code].options[0].name),
                 info: ko.observable(styleOptions[code].options[0].info)
-            }
+            };
 
             let options = [];
             for (let i = 0; i < styleOptions[code].options.length; i++) {
