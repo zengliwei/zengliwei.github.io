@@ -69,9 +69,9 @@
     }
 });</code></pre>
 
-    <h3>自定义插件加载方法</h3>
+    <h3>自定义 Vue 组件加载方法</h3>
 
-    <p>通过以下代码定义全局方法 <code>aCom</code> 和 <code>page</code>：</p>
+    <p>通过以下代码定义全局方法 <code>vCom</code> 和 <code>vPage</code>：</p>
 
     <pre><code class="language-js">define(['path/to/vue'], function (Vue) {
 
@@ -85,12 +85,12 @@
         };
     };
 
-    window.aCom = function (expression) {
+    window.vCom = function (expression) {
         return Vue.defineAsyncComponent(com(expression));
     };
 
     // 这里约定所有页面都是由 main.js 和 template.html 两个文件组成
-    window.page = function (name) {
+    window.vPage = function (name) {
         return com(`com!${name}`);
     };
 });</code></pre>
@@ -105,15 +105,15 @@
     const app = Vue.createApp({});
 
     // 通过异步方式加载组件
-    app.component('x-form', aCom('path/to/components/form'));
-    app.component('x-date', aCom('path/to/components/form/date'));
-    app.component('x-editor', aCom('path/to/components/form/editor'));
-    app.component('x-selector', aCom('path/to/components/form/selector'));
+    app.component('x-form', vCom('path/to/components/form'));
+    app.component('x-date', vCom('path/to/components/form/date'));
+    app.component('x-editor', vCom('path/to/components/form/editor'));
+    app.component('x-selector', vCom('path/to/components/form/selector'));
 
     // 通过异步方式定义路由
     const routes = [
-        {name: 'home', path: '/', component: page('path/to/pages/home')},
-        {name: 'login', path: '/login', component: page('path/to/pages/login')}
+        {name: 'home', path: '/', component: vPage('path/to/pages/home')},
+        {name: 'login', path: '/login', component: vPage('path/to/pages/login')}
     ];
 
     const router = VueRouter.createRouter({
