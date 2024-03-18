@@ -89,6 +89,7 @@
         return Vue.defineAsyncComponent(com(expression));
     };
 
+    // 这里约定所有页面都是由 main.js 和 template.html 两个文件组成
     window.page = function (name) {
         return com(`com!${name}`);
     };
