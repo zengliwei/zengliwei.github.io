@@ -1,14 +1,18 @@
 [
     {
-        "title": "HTML & CSS",
+        "title": "前端开发",
         "children": [
             {
                 "title": "用 canvas 实现星空动画",
-                "url": "notes/html-css/canvas/starry-sky.html"
+                "url": "notes/frontend/canvas/starry-sky.html"
             },
             {
                 "title": "响应式布局",
-                "url": "notes/development/responsive-design.html"
+                "url": "notes/frontend/responsive-design.html"
+            },
+            {
+                "title": "Vue + Require.js 异步加载组件",
+                "url": "notes/frontend/vue-requirejs.html"
             }
         ]
     },

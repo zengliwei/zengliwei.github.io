@@ -77,6 +77,13 @@ h3 {
     padding-top: 1.125rem;
 }
 
+h4 {
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+}
+
 a {
     color: var(--theme-color);
     text-decoration: none;
@@ -392,16 +399,20 @@ body > .index a {
     padding: 4px 1rem;
 }
 
-body > .index a.h2 {
-    border-top: 2px solid #e0e0e3;
+body > .index a.h2,
+body > .index a.h3,
+body > .index a.h4 {
+    border-top: 1px solid #e0e0e3;
     font-size: .81255rem;
     padding-left: 1.125rem;
 }
 
 body > .index a.h3 {
-    border-top: 1px solid #e0e0e3;
-    font-size: .75rem;
     padding-left: 2.25rem;
+}
+
+body > .index a.h4 {
+    padding-left: 3.375rem;
 }
 
 body > .index a:first-child {
