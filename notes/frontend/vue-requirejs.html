@@ -22,11 +22,11 @@
 
     <h3>自定义 Requirejs 插件</h3>
 
-    <p>先自定义一个 Requirejs 插件，作用是通过一个表单式同时加载一个脚本文件和一个模板文件。</p>
+    <p>先自定义一个 Requirejs 插件，作用是通过一个表达式同时加载一个脚本文件和一个模板文件。</p>
 
     <p>比如，在 <code>path/to/component</code> 目录下有一个组件脚本文件 <code>main.js</code></p>
 
-    <pre><code>define(function () {
+    <pre><code class="language-js">define(function () {
     return {
         data: function () {
             return {
@@ -42,25 +42,25 @@
 
     <p>那么，通过以下代码：</p>
 
-    <pre><code>require(['com!path/to/component'], function (component) {
+    <pre><code class="language-js">require(['com!path/to/component'], function (component) {
     ...
 })</code></pre>
 
-    <p>可以同时加载这两个文件，并将模板文件的内容作为脚本的 template 参数，合并后返回一个对象 <code>component</code>。</p>
+    <p>可以同时加载这两个文件，并将模板文件的内容作为组件的 template 参数，合并后返回一个对象 <code>component</code>。</p>
 
-    <p>以下是 Requirejs 配置部分的相关内容，这里用到了官网提供的 text 文本加载插件：</p>
+    <p>以下是 Requirejs 配置的相关内容（这里用到官网提供的 text 文本加载插件）：</p>
 
-    <pre><code>require.config({
+    <pre><code class="language-js">require.config({
     paths: {
-        'text': 'lib/requirejs/text',
-        'com': 'lib/requirejs/vue-com'
+        'text': 'path/to/requirejs/text',
+        'com': 'path/to/requirejs/vue-com'
     }
 });</code></pre>
 
-    <p>插件开发相关说明，详见官网 <a target="_blank" href="https://requirejs.org/docs/plugins.html">https://requirejs.org/docs/plugins.html</a>。
-        以下是插件部分代码：</p>
+    <p>以下是插件的代码（插件开发相关说明，详见官网 <a target="_blank" href="https://requirejs.org/docs/plugins.html">https://requirejs.org/docs/plugins.html</a>）
+        ：</p>
 
-    <pre><code>define({
+    <pre><code class="language-js">define({
     load: function (name, req, onload) {
         req([`${name}/main`, `text!${name}/template.html`], (component, template) => {
             component.template = template;
@@ -73,7 +73,7 @@
 
     <p>通过以下代码定义全局方法 <code>aCom</code> 和 <code>page</code>：</p>
 
-    <pre><code>define(['vue'], function (Vue) {
+    <pre><code class="language-js">define(['path/to/vue'], function (Vue) {
 
     const com = function (expression) {
         return function () {
@@ -96,11 +96,20 @@
 
     <p>然后就可以按以下方式异步加载组件和路由页面了：</p>
 
-    <pre><code>define([
+    <pre><code class="language-js">define([
     'path/to/vue',
     'path/to/vue-router'
 ], function(Vue, VueRouter) {
 
+    const app = Vue.createApp({});
+
+    // 通过异步方式加载组件
+    app.component('x-form', aCom('path/to/components/form'));
+    app.component('x-date', aCom('path/to/components/form/date'));
+    app.component('x-editor', aCom('path/to/components//form/editor'));
+    app.component('x-selector', aCom('path/to/components/form/selector'));
+
+    // 通过异步方式定义路由
     const routes = [
         {name: 'home', path: '/', component: page('path/to/pages/home')},
         {name: 'login', path: '/login', component: page('path/to/pages/login')}
@@ -111,15 +120,16 @@
         routes: routes
     });
 
-    const app = Vue.createApp({});
-
-    app.component('x-form', aCom('path/to/components/form'));
-    app.component('x-date', aCom('path/to/components/form/date'));
-    app.component('x-editor', aCom('path/to/components//form/editor'));
-    app.component('x-selector', aCom('path/to/components/form/selector'));
-
     app.use(router).mount('body');
 });</code></pre>
+
+    <p>Vue 组件异步加载相关内容，请参阅 <a target="_blank" href="https://cn.vuejs.org/api/general.html#defineasynccomponent">https://cn.vuejs.org/api/general.html#defineasynccomponent</a>；
+    </p>
+
+    <p>Vue Router 异步加载页面的相关内容，请参阅
+        <a target="_blank"
+           href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html">https://router.vuejs.org/zh/guide/advanced/lazy-loading.html</a>。
+    </p>
 </main>
 <script src="web/js/lib/require.js" type="text/javascript"></script>
 <script src="web/js/require-config.js" type="text/javascript"></script>
