@@ -188,6 +188,14 @@ table.list tr th {
     width: 150px;
 }
 
+table.list a {
+    border-bottom: 1px solid var(--theme-color);
+}
+
+table.list a:hover {
+    border-color: transparent;
+}
+
 table tbody th {
     background: var(--theme-bg);
 }

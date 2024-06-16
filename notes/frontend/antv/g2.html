@@ -34,14 +34,6 @@
             margin-right: 5px;
             padding: 0 6px;
         }
-
-        table.list a {
-            border-bottom: 1px solid var(--theme-color);
-        }
-
-        table.list a:hover {
-            border-color: transparent;
-        }
     </style>
 </head>
 <body>
@@ -145,7 +137,7 @@
         上，再由 <code>View</code> 渲染出结果的。</p>
 
     <p><code>Encode</code> 的使用有两种方式，一是直接指定数据与通道的映射关系，二是定义一个函数来指明数据到通道的变换方式。
-        为便于理解，下边举一个例子在 Mark 层级指定编码：</p>
+        为了便于理解，下边举一个例子在 Mark 层级指定编码：</p>
 
     <pre><code>const chart = new G2.Chart();
 
@@ -161,7 +153,7 @@ chart.point()
 
 chart.render();</code></pre>
 
-    <p><code>Transform</code> 的类型比较丰富，列举如下：</p>
+    <p><code>Transform</code> 的类型比较丰富，罗列如下：</p>
 
     <table class="list">
         <thead>
@@ -174,7 +166,7 @@ chart.render();</code></pre>
         <tbody>
         <tr>
             <th rowspan="3"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/bin">bin</a></th>
-            <td rowspan="3">在对应的 mark 中有 transform 方法可以使用 bin 变换。</td>
+            <td rowspan="3">对连续的 x 和 连续的 y 通道进行分箱，并且对通道根据指定的 reducer 进行聚合。</td>
             <td>thresholdsX</td>
             <td><span class="type">number</span> 对 x 分箱的数量</td>
         </tr>
@@ -184,7 +176,9 @@ chart.render();</code></pre>
         </tr>
         <tr>
             <td>[channel]</td>
-            <td>type Reducer = ((I: number[], V: Primitive[]) => Primitive);</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span>
+                字符串返回值可选项为 mean、max、count、min、median、sum、first、last
+            </td>
         </tr>
 
         <tr>
@@ -195,37 +189,358 @@ chart.render();</code></pre>
         </tr>
         <tr>
             <td>[channel]</td>
-            <td>type Reducer = ((I: number[], V: Primitive[]) => Primitive);</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span>
+                字符串返回值可选项为 mean、max、count、min、median、sum、first、last
+            </td>
         </tr>
 
         <tr>
             <th rowspan="2"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/diff-y">diffY</a></th>
             <td rowspan="2">对 y 和 y1 通道求差集。</td>
             <td>groupBy</td>
-            <td><span class="type">string | string[]</span> 按照哪个通道分组数据</td>
+            <td><span class="type">string | string[]</span> 按照哪个通道分组数据，默认为 x</td>
         </tr>
         <tr>
             <td>series</td>
-            <td><span class="type">bool</span> 是否存在分组</td>
+            <td><span class="type">bool</span> 是否存在分组，默认为 true</td>
         </tr>
 
         <tr>
-            <th rowspan="4"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/dodge-x">dodgeX</a></th>
+            <th rowspan="4"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/dodge-x">dodgeX</a>
+            </th>
             <td rowspan="4">生成 series 通道值为 color 通道的值，根据 series 通道实现分组效果。</td>
             <td>groupBy</td>
-            <td><span class="type">string | string[]</span> 按照哪个通道分组数据</td>
+            <td><span class="type">string | string[]</span> 按照哪个通道分组数据，默认为 x</td>
         </tr>
         <tr>
             <td>reverse</td>
-            <td><span class="type">bool</span> 是否逆序</td>
+            <td><span class="type">bool</span> 是否逆序，默认为 false</td>
         </tr>
         <tr>
             <td>orderBy</td>
-            <td>type TransformOrder = ((data: Record&lt;string, Primitive&gt;) => Primitive);</td>
+            <td><span class="type">(data: Record&lt;string, Primitive&gt;) => Primitive</span> 默认返回 null</td>
         </tr>
         <tr>
             <td>padding</td>
-            <td><span class="type">number</span> 分组数据之间的间距（0 ~ 1）</td>
+            <td><span class="type">number</span> 分组数据之间的间距（0 ~ 1），默认为 0</td>
+        </tr>
+
+        <tr>
+            <th rowspan="3"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/flex-x">flexX</a></th>
+            <td rowspan="3">根据指定通道设置 x 比例尺的 flex 属性，实现不等宽矩形的效果。</td>
+            <td>field</td>
+            <td><span class="type">string | (d: any) => Primitive[]</span> 指定生成权重数组的字段，优先级比 channel 高
+            </td>
+        </tr>
+        <tr>
+            <td>channel</td>
+            <td><span class="type">string</span> 指定生成权重数组的通道，默认为 y</td>
+        </tr>
+        <tr>
+            <td>reducer</td>
+            <td><span class="type">'sum' | (I: number[], V: Primitive[]) => Primitive</span> 默认为 sum</td>
+        </tr>
+
+        <tr>
+            <th rowspan="2"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/group">group</a></th>
+            <td rowspan="2">对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。</td>
+            <td>channels</td>
+            <td><span class="type">string | string[]</span> 针对哪些通道做数据分组聚合，默认为 ['x', 'y']</td>
+        </tr>
+        <tr>
+            <td>[channel]</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span>
+                字符串返回值可选项为 mean、max、count、min、median、sum、first、last
+            </td>
+        </tr>
+
+        <tr>
+            <th><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/group-color">groupColor</a></th>
+            <td>对离散的 color 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。</td>
+            <td>[channel]</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span>
+                字符串返回值可选项为 mean、max、count、min、median、sum、first、last
+            </td>
+        </tr>
+
+        <tr>
+            <th><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/group-x">groupX</a></th>
+            <td>对离散的 x 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。等效于 channels = ['x'] 的 group。</td>
+            <td>[channel]</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span>
+                字符串返回值可选项为 mean、max、count、min、median、sum、first、last
+            </td>
+        </tr>
+
+        <tr>
+            <th><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/group-y">groupY</a></th>
+            <td>对离散的 y 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。等效于 channels = ['y'] 的 group。</td>
+            <td>[channel]</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span>
+                字符串返回值可选项为 mean、max、count、min、median、sum、first、last
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="4"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/jitter">jitter</a></th>
+            <td rowspan="4">根据离散的 x 和 离散的 y 比例尺，生成 dy 和 dx 通道，实现在某个区域散开的效果。</td>
+            <td>padding</td>
+            <td><span class="type">number</span> 分组在 x,y 方向上的间距 [0 ~ 1]，默认为 0</td>
+        </tr>
+        <tr>
+            <td>paddingX</td>
+            <td><span class="type">number</span> 分组在 x 方向上的间距 [0 ~ 1]，默认为 0</td>
+        </tr>
+        <tr>
+            <td>paddingY</td>
+            <td><span class="type">number</span> 分组在 y 方向上的间距 [0 ~ 1]，默认为 0</td>
+        </tr>
+        <tr>
+            <td>random</td>
+            <td><span class="type">() => number</span> 随机函数，返回值为 [0, 1)，默认 Math.random</td>
+        </tr>
+
+        <tr>
+            <th rowspan="2"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/jitter-x">jitterX</a>
+            </th>
+            <td rowspan="2">根据离散的 x 比例尺，生成 dx 通道，实现在某个区域的 x 方向散开的效果。</td>
+            <td>paddingX</td>
+            <td><span class="type">number</span> 分组在 x 方向上的间距 [0 ~ 1]，默认为 0</td>
+        </tr>
+        <tr>
+            <td>random</td>
+            <td><span class="type">() => number</span> 随机函数，返回值为 [0, 1)，默认 Math.random</td>
+        </tr>
+
+        <tr>
+            <th rowspan="2"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/jitter-y">jitterY</a>
+            </th>
+            <td rowspan="2">根据离散的 y 比例尺，生成 dy 通道，实现在某个区域的 y 方向散开的效果。</td>
+            <td>paddingY</td>
+            <td><span class="type">number</span> 分组在 y 方向上的间距 [0 ~ 1]，默认为 0</td>
+        </tr>
+        <tr>
+            <td>random</td>
+            <td><span class="type">() => number</span> 随机函数，返回值为 [0, 1)，默认 Math.random</td>
+        </tr>
+
+        <tr>
+            <th rowspan="2"><a target="_blank"
+                               href="https://g2.antv.antgroup.com/spec/transform/normalize-y">normalizeY</a></th>
+            <td rowspan="2">对 y 和 y1 通道根据指定的 basis 进行归一化处理。</td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span>按照哪个通道分组数据，默认为 x</td>
+        </tr>
+        <tr>
+            <td>basis</td>
+            <td><span class="type">string | (I, Y) => number</span> 使用某一个聚合数据进行归一化计算，
+                字符串可选值为 'deviation、first、last、max、mean、median、min、sum'，默认为 max
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="2"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/pack">pack</a></th>
+            <td rowspan="2">让元素在空间中紧凑排列，常常有用于单元可视化。</td>
+            <td>padding</td>
+            <td><span class="type">number</span> 每个元素之间的间距，单位为 px，默认为 0</td>
+        </tr>
+        <tr>
+            <td>direction</td>
+            <td><span class="type">string</span> 元素的堆叠方向，可选项为 row、col，默认为 col</td>
+        </tr>
+
+        <tr>
+            <th rowspan="3"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/sample">sample</a></th>
+            <td rowspan="3">针对线、柱、条、散点类图表，当数据量远大于屏幕像素的时候，开启一些内置的采样策略，可以有效的优化图表的绘制效率，
+                默认关闭，也就是按照原始数据全部渲染。
+            </td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span> 数据分组的字段，默认值 series</td>
+        </tr>
+        <tr>
+            <td>thresholds</td>
+            <td><span class="type">number</span> 采样策略启用的数据量阈值，默认值 2000</td>
+        </tr>
+        <tr>
+            <td>strategy</td>
+            <td><span
+                    class="type">string | (I: number[], X: number[], Y: number[], thresholds: number) => number[]</span>
+                采用指定的采样策略，字符串可选项为 lttb、median、max、min、first、last，默认为 median
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="3"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/select">select</a></th>
+            <td rowspan="3">按照指定通道进行分组，根据指定通道和 selector 从每组选择出数据。</td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span> 针对指定的通道进行分组，默认值 series</td>
+        </tr>
+        <tr>
+            <td>channel</td>
+            <td><span class="type">string</span> 针对每个分组，使用指定的通道进行指定的数据抽取</td>
+        </tr>
+        <tr>
+            <td>selector</td>
+            <td><span class="type">string | (I: number[], V: number[]) => number[]</span> 针对每个分组，指定对应的数据抽取操作。
+                字符串可选项为 min、max、first、last、mean、median，默认值 first
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="2"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/select-x">selectX</a>
+            </th>
+            <td rowspan="2">按照指定通道进行分组，根据 x 通道和 selector 从每组选择出数据。</td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span> 针对指定的通道进行分组，默认值 series</td>
+        </tr>
+        <tr>
+            <td>selector</td>
+            <td><span class="type">string | (I: number[], V: number[]) => number[]</span> 针对每个分组，指定对应的数据抽取操作。
+                字符串可选项为 min、max、first、last、mean、median，默认值 first
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="2"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/select-y">selectY</a>
+            </th>
+            <td rowspan="2">按照指定通道进行分组，根据 y 通道和 selector 从每组选择出数据。</td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span> 针对指定的通道进行分组，默认值 series</td>
+        </tr>
+        <tr>
+            <td>selector</td>
+            <td><span class="type">string | (I: number[], V: number[]) => number[]</span> 针对每个分组，指定对应的数据抽取操作。
+                字符串可选项为 min、max、first、last、mean、median，默认值 first
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="4"><a target="_blank"
+                               href="https://g2.antv.antgroup.com/spec/transform/sort-color">sortColor</a></th>
+            <td rowspan="4">对离散的 color 比例尺的定义域根据指定通道排序。</td>
+            <td>reverse</td>
+            <td><span class="type">boolean</span> 是否逆序，默认值 false</td>
+        </tr>
+        <tr>
+            <td>by</td>
+            <td><span class="type">string</span> 指定排序的通道，默认值 y</td>
+        </tr>
+        <tr>
+            <td>slice</td>
+            <td><span class="type">number | [number, number]</span> 选择一个分片范围，默认值 y</td>
+        </tr>
+        <tr>
+            <td>reducer</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span> 分组聚合，用于比较大小。
+                字符串返回值可选项为 max、min、sum、first、last、mean、median，默认值 max
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="5"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/sort-x">sortX</a></th>
+            <td rowspan="5">对离散的 x 比例尺的定义域根据指定通道排序。</td>
+            <td>reverse</td>
+            <td><span class="type">boolean</span> 是否逆序，默认值 false</td>
+        </tr>
+        <tr>
+            <td>by</td>
+            <td><span class="type">string</span> 指定排序的通道，默认值 y</td>
+        </tr>
+        <tr>
+            <td>slice</td>
+            <td><span class="type">number | [number, number]</span> 选择一个分片范围，默认值 y</td>
+        </tr>
+        <tr>
+            <td>reducer</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span> 分组聚合，用于比较大小。
+                字符串返回值可选项为 max、min、sum、first、last、mean、median，默认值 max
+            </td>
+        </tr>
+        <tr>
+            <td>ordinal</td>
+            <td><span class="type">boolean</span> reducer 处理逻辑，若被处理的数据是连续在设置为 false，默认为 true</td>
+        </tr>
+
+        <tr>
+            <th rowspan="4"><a target="_blank"
+                               href="https://g2.antv.antgroup.com/spec/transform/sort-y">sortY</a></th>
+            <td rowspan="4">对离散的 y 比例尺的定义域根据指定通道排序。</td>
+            <td>reverse</td>
+            <td><span class="type">boolean</span> 是否逆序，默认值 false</td>
+        </tr>
+        <tr>
+            <td>by</td>
+            <td><span class="type">string</span> 指定排序的通道，默认值 y</td>
+        </tr>
+        <tr>
+            <td>slice</td>
+            <td><span class="type">number | [number, number]</span> 选择一个分片范围，默认值 y</td>
+        </tr>
+        <tr>
+            <td>reducer</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span> 分组聚合，用于比较大小。
+                字符串返回值可选项为 max、min、sum、first、last、mean、median，默认值 max
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="5"><a target="_blank"
+                               href="https://g2.antv.antgroup.com/spec/transform/stack-enter">stackEnter</a></th>
+            <td rowspan="5">对 enterDuration 和 enterDelay 通道进行堆叠，实现分组动画的效果。</td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span> 选择一个分组通道，默认为 x</td>
+        </tr>
+        <tr>
+            <td>orderBy</td>
+            <td><span class="type">string</span> 排序的通道，默认为 null</td>
+        </tr>
+        <tr>
+            <td>reverse</td>
+            <td><span class="type">boolean</span> 是否逆序，默认值 false</td>
+        </tr>
+        <tr>
+            <td>duration</td>
+            <td><span class="type">number</span> 动画间隔，默认值 3000</td>
+        </tr>
+        <tr>
+            <td>reducer</td>
+            <td><span class="type">string | (I: number[], V: Primitive[]) => Primitive</span> 分组聚合，用于比较大小。
+                字符串返回值可选项为 max、min、sum、first、last、mean、median，默认值 max
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="6"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/stack-y">stackY</a></th>
+            <td rowspan="6">按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。</td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span> 选择一个分组通道，默认为 x</td>
+        </tr>
+        <tr>
+            <td>orderBy</td>
+            <td><span class="type">string</span> 排序的通道，默认为 null</td>
+        </tr>
+        <tr>
+            <td>y</td>
+            <td><span class="type">string</span> y 通道选择的数据通道来源，默认值 y</td>
+        </tr>
+        <tr>
+            <td>y1</td>
+            <td><span class="type">string</span> y1 通道选择的数据通道来源，默认值 y1</td>
+        </tr>
+        <tr>
+            <td>reverse</td>
+            <td><span class="type">boolean</span> 是否逆序，默认值 false</td>
+        </tr>
+        <tr>
+            <td>series</td>
+            <td><span class="type">boolean</span> 是否有分组字段，默认值 true</td>
+        </tr>
+
+        <tr>
+            <th rowspan="3"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/symmetry-y">symmetryY</a></th>
+            <td rowspan="3">按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。</td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span> 选择一个分组通道，默认为 x</td>
         </tr>
         </tbody>
     </table>
