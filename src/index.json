@@ -1,22 +1,5 @@
 [
     {
-        "title": "前端开发",
-        "children": [
-            {
-                "title": "用 canvas 实现星空动画",
-                "url": "notes/frontend/canvas/starry-sky.html"
-            },
-            {
-                "title": "响应式布局",
-                "url": "notes/frontend/responsive-design.html"
-            },
-            {
-                "title": "Vue + Require.js 异步加载组件",
-                "url": "notes/frontend/vue-requirejs.html"
-            }
-        ]
-    },
-    {
         "title": "PHP",
         "children": [
             {
@@ -56,6 +39,23 @@
         ]
     },
     {
+        "title": "前端开发",
+        "children": [
+            {
+                "title": "用 canvas 实现星空动画",
+                "url": "notes/frontend/canvas/starry-sky.html"
+            },
+            {
+                "title": "响应式布局",
+                "url": "notes/frontend/responsive-design.html"
+            },
+            {
+                "title": "Vue + Require.js 异步加载组件",
+                "url": "notes/frontend/vue-requirejs.html"
+            }
+        ]
+    },
+    {
         "title": "项目开发",
         "children": [
             {
@@ -71,5 +71,9 @@
                 "url": "notes/development/windows-dev.html"
             }
         ]
+    },
+    {
+        "title": "常用资源",
+        "url": "index.html"
     }
 ]

@@ -191,6 +191,10 @@ table tbody th {
     background: var(--theme-bg);
 }
 
+table *:last-child {
+    margin-bottom: 0;
+}
+
 body {
     color: #545454;
     font-size: .875rem;

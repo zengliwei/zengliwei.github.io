@@ -26,10 +26,11 @@ require([
             + `<aside v-show="indexItems.length > 0" class="index"><h3>本文索引</h3><nav ref="index">`
             + `<a v-for="item in indexItems" :class="item.tag" :href="item.url" >{{ item.title }}</a>`
             + `</nav></aside>`
-            + `<footer>Copyright &copy; <a target="_blank" href="https://zengliwei.github.io/"><strong>Zengliwei</strong></a>. All rights reserved.</footer>`,
+            + `<footer>Copyright &copy; {{ year }} <a target="_blank" href="https://zengliwei.github.io/"><strong>Zengliwei</strong></a>. All rights reserved.</footer>`,
 
         data: function () {
             return {
+                year: (new Date()).getFullYear(),
                 content: html,
                 keyword: '',
                 favours: [],
@@ -102,7 +103,7 @@ require([
             this.currentUrl = window.location.pathname.substr(1);
             this.favourUrls = JSON.parse(window.localStorage.getItem('note-favours')) || {};
 
-            $.ajax('/notes/index.json').then((menuItems) => {
+            $.ajax('/index.json').then((menuItems) => {
                 this.processMenuItems(menuItems);
                 this.menuItems = menuItems;
             });
