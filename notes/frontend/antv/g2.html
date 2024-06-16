@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <base href="/"/>
+    <title>AntV - G2 使用笔记</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="keywords" content="响应式, responsive"/>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
+    <style>
+        table.list tr th {
+            width: unset;
+        }
+
+        table.list tr th.method {
+            width: 7rem;
+        }
+
+        table.list tr th.info {
+            width: 12rem;
+        }
+
+        table.list tr th.param {
+            width: 7rem;
+        }
+
+        table.list tr td span.type {
+            background: var(--theme-bg-dark);
+            border-radius: 3px;
+            color: var(--theme-color);
+            display: inline-block;
+            font-size: .6875rem;
+            margin-right: 5px;
+            padding: 0 6px;
+        }
+
+        table.list a {
+            border-bottom: 1px solid var(--theme-color);
+        }
+
+        table.list a:hover {
+            border-color: transparent;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <h1>AntV - G2 使用笔记</h1>
+
+    <h2>写在前面</h2>
+
+    <p>G2 是一套简洁的渐进式可视化语法，用于报表搭建、数据探索以及可视化叙事。</p>
+
+    <p>G2 的概念和相关参数很多，虽然功能强大且灵活多样化，但学习曲线相对陡峭。如需要快速实现界面展示，推荐使用
+        <a target="_blank" href="https://g2plot.antv.antgroup.com">G2Plot</a> - 开箱即用的图表库。</p>
+
+    <p>G2 官网地址是 <a target="_blank" href="https://g2.antv.antgroup.com">https://g2.antv.antgroup.com</a>，它的文档分成了【文档】、【选项】、【API】、【图标示例】等几个部分：
+    </p>
+
+    <ul>
+        <li>【文档】是对 G2
+            组件本身及其核心概念（组成部分）的介绍，每个概念都有相关例子作说明，但相关参数的说明需另行查询【选项】；
+        </li>
+        <li>【选项】是对各个组成部分的使用参数的文字说明，但对应例子较少，一般需通过【图标示例】作更深入的理解；</li>
+        <li>【API】是函数式字典，列明每个组成部分的 API 函数式（为了提供更多样化和灵活地声明图表的能力，G2 提供了一系列函数式
+            API 来声明图表，与使用选项没有本质区别）与选项的对应关系；
+        </li>
+        <li>【图标示例】列举了很多不同选项及选项组合的使用样例，让文档的其它部分内容更好理解。</li>
+    </ul>
+
+    <h2>快速入门</h2>
+
+    <p>G2 的使用一般来说是三部曲：</p>
+
+    <ol>
+        <li>数据读取 - 通过直接赋值、读取 JSON 或 CSV 等方式取得数据；</li>
+        <li>数据映射 - 创建标记（基本视觉组成单元），并将数据的各部分按不同规则映射到标记接口（通道）上，基本整个 G2
+            的使用都是围绕这部分进行；
+        </li>
+        <li>数据渲染 - 执行 <code>Chart</code> 实例（此概念下文有说明）的 <code>render</code> 方法显示结果。</li>
+    </ol>
+
+    <h3>重要核心概念</h3>
+
+    <p>为了便于学习如何使用 G2，实现数据映射，需要首先了解一些重要的核心概念：</p>
+
+    <table class="list">
+        <thead>
+        <tr>
+            <th style="width: 7rem;">核心概念</th>
+            <th>说明</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>Chart</th>
+            <td>
+                G2 的大部分能力通过 <code>Chart</code> 对象暴露给用户，每个 G2 的可视化都是通过实例化
+                <code>Chart</code> 对象创建一个新的图表实例。<br/>
+                参考官网文档：<a target="_blank" href="https://g2.antv.antgroup.com/manual/core/chart">https://g2.antv.antgroup.com/manual/core/chart</a>
+            </td>
+        </tr>
+        <tr>
+            <th>View</th>
+            <td>
+                G2 中视图 <code>View</code> 用来绘制多个标记。一个视图至少拥有一个坐标系，也是应用交互的最小单位。
+                实例化 <code>Chart</code> 返回的实质上就是一个 <code>View</code> 对象。<br/>
+                参考官网文档：<a target="_blank" href="https://g2.antv.antgroup.com/manual/core/view">https://g2.antv.antgroup.com/manual/core/view</a>
+            </td>
+        </tr>
+        <tr>
+            <th>Mark</th>
+            <td>
+                G2 中把标记 Mark 作为基本的视觉组成单元，任何一个图表都是多个标记组合而成的。<br/>
+                不同类型的图表由不同的 Mark 对象实现，如折线图 <code>view.line</code>、柱状图 <code>view.interval</code>
+                等等。<br/>
+                参考官网文档：<a target="_blank" href="https://g2.antv.antgroup.com/manual/core/mark">https://g2.antv.antgroup.com/manual/core/mark</a>
+            </td>
+        </tr>
+        <tr>
+            <th>Encode</th>
+            <td>
+                G2 中编码（Encode） 主要用于指定<strong>视觉元素属性</strong>和<strong>数据</strong>之间的关系。
+                可以在 Mark 层级指定编码，也可以在 View 层级指定编码。<br/>
+                参考官网文档：<a target="_blank" href="https://g2.antv.antgroup.com/manual/core/encode">https://g2.antv.antgroup.com/manual/core/encode</a>
+            </td>
+        </tr>
+        <tr>
+            <th>Transform</th>
+            <td>
+                G2 中的标记转换（Mark Transform） 提供了一个方便的机制，去转换数据和标记的选项，主要用于分析数据。
+                标记转换的本质是一个函数，这个函数会筛选 、修改 、聚合和产生新的通道值。<br/>
+                转换是一个数组，声明多个转换时会按顺序执行。转换可以配置在 Mark 层级，也可以配置在 View 层级。<br/>
+                参考官网文档：<a target="_blank" href="https://g2.antv.antgroup.com/manual/core/transform">https://g2.antv.antgroup.com/manual/core/transform</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>数据映射</h3>
+
+    <p>理解上述的核心概念后可以发现，G2 就是通过 <code>Encode</code> 和 <code>Transform</code> 将数据映射到
+        <code>Mark</code>
+        上，再由 <code>View</code> 渲染出结果的。</p>
+
+    <p><code>Encode</code> 的使用有两种方式，一是直接指定数据与通道的映射关系，二是定义一个函数来指明数据到通道的变换方式。
+        为便于理解，下边举一个例子在 Mark 层级指定编码：</p>
+
+    <pre><code>const chart = new G2.Chart();
+
+chart.data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json'
+});
+
+chart.point()
+    .encode('x', 'weight') // 方式一，直接指定数据与通道的映射关系
+    .encode('y', (d) => d.height) // 方式二，定义一个函数来指明数据到通道的变换方式
+    .encode('color', 'gender');
+
+chart.render();</code></pre>
+
+    <p><code>Transform</code> 的类型比较丰富，列举如下：</p>
+
+    <table class="list">
+        <thead>
+        <tr>
+            <th class="method">方法</th>
+            <th class="info">说明</th>
+            <th class="param">参数</th>
+            <th class="param-info">参数说明</th>
+        </thead>
+        <tbody>
+        <tr>
+            <th rowspan="3"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/bin">bin</a></th>
+            <td rowspan="3">在对应的 mark 中有 transform 方法可以使用 bin 变换。</td>
+            <td>thresholdsX</td>
+            <td><span class="type">number</span> 对 x 分箱的数量</td>
+        </tr>
+        <tr>
+            <td>thresholdsY</td>
+            <td><span class="type">number</span> 对 y 分箱的数量</td>
+        </tr>
+        <tr>
+            <td>[channel]</td>
+            <td>type Reducer = ((I: number[], V: Primitive[]) => Primitive);</td>
+        </tr>
+
+        <tr>
+            <th rowspan="2"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/bin-x">binX</a></th>
+            <td rowspan="2">对 x 通道进行分箱，如果希望对 y 通道进行分箱，使用 binX + transpose 坐标系。</td>
+            <td>thresholds</td>
+            <td><span class="type">number</span> 对 x 分箱的数量</td>
+        </tr>
+        <tr>
+            <td>[channel]</td>
+            <td>type Reducer = ((I: number[], V: Primitive[]) => Primitive);</td>
+        </tr>
+
+        <tr>
+            <th rowspan="2"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/diff-y">diffY</a></th>
+            <td rowspan="2">对 y 和 y1 通道求差集。</td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span> 按照哪个通道分组数据</td>
+        </tr>
+        <tr>
+            <td>series</td>
+            <td><span class="type">bool</span> 是否存在分组</td>
+        </tr>
+
+        <tr>
+            <th rowspan="4"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/dodge-x">dodgeX</a></th>
+            <td rowspan="4">生成 series 通道值为 color 通道的值，根据 series 通道实现分组效果。</td>
+            <td>groupBy</td>
+            <td><span class="type">string | string[]</span> 按照哪个通道分组数据</td>
+        </tr>
+        <tr>
+            <td>reverse</td>
+            <td><span class="type">bool</span> 是否逆序</td>
+        </tr>
+        <tr>
+            <td>orderBy</td>
+            <td>type TransformOrder = ((data: Record&lt;string, Primitive&gt;) => Primitive);</td>
+        </tr>
+        <tr>
+            <td>padding</td>
+            <td><span class="type">number</span> 分组数据之间的间距（0 ~ 1）</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>编辑于 2023-06-16。</p>
+</main>
+<script src="web/js/lib/require.js" type="text/javascript"></script>
+<script src="web/js/require-config.js" type="text/javascript"></script>
+<script src="web/js/notes.js" type="text/javascript"></script>
+</body>
+</html>

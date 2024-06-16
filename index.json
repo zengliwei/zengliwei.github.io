@@ -42,6 +42,15 @@
         "title": "前端开发",
         "children": [
             {
+                "title": "AntV 数据驱动",
+                "children": [
+                    {
+                        "title": "G2 使用笔记",
+                        "url": "notes/frontend/antv/g2.html"
+                    }
+                ]
+            },
+            {
                 "title": "用 canvas 实现星空动画",
                 "url": "notes/frontend/canvas/starry-sky.html"
             },
