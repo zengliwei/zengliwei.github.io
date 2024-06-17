@@ -94,6 +94,15 @@
             </td>
         </tr>
         <tr>
+            <th>Data</th>
+            <td>
+                G2 中的数据（Data）主要用于指定需要可视化的数据和数据转换（预处理）。数据可以指定在 View 层级，也可以指定在
+                Mark 层级。指定为 <code>Data</code> 的数据需满足 3
+                个条件：<strong>内联数据</strong>、<strong>纯数组</strong>、<strong>没有预处理函数</strong>。<br/>
+                参考官网文档：<a target="_blank" href="https://g2.antv.antgroup.com/manual/core/data">https://g2.antv.antgroup.com/manual/core/data</a>
+            </td>
+        </tr>
+        <tr>
             <th>View</th>
             <td>
                 G2 中视图 <code>View</code> 用来绘制多个标记。一个视图至少拥有一个坐标系，也是应用交互的最小单位。
@@ -132,7 +141,7 @@
 
     <h3>数据映射</h3>
 
-    <p>理解上述的核心概念后可以发现，G2 就是通过 <code>Encode</code> 和 <code>Transform</code> 将数据映射到
+    <p>理解上述的核心概念后可以发现，G2 就是通过 <code>Encode</code> 和 <code>Transform</code> 将 <code>Data</code> 映射到
         <code>Mark</code>
         上，再由 <code>View</code> 渲染出结果的。</p>
 
@@ -510,7 +519,8 @@ chart.render();</code></pre>
         </tr>
 
         <tr>
-            <th rowspan="6"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/stack-y">stackY</a></th>
+            <th rowspan="6"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/stack-y">stackY</a>
+            </th>
             <td rowspan="6">按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果。</td>
             <td>groupBy</td>
             <td><span class="type">string | string[]</span> 选择一个分组通道，默认为 x</td>
@@ -537,7 +547,8 @@ chart.render();</code></pre>
         </tr>
 
         <tr>
-            <th rowspan="3"><a target="_blank" href="https://g2.antv.antgroup.com/spec/transform/symmetry-y">symmetryY</a></th>
+            <th rowspan="3"><a target="_blank"
+                               href="https://g2.antv.antgroup.com/spec/transform/symmetry-y">symmetryY</a></th>
             <td rowspan="3">按照指定通道分组，给每组的 y 和 y1 通道添加偏移，实现对称效果。</td>
             <td>groupBy</td>
             <td><span class="type">string | string[]</span> 选择一个分组通道，默认为 x</td>
