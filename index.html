@@ -124,6 +124,8 @@ find ./ -type d -print|xargs chmod 755;</code></pre>
 
     <h3>GIT</h3>
 
+    <h4>导出文件</h4>
+
     <table class="list">
         <tbody>
         <tr>
@@ -131,7 +133,7 @@ find ./ -type d -print|xargs chmod 755;</code></pre>
         </tr>
         <tr>
             <td><pre><code>git archive --output=latest.tar HEAD \
-$(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT HEAD^)</code></pre><br/>
+$(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT HEAD^)</code></pre>
             </td>
         </tr>
         <tr>
@@ -139,7 +141,7 @@ $(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT HEAD^)</code><
         </tr>
         <tr>
             <td><pre><code>git archive --output=latest.tar HEAD \
-$(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT OLD_COMMIT_ID HEAD)</code></pre><br/>
+$(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT OLD_COMMIT_ID HEAD)</code></pre>
             </td>
         </tr>
         <tr>
@@ -147,9 +149,29 @@ $(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT OLD_COMMIT_ID 
         </tr>
         <tr>
             <td><pre><code>git archive --output=latest.tar COMMIT_ID_2 \
-$(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT COMMIT_ID_1 COMMIT_ID_2)</code></pre><br/>
+$(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT COMMIT_ID_1 COMMIT_ID_2)</code></pre>
             </td>
         </tr>
+        </tbody>
+    </table>
+
+    <h4>克隆代码库</h4>
+
+    <table class="list">
+        <tbody>
+        <tr>
+            <th>指定分支克隆库文件到当前文件夹</th>
+        </tr>
+        <tr>
+            <td>
+                <pre><code>git clone username@http://path.to.git -b branch .</code></pre>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="list">
+        <tbody>
         <tr>
             <th>在 GIT 中忽略本地文件</th>
         </tr>
