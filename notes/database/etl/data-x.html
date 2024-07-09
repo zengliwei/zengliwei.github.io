@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <base href="/"/>
+    <title>[ETL] DataX 概述</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="keywords" content="DataX, etl"/>
+    <meta name="description" content="DataX 概述"/>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
+</head>
+<body>
+<main>
+    <h1>
+        <span class="tag">[ETL]</span>
+        <span>DataX 概述</span>
+    </h1>
+
+    <h2>什么是 DataX</h2>
+
+    <p>DataX 是阿里云 DataWorks数据集成 的开源版本，在阿里巴巴集团内被广泛使用的离线数据同步工具/平台。DataX 实现了包括
+        MySQL、Oracle、OceanBase、SqlServer、Postgre、HDFS、Hive、ADS、HBase、TableStore(OTS)、MaxCompute(ODPS)、Hologres、DRDS,
+        databend 等各种异构数据源之间高效的数据同步功能。</p>
+
+    <h2>常用数据转换配置文件</h2>
+
+    <h3>Oracle 到 MySQL</h3>
+
+    <pre><code class="language-json">{
+    "job": {
+        "setting": {
+            "speed": { "channel": 3 }
+        },
+        "content": [
+            {
+                "reader": {
+                    "name": "oraclereader",
+                    "parameter": {
+                        "username": "username",
+                        "password": "password",
+                        "column": [ "*" ],
+                        "connection": [
+                            {
+                                "jdbcUrl": [ "jdbc:oracle:thin:@//" ],
+                                "table": [ "user" ]
+                            }
+                        ]
+                    }
+                },
+                "writer": {
+                    "name": "mysqlwriter",
+                    "parameter": {
+                        "username": "username",
+                        "password": "password",
+                        "column": [ "*" ],
+                        "connection": [
+                            {
+                                "jdbcUrl": "jdbc:mysql://",
+                                "table": [ "user" ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}</code></pre>
+
+    <h3>SQL Server 到 MySQL</h3>
+
+
+</main>
+<script src="web/js/lib/require.js" type="text/javascript"></script>
+<script src="web/js/require-config.js" type="text/javascript"></script>
+<script src="web/js/notes.js" type="text/javascript"></script>
+</body>
+</html>

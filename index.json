@@ -45,13 +45,17 @@
                 "title": "SQL Server",
                 "children": [
                     {
-                        "title": "ETL",
-                        "children": [
-                            {
-                                "title": "SSIS 概述",
-                                "url": "notes/database/sql-server/etl/ssis-summary.html"
-                            }
-                        ]
+                        "title": "SSIS 概述",
+                        "url": "notes/database/sql-server/ssis-summary.html"
+                    }
+                ]
+            },
+            {
+                "title": "ETL",
+                "children": [
+                    {
+                        "title": "DataX 概述",
+                        "url": "notes/database/etl/data-x.html"
                     }
                 ]
             }
