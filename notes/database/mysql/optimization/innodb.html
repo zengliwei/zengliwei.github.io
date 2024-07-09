@@ -22,23 +22,23 @@
     </p>
 
     <ul>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-storage-layout">InnoDB 表存储布局优化</a>
+        <li><a href="../optimization/innodb.html#optimizing-innodb-storage-layout">InnoDB 表存储布局优化</a>
         </li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-transaction-management">InnoDB
+        <li><a href="../optimization/innodb.html#optimizing-innodb-transaction-management">InnoDB
             事务管理</a>
         </li>
-        <li><a href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn">InnoDB 只读事务优化</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-logging">InnoDB Redo 日志优化</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-bulk-data-loading">InnoDB
+        <li><a href="../optimization/innodb.html#innodb-performance-ro-txn">InnoDB 只读事务优化</a></li>
+        <li><a href="../optimization/innodb.html#optimizing-innodb-logging">InnoDB Redo 日志优化</a></li>
+        <li><a href="../optimization/innodb.html#optimizing-innodb-bulk-data-loading">InnoDB
             表的数据批量加载</a>
         </li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-queries">InnoDB 查询</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-ddl-operations">InnoDB DDL 操作优化</a>
+        <li><a href="../optimization/innodb.html#optimizing-innodb-queries">InnoDB 查询</a></li>
+        <li><a href="../optimization/innodb.html#optimizing-innodb-ddl-operations">InnoDB DDL 操作优化</a>
         </li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-diskio">InnoDB 磁盘 I/O 优化</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-configuration-variables">InnoDB
+        <li><a href="../optimization/innodb.html#optimizing-innodb-diskio">InnoDB 磁盘 I/O 优化</a></li>
+        <li><a href="../optimization/innodb.html#optimizing-innodb-configuration-variables">InnoDB
             配置优化</a></li>
-        <li><a href="notes/mysql/optimization/innodb.html#optimizing-innodb-many-tables">InnoDB 多表优化</a></li>
+        <li><a href="../optimization/innodb.html#optimizing-innodb-many-tables">InnoDB 多表优化</a></li>
     </ul>
 
     <h2 id="optimizing-innodb-storage-layout">InnoDB 表存储布局优化</h2>
@@ -99,7 +99,7 @@
     <p>
         对于只包含一个 <a target="_blank" href="https://dev.mysql.com/doc/refman/5.7/en/select.html">SELECT</a>
         语句的事务，打开 AUTOCOMMIT 有利于 InnoDB 对其进行只读识别和优化。见 “<a
-            href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn">InnoDB 只读事务优化</a>”。
+            href="../optimization/innodb.html#innodb-performance-ro-txn">InnoDB 只读事务优化</a>”。
     </p>
     <p>
         应尽量避免在插入、更新或删除大批量数据后进行回滚。
@@ -369,7 +369,7 @@ CREATE UNIQUE INDEX FTS_DOC_ID_INDEX on t1(FTS_DOC_ID);</code></pre>
     <p>如果被索引的字段不会包含 NULL 值，那么定义表时就应将其设为 NOT NULL。
         因为了解每个索引的哪些字段包含空值，优化器就可以更好地确定使用哪个索引。</p>
 
-    <p>你可以利用 “<a href="notes/mysql/optimization/innodb.html#innodb-performance-ro-txn">InnoDB 只读事务优化</a>”
+    <p>你可以利用 “<a href="../optimization/innodb.html#innodb-performance-ro-txn">InnoDB 只读事务优化</a>”
         提到的内容来优化单个查询事务。</p>
 
 

@@ -17,22 +17,41 @@
         ]
     },
     {
-        "title": "MySQL",
+        "title": "数据库",
         "children": [
             {
-                "title": "性能优化",
+                "title": "MySQL",
                 "children": [
                     {
-                        "title": "MySQL 优化设置整理",
-                        "url": "notes/mysql/optimization/summary.html"
-                    },
+                        "title": "性能优化",
+                        "children": [
+                            {
+                                "title": "MySQL 优化设置整理",
+                                "url": "notes/database/mysql/optimization/summary.html"
+                            },
+                            {
+                                "title": "[译] MySQL 性能优化概述",
+                                "url": "notes/database/mysql/optimization/overview.html"
+                            },
+                            {
+                                "title": "[译] InnoDB 表性能优化",
+                                "url": "notes/database/mysql/optimization/innodb.html"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "SQL Server",
+                "children": [
                     {
-                        "title": "[译] MySQL 性能优化概述",
-                        "url": "notes/mysql/optimization/overview.html"
-                    },
-                    {
-                        "title": "[译] InnoDB 表性能优化",
-                        "url": "notes/mysql/optimization/innodb.html"
+                        "title": "ETL",
+                        "children": [
+                            {
+                                "title": "SSIS 概述",
+                                "url": "notes/database/sql-server/etl/ssis-summary.html"
+                            }
+                        ]
                     }
                 ]
             }

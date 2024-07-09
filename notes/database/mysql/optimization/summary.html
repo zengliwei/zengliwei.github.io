@@ -9,6 +9,19 @@
     <meta name="description" content="MySQL 优化设置整理"/>
     <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
+    <style>
+        table.list tbody tr th {
+            width: 14rem;
+        }
+
+        table.list tbody tr th a {
+            border: 0;
+        }
+
+        table.list tbody tr th a:hover {
+            border-bottom: 1px solid var(--theme-color);
+        }
+    </style>
 </head>
 <body>
 <main>
@@ -24,7 +37,7 @@
     <table class="list">
         <tbody>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_buffer_pool_size">innodb_buffer_pool_size</a></th>
+            <th><a href="../optimization/summary.html#innodb_buffer_pool_size">innodb_buffer_pool_size</a></th>
             <td>数据缓冲池容量，设定用于存放 InnoDB 表的数据和索引的内存大小。<br/>
                 视服务器定位及其物理内存而定，推荐纯数据库服务器设定为内存总量的 80%，其它类型服务器不小于 1G。<br/>
                 注：<code>innodb_buffer_pool_size</code> 必须为 <code>innodb_buffer_pool_chunk_size</code> * <code>innodb_buffer_pool_instances</code>
@@ -32,73 +45,75 @@
             </td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_buffer_pool_chunk_size">innodb_buffer_pool_chunk_size</a>
+            <th><a href="../optimization/summary.html#innodb_buffer_pool_chunk_size">innodb_buffer_pool_chunk_size</a>
             </th>
             <td>缓冲池块容量，默认 128M。</td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_buffer_pool_instances">innodb_buffer_pool_instances</a>
+            <th><a href="../optimization/summary.html#innodb_buffer_pool_instances">innodb_buffer_pool_instances</a>
             </th>
             <td>缓冲池实例数。<code>innodb_buffer_pool_size</code> 小于 1G 时默认 1，大于等于 1G 时默认 8。
-                推荐 <code>innodb_buffer_pool_size</code> / <code>innodb_buffer_pool_chunk_size</code>。</td>
+                推荐 <code>innodb_buffer_pool_size</code> / <code>innodb_buffer_pool_chunk_size</code>。
+            </td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_page_size">innodb_page_size</a></th>
+            <th><a href="../optimization/summary.html#innodb_page_size">innodb_page_size</a></th>
             <td>页（表空间文件的最小存储单位）的尺寸。默认 16K，推荐与磁盘扇区大小一致。</td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_log_buffer_size">innodb_log_buffer_size</a>
+            <th><a href="../optimization/summary.html#innodb_log_buffer_size">innodb_log_buffer_size</a>
             </th>
             <td>增、删、改操作会产生 redo log，该参数设定用于缓存这些日志的内存大小。<br/>
                 推荐与 <code>innodb_buffer_pool_size</code> 一致。
             </td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_log_file_size">innodb_log_file_size</a></th>
+            <th><a href="../optimization/summary.html#innodb_log_file_size">innodb_log_file_size</a></th>
             <td>每个 redo log 文件的大小。默认 4M，推荐与 <code>innodb_log_buffer_size</code> 一致。</td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_log_files_in_group">innodb_log_files_in_group</a>
+            <th><a href="../optimization/summary.html#innodb_log_files_in_group">innodb_log_files_in_group</a>
             </th>
             <td>redo log 文件的数量，默认 2。<br/>
                 注：<code>innodb_log_file_size</code> * <code>innodb_log_files_in_group</code> 不得超过 512G。
             </td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</a>
+            <th><a href="../optimization/summary.html#innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</a>
             </th>
             <td>日志刷新逻辑。默认 1（符合 ACID），推荐 2（性能更佳）。</td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_io_capacity">innodb_io_capacity</a></th>
+            <th><a href="../optimization/summary.html#innodb_io_capacity">innodb_io_capacity</a></th>
             <td>设定每秒用于 InnoDB 后台任务的 I/O 操作数（IOPS）。默认 200，SSD 硬盘推荐 400 到 500。</td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_io_capacity_max">innodb_io_capacity_max</a></th>
-            <td>当后台待刷新的数据量很大时，InnoDB 会将 IOPS 提升到比 <code>innodb_io_capacity</code> 更高的值，此参数用于设定其最大值。</td>
+            <th><a href="../optimization/summary.html#innodb_io_capacity_max">innodb_io_capacity_max</a></th>
+            <td>当后台待刷新的数据量很大时，InnoDB 会将 IOPS 提升到比 <code>innodb_io_capacity</code> 更高的值，此参数用于设定其最大值。
+            </td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_flush_neighbors">innodb_flush_neighbors</a></th>
+            <th><a href="../optimization/summary.html#innodb_flush_neighbors">innodb_flush_neighbors</a></th>
             <td>设置从 InnoDB 缓冲池中刷新页时，是否同时刷新周边的脏页。默认 1，SSD 硬盘推荐 0。</td>
         </tr>
         <tr>
             <th>
-                <a href="notes/mysql/optimization/summary.html#innodb_log_compressed_pages">innodb_log_compressed_pages</a>
+                <a href="../optimization/summary.html#innodb_log_compressed_pages">innodb_log_compressed_pages</a>
             </th>
             <td>设置是否将重压缩页的镜像写入 redo log。默认 ON，SSD 硬盘推荐 OFF。</td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#innodb_lru_scan_depth">innodb_lru_scan_depth</a></th>
+            <th><a href="../optimization/summary.html#innodb_lru_scan_depth">innodb_lru_scan_depth</a></th>
             <td>设定页面清理器在缓冲池 LRU 页列表中扫描脏页的深度，默认 1024。<br/>
                 出现 “<i>InnoDB: page_cleaner: 1000ms intended loop took xxx ms.</i>” 错误时可尝试调低此参数值。
             </td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#binlog_row_image">binlog_row_image</a></th>
+            <th><a href="../optimization/summary.html#binlog_row_image">binlog_row_image</a></th>
             <td>设置如何将行镜像写入 binary log。默认 full，SSD 硬盘推荐 minimal。</td>
         </tr>
         <tr>
-            <th><a href="notes/mysql/optimization/summary.html#max_allowed_packet">max_allowed_packet</a>
+            <th><a href="../optimization/summary.html#max_allowed_packet">max_allowed_packet</a>
             </th>
             <td>设定允许一个数据包或任意临时字符变量占用空间的最大值。默认 4M，推荐 1G。</td>
         </tr>
@@ -110,33 +125,33 @@
     <h3 id="innodb_buffer_pool_size">innodb_buffer_pool_size</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size</a>
     </p>
 
     <h3 id="innodb_buffer_pool_chunk_size">innodb_buffer_pool_chunk_size</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_chunk_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_chunk_size</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_chunk_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_chunk_size</a>
     </p>
 
     <h3 id="innodb_buffer_pool_instances">innodb_buffer_pool_instances</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_instances">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_instances</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_instances">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_buffer_pool_instances</a>
     </p>
 
 
     <h3 id="innodb_flush_log_at_trx_commit">innodb_flush_log_at_trx_commit</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit</a>
     </p>
 
 
     <h3 id="innodb_page_size">innodb_page_size</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_page_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_page_size</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_page_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_page_size</a>
 
     <p>Windows 下可通过以下命令查看磁盘扇区大小，其中 d 为盘符：</p>
     <pre><code>Fsutil fsinfo ntfsinfo d:</code></pre>
@@ -145,62 +160,62 @@
     <h3 id="innodb_log_buffer_size">innodb_log_buffer_size</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_buffer_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_buffer_size</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_buffer_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_buffer_size</a>
     </p>
 
 
     <h3 id="innodb_log_file_size">innodb_log_file_size</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_file_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_file_size</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_file_size">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_file_size</a>
 
 
     <h3 id="innodb_log_files_in_group">innodb_log_files_in_group</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_files_in_group">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_files_in_group</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_files_in_group">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_files_in_group</a>
 
 
     <h3 id="innodb_io_capacity">innodb_io_capacity</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_io_capacity_max">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_io_capacity</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_io_capacity_max">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_io_capacity</a>
 
 
     <h3 id="innodb_io_capacity_max">innodb_io_capacity_max</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_io_capacity_max">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_io_capacity_max</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_io_capacity_max">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_io_capacity_max</a>
 
 
     <h3 id="innodb_flush_neighbors">innodb_flush_neighbors</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_neighbors">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_neighbors</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_neighbors">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_flush_neighbors</a>
 
 
     <h3 id="innodb_log_compressed_pages">innodb_log_compressed_pages</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_compressed_pages">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_compressed_pages</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_compressed_pages">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_log_compressed_pages</a>
 
 
     <h3 id="innodb_lru_scan_depth">innodb_lru_scan_depth</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_lru_scan_depth">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_lru_scan_depth</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_lru_scan_depth">https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_lru_scan_depth</a>
 
 
     <h3 id="binlog_row_image">binlog_row_image</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_row_image">https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_row_image</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_row_image">https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_row_image</a>
 
 
     <h3 id="max_allowed_packet">max_allowed_packet</h3>
 
     <p>参考：<a target="_blank"
-             href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet">https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet</a>
+               href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet">https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet</a>
 
 
 </main>

@@ -285,12 +285,10 @@ body > .sidebar nav li.has-child > a:before {
     font-weight: bold;
     font-size: .75rem;
     position: absolute;
-    left: .75rem;
     top: 6px;
 }
 
 body > .sidebar nav li.level-1 > a {
-    /*color: var(--theme-color);*/
     color: black;
     padding-left: .75rem;
 }
@@ -320,8 +318,24 @@ body > .sidebar nav li.level-1.activated > a:after {
     transform: rotateZ(-90deg);
 }
 
+body > .sidebar nav li.level-2.has-child > a:before {
+    left: .75rem;
+}
+
 body > .sidebar nav li.level-3 > a {
-    padding-left: 42px;
+    padding-left: 1.75rem;
+}
+
+body > .sidebar nav li.level-3.has-child > a {
+    padding-left: 2.625rem;
+}
+
+body > .sidebar nav li.level-3.has-child > a:before {
+    left: 1.75rem;
+}
+
+body > .sidebar nav li.level-4 > a {
+    padding-left: 2.625rem;
 }
 
 body > .sidebar nav a .favour {
