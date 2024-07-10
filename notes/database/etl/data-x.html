@@ -27,7 +27,109 @@
         Writer 插件，理论上 DataX 框架可以支持任意数据源类型的数据同步工作。同时 DataX 插件体系作为一套生态系统，
         每接入一套新数据源该新加入的数据源即可实现和现有的数据源互通。</p>
 
-    <h2>数据转换配置示例</h2>
+    <p>参考官网文档：<a target="_blank" href="https://github.com/alibaba/DataX/blob/master/introduction.md">
+        https://github.com/alibaba/DataX/blob/master/introduction.md</a>
+    </p>
+
+    <h2>安装及应用</h2>
+
+    <p>安装步骤：</p>
+    <ul>
+        <li>安装 <a target="_blank" href="https://www.python.org/downloads/">Python</a>，用于执行 DataX 任务调度</li>
+        <li>安装 <a target="_blank" href="https://www.oracle.com/cn/java/technologies/downloads/">JDK 1.8+</a>，用于执行
+            DataX 中的 Reader 和 Writer
+        </li>
+        <li>下载并解压 <a target="_blank"
+                          href="https://datax-opensource.oss-cn-hangzhou.aliyuncs.com/202308/datax.tar.gz">DataX</a>
+        </li>
+    </ul>
+
+    <p>执行以下指令开始 ETL 任务：</p>
+    <pre><code>python /path/to/datax.py /path/to/job.json</code></pre>
+
+    <h2>官方文档索引</h2>
+
+    <p></p>
+    <table class="list">
+        <tbody>
+        <tr>
+            <th>用户手册</th>
+            <td><a target="_blank" href="https://github.com/alibaba/DataX/blob/master/userGuid.md">
+                https://github.com/alibaba/DataX/blob/master/userGuid.md</a>
+        </tr>
+        <tr>
+            <th>数据转换</th>
+            <td><a target="_blank" href="https://github.com/alibaba/DataX/blob/master/transformer/doc/transformer.md">
+                https://github.com/alibaba/DataX/blob/master/transformer/doc/transformer.md</a>
+        </tr>
+        <tr>
+            <th>插件开发</th>
+            <td><a target="_blank" href="https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md">
+                https://github.com/alibaba/DataX/blob/master/dataxPluginDev.md</a>
+        </tr>
+        <tr>
+            <th>插件调试</th>
+            <td><a target="_blank" href="https://github.com/alibaba/DataX/blob/master/datax-example/doc/README.md">
+                https://github.com/alibaba/DataX/blob/master/datax-example/doc/README.md</a>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>数据库插件</h3>
+    <table class="list">
+        <thead>
+        <tr>
+            <th>数据库</th>
+            <th>读</th>
+            <th>写</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>Mysql</th>
+            <td><a target="_blank" href="https://github.com/alibaba/DataX/blob/master/mysqlreader/doc/mysqlreader.md">
+                Reader</a>
+            <td><a target="_blank" href="https://github.com/alibaba/DataX/blob/master/mysqlwriter/doc/mysqlwriter.md">
+                Writer</a>
+        </tr>
+        <tr>
+            <th>Oracle</th>
+            <td><a target="_blank" href="https://github.com/alibaba/DataX/blob/master/oraclereader/doc/oraclereader.md">
+                Reader</a>
+            <td><a target="_blank" href="https://github.com/alibaba/DataX/blob/master/oraclewriter/doc/oraclewriter.md">
+                Writer</a>
+        </tr>
+        <tr>
+            <th>SQL Server</th>
+            <td><a target="_blank"
+                   href="https://github.com/alibaba/DataX/blob/master/sqlserverreader/doc/sqlserverreader.md">
+                Reader</a>
+            <td><a target="_blank"
+                   href="https://github.com/alibaba/DataX/blob/master/sqlserverwriter/doc/sqlserverwriter.md">
+                Writer</a>
+        </tr>
+        <tr>
+            <th>PostgreSQL</th>
+            <td><a target="_blank"
+                   href="https://github.com/alibaba/DataX/blob/master/postgresqlreader/doc/postgresqlreader.md">
+                Reader</a>
+            <td><a target="_blank"
+                   href="https://github.com/alibaba/DataX/blob/master/postgresqlwriter/doc/postgresqlwriter.md">
+                Writer</a>
+        </tr>
+        <tr>
+            <th>通用 RDBMS</th>
+            <td><a target="_blank"
+                   href="https://github.com/alibaba/DataX/blob/master/rdbmsreader/doc/rdbmsreader.md">
+                Reader</a>
+            <td><a target="_blank"
+                   href="https://github.com/alibaba/DataX/blob/master/rdbmswriter/doc/rdbmswriter.md">
+                Writer</a>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>配置文件示例</h2>
 
     <pre><code class="language-json">{
     "job": {
