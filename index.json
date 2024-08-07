@@ -3,16 +3,40 @@
         "title": "PHP",
         "children": [
             {
-                "title": "Magento 2 开发笔记",
-                "url": "https://magento2cn.github.io"
+                "title": "框架笔记",
+                "children": [
+                    {
+                        "title": "Magento 2 开发笔记",
+                        "url": "https://magento2cn.github.io"
+                    },
+                    {
+                        "title": "Drupal 开发笔记",
+                        "url": "https://drupal-cn.github.io"
+                    }
+                ]
             },
             {
-                "title": "Drupal 开发笔记",
-                "url": "https://drupal-cn.github.io"
+                "title": "系统整合",
+                "children": [
+                    {
+                        "title": "支付方式",
+                        "children": [
+                            {
+                                "title": "微信支付",
+                                "url": "notes/php/integration/payment/wechat-pay.html"
+                            }
+                        ]
+                    }
+                ]
             },
             {
-                "title": "通过给定数组获得 XML",
-                "url": "notes/php/common/array-to-xml.html"
+                "title": "通用代码",
+                "children": [
+                    {
+                        "title": "通过给定数组获得 XML",
+                        "url": "notes/php/common/array-to-xml.html"
+                    }
+                ]
             }
         ]
     },
