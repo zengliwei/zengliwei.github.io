@@ -126,6 +126,7 @@ find ./ -type d -print|xargs chmod 755;</code></pre>
 
     <h4>合并分支</h4>
 
+    <p>执行以下操作之前先 checkout 到目标分支：</p>
     <table class="list">
         <tbody>
         <tr>
@@ -187,7 +188,7 @@ $(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT COMMIT_ID_1 CO
         </tr>
         <tr>
             <td>
-                <pre><code>git clone username@http://path.to.git -b branch .</code></pre>
+                <pre><code>git clone username@http://path/to/git -b branch .</code></pre>
             </td>
         </tr>
         </tbody>
