@@ -131,5 +131,9 @@
     {
         "title": "常用资源",
         "url": "index.html"
+    },
+    {
+        "title": "常用小工具",
+        "url": "tools.html"
     }
 ]

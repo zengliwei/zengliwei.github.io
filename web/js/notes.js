@@ -22,7 +22,7 @@ require([
             + `</li></ul></nav>`
             + `<nav class="links"><nav-menu :items="menuItems"></nav-menu></nav>`
             + `</aside>`
-            + `<main><article v-html="content" ref="article"/></main>`
+            + `<main><article ref="article">${html}</article></main>`
             + `<aside v-show="indexItems.length > 0" class="index"><h3>本文索引</h3><nav ref="index">`
             + `<a v-for="item in indexItems" :class="item.tag" :href="item.url" >{{ item.title }}</a>`
             + `</nav></aside>`
@@ -138,6 +138,10 @@ require([
             $('.btn-switcher').on('click', () => {
                 $('body').toggleClass('nav-expanded');
             });
+
+            if (window['initApp'] instanceof Function) {
+                window['initApp'].apply(this);
+            }
         }
     });
 
