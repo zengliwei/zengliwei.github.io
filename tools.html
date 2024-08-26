@@ -25,13 +25,18 @@
 
     <h2>正则表达式</h2>
     <div>
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: .5rem;">
+            <label><input type="radio" name="regexp-match-all" ref="regexp-match" checked/> match</label>
+            <label><input type="radio" name="regexp-match-all" ref="regexp-match-all"/> matchAll</label>
+            <span>|</span>
+            <label><input type="checkbox" ref="regexp-m" checked/> m 匹配多行</label>
+            <label><input type="checkbox" ref="regexp-i"/> i 不区分大小写</label>
+            <label><input type="checkbox" ref="regexp-g"/> g 检索所有匹配项</label>
+        </div>
         <label style="margin-bottom: .5rem; width: 100%;">
             <input type="text" ref="regexp-pattern" placeholder="输入正则表达式"/>
         </label>
         <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: .5rem;">
-            <label><input type="checkbox" ref="regexp-m" checked/> m 匹配多行</label>
-            <label><input type="checkbox" ref="regexp-i"/> i 不区分大小写</label>
-            <label><input type="checkbox" ref="regexp-g"/> g 检索所有匹配项</label>
         </div>
         <label style="width: 100%;">
             <textarea rows="10" ref="regexp-content" placeholder="输入表达式和内容后查看 Console 结果"></textarea>
@@ -57,15 +62,28 @@
                 modM = this.$refs['regexp-m'],
                 modI = this.$refs['regexp-i'],
                 modG = this.$refs['regexp-g'];
+            if (pattern === '' || content === '') {
+                return;
+            }
             try {
                 let mod = (modM ? 'm' : '') + (modI ? 'i' : '') + (modG ? 'g' : '');
                 const regExp = new RegExp(pattern, mod);
-                console.log(regExp.exec(content));
+                if (this.$refs['regexp-match-all'].checked) {
+                    let matches = content.matchAll(regExp);
+                    console.log(...matches);
+                } else {
+                    console.log(content.match(regExp));
+                }
             } catch (e) {
                 console.error(e);
             }
         };
 
+        this.$refs['regexp-match'].addEventListener('change', updateRegExpResult);
+        this.$refs['regexp-match-all'].addEventListener('change', updateRegExpResult);
+        this.$refs['regexp-m'].addEventListener('change', updateRegExpResult);
+        this.$refs['regexp-i'].addEventListener('change', updateRegExpResult);
+        this.$refs['regexp-g'].addEventListener('change', updateRegExpResult);
         this.$refs['regexp-pattern'].addEventListener('input', updateRegExpResult);
         this.$refs['regexp-content'].addEventListener('input', updateRegExpResult);
     };
