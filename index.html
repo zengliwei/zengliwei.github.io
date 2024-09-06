@@ -31,6 +31,7 @@
         .col span {
             color: #999;
             font-size: .6875rem;
+            margin-left: 5px;
         }
     </style>
 </head>
@@ -216,16 +217,30 @@ $(git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT COMMIT_ID_1 CO
 
     <h4>导入数据</h4>
 
-    <pre><code>use
-`magento`;
-set
-FOREIGN_KEY_CHECKS = 0;
-source
-database_source_file.sql;</code></pre>
+    <pre><code class="language-sql">USE `database`;
+SET FOREIGN_KEY_CHECKS = 0;
+source database_source_file.sql;</code></pre>
 
     <h4>导出数据</h4>
 
-    <pre><code>mysqldump -h localhost -u root -p magento > database_source_file.sql</code></pre>
+    <pre><code>mysqldump -h localhost -u root -p 'database' > 'database_source_file.sql'</code></pre>
+
+    <h4>创建数据库</h4>
+
+    <pre><code class="language-sql">CREATE DATABASE `database` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';</code></pre>
+
+    <h4>用户权限</h4>
+
+    <pre><code class="language-sql">GRANT Alter, Create, Create Temporary Tables, Delete, Drop, Execute, Index, Insert, References, Select, Update ON `database`.* TO `username`@`localhost`;</code></pre>
+
+    <h4>重设 root 密码</h4>
+
+    <ol>
+        <li>修改 MySQL 配置文件，在 <code>[mysqld]</code> 下增加一行 <code>skip-grant-tables</code></li>
+        <li>重启 MySQL 服务：<code>systemctl stop mysqld</code>，<code>systemctl start mysqld</code></li>
+        <li>执行 SQL 清空权限：<code>FLUSH PRIVILEGES;</code></li>
+        <li>执行 SQL 修改密码：<code>ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';</code></li>
+    </ol>
 
 
     <h2>常用资源</h2>
