@@ -59,6 +59,8 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     font-size: 1.75rem; /* 28px */
     line-height: 2.25rem; /* 36px */
+    display: flex;
+    gap: 1rem;
     margin-bottom: 32px;
     padding-top: 30px;
 }
@@ -204,6 +206,9 @@ table.list tr th {
     padding-left: 10px;
     padding-right: 20px;
     text-align: left;
+}
+
+table.list tr th:first-child {
     width: 150px;
 }
 

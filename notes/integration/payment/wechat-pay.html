@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <base href="/"/>
+    <title>微信支付 - Zengliwei 开发笔记</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="keywords" content="微信支付, Native, JSAPI"/>
+    <meta name="description" content="微信支付"/>
+    <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
+</head>
+<body>
+<main>
+    <h1>
+        <span class="tag">[PHP]</span>
+        <span>微信支付</span>
+    </h1>
+
+    <h2>支付类型概述</h2>
+
+    <h3>共同点</h3>
+
+    <table class="list">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th rowspan="5">接入准备</th>
+            <td>申请 APP ID：【<a target="_blank" href="https://mp.weixin.qq.com/">公众平台</a>】
+                【<a target="_blank"
+                    href="https://mp.weixin.qq.com/wxopen/waregister?action=step1&source=mpregister&token=&lang=zh_CN">小程序</a>】
+                【<a target="_blank" href="https://open.weixin.qq.com/">开放平台</a>】
+            </td>
+        </tr>
+        <tr>
+            <td>申请商户 ID：【<a target="_blank" href="https://pay.weixin.qq.com/">微信商户平台</a>】</td>
+        </tr>
+        <tr>
+            <td>绑定 APP ID 与商户 ID</td>
+        </tr>
+        <tr>
+            <td>到【<a target="_blank" href="https://pay.weixin.qq.com/">微信商户平台</a>】的【账户中心 > 账户设置 >
+                API安全】配置 API Key
+            </td>
+        </tr>
+        <tr>
+            <td>到【<a target="_blank" href="https://pay.weixin.qq.com/">微信商户平台</a>】的【账户中心 > 账户设置 >
+                API安全 > API证书】下载证书
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <h3>差异</h3>
+
+    <table class="list">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Native 支付</th>
+            <th>JSAPI 支付</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>使用场景</th>
+            <td>通过浏览器访问 PC 网站进行支付</td>
+            <td>通过微信客户端访问 PC 网站进行支付</td>
+        </tr>
+        <tr>
+            <th>技术特征</th>
+            <td>服务端获取微信返回的链接来生成二维码</td>
+            <td>使用微信客户端的 API 进行交换</td>
+        </tr>
+        <tr>
+            <th>接入准备</th>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>官网地址</th>
+            <td><a target="_blank"
+                   href="https://pay.weixin.qq.com/docs/partner/products/partner-native-payment/introduction.html">https://pay.weixin.qq.com/docs/partner/products/partner-native-payment/introduction.html</a>
+            </td>
+            <td><a target="_blank"
+                   href="https://pay.weixin.qq.com/docs/partner/products/partner-jsapi-payment/introduction.html">https://pay.weixin.qq.com/docs/partner/products/partner-jsapi-payment/introduction.html</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<script src="web/js/lib/require.js" type="text/javascript"></script>
+<script src="web/js/require-config.js" type="text/javascript"></script>
+<script src="web/js/notes.js" type="text/javascript"></script>
+</body>
+</html>
