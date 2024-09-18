@@ -1,6 +1,6 @@
 require([
     'jquery'
-], function ($, highlight) {
+], function ($) {
     'use strict';
 
     const $body = $('body');

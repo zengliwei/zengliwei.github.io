@@ -1,6 +1,6 @@
 require.config({
     waitSeconds: 0,
-    baseUrl: '/web/js',
+    baseUrl: '/web',
     paths: {
         jquery: 'lib/jquery',
         highlight: 'lib/highlight.min',
