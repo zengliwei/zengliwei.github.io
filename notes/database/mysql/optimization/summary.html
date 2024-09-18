@@ -37,7 +37,7 @@
     <table class="list">
         <tbody>
         <tr>
-            <th><a href="notes/database/mysql/optimization/summary.html#innodb_buffer_pool_size">innodb_buffer_pool_size</a></th>
+            <th style="width: 220px;"><a href="notes/database/mysql/optimization/summary.html#innodb_buffer_pool_size">innodb_buffer_pool_size</a></th>
             <td>数据缓冲池容量，设定用于存放 InnoDB 表的数据和索引的内存大小。<br/>
                 视服务器定位及其物理内存而定，推荐纯数据库服务器设定为内存总量的 80%，其它类型服务器不小于 1G。<br/>
                 注：<code>innodb_buffer_pool_size</code> 必须为 <code>innodb_buffer_pool_chunk_size</code> * <code>innodb_buffer_pool_instances</code>
