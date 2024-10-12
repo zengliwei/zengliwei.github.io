@@ -35,6 +35,10 @@
 <script>
     const app = Vue.createApp({
         data: () => {
+            let genderOpts = [
+                {value: 'male', label: 'Male'},
+                {value: 'female', label: 'Female'}
+            ];
             return {
                 columns: [
                     {type: 'checkbox'},
@@ -50,10 +54,7 @@
                     {
                         field: 'gender', title: 'Gender', width: 100, align: 'center', sort: true,
                         renderer: (row, col) => genderOpts.find(opt => opt.value === row[col['field']]).label,
-                        filter: {
-                            type: 'select',
-                            params: {options: [{value: 'male', label: 'Male'}, {value: 'female', label: 'Female'}]}
-                        }
+                        filter: {type: 'select', params: {options: genderOpts}}
                     },
                     {
                         field: 'mobile', title: 'Mobile', width: 160, sort: true,
