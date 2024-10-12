@@ -2,7 +2,6 @@ require([
     'jquery',
     'vue',
     'highlight',
-    'mousewheel',
     'scrollbar'
 ], function ($, Vue, Highlight) {
     'use strict';

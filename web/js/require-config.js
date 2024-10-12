@@ -3,9 +3,9 @@ require.config({
     baseUrl: '/web',
     paths: {
         jquery: 'lib/jquery',
-        highlight: 'lib/highlight.min',
-        mousewheel: 'lib/jquery.mousewheel-3.0.6.min',
-        scrollbar: 'lib/jquery.mCustomScrollbar.min',
+        highlight: 'lib/highlight/highlight.min',
+        mousewheel: 'lib/jquery.mCustomScrollbar/jquery.mousewheel-3.0.6.min',
+        scrollbar: 'lib/jquery.mCustomScrollbar/jquery.mCustomScrollbar.min',
         vue: 'lib/vue.global.prod'
     },
     shim: {

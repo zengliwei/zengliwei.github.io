@@ -1,5 +1,5 @@
-@import 'lib/jquery.mCustomScrollbar.min.css';
-@import 'lib/highlight/google-light.min.css';
+@import '../lib/jquery.mCustomScrollbar/jquery.mCustomScrollbar.min.css';
+@import '../lib/highlight/google-light.min.css';
 
 :root {
     --theme-color-rgb: 32, 107, 196;
