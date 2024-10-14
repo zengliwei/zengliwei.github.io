@@ -25,10 +25,10 @@
 </head>
 <body>
 <div id="app">
-    <v3-table :columns="columns"
+    <v3-d-table :columns="columns"
               :data="data"
               :toolbar-actions="toolbarActions"
-              height="calc(100vh - 100px)"></v3-table>
+              height="calc(100vh - 100px)"></v3-d-table>
 </div>
 <script src="web/lib/vue.global.prod.js"></script>
 <script src="web/lib/v3-d-table/v3-d-table.umd.js"></script>
@@ -434,7 +434,7 @@
             }
         }
     });
-    app.component('v3-table', window['v3-d-table']['v3DTable']);
+    app.component('v3-d-table', window['v3-d-table']['v3DTable']);
     app.mount('#app');
 </script>
 </body>
