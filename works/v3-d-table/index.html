@@ -4,7 +4,7 @@
     <base href="/"/>
     <meta charset="UTF-8">
     <title>v3-d-table</title>
-    <link rel="stylesheet" type="text/css" href="web/lib/v3-d-table/v3-table-default.css"/>
+    <link rel="stylesheet" type="text/css" href="web/lib/v3-d-table/v3-d-table-default.min.css"/>
     <style>
         html {
             height: 100%;
@@ -31,7 +31,7 @@
               height="calc(100vh - 100px)"></v3-table>
 </div>
 <script src="web/lib/vue.global.prod.js"></script>
-<script src="web/lib/v3-d-table/v3-table.umd.js"></script>
+<script src="web/lib/v3-d-table/v3-d-table.umd.js"></script>
 <script>
     const app = Vue.createApp({
         data: () => {
@@ -434,7 +434,7 @@
             }
         }
     });
-    app.component('v3-table', window['v3-table']['v3Table']);
+    app.component('v3-table', window['v3-d-table']['v3DTable']);
     app.mount('#app');
 </script>
 </body>
