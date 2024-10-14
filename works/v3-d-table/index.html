@@ -4,7 +4,7 @@
     <base href="/"/>
     <meta charset="UTF-8">
     <title>v3-d-table</title>
-    <link rel="stylesheet" type="text/css" href="web/lib/v3-d-table/v3-d-table-default.min.css"/>
+    <link rel="stylesheet" type="text/css" href="web/lib/v3-d-table/v3-d-table-theme.min.css"/>
     <style>
         html {
             height: 100%;
@@ -26,14 +26,17 @@
 <body>
 <div id="app">
     <v3-d-table :columns="columns"
-              :data="data"
-              :toolbar-actions="toolbarActions"
-              height="calc(100vh - 100px)"></v3-d-table>
+                :data="data"
+                :toolbar-actions="toolbarActions"
+                height="calc(100vh - 100px)"></v3-d-table>
 </div>
 <script src="web/lib/vue.global.prod.js"></script>
 <script src="web/lib/v3-d-table/v3-d-table.umd.js"></script>
 <script>
-    const app = Vue.createApp({
+    const {createApp} = window['Vue'];
+    const {V3DTable} = window['v3-d-table'];
+
+    const app = createApp({
         data: () => {
             let genderOpts = [
                 {value: 'male', label: 'Male'},
@@ -434,7 +437,7 @@
             }
         }
     });
-    app.component('v3-d-table', window['v3-d-table']['v3DTable']);
+    app.component('v3-d-table', V3DTable);
     app.mount('#app');
 </script>
 </body>

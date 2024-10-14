@@ -1,4 +1,4 @@
-import { openBlock as a, createElementBlock as r, normalizeClass as O, normalizeStyle as D, createElementVNode as u, withModifiers as B, createCommentVNode as p, reactive as ge, toDisplayString as A, Fragment as S, createBlock as V, Teleport as Ce, renderList as T, resolveComponent as we, createVNode as J, computed as E, withDirectives as re, vModelText as $e, vModelSelect as Ae, ref as g, watch as se, onMounted as Se, unref as m, renderSlot as oe, resolveDynamicComponent as Me, markRaw as ae } from "vue";
+import { openBlock as a, createElementBlock as r, normalizeClass as O, normalizeStyle as D, createElementVNode as u, withModifiers as B, createCommentVNode as p, reactive as ge, toDisplayString as A, Fragment as S, createBlock as z, Teleport as Ce, renderList as T, resolveComponent as we, createVNode as J, computed as E, withDirectives as re, vModelText as $e, vModelSelect as Ae, ref as g, watch as se, onMounted as Se, unref as m, renderSlot as oe, resolveDynamicComponent as Me, markRaw as ae } from "vue";
 const De = ["v-slot"], Fe = ["innerHTML"], Le = {
   __name: "v3-d-table-td",
   props: {
@@ -80,7 +80,7 @@ const De = ["v-slot"], Fe = ["innerHTML"], Le = {
   for (const [M, d] of y)
     $[M] = d;
   return $;
-}, z = ge([]), Te = {
+}, V = ge([]), Te = {
   name: "v3-d-table-actions",
   expose: ["close"],
   props: {
@@ -98,7 +98,7 @@ const De = ["v-slot"], Fe = ["innerHTML"], Le = {
   },
   methods: {
     closeOthers: function() {
-      z.forEach((e) => {
+      V.forEach((e) => {
         this !== e && e.close();
       });
     },
@@ -122,10 +122,10 @@ const De = ["v-slot"], Fe = ["innerHTML"], Le = {
     }
   },
   mounted: function() {
-    z.push(this), document.addEventListener("click", this.docClickListener);
+    V.push(this), document.addEventListener("click", this.docClickListener);
   },
   unmounted: function() {
-    z.splice(z.indexOf(this), 1), document.removeEventListener("click", this.docClickListener);
+    V.splice(V.indexOf(this), 1), document.removeEventListener("click", this.docClickListener);
   }
 }, Oe = {
   class: "v3-d-table-actions",
@@ -154,7 +154,7 @@ function Pe(e, y, $, M, d, b) {
           onClick: y[2] || (y[2] = B((l) => b.dropdown(l), ["stop"]))
         })
       ], 512),
-      (a(), V(Ce, { to: "body" }, [
+      (a(), z(Ce, { to: "body" }, [
         u("div", {
           ref: "elDropdown",
           class: O({ "v3-d-table-actions-dropdown": !0, expanded: e.expanded }),
@@ -173,7 +173,7 @@ function Pe(e, y, $, M, d, b) {
     ], 64)) : p("", !0)
   ], 512);
 }
-const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], ze = ["textContent"], Ve = { key: 0 }, Ie = {
+const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["textContent"], ze = { key: 0 }, Ie = {
   __name: "v3-d-table-tr",
   props: {
     idx: {
@@ -262,7 +262,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], ze = ["te
             }, [
               u("div", {
                 textContent: A(e.idx + 1 || "")
-              }, null, 8, ze)
+              }, null, 8, Ve)
             ], 4)) : p("", !0),
             v.type === "actions" ? (a(), r("td", {
               key: 2,
@@ -290,9 +290,9 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], ze = ["te
               onMouseleave: (C) => l.$emit("cell-mouseleave", e.row, v)
             }, null, 8, ["col", "row", "row-idx", "level", "empty-value", "class", "onClick", "onDblclick", "onMouseenter", "onMouseleave"])
           ], 64))), 256)),
-          e.showAutoWidthCol ? (a(), r("td", Ve)) : p("", !0)
+          e.showAutoWidthCol ? (a(), r("td", ze)) : p("", !0)
         ], 34),
-        e.row.children && e.row._expanded_ ? (a(!0), r(S, { key: 0 }, T(e.row.children, (v) => (a(), V(h, {
+        e.row.children && e.row._expanded_ ? (a(!0), r(S, { key: 0 }, T(e.row.children, (v) => (a(), z(h, {
           row: v,
           cols: e.cols,
           "show-auto-width-col": e.showAutoWidthCol,
@@ -729,7 +729,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], ze = ["te
                     key: 3,
                     style: D(i.style)
                   }, [
-                    i.filter ? (a(), V(Me(i.filter.type), {
+                    i.filter ? (a(), z(Me(i.filter.type), {
                       key: 0,
                       props: i.filter.params,
                       value: i.filter.v,
@@ -750,7 +750,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], ze = ["te
         }, [
           u("table", null, [
             u("tbody", null, [
-              m(l).length > 0 ? (a(!0), r(S, { key: 0 }, T(m(l), (i, f) => (a(), V(Ie, {
+              m(l).length > 0 ? (a(!0), r(S, { key: 0 }, T(m(l), (i, f) => (a(), z(Ie, {
                 idx: f,
                 row: i,
                 cols: m(b),
@@ -829,5 +829,5 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], ze = ["te
   }
 };
 export {
-  yt as v3DTable
+  yt as V3DTable
 };
