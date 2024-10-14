@@ -12,25 +12,26 @@
 
         body {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 0;
             height: 100%;
         }
 
-        #app {
+        .app {
             width: 90%;
         }
     </style>
 </head>
 <body>
-<div id="app">
+<div class="app" id="app">
     <v3-d-table :columns="columns"
                 :data="data"
                 :toolbar-actions="toolbarActions"
                 height="calc(100vh - 100px)"></v3-d-table>
 </div>
-<script src="web/lib/vue.global.prod.js"></script>
+<script src="web/lib/vue/vue.global.prod.js"></script>
 <script src="web/lib/v3-d-table/v3-d-table.umd.js"></script>
 <script>
     const {createApp} = window['Vue'];

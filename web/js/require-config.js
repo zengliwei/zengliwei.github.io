@@ -6,7 +6,7 @@ require.config({
         highlight: 'lib/highlight/highlight.min',
         mousewheel: 'lib/jquery.mCustomScrollbar/jquery.mousewheel-3.0.6.min',
         scrollbar: 'lib/jquery.mCustomScrollbar/jquery.mCustomScrollbar.min',
-        vue: 'lib/vue.global.prod'
+        vue: 'lib/vue/vue.global.prod'
     },
     shim: {
         highlight: {
