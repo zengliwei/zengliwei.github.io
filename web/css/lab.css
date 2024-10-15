@@ -1,1 +1,14 @@
 @import '../lib/jquery.mCustomScrollbar/jquery.mCustomScrollbar.min.css';
+
+:root {
+    --color-background: #000000; /* Black */
+    --color-foreground: #FFFFFF; /* White */
+    --color-primary: #FFD700;    /* Gold */
+    --color-secondary: #00FF00;  /* Lime */
+    --color-accent: #FF4500;     /* OrangeRed */
+    --color-link: #1E90FF;       /* DodgerBlue */
+    --color-warning: #FF0000;    /* Red */
+    --color-success: #32CD32;    /* LimeGreen */
+    --color-info: #00CED1;       /* DarkTurquoise */
+    --color-muted: #808080;      /* Gray */
+}

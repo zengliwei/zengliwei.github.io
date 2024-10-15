@@ -2,25 +2,53 @@
 <html lang="zh">
 <head>
     <base href="/"/>
-    <title>Demos - Zengliwei</title>
+    <title>实验室 - Zengliwei 开发笔记</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="keywords" content="lab, laboratory, 实验"/>
-    <meta name="description" content="实验"/>
     <link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="web/css/lab.css"/>
+    <link rel="stylesheet" type="text/css" href="web/css/notes.css"/>
+    <style>
+        table.list a {
+            border: 0;
+        }
+    </style>
 </head>
 <body>
 <main>
-    <ul>
-        <li><a href="lab/html-css/camara.html">手机摄像头</a></li>
-        <li><a href="lab/html-css/responsive-design.html">自适应设计</a></li>
-        <li><a href="lab/html-css/display/flex.html">[ display: flex ]</a></li>
-        <li><a href="lab/html-css/transform/cubes.html">[ transform ] 例子：立方体</a></li>
-        <li><a href="lab/html-css/transform/stage.html">[ transform ] 例子：伪 3 维场景</a></li>
-    </ul>
+    <h1>实验室</h1>
+    <table class="list">
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th><a target="_blank" href="lab/html-css/camara.html">手机摄像头</a></th>
+            <td>浏览器 API 调用手机摄像头</td>
+        </tr>
+        <tr>
+            <th><a target="_blank" href="lab/html-css/responsive-design.html">自适应</a></th>
+            <td>随浏览器宽度按比例缩放（包括字体大小）</td>
+        </tr>
+        <tr>
+            <th><a target="_blank" href="lab/html-css/display/flex.html">[CSS] display</a></th>
+            <td>display: flex 相关属性联动</td>
+        </tr>
+        <tr>
+            <th><a target="_blank" href="lab/html-css/transform/cubes.html">[CSS] transform</a></th>
+            <td>鼠标随动立方体</td>
+        </tr>
+        <tr>
+            <th><a target="_blank" href="lab/html-css/transform/stage.html">[CSS] transform</a></th>
+            <td>鼠标随动伪 3 维场景</td>
+        </tr>
+        </tbody>
+    </table>
 </main>
-<script src="../web/lib/require.js"></script>
+<script src="web/lib/require.js"></script>
 <script src="web/js/require-config.js"></script>
+<script src="web/js/notes.js"></script>
 </body>
 </html>

@@ -137,6 +137,10 @@
         "url": "works/index.html"
     },
     {
+        "title": "实验室",
+        "url": "lab/index.html"
+    },
+    {
         "title": "小工具",
         "url": "tools.html"
     }
