@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/"/>
+    <title>GitHub Repositories</title>
+    <meta charset="UTF-8"/>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e1e0e6;
+            color: #545454;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e1e0e6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            background: #fff;
+            padding: 1rem;
+            width: 20rem;
+        }
+
+        .repositories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 3rem;
+            padding: 1rem;
+        }
+
+        .repository {
+            background: #fff;
+            border-radius: 5px;
+            letter-spacing: 1px;
+            line-height: 1.5rem;
+            padding: 1rem;
+            width: calc((100% - 2rem) / 3);
+        }
+
+        .repository .header h3 {
+            color: #000;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .repository .header .summary {
+            color: #999;
+            display: flex;
+            font-size: .8125rem;
+            gap: 0.5rem;
+            margin: .5rem 0;
+        }
+
+        .repository .header .summary div {
+            display: flex;
+            align-items: center;
+        }
+
+        .repository .header .summary svg {
+            height: 1rem;
+        }
+
+        .repository .desc {
+        }
+
+        .repository .desc {
+            max-height: calc(1.5rem * 5);
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>GitHub News</h1>
+    <div></div>
+</header>
+<main>
+    <nav></nav>
+    <div class="repositories">
+        <div v-for="item in repositories" class="repository">
+            <div class="header">
+                <h3 v-text="item['full_name']" :title="item['full_name']"></h3>
+                <div class="summary">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-star">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"/>
+                        </svg>
+                        <span v-text="item['stargazers_count']"></span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-git-fork">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                            <path d="M7 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                            <path d="M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>
+                            <path d="M7 8v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2 -2v-2"/>
+                            <path d="M12 12l0 4"/>
+                        </svg>
+                        <span v-text="item['forks']"></span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="icon icon-tabler icons-tabler-outline icon-tabler-code">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M7 8l-4 4l4 4"/>
+                            <path d="M17 8l4 4l-4 4"/>
+                            <path d="M14 4l-4 16"/>
+                        </svg>
+                        <span v-text="item['language']"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="desc">
+                <div v-text="item['description']"></div>
+            </div>
+        </div>
+    </div>
+    <aside></aside>
+</main>
+
+<script src="web/lib/vue/vue.global.prod.js"></script>
+<script src="web/lib/jquery.js"></script>
+<script>
+    const get = (keyword) => {
+        return jQuery.ajax({
+            url: 'https://api.github.com/search/repositories',
+            data: {q: keyword, sort: 'stars', order: 'desc'}
+        });
+    };
+
+    Vue.createApp({
+        data: function () {
+            return {
+                repositories: []
+            };
+        },
+
+        mounted: async function () {
+            const response = await get('ai');
+            this.repositories = response.items;
+        }
+    }).mount('body');
+</script>
+</body>
+</html>
