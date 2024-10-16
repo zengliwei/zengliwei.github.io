@@ -192,6 +192,27 @@ main {
     overflow: hidden;
 }
 
-.repositories .item {
+.users .item {
+    width: 8rem;
+}
+
+.users .item .avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100%;
+}
+
+.users .item .avatar img {
+    display: block;
+    width: 100%;
+}
+
+.users .item .name {
+    margin-top: .5rem;
+    text-align: center;
+}
+
+.repositories .item,
+.users .item {
     cursor: pointer;
 }
