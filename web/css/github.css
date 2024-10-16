@@ -99,7 +99,7 @@ header {
     position: fixed;
     left: 0;
     right: 0;
-    z-index: 2;
+    z-index: 5;
 }
 
 header h1 {
@@ -121,6 +121,7 @@ nav {
     left: 0;
     top: 4rem;
     width: 25rem;
+    z-index: 3;
 }
 
 nav > div {
@@ -165,6 +166,36 @@ main {
     position: relative;
     width: calc(100% - 25rem);
     z-index: 1;
+}
+
+.loader {
+    background: rgba(255, 255, 255, .6);
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 4;
+}
+
+.loader:after {
+    border: 3px solid #d8ff00;
+    border-radius: 50%;
+    border-top-color: transparent;
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -1.5rem 0 0 -1.5rem;
+    height: 3rem;
+    width: 3rem;
+    animation: spin 1s linear infinite;
+}
+
+.loader.show {
+    display: block;
 }
 
 .items {
@@ -238,4 +269,13 @@ main {
 .repositories .item,
 .users .item {
     cursor: pointer;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
