@@ -1,4 +1,4 @@
-import { openBlock as a, createElementBlock as r, normalizeClass as O, normalizeStyle as D, createElementVNode as u, withModifiers as B, createCommentVNode as p, reactive as ge, toDisplayString as A, Fragment as S, createBlock as z, Teleport as Ce, renderList as T, resolveComponent as we, createVNode as J, computed as E, withDirectives as re, vModelText as $e, vModelSelect as Ae, ref as g, watch as se, onMounted as Se, unref as m, renderSlot as oe, resolveDynamicComponent as Me, markRaw as ae } from "vue";
+import { openBlock as a, createElementBlock as r, normalizeClass as T, normalizeStyle as D, createElementVNode as u, withModifiers as B, createCommentVNode as p, reactive as ge, toDisplayString as A, Fragment as S, createBlock as z, Teleport as Ce, renderList as O, resolveComponent as we, createVNode as J, computed as E, withDirectives as re, vModelText as $e, vModelSelect as Ae, ref as g, watch as se, onMounted as Se, unref as m, renderSlot as oe, resolveDynamicComponent as Me, markRaw as ae } from "vue";
 const De = ["v-slot"], Fe = ["innerHTML"], Le = {
   __name: "v3-d-table-td",
   props: {
@@ -41,7 +41,7 @@ const De = ["v-slot"], Fe = ["innerHTML"], Le = {
     };
     return (l, n) => e.col.type === "data" && !e.col.hidden ? (a(), r("td", {
       key: 0,
-      class: O(e.col.cssClass),
+      class: T(e.col.cssClass),
       style: D(e.col.style),
       onClick: n[1] || (n[1] = (h) => l.$emit("click")),
       onDblclick: n[2] || (n[2] = (h) => l.$emit("dblclick")),
@@ -51,11 +51,11 @@ const De = ["v-slot"], Fe = ["innerHTML"], Le = {
       u("div", null, [
         e.col.expandable ? (a(), r("div", {
           key: 0,
-          class: O(`v3-d-table-cell-lv lv${e.level}`)
+          class: T(`v3-d-table-cell-lv lv${e.level}`)
         }, [
           e.row.children ? (a(), r("span", {
             key: 0,
-            class: O({
+            class: T({
               "v3-d-table-cell-expander": !0,
               loading: e.row._loading_,
               expanded: e.row._expanded_
@@ -80,7 +80,7 @@ const De = ["v-slot"], Fe = ["innerHTML"], Le = {
   for (const [M, d] of y)
     $[M] = d;
   return $;
-}, V = ge([]), Te = {
+}, V = ge([]), Oe = {
   name: "v3-d-table-actions",
   expose: ["close"],
   props: {
@@ -127,7 +127,7 @@ const De = ["v-slot"], Fe = ["innerHTML"], Le = {
   unmounted: function() {
     V.splice(V.indexOf(this), 1), document.removeEventListener("click", this.docClickListener);
   }
-}, Oe = {
+}, Te = {
   class: "v3-d-table-actions",
   ref: "elContainer"
 }, Be = ["textContent"], Ne = {
@@ -135,7 +135,7 @@ const De = ["v-slot"], Fe = ["innerHTML"], Le = {
   class: "v3-d-table-action-box"
 }, Ee = ["textContent"], He = ["textContent", "onClick"];
 function Pe(e, y, $, M, d, b) {
-  return a(), r("div", Oe, [
+  return a(), r("div", Te, [
     e.myActions.length === 1 ? (a(), r("a", {
       key: 0,
       class: "v3-d-table-action",
@@ -157,10 +157,10 @@ function Pe(e, y, $, M, d, b) {
       (a(), z(Ce, { to: "body" }, [
         u("div", {
           ref: "elDropdown",
-          class: O({ "v3-d-table-actions-dropdown": !0, expanded: e.expanded }),
+          class: T({ "v3-d-table-actions-dropdown": !0, expanded: e.expanded }),
           style: D(e.dropdownStyle)
         }, [
-          (a(!0), r(S, null, T(e.myActions, (l, n) => (a(), r(S, null, [
+          (a(!0), r(S, null, O(e.myActions, (l, n) => (a(), r(S, null, [
             n > 0 ? (a(), r("a", {
               key: 0,
               class: "v3-d-table-actions-dropdown-action",
@@ -173,7 +173,7 @@ function Pe(e, y, $, M, d, b) {
     ], 64)) : p("", !0)
   ], 512);
 }
-const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["textContent"], ze = { key: 0 }, Ie = {
+const de = /* @__PURE__ */ Re(Oe, [["render", Pe]]), Ue = ["checked"], Ve = ["textContent"], ze = { key: 0 }, Ie = {
   __name: "v3-d-table-tr",
   props: {
     idx: {
@@ -235,11 +235,11 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
       return a(), r(S, null, [
         u("tr", {
           ref: "tr",
-          class: O({ activated: e.activatedRows.indexOf(e.row) > -1, hidden: e.row._hidden_ }),
+          class: T({ activated: e.activatedRows.indexOf(e.row) > -1, hidden: e.row._hidden_ }),
           onClick: n[2] || (n[2] = (v) => l.$emit("click", e.row)),
           onDblclick: n[3] || (n[3] = (v) => l.$emit("dblclick", e.row))
         }, [
-          (a(!0), r(S, null, T(e.cols, (v, k) => (a(), r(S, null, [
+          (a(!0), r(S, null, O(e.cols, (v, k) => (a(), r(S, null, [
             v.type === "checkbox" ? (a(), r("td", {
               key: 0,
               class: "checkbox",
@@ -283,7 +283,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
               "row-idx": e.idx,
               level: e.level,
               "empty-value": e.emptyValue,
-              class: O({ data: !0, "last-fixed-left": e.lastLeftFixedColIdx === k }),
+              class: T({ data: !0, "last-fixed-left": e.lastLeftFixedColIdx === k }),
               onClick: (C) => l.$emit("cell-click", e.row, v),
               onDblclick: (C) => l.$emit("cell-dblclick", e.row, v),
               onMouseenter: (C) => l.$emit("cell-mouseenter", e.row, v),
@@ -292,7 +292,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
           ], 64))), 256)),
           e.showAutoWidthCol ? (a(), r("td", ze)) : p("", !0)
         ], 34),
-        e.row.children && e.row._expanded_ ? (a(!0), r(S, { key: 0 }, T(e.row.children, (v) => (a(), z(h, {
+        e.row.children && e.row._expanded_ ? (a(!0), r(S, { key: 0 }, O(e.row.children, (v) => (a(), z(h, {
           row: v,
           cols: e.cols,
           "show-auto-width-col": e.showAutoWidthCol,
@@ -359,7 +359,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
       onChange: b
     }, [
       n[1] || (n[1] = u("option", { value: "" }, null, -1)),
-      (a(!0), r(S, null, T(e.options, (h) => (a(), r("option", {
+      (a(!0), r(S, null, O(e.options, (h) => (a(), r("option", {
         value: h.value,
         textContent: A(h.label)
       }, null, 8, je))), 256))
@@ -658,7 +658,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
           u("table", null, [
             u("thead", null, [
               u("tr", null, [
-                (a(!0), r(S, null, T(m(b), (i, f) => (a(), r(S, null, [
+                (a(!0), r(S, null, O(m(b), (i, f) => (a(), r(S, null, [
                   i.type === "checkbox" ? (a(), r("th", {
                     key: 0,
                     class: "checkbox",
@@ -694,7 +694,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
                   ], 4)) : p("", !0),
                   i.type === "data" && !i.hidden ? (a(), r("th", {
                     key: 3,
-                    class: O(i.cssClass),
+                    class: T(i.cssClass),
                     style: D(i.style)
                   }, [
                     u("div", {
@@ -709,7 +709,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
                 m(P) ? (a(), r("th", et)) : p("", !0)
               ]),
               e.showColumnFilter ? (a(), r("tr", tt, [
-                (a(!0), r(S, null, T(m(b), (i, f) => (a(), r(S, null, [
+                (a(!0), r(S, null, O(m(b), (i, f) => (a(), r(S, null, [
                   i.type === "checkbox" ? (a(), r("th", {
                     key: 0,
                     class: "checkbox",
@@ -750,7 +750,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
         }, [
           u("table", null, [
             u("tbody", null, [
-              m(l).length > 0 ? (a(!0), r(S, { key: 0 }, T(m(l), (i, f) => (a(), z(Ie, {
+              m(l).length > 0 ? (a(!0), r(S, { key: 0 }, O(m(l), (i, f) => (a(), z(Ie, {
                 idx: f,
                 row: i,
                 cols: m(b),
@@ -790,7 +790,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
           u("select", {
             onChange: o[10] || (o[10] = (i) => ne(i.currentTarget.value))
           }, [
-            (a(!0), r(S, null, T(e.pageSizes, (i) => (a(), r("option", {
+            (a(!0), r(S, null, O(e.pageSizes, (i) => (a(), r("option", {
               value: i,
               selected: i === m(w),
               textContent: A(i)
@@ -803,14 +803,14 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
         u("div", dt, [
           u("a", {
             href: "#",
-            class: O({ disabled: m(x) === 1 }),
+            class: T({ disabled: m(x) === 1 }),
             textContent: A(d.i18nPrevPage),
             onClick: o[11] || (o[11] = B((i) => G(m(x) - 1), ["prevent"]))
           }, null, 10, ut),
           u("select", {
             onChange: o[12] || (o[12] = (i) => G(i.currentTarget.value))
           }, [
-            (a(!0), r(S, null, T(m(fe), (i) => (a(), r("option", {
+            (a(!0), r(S, null, O(m(fe), (i) => (a(), r("option", {
               value: i,
               selected: i === m(x),
               textContent: A(i)
@@ -818,7 +818,7 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
           ], 32),
           u("a", {
             href: "#",
-            class: O({ disabled: m(x) === m(U) }),
+            class: T({ disabled: m(x) === m(U) }),
             textContent: A(d.i18nNextPage),
             onClick: o[13] || (o[13] = B((i) => G(m(x) + 1), ["prevent"]))
           }, null, 10, ft)
@@ -829,5 +829,5 @@ const de = /* @__PURE__ */ Re(Te, [["render", Pe]]), Ue = ["checked"], Ve = ["te
   }
 };
 export {
-  yt as V3DTable
+  yt as default
 };
