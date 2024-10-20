@@ -4,7 +4,8 @@
     <base href="/"/>
     <meta charset="UTF-8">
     <title>v3-d-table</title>
-    <link rel="stylesheet" type="text/css" href="web/lib/v3-d-table/v3-d-table-theme.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://unpkg.com/v3-d-table@latest/dist/lib/v3-d-table-theme.min.css"/>
     <style>
         html {
             height: 100%;
@@ -31,8 +32,8 @@
                 :toolbar-actions="toolbarActions"
                 height="calc(100vh - 100px)"></v3-d-table>
 </div>
-<script src="web/lib/vue/vue.global.prod.js"></script>
-<script src="web/lib/v3-d-table/v3-d-table.umd.js"></script>
+<script src="https://unpkg.com/vue@3.5.12/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/v3-d-table@latest/dist/lib/v3-d-table.umd.js"></script>
 <script>
     const {createApp} = window['Vue'];
     const V3DTable = window['v3-d-table'];
