@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Position</title>
+    <style>
+        html {
+            font-size: 16px;
+        }
+
+        html * {
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            color: #545454;
+            font-size: .75rem;
+        }
+
+        .info {
+            background: rgba(33, 66, 99, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+            padding: 1rem;
+            width: 36rem;
+        }
+
+        .info h3 {
+            color: #000;
+            margin: 0;
+            padding: 0 0 .5rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        th {
+            color: #999;
+            font-weight: 400;
+            text-align: right;
+        }
+
+        td {
+            padding: 0 2rem 0 0;
+            text-align: right;
+        }
+
+        #wrapper {
+            position: absolute;
+            left: 10rem;
+            top: 10rem;
+        }
+
+        #window {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        #fixed {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+        }
+
+        #absolute {
+            position: absolute;
+            left: 10rem;
+            top: 10rem;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="fixed" class="info">
+        <h3>Fixed</h3>
+    </div>
+    <div id="window" class="info">
+        <h3>Window</h3>
+    </div>
+    <div id="absolute" class="info">
+        <h3>Absolute</h3>
+    </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div id="related" class="info">
+        <h3>Related</h3>
+    </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
+<script>
+    const objs = ['client', 'offset', 'scroll'],
+        keys = ['Left', 'Top', 'Width', 'Height'];
+
+    const elWindow = document.getElementById('window'),
+        elRelated = document.getElementById('related'),
+        elAbsolute = document.getElementById('absolute'),
+        elFixed = document.getElementById('fixed');
+
+    const build = (el) => {
+        let html = '<table>';
+        objs.forEach(obj => {
+            html += `<tr>`;
+            keys.forEach(key => {
+                let id = `${el.id}-${obj}-${key}`.toLowerCase();
+                html += `<th>${obj}${key}</th><td id="${id}"></td>`;
+            });
+            html += `</tr>`;
+        });
+        html += `<tr>`;
+        keys.forEach(key => {
+            let id = `${el.id}-rect-${key}`.toLowerCase();
+            html += `<th>rect.${key.toLowerCase()}</th><td id="${id}"></td>`;
+        });
+        html += `</tr>`;
+        html += '</table>';
+        el.innerHTML += html;
+    };
+
+    const updateStage = () => {
+        let rectRelated = elRelated.getBoundingClientRect(),
+            rectAbsolute = elAbsolute.getBoundingClientRect(),
+            rectFixed = elFixed.getBoundingClientRect();
+
+        keys.forEach(key => {
+            objs.forEach(obj => {
+                document.getElementById(`related-${obj}-${key}`.toLowerCase()).innerText = elRelated[obj + key];
+                document.getElementById(`absolute-${obj}-${key}`.toLowerCase()).innerText = elAbsolute[obj + key];
+                document.getElementById(`fixed-${obj}-${key}`.toLowerCase()).innerText = elFixed[obj + key];
+            });
+            document.getElementById(`related-rect-${key}`.toLowerCase()).innerText = rectRelated[key.toLowerCase()].toFixed(0);
+            document.getElementById(`absolute-rect-${key}`.toLowerCase()).innerText = rectAbsolute[key.toLowerCase()].toFixed(0);
+            document.getElementById(`fixed-rect-${key}`.toLowerCase()).innerText = rectFixed[key.toLowerCase()].toFixed(0);
+        });
+    };
+
+    window.addEventListener('resize', updateStage);
+    document.addEventListener('scroll', updateStage);
+
+    build(elRelated);
+    build(elAbsolute);
+    build(elFixed);
+
+    updateStage();
+</script>
+</body>
+</html>
